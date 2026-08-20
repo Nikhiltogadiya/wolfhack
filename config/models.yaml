@@ -1,0 +1,20 @@
+# Task -> model. Confirmed live against GET /v1/models on 2026-08-20.
+# Keep tasks cheap by default; escalate only where reasoning quality actually matters.
+provider:
+  base_url: "https://integrate.api.nvidia.com/v1"
+  api_key_env: "NVIDIA_API_KEY"
+
+default: &default nvidia/nemotron-3-nano-30b-a3b
+
+tasks:
+  jd_parse:        *default        # structured extraction, schema-guided
+  claim_extract:   *default        # structured extraction, schema-guided
+  skill_map:       nvidia/nemotron-3-super-120b-a12b   # hardest reasoning: does X evidence Y?
+  style_read:      *default        # CP1 narrative read (deterministic features do the scoring)
+  bluff_llm:       nvidia/nemotron-3-super-120b-a12b   # the 2 non-deterministic bluff patterns
+  question_gen:    *default
+  jd_slop:         *default
+  corpus_rewrite:  *default        # building the known-AI class for calibration
+
+temperature: 0.0
+max_retries: 3
