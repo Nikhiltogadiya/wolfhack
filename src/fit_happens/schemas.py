@@ -237,7 +237,7 @@ class Verification(BaseModel):
     state: Literal["corroborated", "unsupported", "undersold"]
     evidence: list[ExternalEvidence] = []
     note: str = ""
-    source_scope: Literal["cv", "github", "publications", "community"] = "cv"
+    source_scope: Literal["cv", "github", "publications"] = "cv"
 
 
 class ExternalProfile(BaseModel):
@@ -281,7 +281,8 @@ class CandidateResult(BaseModel):
     style: StyleRead
     # 3. claim consistency (CV bluff risk)
     cp2: CheckpointResult
-    # 4. response authenticity - stubbed for the hackathon, shown as "pending"
+    # 4. response authenticity - computed at render time from the candidate's answers, since
+    # those arrive long after the pipeline ran. "Pending" until they reply.
     cp3_pending: bool = True
 
     document: Document

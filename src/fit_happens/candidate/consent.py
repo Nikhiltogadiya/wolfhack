@@ -49,13 +49,13 @@ SCOPES: dict[str, dict[str, str]] = {
                   "catalogue of scholarly work.",
         "locked": "",
     },
-    "community": {
-        "label": "Public professional activity",
-        "detail": "Open-source contributions and public technical writing you have linked from "
-                  "your CV.",
-        "locked": "",
-    },
 }
+
+# REMOVED: a "community" scope covering open-source contributions and public technical writing.
+# It was declared here and read by nothing, so a candidate could switch it on and no behaviour
+# changed. A consent control that does nothing is worse than an absent one - it is precisely
+# the claim this module exists to make, made falsely. Implementing it properly needs scraping
+# personal sites and forums, which we are not doing, so it is gone rather than decorative.
 DEFAULT_GRANTS = {k: (k == "cv") for k in SCOPES}
 
 

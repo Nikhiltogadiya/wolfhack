@@ -217,10 +217,40 @@ class TestNewFiguresUnderQuestioning:
         r = scan_responses(answers, [], _emp(), self.CV)
         assert r.verdict != Verdict.FLAG_FOR_HUMAN
 
-    def test_it_corroborates_with_a_genuinely_independent_flag(self):
+    def test_several_patterns_on_one_sentence_stay_one_observation(self):
+        """Three rules firing on the same sentence is one oddity, not three. Written as a
+        corroboration test by mistake first - the code was right and the expectation was not."""
         answers = [Answer(question=CASUAL_QUESTION, text="ci work", is_baseline=True),
                    Answer(question="q", text="I led a team of 40 and have 25 years of Kubernetes.")]
+        r = scan_responses(answers, [], _emp(), self.CV)
+        assert len({f.pattern_id for f in r.flags}) >= 3, "expected several patterns to fire"
+        assert r.verdict == Verdict.INCONCLUSIVE, "same span must not corroborate itself"
+
+    def test_it_corroborates_with_a_flag_on_a_DIFFERENT_answer(self):
+        """Two findings on two different answers are genuinely independent."""
+        answers = [
+            Answer(question=CASUAL_QUESTION, text="ci work", is_baseline=True),
+            Answer(question="team?", text="I led a team of 40 people there."),
+            Answer(question="k8s?", text="Kubernetes, about 25 years now."),
+        ]
         r = scan_responses(answers, [], _emp(), self.CV)
         ids = {f.pattern_id for f in r.flags}
         assert {"new_figures_in_answer", "answer_predates_technology"} <= ids
         assert r.verdict == Verdict.FLAG_FOR_HUMAN
+
+
+def test_every_consent_scope_actually_changes_behaviour():
+    """A consent control that nothing reads is worse than an absent one: it makes the exact
+    claim this module exists to make, falsely. A 'community' scope was declared and read by
+    nothing until this test was written."""
+    import inspect
+
+    from fit_happens import pipeline
+    from fit_happens.candidate.consent import SCOPES
+
+    source = inspect.getsource(pipeline.n_verify)
+    for scope in SCOPES:
+        if SCOPES[scope]["locked"]:
+            continue  # the CV is always in scope by definition
+        assert f'allows("{scope}")' in source, (
+            f"consent scope {scope!r} is offered to candidates but no code reads it")
