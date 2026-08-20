@@ -1,0 +1,99 @@
+"""Map claims onto requirements.
+
+The anti-conflation rules below are lifted from ai-CV-cover-letter's match_scorer, where they
+were learned the hard way: without them a model happily accepts vector-database experience as
+evidence of graph-database work, or RAG pipeline work as evidence of RAGAs.
+"""
+
+from __future__ import annotations
+
+import uuid
+
+from pydantic import BaseModel, Field
+
+from .. import llm
+from ..ingest import sanitize
+from ..schemas import Claim, Match, Requirement, Span
+
+
+class _Match(BaseModel):
+    requirement_id: str
+    strength: str = Field(description="strong | moderate | weak | missing")
+    claim_ids: list[str] = Field(default_factory=list, description="ids of the claims that support this")
+    rationale: str = Field(description="one sentence, naming the evidence")
+
+
+class _Mapping(BaseModel):
+    matches: list[_Match]
+
+
+PROMPT = """Decide how well a candidate's claims evidence each role requirement.
+
+STRENGTH SCALE
+- strong:   direct evidence from a specific role or project
+- moderate: closely related experience that plainly transfers
+- weak:     tangential; some contact with the area but not the thing asked for
+- missing:  no relevant evidence
+
+TECHNOLOGY DISTINCTIONS - do not conflate these:
+- Vector databases (ChromaDB, Qdrant, Milvus, Pinecone, Weaviate) are NOT graph databases.
+- Graph databases (Neo4j, JanusGraph, ArangoDB) and knowledge-graph tools (SPARQL, RDF, OWL)
+  are a different category. LangGraph is agent orchestration, NOT knowledge-graph technology.
+- RAG is a TECHNIQUE. RAGAs and LangSmith are specific EVALUATION TOOLS. RAG pipeline
+  experience does NOT evidence RAGAs or LangSmith.
+- A cloud provider is not interchangeable with another. AWS experience is moderate evidence
+  for a GCP requirement, never strong.
+
+HARD RULES
+- Judge the BACKGROUND, never the writing. A blunt, duty-listing bullet from someone who has
+  genuinely done the work is STRONG. A polished, metric-laden bullet describing adjacent work
+  is MODERATE at best. If you find yourself rewarding phrasing, you have made an error.
+- Use only what the claims state. Never infer experience that is not evidenced.
+- Emit exactly one match per requirement, including the ones that are missing.
+
+REQUIREMENTS:
+{requirements}
+
+CANDIDATE CLAIMS:
+{claims}"""
+
+
+def map_claims(claims: list[Claim], requirements: list[Requirement]) -> list[Match]:
+    if not requirements:
+        return []
+    req_block = "\n".join(f"[{r.id}] ({r.kind}) {r.text}" for r in requirements)
+    claim_block = "\n".join(
+        f"[{c.id}] {c.skill}"
+        + (f" - {c.years_claimed}y claimed" if c.years_claimed else "")
+        + (f" - since {c.since_year}" if c.since_year else "")
+        + (f" - level: {c.level}" if c.level else "")
+        + f" | evidence: {c.evidence.text[:160]}"
+        for c in claims
+    ) or "(no claims extracted)"
+
+    nonce = uuid.uuid4().hex[:8]
+    result = llm.structured(
+        "skill_map", _Mapping,
+        PROMPT.format(requirements=req_block, claims=sanitize.wrap_untrusted(claim_block, nonce, "claims")),
+    )
+
+    by_id = {c.id: c for c in claims}
+    seen: dict[str, Match] = {}
+    for m in result.matches:
+        if m.requirement_id not in {r.id for r in requirements}:
+            continue
+        strength = m.strength if m.strength in {"strong", "moderate", "weak", "missing"} else "missing"
+        ids = [cid for cid in m.claim_ids if cid in by_id]
+        seen[m.requirement_id] = Match(
+            requirement_id=m.requirement_id,
+            strength=strength,  # type: ignore[arg-type]
+            claim_ids=ids,
+            rationale=m.rationale,
+            evidence=[by_id[cid].evidence for cid in ids],
+        )
+
+    # Any requirement the model skipped counts as missing. Dropping it instead would quietly
+    # shrink the denominator and inflate everyone's coverage.
+    for r in requirements:
+        seen.setdefault(r.id, Match(requirement_id=r.id, strength="missing", rationale="no evidence found"))
+    return [seen[r.id] for r in requirements]

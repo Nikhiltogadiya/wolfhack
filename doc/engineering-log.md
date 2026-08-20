@@ -89,3 +89,37 @@ hiding tricks nobody has invented yet.
 **Method note.** Three of my four probes were invalid, and each looked like a clean pass. The
 thing that caught it was checking `page.read_contents()` for the literal string instead of
 trusting `insert_text`'s return value — i.e. asking what the check actually proves.
+
+---
+
+## 2026-08-20 — M2/M3: the guard, and how far the 70/30 split had drifted
+
+**A bug class in the guard, found by testing inflections.** Word stems followed by `\b` fail
+silently on every inflection while still matching the singular you tested: `pregnan\b` never
+matches "pregnant", `disabilit\b` never matches "disability", `union member\b` never matches
+"union members". Three of nineteen rules were dead in exactly this way and all nineteen still
+compiled and still passed their original cases. Stems now use `\w*`, with ten inflection cases
+pinning it. The lesson generalises: a regex that matches your one example is not a working rule.
+
+**The 70/30 split was drifting by up to 45 points.** `match_scorer._calculate_score` normalises
+by `must_max + nice_max` with a per-item `nice_to_have_multiplier`. Measured against a candidate
+who meets every required requirement and no preferred one — which should score exactly 0.70
+under the brief — the original formula gives:
+
+| JD shape | original | intended | drift |
+|---|---|---|---|
+| 1 req + 1 pref | 0.769 | 0.700 | 6.9 pts |
+| 3 req + 7 pref | 0.588 | 0.700 | 11.2 pts |
+| 10 req + 1 pref | **0.971** | 0.700 | **27.1 pts** |
+| 2 req + 20 pref | **0.250** | 0.700 | **45.0 pts** |
+
+The same candidate with the same evidence scores 97% against one job advert and 25% against
+another, purely because of how many nice-to-haves the advert happened to list. Fixed by
+computing coverage *within* each bucket and only then combining at fixed weights.
+`test_required_preferred_split_is_fixed_at_70_30` pins six JD shapes.
+
+**Why the invariants are structural where they can be.** `test_fit_scoring_cannot_see_style_data`
+inspects the field names of every type `score_fit` accepts, plus its signature, rather than
+asserting that today's implementation ignores style. A behavioural test proves the current code
+does not use style; a structural one proves the function has no way to read it. Only the second
+is the guarantee we make out loud.
