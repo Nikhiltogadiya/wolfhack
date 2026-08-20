@@ -8,8 +8,11 @@
     <div>
       <h1 class="text-[30px] font-bold tracking-tight">{{ role.jd.title }}</h1>
       <p class="mt-1.5 text-[13.5px] text-ink-muted">{{ candidates|length }} applicants · scored against
-        {{ role.requirements|length }} requirements
-        {%- if internal_count %} · <span class="text-forest-600 font-medium">{{ internal_count }} internal criteria applied</span>{% endif %}</p>
+        {% if use_internal %}{{ role.requirements|length }} requirements ·
+          <span class="text-forest-600 font-medium">{{ internal_count }} internal criteria applied</span>
+        {% else %}{{ role.requirements|length - internal_count }} public requirements ·
+          <span class="font-medium">{{ internal_count }} internal criteria withheld</span>
+        {% endif %}</p>
     </div>
     <form method="get" class="flex items-center gap-2">
       <input type="hidden" name="internal" value="{{ 0 if use_internal else 1 }}">
@@ -17,6 +20,9 @@
         {{ 'bg-forest text-white border-forest' if use_internal else 'bg-white text-ink border-hair hover:border-forest-600' }}">
         {{ 'Internal JD: ON' if use_internal else 'Internal JD: OFF' }}
       </button>
+      <span class="text-[12px] text-ink-muted max-w-[190px] leading-snug">
+        {{ 'Scoring on the public advert plus the real, unpublished preferences.'
+           if use_internal else 'Scoring on the public advert alone.' }}</span>
     </form>
   </div>
 

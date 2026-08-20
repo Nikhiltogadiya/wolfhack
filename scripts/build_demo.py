@@ -18,10 +18,22 @@ from fit_happens.store import Run
 
 # Real operational constraints plus one that must be refused - the guard is part of the demo,
 # so the refusal has to be visible in the audit trail rather than described in a slide.
+#
+# The first one is the interesting one, and it is the reason the internal JD exists at all.
+# A company does not publish "we are going into an ISO 27001 audit next year" in a job advert -
+# it signals that your controls are not in order. But it is exactly the kind of unpublishable
+# operational fact that changes who the right hire is, and it is a legitimate requirement about
+# the work rather than about the person.
 INTERNAL = [
-    InternalConstraint(field_name="onsite_days", value="three days a week in the Berlin office", required=True),
+    InternalConstraint(
+        field_name="team_context",
+        value=("we go into an ISO 27001 audit next year, so this hire must have worked under a "
+               "formal compliance or accreditation regime"),
+        required=True, weight=1.5),
     InternalConstraint(field_name="mentoring_capacity", value="the team is junior, this hire must mentor two engineers", required=True),
-    InternalConstraint(field_name="start_availability", value="must be able to start within six weeks"),
+    InternalConstraint(field_name="onsite_days", value="three days a week in the Berlin office"),
+    # Must be refused. Kept in the demo on purpose: the guard is only credible if you watch it
+    # reject something.
     InternalConstraint(field_name="team_context", value="we want a young energetic team with no career gaps"),
 ]
 
