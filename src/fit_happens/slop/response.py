@@ -37,6 +37,10 @@ THIS_YEAR = date.today().year
 
 YEAR_RE = re.compile(r"\b(19[7-9]\d|20[0-2]\d)\b")
 DURATION_RE = re.compile(r"\b(\d{1,2}(?:\.\d)?)\s*(?:\+\s*)?(years?|yrs?)\b", re.I)
+NUMBER_RE = re.compile(r"\b\d[\d,.]*%?\b")
+
+# Numbers that carry no claim. Without this every "2 things" and "1 of them" becomes a finding.
+TRIVIAL_NUMBERS = {"0", "1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "100%"}
 
 
 class Answer(BaseModel):
@@ -56,6 +60,44 @@ CASUAL_QUESTION = (
 def _flag(pattern_id: str, description: str, quote: str, confidence: float) -> Flag:
     return Flag(pattern_id=pattern_id, description=description,
                 span=Span(text=quote[:220]), confidence=confidence)
+
+
+def new_numbers_under_questioning(answers: list[Answer], cv_text: str) -> list[Flag]:
+    """Figures that appear in an answer but nowhere in the CV.
+
+    This is the check `check_claims` does well and the date arithmetic below does not: set
+    membership of numbers between two documents. If someone answers "I led a team of 40" and
+    the CV never mentions 40 - or any team size - then a specific, quantified claim has
+    appeared for the first time under questioning.
+
+    Deliberately low confidence, and deliberately not a flag on its own. People legitimately
+    add detail when asked; that is the entire point of asking. It is a prompt to read the
+    answer next to the CV, and it needs a second independent flag before it means anything.
+    """
+    if not cv_text:
+        return []
+    in_cv = {n.rstrip(".,") for n in NUMBER_RE.findall(cv_text)}
+    flags: list[Flag] = []
+    for a in answers:
+        if a.is_baseline or not a.text.strip():
+            continue
+        fresh: list[str] = []
+        for m in NUMBER_RE.finditer(a.text):
+            n = m.group(0).rstrip(".,")
+            if n in TRIVIAL_NUMBERS or n in in_cv or len(n) > 12:
+                continue
+            # A year already handled by the date checks below is not a "new figure".
+            if YEAR_RE.fullmatch(n):
+                continue
+            fresh.append(n)
+        fresh = list(dict.fromkeys(fresh))
+        if fresh:
+            flags.append(_flag(
+                "new_figures_in_answer",
+                f"the answer introduces {'a figure' if len(fresh) == 1 else 'figures'} that "
+                f"appear nowhere in the CV: {', '.join(fresh[:5])}",
+                a.text, 0.35))
+    return flags
 
 
 def check_against_cv(answers: list[Answer], claims: list[Claim],
@@ -142,12 +184,13 @@ def check_style_consistency(answers: list[Answer]) -> list[Flag]:
 
 
 def scan_responses(answers: list[Answer], claims: list[Claim],
-                   employment: list[Employment]) -> CheckpointResult:
+                   employment: list[Employment], cv_text: str = "") -> CheckpointResult:
     combined = "\n".join(a.text for a in answers if not a.is_baseline)
     style = read_style(combined)
 
     flags = check_against_cv(answers, claims, employment)
     flags += check_style_consistency(answers)
+    flags += new_numbers_under_questioning(answers, cv_text)
 
     result = decide(flags, style)
     return CheckpointResult(checkpoint="cp3_response", verdict=result.verdict,

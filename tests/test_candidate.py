@@ -173,3 +173,54 @@ class TestCheckpoint3:
 
     def test_no_answers_is_clear_not_suspicious(self):
         assert scan_responses([], [], _emp()).verdict == Verdict.CLEAR
+
+
+class TestNewFiguresUnderQuestioning:
+    """Set membership of numbers between two documents - the check `check_claims` does well and
+    date arithmetic cannot do at all. Finished late: it was noted in a comment and then not
+    built, which is why it gets its own tests rather than a mention."""
+
+    CV = ("Platform Engineer at Acme 2018-2026. Ran migration of 11 services. "
+          "Cut deploy time 35%. Team of 6.")
+
+    def _flags(self, text):
+        from fit_happens.slop.response import new_numbers_under_questioning
+        return new_numbers_under_questioning([Answer(question="q", text=text)], self.CV)
+
+    def test_a_figure_already_in_the_cv_is_not_new(self):
+        assert self._flags("I migrated 11 services and cut deploy time 35%.") == []
+
+    def test_a_figure_appearing_only_under_questioning_is_flagged(self):
+        f = self._flags("I led a team of 40 and cut costs by 60%.")
+        assert f and "40" in f[0].description and "60" in f[0].description
+
+    def test_trivial_numbers_are_ignored(self):
+        """Without this every 'there were 2 problems' becomes a finding."""
+        assert self._flags("There were 2 main problems and I fixed both.") == []
+
+    def test_years_are_left_to_the_date_checks(self):
+        assert self._flags("I did that in 2019.") == []
+
+    def test_the_baseline_answer_is_exempt(self):
+        from fit_happens.slop.response import new_numbers_under_questioning
+        a = [Answer(question="q", text="I led 40 people", is_baseline=True)]
+        assert new_numbers_under_questioning(a, self.CV) == []
+
+    def test_no_cv_text_means_no_flags(self):
+        from fit_happens.slop.response import new_numbers_under_questioning
+        assert new_numbers_under_questioning([Answer(question="q", text="40 people")], "") == []
+
+    def test_a_new_figure_alone_never_reaches_flag_for_human(self):
+        """People legitimately add detail when asked - that is why we asked."""
+        answers = [Answer(question=CASUAL_QUESTION, text="the CI work was fun", is_baseline=True),
+                   Answer(question="q", text="I led a team of 40 and cut costs by 60%.")]
+        r = scan_responses(answers, [], _emp(), self.CV)
+        assert r.verdict != Verdict.FLAG_FOR_HUMAN
+
+    def test_it_corroborates_with_a_genuinely_independent_flag(self):
+        answers = [Answer(question=CASUAL_QUESTION, text="ci work", is_baseline=True),
+                   Answer(question="q", text="I led a team of 40 and have 25 years of Kubernetes.")]
+        r = scan_responses(answers, [], _emp(), self.CV)
+        ids = {f.pattern_id for f in r.flags}
+        assert {"new_figures_in_answer", "answer_predates_technology"} <= ids
+        assert r.verdict == Verdict.FLAG_FOR_HUMAN

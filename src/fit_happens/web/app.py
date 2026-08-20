@@ -112,7 +112,7 @@ def _cp3_for(c) -> object | None:
     answers = AnswerStore().load(c.candidate_id)
     if not answers.submitted:
         return None
-    return scan_responses(answers.answers, c.claims, c.employment)
+    return scan_responses(answers.answers, c.claims, c.employment, c.document.text)
 
 
 def _response_label(cp3) -> tuple[str, str]:
@@ -140,7 +140,7 @@ def _candidate_context(cid: str):
 
     cp3 = None
     if answers.submitted:
-        cp3 = scan_responses(answers.answers, c.claims, c.employment)
+        cp3 = scan_responses(answers.answers, c.claims, c.employment, c.document.text)
 
     return {
         "c": c, "role": role, "reqs": reqs, "consent": consent, "scopes": SCOPES,
