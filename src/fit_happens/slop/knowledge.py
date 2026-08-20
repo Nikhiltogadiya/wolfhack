@@ -50,6 +50,23 @@ REAL_CERTIFICATIONS: dict[str, str] = {
     "rhcsa": "RHCSA (Red Hat)", "oscp": "OSCP (Offensive Security)", "ceh": "CEH (EC-Council)",
     "csm": "Certified ScrumMaster (Scrum Alliance)", "safe": "SAFe (Scaled Agile)",
     "togaf": "TOGAF (The Open Group)", "six sigma": "Six Sigma",
+    # Added after running against real resumes, which write these forms constantly.
+    "a+ certified": "CompTIA A+", "network+ certified": "CompTIA Network+",
+    "security+ certified": "CompTIA Security+",
+    "microsoft certified professional": "MCP (Microsoft)", "mcp": "MCP (Microsoft)",
+    "microsoft certified systems engineer": "MCSE (Microsoft)",
+    "cisco certified network associate": "CCNA (Cisco)",
+    "certified information systems auditor": "CISA (ISACA)",
+    "certified information systems security professional": "CISSP (ISC2)",
+    "project management professional": "PMP (PMI)",
+    "certified scrum master": "Certified ScrumMaster (Scrum Alliance)",
+    "aws certified cloud practitioner": "AWS Certified Cloud Practitioner",
+    "azure fundamentals": "Microsoft Certified: Azure Fundamentals",
+    "vcp": "VCP (VMware)", "vmware certified professional": "VCP (VMware)",
+    "microsoft certified system administrator": "MCSA (Microsoft)",
+    "microsoft certified systems administrator": "MCSA (Microsoft)",
+    "juniper networks certified internet associate": "JNCIA (Juniper)",
+    "brocade certified network engineer": "BCNE (Brocade)",
 }
 
 # Credential shapes that do not exist, i.e. someone has invented a plausible-sounding name.

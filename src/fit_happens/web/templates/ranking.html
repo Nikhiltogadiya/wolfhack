@@ -50,6 +50,10 @@
                   <span>
                     <span class="font-semibold group-hover:text-forest-600">{{ c.display_name }}</span>
                     <span class="block text-[11.5px] text-ink-muted">{{ c.employment|length }} roles · {{ c.claims|length }} claims</span>
+                    {% if c.freshness_label == 'STALE' %}
+                    <span class="mt-1 inline-flex items-center gap-1 rounded px-1.5 py-0.5 text-[10.5px] font-semibold bg-amber-50 text-amber-800 border border-amber-200"
+                          title="{{ c.freshness_note }}">CV LAST UPDATED {{ c.last_active_year }}</span>
+                    {% endif %}
                   </span>
                 </a>
               </td>

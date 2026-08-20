@@ -284,6 +284,13 @@ class CandidateResult(BaseModel):
     claims: list[Claim] = []
     employment: list[Employment] = []
     verifications: list[Verification] = []
+    credentials: list[Verification] = []
+    # Recency/completeness of the DOCUMENT. Advisory only - a career break, caring,
+    # illness or a layoff all produce an old end date and none is a reason to rank lower.
+    freshness_label: str = "UNDATED"
+    freshness_note: str = ""
+    freshness_tone: str = "grey"
+    last_active_year: int | None = None
     questions: list[dict] = []
     audit: list[dict] = []
 

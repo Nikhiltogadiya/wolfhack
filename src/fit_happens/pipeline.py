@@ -29,7 +29,7 @@ from .jd.model import JobDescription
 from .schemas import CandidateResult, Requirement
 from .slop import bluff, corroborate
 from .slop.style import read_style
-from .verify import github
+from .verify import credentials, freshness, github
 
 
 class State(TypedDict, total=False):
@@ -37,6 +37,7 @@ class State(TypedDict, total=False):
     jd: JobDescription
     requirements: list[Requirement]
     result: CandidateResult
+    credentials: list
     document: object
     style: object
     claims: list
@@ -83,11 +84,21 @@ def n_cp2(s: State) -> State:
 
 
 def n_verify(s: State) -> State:
+    """External evidence: public code, and credentials named as their issuers name them.
+
+    The challenge names both - "CVs miss GitHub work, publications, certifications". Neither
+    may lower a score: absence of public code or of a recognised credential is absence of
+    information, not evidence against anyone.
+    """
+    creds = credentials.verify_credentials(s["document"].text, s["claims"])
     handles = github.find_handles(s["document"].text)
     if not handles:
-        return {"verifications": []}
+        return {"verifications": [], "credentials": creds}
     profile = github.fetch_profile(handles[0])
-    return {"verifications": github.verify_claims(s["claims"], profile, s["requirements"])}
+    return {
+        "verifications": github.verify_claims(s["claims"], profile, s["requirements"]),
+        "credentials": creds,
+    }
 
 
 def n_questions(s: State) -> State:
@@ -126,6 +137,7 @@ def run_candidate(path: str | Path, jd: JobDescription, requirements: list[Requi
         _GRAPH = build_graph()
     out = _GRAPH.invoke({"path": str(path), "jd": jd, "requirements": requirements})
 
+    fresh = freshness.assess(out["employment"])
     stem = Path(path).stem
     return CandidateResult(
         candidate_id=stem,
@@ -139,6 +151,11 @@ def run_candidate(path: str | Path, jd: JobDescription, requirements: list[Requi
         claims=out["claims"],
         employment=out["employment"],
         verifications=out.get("verifications", []),
+        credentials=out.get("credentials", []),
+        freshness_label=fresh.label,
+        freshness_note=fresh.note,
+        freshness_tone=fresh.tone,
+        last_active_year=fresh.last_active_year,
         questions=out.get("questions", []),
         audit=[e.model_dump() for e in jd.audit],
     )

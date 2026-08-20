@@ -273,3 +273,42 @@ contributing to a flag. What changes is that the rule is now backed by our own m
 our own data rather than by someone else's paper. That is a better thing to say on stage than a
 detection rate: *we built exactly what the brief specified, measured it honestly, found it does
 not discriminate, and refused to tune it until it looked convincing.*
+
+---
+
+## 2026-08-20 — Audit against the Akkodis brief; closing the two partial items
+
+Audited the build against the challenge board rather than against our own intake doc. Two
+employer pain points were only partially covered, both named explicitly on the slide
+("CVs miss GitHub work, publications, **certifications**" / "**stale talent data**: profiles are
+outdated, incomplete or inactive"). Both are now closed, both deterministic, neither touching
+any score.
+
+**`verify/credentials.py`** - three outcomes, and the wording carries the weight:
+`recognised` (named as its issuer names it), `unrecognised` (**a statement about our registry,
+not about the candidate** - certifications are numerous, regional and constantly added), and
+`malformed` (a shape the issuing body does not use, e.g. "Certified Kubernetes Expert" when
+CNCF issues CKA/CKAD/CKS).
+
+Three bugs found by running it on real resumes rather than fixtures:
+1. The context regex included "training", so `employee training`, `training plan` and
+   `training coordination` - all duties - were reported as credentials we could not verify.
+   That manufactures doubt about a claim the candidate never made.
+2. `A+ Certified` was reported unverifiable while `CompTIA A+` was reported verified: the same
+   credential contradicting itself in one panel. Dedup now tracks both the canonical name and
+   the form the candidate actually wrote.
+3. One real resume produced 17 "could not check" rows. Capped at four plus a count, because a
+   long roster of things we could not check reads as doubt we have not earned.
+
+**`verify/freshness.py`** - recency and completeness, kept deliberately apart. Recency is a fact
+about the FILE; completeness is about how much *we* could parse, which is a limit of our reading
+rather than a deficiency in the candidate. Neither feeds the fit score: a career break, caring,
+illness, study or a layoff all produce an old end date and none is a reason to rank someone
+lower. Pinned by `test_freshness_never_touches_the_fit_score`.
+
+It immediately surfaced something the ranking never showed: **Priya's CV was last updated in
+2015, eleven years ago.** The right response is "ask for a current one", not a lower score.
+
+**Still not built, and stated rather than hidden:** publications/conference/community evidence
+(GitHub and certifications only), and user-controlled sharing - the one Responsible-AI bullet
+of six we do not satisfy.
