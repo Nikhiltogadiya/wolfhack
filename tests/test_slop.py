@@ -112,14 +112,19 @@ class TestDeterministicPatterns:
         assert not bluff.expertise_predates_career([_claim("Python", since=2014)], [_emp("Dev", "2015", "2020")])
 
     def test_overlapping_full_time_roles(self):
-        assert bluff.overlapping_employment([_emp("A", "2015", "2020"), _emp("B", "2017", "2019")])
+        """Different employers - two genuinely concurrent full-time jobs."""
+        assert bluff.overlapping_employment(
+            [_emp("A", "2015", "2020", employer="Acme"), _emp("B", "2017", "2019", employer="Globex")])
 
     def test_short_handover_overlap_is_not_flagged(self):
-        assert not bluff.overlapping_employment([_emp("A", "2015-01", "2018-03"), _emp("B", "2018-01", "2020-01")])
+        assert not bluff.overlapping_employment(
+            [_emp("A", "2015-01", "2018-03", employer="Acme"),
+             _emp("B", "2018-01", "2020-01", employer="Globex")])
 
     def test_part_time_overlap_is_not_flagged(self):
         assert not bluff.overlapping_employment(
-            [_emp("A", "2015", "2020"), _emp("B", "2017", "2019", full_time=False)])
+            [_emp("A", "2015", "2020", employer="Acme"),
+             _emp("B", "2017", "2019", employer="Globex", full_time=False)])
 
     def test_duplicate_bullet_across_roles(self):
         text = ("Managed the migration of eleven services to Kubernetes\n"
@@ -165,3 +170,37 @@ class TestStyleReader:
         assert r.patterns_fired
         for f in r.patterns_fired:
             assert f.span.text.strip(), f"{f.pattern_id} fired with no evidence span"
+
+
+class TestOverlapDoesNotAccuseOnBadData:
+    """Every one of these came from real corpus data, not imagination."""
+
+    def test_anonymised_employers_are_skipped(self):
+        """Public resume corpora replace employers with 'Company Name'. Two roles at the same
+        placeholder are not concurrent employment - they are two unknown employers."""
+        emp = [_emp("Analyst", "2000", "present", employer="Company Name"),
+               _emp("Manager", "2005", "present", employer="Company Name")]
+        assert not bluff.overlapping_employment(emp)
+
+    @pytest.mark.parametrize("name", ["Company", "N/A", "Confidential", "Various", "Self-employed", "-"])
+    def test_other_placeholder_employers_are_skipped(self, name):
+        emp = [_emp("A", "2010", "2020", employer=name), _emp("B", "2012", "2018", employer="Acme")]
+        assert not bluff.overlapping_employment(emp)
+
+    def test_two_roles_at_the_same_real_employer_are_a_promotion(self):
+        emp = [_emp("Engineer", "2015", "2020", employer="Meridian"),
+               _emp("Senior Engineer", "2018", "2024", employer="Meridian")]
+        assert not bluff.overlapping_employment(emp)
+
+    def test_implausibly_long_overlap_is_our_parsing_error_not_their_fraud(self):
+        """A 26-year overlap says our date extraction failed. Reporting it as possible
+        fabrication would be an accusation built on our own bug."""
+        emp = [_emp("A", "1996", "present", employer="Acme"),
+               _emp("B", "2000", "present", employer="Globex")]
+        assert not bluff.overlapping_employment(emp)
+
+    def test_a_genuine_two_year_overlap_still_flags(self):
+        emp = [_emp("A", "2015", "2020", employer="Acme"),
+               _emp("B", "2017", "2019", employer="Globex")]
+        flags = bluff.overlapping_employment(emp)
+        assert flags and "years" in flags[0].description

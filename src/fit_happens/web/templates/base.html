@@ -1,0 +1,56 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>{% block title %}Fit Happens{% endblock %}</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<script>
+tailwind.config = { theme: { extend: { colors: {
+  forest: { DEFAULT:'#12402F', 700:'#164C38', 600:'#1C6B4A', 50:'#EAF2ED' },
+  cream:  { DEFAULT:'#FAF9F5', 100:'#F3F1EA' },
+  hair:   '#E6E3DB',
+  ink:    { DEFAULT:'#1B1B19', muted:'#6F6C64' },
+}, fontFamily: { sans: ['Inter','ui-sans-serif','system-ui','sans-serif'] } } } }
+</script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  body { font-family: Inter, ui-sans-serif, system-ui, sans-serif; }
+  .pill { @apply inline-flex items-center rounded-full border px-2.5 py-0.5 text-[11px] font-semibold tracking-wide; }
+</style>
+</head>
+<body class="bg-cream text-ink antialiased">
+<div class="flex min-h-screen">
+
+  <aside class="w-52 shrink-0 bg-forest text-white/90 flex flex-col">
+    <div class="px-5 py-5 flex items-center gap-2.5">
+      <svg width="22" height="22" viewBox="0 0 24 24" fill="none" class="text-white">
+        <path d="M12 3c4 3 7 6 7 10a7 7 0 1 1-14 0c0-4 3-7 7-10z" fill="currentColor" opacity=".9"/>
+        <path d="M12 21V9" stroke="#12402F" stroke-width="1.5" stroke-linecap="round"/>
+      </svg>
+      <span class="text-[17px] font-semibold text-white">Fit Happens</span>
+    </div>
+    <nav class="px-3 space-y-0.5 text-[13.5px]">
+      {% set nav = [('Roles','/', 'roles'), ('Candidates','/', 'candidates'), ('Review queue','/', 'queue')] %}
+      <a href="/" class="flex items-center gap-3 rounded-lg px-3 py-2.5 bg-white/10 text-white font-medium">
+        <span class="w-1.5 h-1.5 rounded-full bg-white/80"></span> Role ranking
+      </a>
+      <a href="/injection" class="flex items-center gap-3 rounded-lg px-3 py-2.5 hover:bg-white/5">
+        <span class="w-1.5 h-1.5 rounded-full bg-white/40"></span> Document integrity
+      </a>
+      <a href="/job-ad" class="flex items-center gap-3 rounded-lg px-3 py-2.5 hover:bg-white/5">
+        <span class="w-1.5 h-1.5 rounded-full bg-white/40"></span> Job ad quality
+      </a>
+    </nav>
+    <div class="mt-auto px-5 py-5 text-[11.5px] leading-relaxed text-white/55 border-t border-white/10">
+      Ranks who fits. Flags who isn't real.<br>Never decides.
+    </div>
+  </aside>
+
+  <main class="flex-1 min-w-0">
+    {% block body %}{% endblock %}
+  </main>
+</div>
+</body>
+</html>

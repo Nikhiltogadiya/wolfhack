@@ -1,0 +1,49 @@
+{% extends "base.html" %}
+{% from "_macros.html" import pill, bar %}
+{% block title %}Job ad quality — Fit Happens{% endblock %}
+{% block body %}
+<div class="px-6 py-7 max-w-[1100px] mx-auto">
+  <h1 class="text-[30px] font-bold tracking-tight">Job ad quality</h1>
+  <p class="mt-1.5 text-[13.5px] text-ink-muted">
+    The same scrutiny, pointed at the employer. A vague advert produces vague requirements,
+    which produce weak matches for everybody — so this is a warning about the ranking, not just
+    about the prose.</p>
+
+  <div class="mt-6 grid grid-cols-3 gap-5">
+    <div class="col-span-1 rounded-xl border border-hair bg-white p-6">
+      <div class="text-[12px] font-semibold text-ink-muted">Clarity score</div>
+      <div class="mt-2 text-[42px] font-bold leading-none
+        {{ 'text-forest-600' if clarity>=0.7 else ('text-amber-600' if clarity>=0.4 else 'text-rose-600') }}">
+        {{ (clarity*100)|round(0)|int }}%</div>
+      <div class="mt-3">{{ bar(clarity, 'forest' if clarity>=0.7 else ('amber' if clarity>=0.4 else 'red')) }}</div>
+      <p class="mt-3 text-[12px] leading-relaxed text-ink-muted">
+        Scored mostly on what the advert <em>contains</em> — salary, team size, tooling,
+        location, reporting line — not on which buzzwords it avoids.</p>
+    </div>
+
+    <div class="col-span-2 rounded-xl border border-hair bg-white p-6">
+      <h2 class="text-[15px] font-bold">What a candidate cannot tell from this advert</h2>
+      {% if missing %}
+      <ul class="mt-3 space-y-2">
+        {% for f in missing %}
+        <li class="flex items-start gap-2.5 text-[13px]">
+          <span class="mt-1.5 h-1.5 w-1.5 shrink-0 rounded-full bg-amber-400"></span>
+          {{ f.description }}</li>
+        {% endfor %}
+      </ul>
+      {% else %}<p class="mt-3 text-[13px] text-forest-600">Nothing — this advert states every concrete signal we look for.</p>{% endif %}
+
+      {% if hollow %}
+      <h2 class="mt-6 text-[15px] font-bold">Phrases that fill space</h2>
+      <ul class="mt-3 space-y-2">
+        {% for f in hollow[:8] %}
+        <li class="text-[13px] leading-relaxed">{{ f.description }}</li>
+        {% endfor %}
+      </ul>
+      {% else %}
+      <p class="mt-5 text-[13px] text-forest-600">No hollow phrasing detected.</p>
+      {% endif %}
+    </div>
+  </div>
+</div>
+{% endblock %}

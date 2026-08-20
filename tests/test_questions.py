@@ -135,3 +135,18 @@ def test_templates_read_as_english_not_as_concatenation(requirement, forbidden):
     q = generate(fit, reqs, polish=False)[0].question
     assert forbidden not in q, q
     assert q.count("  ") == 0
+
+
+def test_polished_questions_do_not_keep_their_numbering(monkeypatch):
+    """The prompt numbers questions so order is unambiguous; the model numbers them back.
+    Unstripped, every question a recruiter sends starts with '3.'."""
+    import fit_happens.fit.questions as m
+
+    class Fake:
+        questions = ["1. Could you tell us about Active Directory?"]
+
+    monkeypatch.setattr(m.llm, "structured", lambda *a, **k: Fake())
+    qs = generate(_fit(Gap(requirement_id="r1", severity="major", text="Active Directory")),
+                  REQS, polish=True)
+    assert not qs[0].question.startswith("1."), qs[0].question
+    assert qs[0].question.startswith("Could you")

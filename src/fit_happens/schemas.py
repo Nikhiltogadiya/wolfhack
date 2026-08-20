@@ -253,3 +253,67 @@ class CheckpointResult(BaseModel):
     verdict: Verdict
     flags: list[Flag] = []
     reason: str = ""
+
+
+# ---------------------------------------------------------------- the assembled result
+
+
+class CandidateResult(BaseModel):
+    """Everything the dashboard shows about one candidate, for one role.
+
+    Note what is NOT here: a blended overall number. The four scores stay four scores. There is
+    deliberately no field that combines them, because the moment one exists someone will sort
+    by it and the separation the whole product rests on becomes decorative.
+    """
+
+    candidate_id: str
+    name: str = ""
+    category: str = ""
+    source_path: str = ""
+
+    # 1. fit
+    fit: FitScore
+    # 2. resume sloppiness
+    style: StyleRead
+    # 3. claim consistency (CV bluff risk)
+    cp2: CheckpointResult
+    # 4. response authenticity - stubbed for the hackathon, shown as "pending"
+    cp3_pending: bool = True
+
+    document: Document
+    claims: list[Claim] = []
+    employment: list[Employment] = []
+    verifications: list[Verification] = []
+    questions: list[dict] = []
+    audit: list[dict] = []
+
+    @property
+    def display_name(self) -> str:
+        return self.name.replace("_", " ").replace("-", " ").title()
+
+    @property
+    def display_initials(self) -> str:
+        parts = [p for p in self.name.replace("_", " ").replace("-", " ").split() if p]
+        return "".join(p[0].upper() for p in parts[:2]) or self.name[:2].upper()
+
+    @property
+    def bluff_label(self) -> str:
+        n = len([f for f in self.cp2.flags if f.pattern_id not in {
+            "stock_phrases", "self_significance", "negative_parallelism", "copula_avoidance",
+            "uniform_rhythm", "rule_of_three", "em_dash_density"}])
+        if self.cp2.verdict == Verdict.FLAG_FOR_HUMAN:
+            return f"{n} FLAGS"
+        return "NOT FLAGGED" if n == 0 else "LIKELY GENUINE"
+
+    @property
+    def style_label(self) -> str:
+        return {"low": "LOW", "grey": "MEDIUM", "high": "HIGH"}[self.style.band]
+
+    @property
+    def risk_tone(self) -> str:
+        """green / amber / red, for the dashboard pill. Drives colour only, never ranking."""
+        if self.cp2.verdict == Verdict.FLAG_FOR_HUMAN:
+            return "red"
+        if self.cp2.verdict == Verdict.INCONCLUSIVE or self.style.band != "low":
+            return "amber"
+        return "green"

@@ -1,0 +1,211 @@
+{
+  "jd": {
+    "title": "IT Infrastructure & Information Security Manager",
+    "external_text": "# IT Infrastructure & Information Security Manager\n\nMeridian Logistics Group \u2014 Berlin (hybrid, 3 days on site)\n\nWe are hiring an IT Infrastructure & Information Security Manager to own the systems that keep\na 900-person logistics business running, and to lead the small team that looks after them.\n\n## What you'll do\nOwn our enterprise infrastructure end to end \u2014 Active Directory, network, storage and the\nserver estate. Lead a team of four engineers. Run our information-security programme, including\nrisk assessment, audit response and security awareness. Plan and deliver hardware and software\nupgrades across the estate. Act as escalation point for major incidents.\n\n## Requirements\n- At least 5 years of enterprise IT infrastructure experience\n- Demonstrated experience managing or leading a technical team\n- Hands-on Active Directory administration and design\n- Network administration experience (routing, switching, firewalls)\n- Experience with information security risk management and audit\n- Experience planning and executing infrastructure upgrade projects\n- Bachelor's degree in a technical field, or equivalent demonstrable experience\n- Must have the right to work in Germany\n\n## Preferred\n- Security certification such as CISSP, CISM or Security+ is desirable\n- Experience in logistics, transport or manufacturing is a plus\n- Familiarity with virtualisation (VMware or Hyper-V) preferred\n- Disaster recovery and business continuity planning would be great\n- Ideally some exposure to cloud migration (Azure or AWS)\n- German language skills are advantageous but not required\n",
+    "internal": [
+      {
+        "field_name": "onsite_days",
+        "value": "three days a week in the Berlin office",
+        "weight": 1.0,
+        "required": true
+      },
+      {
+        "field_name": "mentoring_capacity",
+        "value": "the team is junior, this hire must mentor two engineers",
+        "weight": 1.0,
+        "required": true
+      },
+      {
+        "field_name": "start_availability",
+        "value": "must be able to start within six weeks",
+        "weight": 1.0,
+        "required": false
+      },
+      {
+        "field_name": "team_context",
+        "value": "we want a young energetic team with no career gaps",
+        "weight": 1.0,
+        "required": false
+      }
+    ],
+    "audit": [
+      {
+        "at": "2026-08-20T17:47:12+00:00",
+        "event": "internal_constraint_accepted",
+        "detail": "onsite_days: three days a week in the Berlin office",
+        "actor": "system"
+      },
+      {
+        "at": "2026-08-20T17:47:12+00:00",
+        "event": "internal_constraint_accepted",
+        "detail": "mentoring_capacity: the team is junior, this hire must mentor two engineers",
+        "actor": "system"
+      },
+      {
+        "at": "2026-08-20T17:47:12+00:00",
+        "event": "internal_constraint_accepted",
+        "detail": "start_availability: must be able to start within six weeks",
+        "actor": "system"
+      },
+      {
+        "at": "2026-08-20T17:47:12+00:00",
+        "event": "internal_constraint_REFUSED",
+        "detail": "team_context: 'we want a young energetic team with no career gaps' - refused: age: age proxy; socioeconomic/proxy: career-gap screening - a proxy for parental leave, illness and disability",
+        "actor": "system"
+      }
+    ]
+  },
+  "requirements": [
+    {
+      "id": "ext-0",
+      "text": "At least 5 years of enterprise IT infrastructure experience",
+      "kind": "required",
+      "category": "experience",
+      "dealbreaker": false,
+      "source": "external"
+    },
+    {
+      "id": "ext-1",
+      "text": "Demonstrated experience managing or leading a technical team",
+      "kind": "required",
+      "category": "experience",
+      "dealbreaker": false,
+      "source": "external"
+    },
+    {
+      "id": "ext-2",
+      "text": "Hands-on Active Directory administration and design",
+      "kind": "required",
+      "category": "skill",
+      "dealbreaker": false,
+      "source": "external"
+    },
+    {
+      "id": "ext-3",
+      "text": "Network administration experience (routing, switching, firewalls)",
+      "kind": "required",
+      "category": "skill",
+      "dealbreaker": false,
+      "source": "external"
+    },
+    {
+      "id": "ext-4",
+      "text": "Experience with information security risk management and audit",
+      "kind": "required",
+      "category": "experience",
+      "dealbreaker": false,
+      "source": "external"
+    },
+    {
+      "id": "ext-5",
+      "text": "Experience planning and executing infrastructure upgrade projects",
+      "kind": "required",
+      "category": "experience",
+      "dealbreaker": false,
+      "source": "external"
+    },
+    {
+      "id": "ext-6",
+      "text": "Bachelor's degree in a technical field, or equivalent demonstrable experience",
+      "kind": "required",
+      "category": "credential",
+      "dealbreaker": true,
+      "source": "external"
+    },
+    {
+      "id": "ext-7",
+      "text": "Must have the right to work in Germany",
+      "kind": "required",
+      "category": "eligibility",
+      "dealbreaker": true,
+      "source": "external"
+    },
+    {
+      "id": "ext-8",
+      "text": "Security certification such as CISSP, CISM or Security+",
+      "kind": "preferred",
+      "category": "credential",
+      "dealbreaker": false,
+      "source": "external"
+    },
+    {
+      "id": "ext-9",
+      "text": "Experience in logistics, transport or manufacturing",
+      "kind": "preferred",
+      "category": "domain",
+      "dealbreaker": false,
+      "source": "external"
+    },
+    {
+      "id": "ext-10",
+      "text": "Familiarity with virtualisation (VMware or Hyper-V)",
+      "kind": "preferred",
+      "category": "skill",
+      "dealbreaker": false,
+      "source": "external"
+    },
+    {
+      "id": "ext-11",
+      "text": "Disaster recovery and business continuity planning",
+      "kind": "preferred",
+      "category": "experience",
+      "dealbreaker": false,
+      "source": "external"
+    },
+    {
+      "id": "ext-12",
+      "text": "Exposure to cloud migration (Azure or AWS)",
+      "kind": "preferred",
+      "category": "experience",
+      "dealbreaker": false,
+      "source": "external"
+    },
+    {
+      "id": "ext-13",
+      "text": "German language skills",
+      "kind": "preferred",
+      "category": "skill",
+      "dealbreaker": false,
+      "source": "external"
+    },
+    {
+      "id": "int-0",
+      "text": "three days a week in the Berlin office",
+      "kind": "required",
+      "category": "experience",
+      "dealbreaker": false,
+      "source": "internal"
+    },
+    {
+      "id": "int-1",
+      "text": "the team is junior, this hire must mentor two engineers",
+      "kind": "required",
+      "category": "experience",
+      "dealbreaker": false,
+      "source": "internal"
+    },
+    {
+      "id": "int-2",
+      "text": "must be able to start within six weeks",
+      "kind": "preferred",
+      "category": "experience",
+      "dealbreaker": false,
+      "source": "internal"
+    }
+  ],
+  "clarity": 0.8,
+  "ad_flags": [
+    {
+      "pattern_id": "missing_specifics",
+      "description": "the advert never states salary or band",
+      "span": {
+        "text": "",
+        "page": null,
+        "line_start": null,
+        "line_end": null,
+        "bbox": null
+      },
+      "confidence": 0.3
+    }
+  ]
+}

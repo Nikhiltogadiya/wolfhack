@@ -63,6 +63,19 @@ def expertise_predates_career(claims: list[Claim], employment: list[Employment])
 # ---------------------------------------------------------------- 3: overlapping employment
 
 
+# Employer names that identify nobody. Public resume corpora are anonymised, so every role
+# says "Company Name" - and two roles at the same placeholder are not concurrent employment,
+# they are two roles whose employers we do not know.
+PLACEHOLDER_EMPLOYER = re.compile(
+    r"^\s*(company\s*name|company|employer(\s*name)?|organization|organisation|n/?a|"
+    r"confidential|undisclosed|various|self|self[- ]employed|freelance|-{1,}|\.{2,})\s*$", re.I)
+
+# Beyond this, an "overlap" is telling us the dates were mis-parsed, not that someone held two
+# jobs at once. A 26-year overlap is a data-quality signal, and reporting it as a possible
+# fabrication would be an accusation built on our own extraction error.
+MAX_CREDIBLE_OVERLAP_MONTHS = 120
+
+
 def overlapping_employment(employment: list[Employment]) -> list[Flag]:
     """Two full-time roles at once, with no explanation. Contract and advisory work legitimately
     overlaps, so this is a question to ask, not a conclusion - 0.5 confidence, and it needs a
@@ -72,13 +85,20 @@ def overlapping_employment(employment: list[Employment]) -> list[Flag]:
     dated = [(e, s, x) for e, s, x in dated if s]
     for i, (a, a_s, a_e) in enumerate(dated):
         for b, b_s, b_e in dated[i + 1:]:
+            if PLACEHOLDER_EMPLOYER.match(a.employer or "") or PLACEHOLDER_EMPLOYER.match(b.employer or ""):
+                continue
+            if (a.employer or "").strip().lower() == (b.employer or "").strip().lower():
+                continue  # concurrent roles at ONE employer is a promotion, not a second job
             overlap_days = (min(a_e, b_e) - max(a_s, b_s)).days
-            if overlap_days > 120:  # under ~4 months reads as a normal handover
-                out.append(_flag(
-                    "overlapping_employment",
-                    f"{a.title} at {a.employer} and {b.title} at {b.employer} overlap by "
-                    f"{overlap_days // 30} months, both listed as full time",
-                    a.evidence, 0.5))
+            months = overlap_days // 30
+            if not (4 < months <= MAX_CREDIBLE_OVERLAP_MONTHS):
+                continue  # under 4 months is a handover; over 10 years is our own parsing error
+            span = f"{months // 12} years" if months >= 24 else f"{months} months"
+            out.append(_flag(
+                "overlapping_employment",
+                f"{a.title} at {a.employer} and {b.title} at {b.employer} overlap by "
+                f"{span}, both listed as full time",
+                a.evidence, 0.5))
     return out
 
 

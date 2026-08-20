@@ -1,0 +1,67 @@
+{% extends "base.html" %}
+{% from "_macros.html" import pill, chip %}
+{% block title %}Document integrity — Fit Happens{% endblock %}
+{% block body %}
+<div class="px-6 py-7 max-w-[1100px] mx-auto">
+  <h1 class="text-[30px] font-bold tracking-tight">Document integrity</h1>
+  <p class="mt-1.5 text-[13.5px] text-ink-muted">
+    The primary input is an adversarial document supplied by someone with a direct financial
+    interest in the result. Hidden content is found and removed before any model reads the file.</p>
+
+  {% for c in flagged %}
+  <div class="mt-6 rounded-xl border border-rose-300 bg-white overflow-hidden">
+    <div class="flex items-center justify-between bg-rose-50 px-6 py-4 border-b border-rose-200">
+      <div>
+        <div class="text-[15px] font-bold">{{ c.display_name }}</div>
+        <div class="text-[12px] text-rose-800">{{ c.document.hidden|length }} hidden span(s) found in the file</div>
+      </div>
+      {{ pill('CAUGHT AT INGEST', 'red') }}
+    </div>
+    <div class="p-6 space-y-4">
+      {% for h in c.document.hidden %}
+      <div class="rounded-lg border border-hair p-4">
+        <div class="flex items-center gap-2 flex-wrap">
+          {{ pill(h.method.replace('_',' ')|upper, 'red') }}
+          <span class="text-[12px] text-ink-muted">{{ h.provenance }}</span>
+          {% if h.looks_like_instruction %}{{ pill('READS AS AN INSTRUCTION', 'amber') }}{% endif %}
+        </div>
+        <div class="mt-3 rounded-md bg-ink px-4 py-3 font-mono text-[12px] leading-relaxed text-rose-200">
+          {{ h.excerpt[:300] }}</div>
+      </div>
+      {% endfor %}
+      <div class="grid grid-cols-2 gap-4 pt-2">
+        <div class="rounded-lg border border-hair bg-cream-100 p-4">
+          <div class="text-[11.5px] font-semibold text-ink-muted">Reached the model?</div>
+          <div class="mt-1 text-[17px] font-bold text-forest-600">No — excised at ingest</div>
+        </div>
+        <div class="rounded-lg border border-hair bg-cream-100 p-4">
+          <div class="text-[11.5px] font-semibold text-ink-muted">Effect on fit score</div>
+          <div class="mt-1 text-[17px] font-bold">{{ (c.fit.score*100)|round(0)|int }}% — unchanged</div>
+        </div>
+      </div>
+    </div>
+  </div>
+  {% endfor %}
+
+  <div class="mt-6 rounded-xl border border-hair bg-white p-6">
+    <div class="text-[13px] font-semibold">{{ clean|length }} document(s) passed with nothing hidden</div>
+    <p class="mt-1.5 text-[12.5px] text-ink-muted">
+      Measured on 60 real résumés from a public corpus: 0 false positives.</p>
+    <div class="mt-3 flex flex-wrap gap-2">
+      {% for c in clean %}{{ chip(c.display_name) }}{% endfor %}
+    </div>
+  </div>
+
+  <div class="mt-6 rounded-xl border border-hair bg-cream-100 p-6 text-[12.5px] leading-relaxed text-ink-muted">
+    <div class="font-semibold text-ink">How it works</div>
+    <p class="mt-2">Two independent detectors, because they fail in different places. A vendored
+    detector from a USENIX Security 2026 study inspects every text span for sub-point fonts,
+    fill colour matching the background, flat visual regions and phantom ink. Cross-engine
+    divergence catches what that cannot see: text placed outside the page box is extracted by
+    <span class="font-mono text-[11.5px]">pdfplumber</span> and <span class="font-mono text-[11.5px]">pdfminer</span>
+    but not by <span class="font-mono text-[11.5px]">pymupdf</span> or <span class="font-mono text-[11.5px]">pypdfium2</span>
+    — so if two independent parsers disagree about what a file says, something is hidden in it.
+    That generalises to hiding techniques nobody has invented yet.</p>
+  </div>
+</div>
+{% endblock %}

@@ -133,8 +133,12 @@ def generate(
             polished = llm.structured("question_gen", _Polished, prompt)
             if len(polished.questions) == len(out):
                 for q, better in zip(out, polished.questions):
-                    if better.strip():
-                        q.question = better.strip()
+                    # The prompt numbers the questions so order is unambiguous, and the model
+                    # helpfully numbers them back. Strip it, or every question a recruiter
+                    # sends starts with "3.".
+                    better = re.sub(r"^\s*\d+[.)]\s*", "", better).strip()
+                    if better:
+                        q.question = better
         except Exception:
             pass  # the templates are already correct; polish is a nicety, never a dependency
     return out

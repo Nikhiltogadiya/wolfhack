@@ -1,0 +1,23 @@
+{% macro pill(text, tone) -%}
+{% set tones = {
+  'green': 'border-emerald-300 bg-emerald-50 text-emerald-800',
+  'amber': 'border-amber-300 bg-amber-50 text-amber-800',
+  'red':   'border-rose-300 bg-rose-50 text-rose-800',
+  'blue':  'border-sky-300 bg-sky-50 text-sky-800',
+  'grey':  'border-hair bg-cream-100 text-ink-muted' } %}
+<span class="inline-flex items-center rounded-full border px-2.5 py-1 text-[11px] font-semibold tracking-wide {{ tones.get(tone, tones['grey']) }}">{{ text }}</span>
+{%- endmacro %}
+
+{% macro bar(value, tone='forest') -%}
+<div class="h-1.5 w-full rounded-full bg-cream-100 overflow-hidden">
+  <div class="h-full rounded-full {{ 'bg-forest-600' if tone=='forest' else ('bg-amber-400' if tone=='amber' else 'bg-rose-400') }}"
+       style="width: {{ (value*100)|round(0)|int }}%"></div>
+</div>
+{%- endmacro %}
+
+{% macro chip(text) -%}
+<span class="inline-flex items-center gap-1 rounded-md border border-hair bg-white px-2 py-1 text-[11px] text-ink-muted">
+  <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><path d="M14 2v6h6"/></svg>
+  {{ text }}
+</span>
+{%- endmacro %}
