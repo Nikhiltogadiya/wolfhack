@@ -1,0 +1,195 @@
+{% extends "base_candidate.html" %}
+{% from "_macros.html" import pill, bar, chip %}
+{% block title %}Your application — Fit Happens{% endblock %}
+{% block body %}
+<div class="px-6 py-8 max-w-[880px] mx-auto space-y-6">
+
+  <!-- status -->
+  <div class="rounded-xl border border-hair bg-white p-7">
+    <div class="flex items-start justify-between gap-4">
+      <div>
+        <h1 class="text-[26px] font-bold tracking-tight">Your application</h1>
+        <p class="mt-1 text-[13.5px] text-ink-muted">{{ role.jd.title }}</p>
+      </div>
+      {{ pill('UNDER REVIEW', 'blue') }}
+    </div>
+    <div class="mt-6 grid grid-cols-4 gap-2">
+      {% set steps = [('Received', true), ('Read by our system', true),
+                      ('Your answers', answers.submitted), ('Human review', false)] %}
+      {% for label, done in steps %}
+      <div>
+        <div class="h-1.5 rounded-full {{ 'bg-forest-600' if done else 'bg-cream-100' }}"></div>
+        <div class="mt-2 text-[11.5px] {{ 'font-semibold' if done else 'text-ink-muted' }}">{{ label }}</div>
+      </div>
+      {% endfor %}
+    </div>
+    <p class="mt-5 text-[12.5px] leading-relaxed text-ink-muted">
+      A person makes every decision here. Our system reads your CV, works out which parts of the
+      role it can find evidence for, and writes down what it could not find — so a human has
+      something specific to go on. It never rejects anyone and it never decides anything.
+    </p>
+  </div>
+
+  <!-- consent -->
+  <div id="data" class="rounded-xl border border-hair bg-white p-7">
+    <h2 class="text-[17px] font-bold">What we may look at</h2>
+    <p class="mt-1.5 text-[13px] text-ink-muted">
+      Everything except your CV is off unless you turn it on. Turn something off and we delete
+      what we found through it.
+    </p>
+    <div class="mt-5 space-y-3">
+      {% for key, meta in scopes.items() %}
+      <div class="flex items-start gap-4 rounded-lg border border-hair p-4">
+        <div class="flex-1 min-w-0">
+          <div class="flex items-center gap-2">
+            <span class="text-[13.5px] font-semibold">{{ meta.label }}</span>
+            {% if meta.locked %}{{ pill('ALWAYS ON', 'grey') }}
+            {% elif consent.grants.get(key) %}{{ pill('SHARING', 'green') }}
+            {% else %}{{ pill('NOT SHARED', 'grey') }}{% endif %}
+          </div>
+          <p class="mt-1 text-[12.5px] leading-relaxed text-ink-muted">{{ meta.detail }}</p>
+        </div>
+        {% if not meta.locked %}
+        <form method="post" action="/apply/{{ token }}/consent" class="shrink-0">
+          <input type="hidden" name="scope" value="{{ key }}">
+          <input type="hidden" name="granted" value="{{ '' if consent.grants.get(key) else 'on' }}">
+          <button class="rounded-lg border px-3.5 py-2 text-[12.5px] font-semibold transition
+            {{ 'border-hair hover:border-rose-300 hover:text-rose-700' if consent.grants.get(key)
+               else 'border-forest-600 text-forest-600 hover:bg-forest-50' }}">
+            {{ 'Stop sharing' if consent.grants.get(key) else 'Share this' }}</button>
+        </form>
+        {% endif %}
+      </div>
+      {% endfor %}
+    </div>
+    {% if consent.history %}
+    <details class="mt-4">
+      <summary class="text-[12px] text-ink-muted cursor-pointer">Your choices, with times ({{ consent.history|length }})</summary>
+      <ul class="mt-2 space-y-1 text-[11.5px] text-ink-muted">
+        {% for e in consent.history|reverse %}
+        <li><span class="font-mono">{{ e.at[:16].replace('T',' ') }}</span> — {{ scopes[e.scope].label }}:
+          {{ 'shared' if e.granted else 'stopped sharing' }}</li>
+        {% endfor %}
+      </ul>
+    </details>
+    {% endif %}
+  </div>
+
+  <!-- what we found -->
+  <div class="rounded-xl border border-hair bg-white p-7">
+    <h2 class="text-[17px] font-bold">What we read from your CV</h2>
+    <p class="mt-1.5 text-[13px] text-ink-muted">
+      Every line below points at the part of your CV we read it from. If we have got something
+      wrong, that is worth telling us — and it is why we show you this.
+    </p>
+    <div class="mt-5 space-y-2.5">
+      {% for m in c.fit.matches %}
+        {% set r = reqs.get(m.requirement_id) %}
+        {% if r %}
+        {% set cov = {'strong':1.0,'moderate':0.6,'weak':0.2,'missing':0.0}[m.strength] %}
+        <div class="flex items-start gap-4 border-b border-hair/60 pb-2.5">
+          <span class="mt-1 h-2 w-2 shrink-0 rounded-full
+            {{ 'bg-forest-600' if cov>=0.6 else ('bg-amber-400' if cov>0 else 'bg-cream-100 border border-hair') }}"></span>
+          <div class="flex-1 min-w-0">
+            <div class="text-[13px] font-medium">{{ r.text }}</div>
+            <div class="text-[12px] text-ink-muted leading-snug">
+              {% if m.strength == 'missing' and m.basis == 'unstated' %}
+                We could not find anything about this in your CV. That is not held against you —
+                we have asked about it below.
+              {% else %}{{ m.rationale }}{% endif %}
+            </div>
+          </div>
+          <div class="shrink-0">{% if m.evidence %}{{ chip(m.evidence[0].cite()) }}{% endif %}</div>
+        </div>
+        {% endif %}
+      {% endfor %}
+    </div>
+    <p class="mt-4 text-[11.5px] text-ink-muted">
+      Your CV was last updated {{ c.last_active_year or 'at an unclear date' }}.
+      {% if c.freshness_label == 'STALE' %}If you have a newer one, send it — this is the version we read.{% endif %}
+    </p>
+  </div>
+
+  <!-- what we want to ask, including flags -->
+  {% set real = c.cp2.flags|rejectattr('pattern_id','in',['stock_phrases','self_significance','negative_parallelism','copula_avoidance','uniform_rhythm','rule_of_three','em_dash_density','style_divergence'])|list %}
+  {% if real %}
+  <div class="rounded-xl border border-amber-200 bg-amber-50/50 p-7">
+    <h2 class="text-[17px] font-bold">Things we noticed and want to ask you about</h2>
+    <p class="mt-1.5 text-[13px] leading-relaxed text-ink-muted">
+      These are <strong>not</strong> accusations, and none of them has changed your score. Our
+      system spotted something it could not explain from your CV alone. You are seeing exactly
+      what the hiring team sees, because it would be worse to flag something to them and not
+      to you.
+    </p>
+    <div class="mt-5 space-y-3">
+      {% for f in real %}
+      <div class="rounded-lg border border-hair bg-white p-4">
+        <div class="text-[13px] font-semibold">{{ f.description }}</div>
+        {% if f.span.text %}
+        <div class="mt-2 text-[12px] text-ink-muted">From: <span class="italic">"{{ f.span.text[:150] }}"</span></div>
+        {% endif %}
+      </div>
+      {% endfor %}
+    </div>
+  </div>
+  {% endif %}
+
+  <!-- questions -->
+  <div id="answers" class="rounded-xl border border-hair bg-white p-7">
+    <h2 class="text-[17px] font-bold">{{ 'Your answers' if answers.submitted else 'A few questions' }}</h2>
+    {% if answers.submitted %}
+      <p class="mt-1.5 text-[13px] text-ink-muted">
+        Sent {{ answers.submitted_at[:16].replace('T',' ') }}. The hiring team can see these.</p>
+      <div class="mt-5 space-y-4">
+        {% for a in answers.answers %}
+        <div>
+          <div class="text-[12.5px] font-semibold text-ink-muted">{{ a.question[:130] }}</div>
+          <p class="mt-1 text-[13px] leading-relaxed">{{ a.text }}</p>
+        </div>
+        {% endfor %}
+      </div>
+    {% else %}
+      <p class="mt-1.5 text-[13px] text-ink-muted">
+        These come from the gaps above. Answering is optional and short answers are fine.</p>
+      <form method="post" action="/apply/{{ token }}/answers" class="mt-5 space-y-5">
+        <div>
+          <label class="text-[13px] font-medium leading-snug">{{ casual_question }}</label>
+          <textarea name="baseline" rows="3" class="mt-2 w-full rounded-lg border border-hair p-3 text-[13px]"
+                    placeholder="However you would say it — no need to polish."></textarea>
+        </div>
+        {% for q in c.questions %}
+        <div>
+          <label class="text-[13px] font-medium leading-snug">{{ q.question }}</label>
+          <textarea name="a{{ loop.index0 }}" rows="3"
+                    class="mt-2 w-full rounded-lg border border-hair p-3 text-[13px]"></textarea>
+        </div>
+        {% endfor %}
+        <button class="rounded-lg bg-forest px-5 py-2.5 text-[13.5px] font-semibold text-white hover:bg-forest-700">
+          Send my answers</button>
+      </form>
+    {% endif %}
+  </div>
+
+  <!-- about the role -->
+  <div class="rounded-xl border border-hair bg-white p-7">
+    <h2 class="text-[17px] font-bold">About this advert</h2>
+    <div class="mt-3 flex items-center gap-3">
+      <div class="w-32">{{ bar(clarity, 'forest' if clarity>=0.7 else 'amber') }}</div>
+      <span class="text-[13px] font-semibold">{{ (clarity*100)|round(0)|int }}% specific</span>
+    </div>
+    {% if ad_missing %}
+    <p class="mt-3 text-[13px] text-ink-muted">This advert does not tell you:</p>
+    <ul class="mt-1.5 space-y-1">
+      {% for f in ad_missing %}<li class="text-[13px]">· {{ f.description.replace('the advert never states','') }}</li>{% endfor %}
+    </ul>
+    <p class="mt-3 text-[12px] text-ink-muted">
+      Fair questions to ask them. We score adverts the same way we read CVs.</p>
+    {% else %}
+    <p class="mt-3 text-[13px] text-forest-600">This advert states everything we look for.</p>
+    {% endif %}
+  </div>
+
+  <p class="text-center text-[11.5px] text-ink-muted pb-4">
+    No automated rejection. A person makes the decision.</p>
+</div>
+{% endblock %}

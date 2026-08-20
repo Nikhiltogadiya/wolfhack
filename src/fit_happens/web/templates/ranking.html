@@ -64,7 +64,8 @@
               </td>
               <td class="px-3">{{ pill(c.style_label, 'green' if c.style.band=='low' else ('amber' if c.style.band=='grey' else 'red')) }}</td>
               <td class="px-3">{{ pill(c.bluff_label, c.risk_tone) }}</td>
-              <td class="px-3">{{ pill('PENDING', 'grey') }}</td>
+              {% set rl = response_labels.get(c.candidate_id, ('PENDING','grey')) %}
+              <td class="px-3">{{ pill(rl[0], rl[1]) }}</td>
               <td class="px-3 pr-5">
                 {% if c.risk_tone=='red' %}{{ pill('HUMAN REVIEW', 'red') }}
                 {% elif c.fit.score>=0.55 %}{{ pill('TOP FIT', 'green') }}

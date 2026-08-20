@@ -25,6 +25,9 @@ from ..schemas import CheckpointResult, Flag, StyleRead, Verdict
 STYLE_ONLY = {
     "stock_phrases", "self_significance", "negative_parallelism", "copula_avoidance",
     "uniform_rhythm", "rule_of_three", "em_dash_density",
+    # CP3's divergence check is a style signal too. People write more carefully about things
+    # that matter; that is not evidence of anything and must never corroborate a flag.
+    "style_divergence",
 }
 
 # The one carve-out from the two-flag rule, and it is a narrow one.

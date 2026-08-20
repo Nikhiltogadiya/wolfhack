@@ -224,6 +224,9 @@ class ExternalEvidence(BaseModel):
 class Verification(BaseModel):
     """How one claim stands up against evidence found outside the document.
 
+    `source_scope` records WHICH consent scope produced this. Without it, withdrawing consent
+    cannot remove the right rows and "you can withdraw" would be a claim we could not honour.
+
     `unsupported` is NOT an accusation. Most work is not public: closed-source employers,
     NDAs, non-engineering roles, and anyone who simply does not publish. It means only that
     this particular external source had nothing to say.
@@ -234,6 +237,7 @@ class Verification(BaseModel):
     state: Literal["corroborated", "unsupported", "undersold"]
     evidence: list[ExternalEvidence] = []
     note: str = ""
+    source_scope: Literal["cv", "github", "publications", "community"] = "cv"
 
 
 class ExternalProfile(BaseModel):
@@ -285,6 +289,10 @@ class CandidateResult(BaseModel):
     employment: list[Employment] = []
     verifications: list[Verification] = []
     credentials: list[Verification] = []
+    # What the candidate allowed us to look at. Shown to the RECRUITER too, so a declined
+    # scope reads as a decision the candidate made rather than as missing evidence.
+    consent_summary: str = "the CV you sent us"
+    consent_grants: dict[str, bool] = {}
     # Recency/completeness of the DOCUMENT. Advisory only - a career break, caring,
     # illness or a layoff all produce an old end date and none is a reason to rank lower.
     freshness_label: str = "UNDATED"

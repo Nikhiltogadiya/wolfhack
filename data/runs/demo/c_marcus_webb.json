@@ -2531,23 +2531,33 @@
       "skill": "MCSA (Microsoft)",
       "state": "corroborated",
       "evidence": [],
-      "note": "named as its issuer names it (microsoft certified system administrator)"
+      "note": "named as its issuer names it (microsoft certified system administrator)",
+      "source_scope": "cv"
     },
     {
       "claim_id": "",
       "skill": "MCP (Microsoft)",
       "state": "corroborated",
       "evidence": [],
-      "note": "named as its issuer names it (microsoft certified professional)"
+      "note": "named as its issuer names it (microsoft certified professional)",
+      "source_scope": "cv"
     },
     {
       "claim_id": "",
       "skill": "CompTIA A+",
       "state": "corroborated",
       "evidence": [],
-      "note": "named as its issuer names it (a+ certified)"
+      "note": "named as its issuer names it (a+ certified)",
+      "source_scope": "cv"
     }
   ],
+  "consent_summary": "The CV you sent us",
+  "consent_grants": {
+    "cv": true,
+    "github": false,
+    "publications": false,
+    "community": false
+  },
   "freshness_label": "CURRENT",
   "freshness_note": "Most recent dated activity: 2026.",
   "freshness_tone": "green",

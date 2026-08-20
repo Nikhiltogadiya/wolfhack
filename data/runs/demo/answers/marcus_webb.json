@@ -1,0 +1,21 @@
+{
+  "candidate_id": "marcus_webb",
+  "answers": [
+    {
+      "question": "Before the specifics - what is a piece of work you enjoyed recently, and what made it good? A couple of sentences is plenty, no need to polish it.",
+      "text": "honestly the best bit was ripping out the old backup scripts, they were awful",
+      "is_baseline": true
+    },
+    {
+      "question": "One requirement for this role is not addressed in your CV: the right to work in Germany. Could you tell us where you stand on this?",
+      "text": "I have 25 years of Kubernetes experience going back to 1998.",
+      "is_baseline": false
+    },
+    {
+      "question": "We could not find evidence of this in your CV: Security certification such as CISSP, CISM or Security+. Is that something you have worked on?",
+      "text": "I have not worked in Berlin but I would relocate.",
+      "is_baseline": false
+    }
+  ],
+  "submitted_at": "2026-08-20T21:39:37+00:00"
+}

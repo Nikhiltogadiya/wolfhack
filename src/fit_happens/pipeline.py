@@ -25,6 +25,7 @@ from langgraph.graph import END, START, StateGraph
 
 from .fit import extract_claims, map as mapper, questions as qgen, score as scorer
 from .ingest import forensics
+from .candidate.consent import Consent
 from .jd.model import JobDescription
 from .schemas import CandidateResult, Requirement
 from .slop import bluff, corroborate
@@ -35,6 +36,7 @@ from .verify import credentials, freshness, github
 class State(TypedDict, total=False):
     path: str
     jd: JobDescription
+    consent: Consent
     requirements: list[Requirement]
     result: CandidateResult
     credentials: list
@@ -84,21 +86,39 @@ def n_cp2(s: State) -> State:
 
 
 def n_verify(s: State) -> State:
-    """External evidence: public code, and credentials named as their issuers name them.
+    """External evidence, strictly within what the candidate has allowed.
 
-    The challenge names both - "CVs miss GitHub work, publications, certifications". Neither
-    may lower a score: absence of public code or of a recognised credential is absence of
-    information, not evidence against anyone.
+    The challenge names the sources - "CVs miss GitHub work, publications, certifications" -
+    and separately requires that "people decide which data is visible". Those two pull against
+    each other, and this is where that tension is actually resolved: the fetch does not happen
+    unless the scope is granted. Not fetched-then-hidden. The network call is never made.
+
+    Credentials are read from the CV itself, which is always in scope because they sent it.
+
+    Nothing here may lower a score. Absence of public code, of a publication, or of a
+    recognised credential is absence of information - and a candidate who declines a scope
+    must be no worse off than one who had nothing to share.
     """
+    consent: Consent | None = s.get("consent")
+    allows = consent.allows if consent else (lambda scope: scope == "cv")
+
     creds = credentials.verify_credentials(s["document"].text, s["claims"])
-    handles = github.find_handles(s["document"].text)
-    if not handles:
-        return {"verifications": [], "credentials": creds}
-    profile = github.fetch_profile(handles[0])
-    return {
-        "verifications": github.verify_claims(s["claims"], profile, s["requirements"]),
-        "credentials": creds,
-    }
+    out: dict = {"credentials": creds, "verifications": []}
+
+    if allows("github"):
+        handles = github.find_handles(s["document"].text)
+        if handles:
+            profile = github.fetch_profile(handles[0])
+            out["verifications"] += github.verify_claims(s["claims"], profile, s["requirements"])
+
+    if allows("publications"):
+        from .verify import publications
+
+        name = publications.guess_author_name(s["document"].text)
+        if name:
+            out["verifications"] += publications.verify_publications(name, s["requirements"])
+
+    return out
 
 
 def n_questions(s: State) -> State:
@@ -131,11 +151,17 @@ def build_graph():
 _GRAPH = None
 
 
-def run_candidate(path: str | Path, jd: JobDescription, requirements: list[Requirement]) -> CandidateResult:
+def run_candidate(
+    path: str | Path,
+    jd: JobDescription,
+    requirements: list[Requirement],
+    consent: Consent | None = None,
+) -> CandidateResult:
     global _GRAPH
     if _GRAPH is None:
         _GRAPH = build_graph()
-    out = _GRAPH.invoke({"path": str(path), "jd": jd, "requirements": requirements})
+    out = _GRAPH.invoke({"path": str(path), "jd": jd, "requirements": requirements,
+                         "consent": consent})
 
     fresh = freshness.assess(out["employment"])
     stem = Path(path).stem
@@ -152,6 +178,8 @@ def run_candidate(path: str | Path, jd: JobDescription, requirements: list[Requi
         employment=out["employment"],
         verifications=out.get("verifications", []),
         credentials=out.get("credentials", []),
+        consent_summary=consent.summary() if consent else "the CV you sent us",
+        consent_grants=dict(consent.grants) if consent else {},
         freshness_label=fresh.label,
         freshness_note=fresh.note,
         freshness_tone=fresh.tone,

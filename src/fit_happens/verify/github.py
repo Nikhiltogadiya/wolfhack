@@ -172,10 +172,12 @@ def verify_claims(
             span = f"{min(h.first_seen_year or 9999 for h in hits)}-{max(h.last_seen_year or 0 for h in hits)}"
             out.append(Verification(
                 claim_id=c.id, skill=c.skill, state="corroborated", evidence=hits,
+            source_scope="github",
                 note=f"public repositories using {c.skill} span {span}"))
         else:
             out.append(Verification(
                 claim_id=c.id, skill=c.skill, state="unsupported", evidence=[],
+                source_scope="github",
                 note="no public repository evidence - most work is not public, so this is not "
                      "a mark against the claim"))
 
@@ -219,5 +221,6 @@ def verify_claims(
         relevant = " - and this role asks for it" if requirements else ""
         out.append(Verification(
             claim_id="", skill=e.name, state="undersold", evidence=[e],
+            source_scope="github",
             note=f"{e.detail} using {e.name}, not mentioned anywhere on the resume{relevant}"))
     return out

@@ -18,7 +18,8 @@
         ('Fit score', (c.fit.score*100)|round(0)|int|string + '%', 'forest' if c.fit.score>=0.6 else ('amber' if c.fit.score>=0.35 else 'rose')),
         ('Résumé sloppiness', c.style_label, 'forest' if c.style.band=='low' else ('amber' if c.style.band=='grey' else 'rose')),
         ('CV bluff risk', c.bluff_label, 'forest' if c.risk_tone=='green' else ('amber' if c.risk_tone=='amber' else 'rose')),
-        ('Response authenticity', 'PENDING', 'grey') ] %}
+        ('Response authenticity', response_label[0],
+         'forest' if response_label[1]=='green' else ('amber' if response_label[1]=='amber' else ('rose' if response_label[1]=='red' else 'grey'))) ] %}
       {% for label, value, tone in cards %}
       <div class="rounded-lg border border-hair px-4 py-3 min-w-[132px]">
         <div class="text-[11px] text-ink-muted">{{ label }}</div>
@@ -158,9 +159,30 @@
       </div>
       {% endif %}
 
+      {% if cp3 %}
+      <div class="rounded-xl border border-hair bg-white p-6">
+        <div class="flex items-center justify-between">
+          <h2 class="text-[16px] font-bold">Checkpoint 3 — their answers</h2>
+          {{ pill(response_label[0], response_label[1]) }}
+        </div>
+        <p class="mt-2 text-[12.5px] leading-relaxed text-ink-muted">{{ cp3.reason }}</p>
+        <div class="mt-4 space-y-3">
+          {% for a in answers.answers %}
+          <div class="rounded-lg border border-hair p-3">
+            <div class="text-[11.5px] font-semibold text-ink-muted">
+              {{ a.question[:110] }}{% if a.is_baseline %} · informal baseline{% endif %}</div>
+            <p class="mt-1 text-[12.5px] leading-relaxed">{{ a.text[:400] }}</p>
+          </div>
+          {% endfor %}
+        </div>
+      </div>
+      {% endif %}
+
       {% if c.questions %}
       <div class="rounded-xl border border-hair bg-white p-6">
         <h2 class="text-[16px] font-bold">Generated follow-up questions</h2>
+        <p class="mt-1 text-[11.5px] text-ink-muted">Candidate link:
+          <a href="{{ candidate_link }}" class="font-mono text-forest-600 hover:underline">{{ candidate_link }}</a></p>
         <div class="mt-3 space-y-3">
           {% for q in c.questions %}
           <div class="rounded-lg bg-forest-50/60 p-4">
