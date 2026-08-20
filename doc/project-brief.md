@@ -47,20 +47,47 @@ LLM: unexplained expert-level skill · results implausible for company size.
 
 ## What the research changed
 
-**AI-text detection is unsafe on résumés unless designed around.** Three independent sources:
+**AI-text detection: what the primary sources actually say.** I read the papers rather than
+trusting a summary, and two of three second-hand claims did not survive.
 
-- Liang et al., *Patterns* 2023 — 7 detectors on TOEFL essays: **61.22% average false-positive
-  rate** for non-native writers vs near-zero for native. Mechanism is low perplexity, not deceit.
-- Fraser, Dawkins & Kiritchenko (JAIR) — detectors *"require on the order of at least 100
-  words"*; ~200 for reliability. **A résumé bullet is 10-25 words, so per-bullet detection is
-  statistically meaningless.**
-- NBER w34223 (Jabarian & Imas) — the RoBERTa baseline flags **30-69% of human text** and names
-  résumé screening as unsuitable.
+**CONFIRMED — Liang, Yuksekgonul, Mao, Wu & Zou, "GPT detectors are biased against non-native
+English writers" (arXiv 2304.02819, *Patterns* 2023).** Seven public detectors incl. GPTZero and
+ZeroGPT. Verbatim: *"they misclassified over half of the TOEFL essays as 'AI-generated' (average
+false positive rate: **61.22%**)"*, against *"near-perfect accuracy for US 8-th grade essays"*.
+89 of 91 TOEFL essays were flagged by at least one detector. Prompting for richer vocabulary cut
+the rate **from 61.22% to 11.45%** — i.e. the signal is vocabulary range, not authorship. The
+authors' own warning: *"Practitioners should exercise caution when using low perplexity as an
+indicator of AI-generated text, as this approach might inadvertently perpetuate systematic
+biases against non-native authors."*
 
-Design consequences, all now enforced: score the **whole résumé as one document**, never per
-bullet; ship it as *"AI-assisted writing likelihood"*, a spectrum with a wide grey band, never a
-verdict; and surface the non-native-English caveat **in the UI**, not the docs. This is the
-evidence behind house rule 3 — we can cite it on stage.
+**CORRECTED — NBER w34223 is Jabarian & Imas, "Artificial Writing and Automated Detection".**
+It was cited to us as finding a RoBERTa baseline flagging 30–69% of human text and naming résumé
+screening as unsuitable. It says neither. Its actual finding is close to the opposite:
+*"Commercial detectors outperform open-source, with **Pangram achieving near-zero FNR and FPR**
+rates that remain robust across models, threshold rules, ultra-short passages, 'stubs' (<50
+words) and 'humanizer' tools."* Short-passage settings it names are job boards, gig-work sites
+and social media — not résumé screening.
+
+**UNVERIFIED — the "detectors need ≥100 words" rule** attributed to Fraser, Dawkins &
+Kiritchenko (JAIR 82:2233–2278). I could not retrieve the paper's text to confirm it, and the
+NBER result above cuts against it. **Not used as a design constraint.** (backlog #13)
+
+**What this means for us — and it argues for a different design than we started with.** The bias
+is real, large, and mechanistic: it comes from *low perplexity*, so every perplexity-based
+detector inherits it — Fast-DetectGPT, Binoculars and the RoBERTa family alike. The one strong
+result belongs to a commercial tool we are not shipping. Résumés are terse, formulaic and often
+written by non-native speakers: the worst possible quadrant for this technology.
+
+So **CP1 does not ship a neural AI-text classifier as a score.** It scores the intake §5 "vibe
+check" patterns deterministically — three-beat bullet rhythm, repeated "not just X but Y",
+self-significance clauses, stock-phrase clusters, em-dash density — and always names which
+pattern fired, with the span. These are interpretable, citable, and *not perplexity*, so they do
+not inherit the documented bias. Reported as "AI-assisted writing likelihood": a spectrum with a
+wide grey band, never a verdict, with the non-native-English caveat surfaced **in the UI**. An
+open-source classifier may run as a clearly-labelled secondary signal that feeds no score.
+
+That is house rule 3 with a number attached, and it is a stronger pitch than a detector score:
+*we deliberately did not ship the thing everyone else ships, and here is the measured reason.*
 
 **Prompt-injection guards over-defend.** The InjecGuard/PIGuard paper shows guard models drop to
 ~60% accuracy on benign text containing trigger words. A résumé that legitimately says "prompt

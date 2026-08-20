@@ -18,3 +18,5 @@ someone) · `WONTFIX` (decided against, reason recorded) · `DONE` (with date).
 | 10 | DEFERRED | Off-page text detection | The one gap in the vendored HCD detector; ~10 lines comparing span bbox to `page.rect` | `ingest/forensics.py` | M1 |
 | 11 | UNVERIFIED | CPU latency of the AI-text and injection classifiers | No benchmark run; treat speed claims as unmeasured | — | First time the demo feels slow |
 | 12 | DEFERRED | Swap PyMuPDF for pypdfium2 | PyMuPDF is AGPL; blocks permissive open-sourcing | `ingest/` | If this repo goes public |
+| 13 | UNVERIFIED | "detectors need >=100 words" (Fraser et al. JAIR 82:2233-2278) | Could not retrieve paper text; NBER w34223 cuts against it (Pangram works on <50-word stubs). Not used as a design constraint | `doc/project-brief.md` | If someone gets the JAIR full text |
+| 14 | WONTFIX | Neural AI-text classifier as a scored signal | Liang et al. measured 61.22% FPR for non-native writers; mechanism is low perplexity, so all perplexity-based detectors inherit it. Deterministic pattern scoring instead | `slop/style.py` | Only if a non-perplexity detector with published non-native FPR appears |
