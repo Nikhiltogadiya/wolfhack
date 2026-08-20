@@ -170,3 +170,50 @@ Firewall and routing rank 100.0 for the network requirement, top of the list.
 **Result on real corpus resumes** — right background / flat writing **69%**, wrong background /
 polished writing **0%**. The one critical gap on the strong candidate is "right to work in
 Germany", correctly recorded as `unstated` and flagged for confirmation rather than capping.
+
+---
+
+## 2026-08-20 — M5-M8: verification, questions, dashboard
+
+**GitHub verification.** Three states, and the third is the one worth demoing: `undersold` -
+real dated evidence the resume never claims. Two fixes after running it against a live profile
+rather than a fixture: one active account produced **50+ undersold rows** (json, http, server,
+backend, automation) because GitHub *topics* describe projects, not capabilities - so generic
+topics are filtered, the rest ranked by relevance to the specific role and capped at five, and
+docker/docker-image/dockerfile/docker-compose collapse to one finding instead of four.
+
+**Two label bugs the UI exposed, both of which a recruiter would have read as a judgement:**
+
+1. `bluff_label` was derived from a flag COUNT, so a candidate with two *uncorroborated*
+   oddities was labelled **LIKELY GENUINE** while one with none was labelled NOT FLAGGED.
+   Backwards. Now derived from the verdict itself.
+2. "1 FLAGS".
+
+**A detector bug only visible once rendered: "overlap by 320 months".** Public resume corpora
+are anonymised, so every employer field reads "Company Name" - and two roles at the same
+placeholder are not concurrent employment, they are two roles whose employers we do not know.
+Overlap detection now skips placeholder and identical employers, and ignores overlaps beyond
+ten years, which indicate our own date parsing failed rather than the candidate's honesty.
+Reporting that as possible fabrication would have been an accusation built on our own bug.
+
+**The one carve-out from the two-flag rule, and why it is defensible.** Hidden text now flags
+on its own. Every other pattern is an *inference* about a claim - a date looks odd, a number
+looks round - and any single inference can be wrong, which is what corroboration is for.
+Hidden text is an *observation* about the file: instruction-like content was placed where a
+human reader cannot see it. No second signal makes that more or less true, and requiring one
+would mean silently accepting a document we have already caught being manipulated. It still
+only ever flags for human review.
+
+**A layout bug that was not a bug.** Three rounds of "fixing" a clipped right rail, until
+measuring the actual DOM: viewport 1423px, `document.body.scrollWidth - clientWidth == 0`, rail
+right edge at 1371. The apparent clipping was the screenshot capture cropping at
+`devicePixelRatio` 1.33. The screenshot answered "what did the capture contain", not "does the
+page overflow" - which is the same class of mistake as trusting `insert_text`'s return value
+instead of reading the content stream.
+
+**Framework gotchas, both silent:** Starlette >= 0.29 wants `TemplateResponse(request, name,
+ctx)`; the old argument order makes the context dict land in the template-name slot and fails
+inside Jinja's cache with `unhashable type: 'dict'`. And pydantic v2 forbids setting
+undeclared attributes, so display-only fields are computed properties.
+
+**State: the entire demo replays with `FIT_HAPPENS_OFFLINE=1` and no network.**
