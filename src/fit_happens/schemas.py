@@ -297,13 +297,27 @@ class CandidateResult(BaseModel):
         return "".join(p[0].upper() for p in parts[:2]) or self.name[:2].upper()
 
     @property
+    def authenticity_flags(self) -> list[Flag]:
+        """Flags about whether claims hold up. Style patterns are excluded by design."""
+        style_only = {"stock_phrases", "self_significance", "negative_parallelism",
+                      "copula_avoidance", "uniform_rhythm", "rule_of_three", "em_dash_density"}
+        return [f for f in self.cp2.flags if f.pattern_id not in style_only]
+
+    @property
     def bluff_label(self) -> str:
-        n = len([f for f in self.cp2.flags if f.pattern_id not in {
-            "stock_phrases", "self_significance", "negative_parallelism", "copula_avoidance",
-            "uniform_rhythm", "rule_of_three", "em_dash_density"}])
+        """The dashboard label, mapped straight from the verdict.
+
+        Derived from the VERDICT, not from a flag count. An earlier version counted flags and
+        could label a candidate with two uncorroborated oddities "LIKELY GENUINE" while
+        labelling one with none "NOT FLAGGED" - which is backwards, and would have been read
+        by a recruiter as a judgement we never made.
+        """
+        n = len(self.authenticity_flags)
         if self.cp2.verdict == Verdict.FLAG_FOR_HUMAN:
-            return f"{n} FLAGS"
-        return "NOT FLAGGED" if n == 0 else "LIKELY GENUINE"
+            return f"{n} FLAG" if n == 1 else f"{n} FLAGS"
+        if self.cp2.verdict == Verdict.INCONCLUSIVE:
+            return "NOT CORROBORATED"
+        return "LIKELY GENUINE"
 
     @property
     def style_label(self) -> str:

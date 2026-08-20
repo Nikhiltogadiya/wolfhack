@@ -30,25 +30,25 @@
     ],
     "audit": [
       {
-        "at": "2026-08-20T17:47:12+00:00",
+        "at": "2026-08-20T18:08:11+00:00",
         "event": "internal_constraint_accepted",
         "detail": "onsite_days: three days a week in the Berlin office",
         "actor": "system"
       },
       {
-        "at": "2026-08-20T17:47:12+00:00",
+        "at": "2026-08-20T18:08:11+00:00",
         "event": "internal_constraint_accepted",
         "detail": "mentoring_capacity: the team is junior, this hire must mentor two engineers",
         "actor": "system"
       },
       {
-        "at": "2026-08-20T17:47:12+00:00",
+        "at": "2026-08-20T18:08:11+00:00",
         "event": "internal_constraint_accepted",
         "detail": "start_availability: must be able to start within six weeks",
         "actor": "system"
       },
       {
-        "at": "2026-08-20T17:47:12+00:00",
+        "at": "2026-08-20T18:08:11+00:00",
         "event": "internal_constraint_REFUSED",
         "detail": "team_context: 'we want a young energetic team with no career gaps' - refused: age: age proxy; socioeconomic/proxy: career-gap screening - a proxy for parental leave, illness and disability",
         "actor": "system"

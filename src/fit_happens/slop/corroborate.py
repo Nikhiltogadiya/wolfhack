@@ -27,6 +27,22 @@ STYLE_ONLY = {
     "uniform_rhythm", "rule_of_three", "em_dash_density",
 }
 
+# The one carve-out from the two-flag rule, and it is a narrow one.
+#
+# Corroboration exists because every other pattern is an INFERENCE about a claim: a date looks
+# odd, a number looks too round, a credential is worded unusually. Any single inference can be
+# wrong, so we require two before saying anything.
+#
+# Hidden text is not an inference. It is an observation about the file: instruction-like text
+# was placed where a human reader cannot see it, and either it is there or it is not. Nobody
+# does that by accident, and no second signal makes it more or less true. Requiring
+# corroboration here would mean silently accepting a document we have already caught being
+# manipulated.
+#
+# Note what this still does NOT do: it flags for human review, exactly like everything else.
+# It is not a rejection and it is not a claim that anything on the resume is false.
+SELF_SUFFICIENT = {"hidden_text"}
+
 
 def independent(flags: list[Flag]) -> list[Flag]:
     """The subset that corroborate one another: distinct pattern, distinct evidence."""
@@ -48,6 +64,17 @@ def independent(flags: list[Flag]) -> list[Flag]:
 def decide(flags: list[Flag], style: StyleRead | None = None) -> CheckpointResult:
     corroborating = independent(flags)
     all_flags = list(flags) + list(style.patterns_fired if style else [])
+
+    standalone = [f for f in corroborating if f.pattern_id in SELF_SUFFICIENT]
+    if standalone:
+        named = "; ".join(f"{f.description} ({f.span.cite()})" for f in standalone)
+        return CheckpointResult(
+            checkpoint="cp2_claims", verdict=Verdict.FLAG_FOR_HUMAN, flags=all_flags,
+            reason=(f"Content was concealed inside the document: {named}. This is an observation "
+                    f"about the file rather than an inference about any claim, so it does not "
+                    f"need corroborating. Flagged for a person to read - it is not a finding "
+                    f"that anything on the resume is false, and it is not a rejection."),
+        )
 
     if len(corroborating) >= config.MIN_INDEPENDENT_FLAGS:
         named = "; ".join(f"{f.pattern_id} ({f.span.cite()})" for f in corroborating)
