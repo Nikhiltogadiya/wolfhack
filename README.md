@@ -11,9 +11,15 @@ challenge. Two components that are kept apart by design:
 - **Slop Bouncer** — flags AI-written and unsupported claims. Its strongest possible output is
   *flag for human review*. It has no reject path, structurally.
 
-Plus **GitHub verification** (claims checked against real commit history — including *undersold*
-evidence the CV forgot to mention) and a **JD slop scan** that holds the employer's own job ad
-to the same standard.
+Plus **external verification** — GitHub commit history, certifications checked against how
+their issuers actually name them, publications via OpenAlex, and document recency — and a
+**job-ad scan** that holds the employer's own advert to the same standard it holds candidates.
+
+It is two-sided. Candidates get their own view at `/apply/{token}`: where their application
+stands, **which sources they allow us to look at** (everything external is off until they turn
+it on, and the fetch does not happen without it), what we read from their CV with the exact
+lines cited, what we noticed and want to ask about, and the questions themselves. Their answers
+feed checkpoint 3.
 
 ## Quickstart
 
@@ -24,7 +30,28 @@ export GITHUB_TOKEN=...          # optional; 60 req/h without it
 uv run uvicorn fit_happens.web.app:app --reload --port 8000
 ```
 
+Build the demo run, then open http://127.0.0.1:8000
+
+```bash
+uv run python scripts/build_demo.py data/demo/resumes/*.pdf
+FIT_HAPPENS_OFFLINE=1 uv run python scripts/build_demo.py data/demo/resumes/*.pdf  # no network
+```
+
 Tests: `uv run pytest` (network tests are opt-in: `uv run pytest -m live`).
+
+## What we measured
+
+| | |
+|---|---|
+| Injection detection | 0 false positives on 60 real resumes; catches white-on-white and 0.6pt text |
+| Cost | $0.0048 per candidate |
+| Style detection (CP1) | **0% detection at 0% false positives** on 60 real resumes vs LLM rewrites of the same resumes |
+
+That last number is deliberate and we report it. The brief's four "vibe check" patterns
+separate the two classes for under 8% of cases; the only signal that works at all is em-dash
+density, at 27%, and the threshold that buys it costs flagging one real person in ten. So
+style stays advisory and is structurally barred from producing a flag. See
+`scripts/calibrate.py` and `scripts/feature_analysis.py`.
 
 ## Documentation
 

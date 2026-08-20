@@ -27,6 +27,18 @@ Two components that must never contaminate each other: **Fit Engine** (matching)
 6. **Decisions come from the pure-Python rules engine, never the LLM.** The LLM extracts and
    drafts; it does not decide. Date arithmetic is always deterministic.
 7. **Every score component carries an evidence span.** No span, no score.
+8. **Consent gates the fetch, not the display.** Nothing external is retrieved before the
+   candidate grants that scope, and withdrawing deletes what was gathered under it. Every
+   offered scope must be read by `pipeline.n_verify` - a toggle nothing reads is worse than no
+   toggle. Guarded by `test_every_consent_scope_actually_changes_behaviour`.
+9. **CP1 style does not discriminate, and we say so.** Measured on 60 real resumes vs LLM
+   rewrites of the same resumes: 0% detection at 0% false positives. It stays advisory and is
+   structurally barred from contributing to a flag.
+
+## Surfaces
+Recruiter: `/` ranking · `/candidate/{id}` evidence · `/injection` · `/job-ad`.
+Candidate: `/apply/{token}` - status, consent, what-we-read, what-we-noticed, questions.
+Tokens come from `ConsentStore().token_for(candidate_id)`.
 
 ## Stack
 Python 3.12 + `uv` (never `python -m venv`). FastAPI + Jinja2 + Tailwind CDN.

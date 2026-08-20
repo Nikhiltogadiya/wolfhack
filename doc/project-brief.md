@@ -110,6 +110,22 @@ which specifically fixes this, over the archived ProtectAI stack.
 | M9 | Demo corpus + pre-warm | Whole demo runs with the network cable out |
 | M10 | Calibration *(second cut)* | A real false-positive number for the stage |
 | M11 | Rehearsal + docs | Script runs start to finish twice, offline |
+| M12 | Candidate side | Consent gates the fetch; CP3 fills the 4th column; portal live |
+| M13 | Close audit gaps | Credentials, publications, document recency |
+
+## Final coverage against the challenge
+
+**Responsible AI by Design: 6 of 6.** Human in the loop (the verdict enum has no reject
+variant) · transparent recommendations (240/240 claims locatable verbatim in the source) ·
+no automated decisions · bias and fairness monitoring (measured, 0% spread across job
+categories) · GDPR (exportable audit trail, per-candidate consent history) · user-controlled
+sharing (four scopes, external off by default, the fetch gated not the display).
+
+**Employer pains: 4 of 4.** Volume, stale data, static evidence, cost.
+
+**Candidate pains: 2 of 4.** Generic job ads and transparency are built. Fragmented signals
+and blind discovery are not, and cannot be without employer-review data and a corpus of live
+postings. Stated rather than faked.
 
 Honest estimate: ~26h of work in 24. Cut order is fixed above so it is decided now, not at
 hour 20.

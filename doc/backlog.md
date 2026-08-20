@@ -4,27 +4,29 @@ What we still owe. One line per item, added **at the moment of deferral**.
 Status: `DEFERRED` (do later) · `UNVERIFIED` (claimed, not confirmed) · `BLOCKED` (waiting on
 someone) · `WONTFIX` (decided against, reason recorded) · `DONE` (with date).
 
-| # | Status | Item | Why | Where it would go | Trigger to pick up |
+| # | Status | Item | Why | Where | Trigger |
 |---|---|---|---|---|---|
-| 1 | BLOCKED | Kaggle `snehaanbhawal/resume-dataset` download | No Kaggle credentials on this machine | `data/corpus/` | User downloads it |
-| 2 | BLOCKED | `GITHUB_TOKEN` | Not set; 60 req/h unauthenticated vs 5,000 | env | User creates a fine-grained read-only token |
-| 3 | DEFERRED | Checkpoint 3 — response scan | Needs a second candidate-facing UI; intake §10 says stub it | `slop/response.py` | Post-hackathon, or if M10 lands early |
-| 4 | WONTFIX | Voice / on-demand questions | Expensive, adds little to a judged demo (intake §10). Web Speech API if a sponsor prize ever needs it | — | A sponsor prize requires it |
-| 5 | WONTFIX | Industry skill matching | No definition distinct from the 70/30 mapping (intake §3 [OPEN]) | — | Someone defines what it does |
-| 6 | WONTFIX | Cross-JD matching, SAP SuccessFactors, Δ/JD-authoring, closed-loop retraining | Explicitly killed in intake v0.1 §3 | — | Never — recorded so they don't creep back |
-| 7 | DEFERRED | Recruiter rejection feedback | ~20 min (textarea + storage), no demo payoff | `web/` + store | If M10 finishes early |
-| 8 | DEFERRED | User-controlled sharing (candidate consent UI) | The one Akkodis "Responsible AI" bullet we do not satisfy | new candidate-side surface | Post-hackathon. **Name it in the pitch as a known gap** |
-| 9 | UNVERIFIED | NIM `top_logprobs` support | Docs silent; would enable perplexity-based detection | `slop/style.py` | Test `logprobs:true, top_logprobs:5` on a chat call |
-| 10 | DEFERRED | Off-page text detection | The one gap in the vendored HCD detector; ~10 lines comparing span bbox to `page.rect` | `ingest/forensics.py` | M1 |
-| 11 | UNVERIFIED | CPU latency of the AI-text and injection classifiers | No benchmark run; treat speed claims as unmeasured | — | First time the demo feels slow |
-| 12 | DEFERRED | Swap PyMuPDF for pypdfium2 | PyMuPDF is AGPL; blocks permissive open-sourcing | `ingest/` | If this repo goes public |
-| 13 | UNVERIFIED | "detectors need >=100 words" (Fraser et al. JAIR 82:2233-2278) | Could not retrieve paper text; NBER w34223 cuts against it (Pangram works on <50-word stubs). Not used as a design constraint | `doc/project-brief.md` | If someone gets the JAIR full text |
-| 14 | WONTFIX | Neural AI-text classifier as a scored signal | Liang et al. measured 61.22% FPR for non-native writers; mechanism is low perplexity, so all perplexity-based detectors inherit it. Deterministic pattern scoring instead | `slop/style.py` | Only if a non-perplexity detector with published non-native FPR appears |
-| 15 | DEFERRED | Guard may over-block "height"/"weight" in genuine safety contexts ("working at height") | Over-blocking EMPLOYER input is the safe failure mode - the refusal is logged with a readable reason and they can rephrase. Over-blocking CANDIDATE input would not be. Not the same trade-off | `jd/guard.py` appearance rule | If a warehouse/field role is ever demoed |
-| 16 | DONE 2026-08-20 | Offline demo replay | Verified: full build runs with FIT_HAPPENS_OFFLINE=1 | - | - |
-| 17 | DEFERRED | Calibration corpus (M10) | Human vs LLM-rewritten resumes -> measured false-positive rate incl. a non-native-English slice | `scripts/calibrate.py` | Next session |
-| 18 | DEFERRED | Recruiter rejection feedback | ~20 min, textarea + storage; no demo payoff | `web/` | If M10 lands early |
-| 19 | UNVERIFIED | Undersold collapse leaks near-variants | 'uwsgi-nginx' survived alongside 'nginx' - prefix collapse is crude | `verify/github.py` | If it looks noisy on stage |
-| 20 | DONE 2026-08-20 | M10 calibration | 60 real resumes vs LLM rewrites of the same. 0% FPR, 0% TPR. Feature separation measured | `scripts/calibrate.py`, `scripts/feature_analysis.py` | - |
-| 21 | WONTFIX | Tune CP1 thresholds to raise detection | The only signal with separation (em dashes, 27%) costs ~10% false positives. For a hiring tool that trade is wrong, and the house rule already forbids style from flagging | `slop/style.py` | Only if a non-perplexity signal with real separation is found |
-| 22 | DEFERRED | Non-native-English FPR slice | The corpus has no such labels and inferring them from text would be unreliable AND inappropriate. Category-level FPR spread (0%) is the fairness check we CAN run honestly | `scripts/calibrate.py` | A labelled dataset |
+| 1 | DONE 2026-08-20 | Kaggle corpus | 2,484 real resume PDFs in place | `data/corpus/` | - |
+| 2 | DONE 2026-08-20 | `GITHUB_TOKEN` | set; 5,000 req/h | env | - |
+| 3 | DONE 2026-08-21 | Checkpoint 3 response scan | Needed a candidate surface, which now exists | `slop/response.py` | - |
+| 4 | DONE 2026-08-21 | User-controlled sharing | Responsible AI now 6/6 | `candidate/consent.py` | - |
+| 5 | DONE 2026-08-20 | Off-page text detection | Solved by cross-engine divergence, not a parser flag | `ingest/divergence.py` | - |
+| 6 | DONE 2026-08-20 | Calibration (M10) | 60 real vs 60 rewrites; 0% FPR, 0% TPR | `scripts/calibrate.py` | - |
+| 7 | DONE 2026-08-20 | Offline demo replay | Verified with `FIT_HAPPENS_OFFLINE=1` | - | - |
+| 8 | DONE 2026-08-21 | Publications evidence | OpenAlex, free and keyless | `verify/publications.py` | - |
+| 9 | DONE 2026-08-21 | Certification verification | recognised / unrecognised / malformed | `verify/credentials.py` | - |
+| 10 | DONE 2026-08-21 | Stale talent data | Document recency + parse completeness | `verify/freshness.py` | - |
+| 11 | WONTFIX | 'community' consent scope | Was declared and read by nothing. A consent control that does nothing is worse than an absent one. Needs scraping personal sites/forums | `candidate/consent.py` | A real fetcher exists |
+| 12 | WONTFIX | Tune CP1 thresholds for detection | The only signal with separation (em dashes, 27%) costs ~10% false positives | `slop/style.py` | A non-perplexity signal with real separation appears |
+| 13 | WONTFIX | Neural AI-text classifier as a scored signal | Liang et al: 61.22% FPR for non-native writers; mechanism is low perplexity | `slop/style.py` | - |
+| 14 | WONTFIX | Voice, industry skill matching, cross-JD, SAP, Delta-module, closed-loop retraining | Killed in intake v0.1 §3 and §10 triage | - | Recorded so they do not creep back |
+| 15 | DEFERRED | Recruiter rejection feedback | ~20 min (textarea + storage). No demo payoff, but answers "how does this improve?" | `web/` | Spare time before judging |
+| 16 | DEFERRED | Candidate pain: fragmented signals | Employer reviews, financials, news. Needs paid or scraped sources we do not have | new module | A data source exists |
+| 17 | DEFERRED | Candidate pain: blind discovery | Near-duplicate detection across postings. We have one JD; over one posting it is theatre | new module | A corpus of live postings |
+| 18 | DEFERRED | Swap PyMuPDF for pypdfium2 | PyMuPDF is AGPL; blocks permissive open-sourcing | `ingest/` | If this repo goes public |
+| 19 | DEFERRED | Guard may over-block height/weight in safety contexts | Over-blocking EMPLOYER input is the safe failure mode; the refusal is logged and readable | `jd/guard.py` | A warehouse/field role is demoed |
+| 20 | UNVERIFIED | NIM `top_logprobs` support | Would enable perplexity-based detection. Moot while we reject perplexity signals | - | - |
+| 21 | UNVERIFIED | CPU latency of the injection classifier | No benchmark run; llm-guard was never wired in (HCD covers the PDF case) | - | If the demo feels slow |
+| 22 | UNVERIFIED | Fraser "detectors need >=100 words" | Could not retrieve the paper; NBER cuts against it. Not used as a constraint | `doc/project-brief.md` | Someone gets the JAIR full text |
+| 23 | UNVERIFIED | Undersold collapse leaks near-variants | 'uwsgi-nginx' survived beside 'nginx'; prefix collapse is crude | `verify/github.py` | If it looks noisy on stage |
+| 24 | UNVERIFIED | Publications on our own demo data | The corpus is anonymised, so no name resolves. Verified live against a known author instead | `verify/publications.py` | A CV with a real name |

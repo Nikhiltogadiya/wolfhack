@@ -30,25 +30,25 @@
     ],
     "audit": [
       {
-        "at": "2026-08-20T20:45:58+00:00",
+        "at": "2026-08-20T22:46:19+00:00",
         "event": "internal_constraint_accepted",
         "detail": "team_context: we go into an ISO 27001 audit next year, so this hire must have worked under a formal compliance or accreditation regime",
         "actor": "system"
       },
       {
-        "at": "2026-08-20T20:45:58+00:00",
+        "at": "2026-08-20T22:46:19+00:00",
         "event": "internal_constraint_accepted",
         "detail": "mentoring_capacity: the team is junior, this hire must mentor two engineers",
         "actor": "system"
       },
       {
-        "at": "2026-08-20T20:45:58+00:00",
+        "at": "2026-08-20T22:46:19+00:00",
         "event": "internal_constraint_accepted",
         "detail": "onsite_days: three days a week in the Berlin office",
         "actor": "system"
       },
       {
-        "at": "2026-08-20T20:45:58+00:00",
+        "at": "2026-08-20T22:46:19+00:00",
         "event": "internal_constraint_REFUSED",
         "detail": "team_context: 'we want a young energetic team with no career gaps' - refused: age: age proxy; socioeconomic/proxy: career-gap screening - a proxy for parental leave, illness and disability",
         "actor": "system"
