@@ -13,12 +13,17 @@ from pydantic import BaseModel, Field
 
 from .. import llm
 from ..ingest import sanitize
-from ..schemas import Claim, Match, Requirement, Span
+from ..schemas import Claim, Employment, Match, Requirement
+from . import derived
 
 
 class _Match(BaseModel):
     requirement_id: str
     strength: str = Field(description="strong | moderate | weak | missing")
+    basis: str = Field(default="evidenced", description=(
+        "'evidenced' if the resume speaks to this at all; 'unstated' if the resume is simply "
+        "silent about it; 'contradicted' if the resume actively indicates the candidate does "
+        "NOT have it"))
     claim_ids: list[str] = Field(default_factory=list, description="ids of the claims that support this")
     rationale: str = Field(description="one sentence, naming the evidence")
 
@@ -44,12 +49,25 @@ TECHNOLOGY DISTINCTIONS - do not conflate these:
 - A cloud provider is not interchangeable with another. AWS experience is moderate evidence
   for a GCP requirement, never strong.
 
+BASIS - judge this separately from strength, it matters more than strength for hard gates:
+- 'unstated' means the document never addresses the requirement. Work authorisation, security
+  clearance and visa status are almost never written on a resume: absent any mention, the
+  correct answer is 'unstated', NEVER 'contradicted'.
+- 'contradicted' requires positive evidence AGAINST - e.g. the requirement is a degree and the
+  education section shows the candidate did not complete one.
+- If in doubt between unstated and contradicted, choose 'unstated'.
+
 HARD RULES
 - Judge the BACKGROUND, never the writing. A blunt, duty-listing bullet from someone who has
   genuinely done the work is STRONG. A polished, metric-laden bullet describing adjacent work
   is MODERATE at best. If you find yourself rewarding phrasing, you have made an error.
 - Use only what the claims state. Never infer experience that is not evidenced.
 - Emit exactly one match per requirement, including the ones that are missing.
+
+COMPUTED CAREER FACTS - these were calculated from the resume's own dates by the system, not
+claimed by the candidate. Treat them as reliable. Requirements about years of experience,
+seniority or leading a team are evidenced HERE, not in the skill list.
+{career}
 
 REQUIREMENTS:
 {requirements}
@@ -58,12 +76,16 @@ CANDIDATE CLAIMS:
 {claims}"""
 
 
-def map_claims(claims: list[Claim], requirements: list[Requirement]) -> list[Match]:
+def map_claims(
+    claims: list[Claim],
+    requirements: list[Requirement],
+    employment: list[Employment] | None = None,
+) -> list[Match]:
     if not requirements:
         return []
     req_block = "\n".join(f"[{r.id}] ({r.kind}) {r.text}" for r in requirements)
     claim_block = "\n".join(
-        f"[{c.id}] {c.skill}"
+        f"[{c.id}] {c.skill[:110]}"
         + (f" - {c.years_claimed}y claimed" if c.years_claimed else "")
         + (f" - since {c.since_year}" if c.since_year else "")
         + (f" - level: {c.level}" if c.level else "")
@@ -74,7 +96,11 @@ def map_claims(claims: list[Claim], requirements: list[Requirement]) -> list[Mat
     nonce = uuid.uuid4().hex[:8]
     result = llm.structured(
         "skill_map", _Mapping,
-        PROMPT.format(requirements=req_block, claims=sanitize.wrap_untrusted(claim_block, nonce, "claims")),
+        PROMPT.format(
+            career=derived.summarise(employment or []),
+            requirements=req_block,
+            claims=sanitize.wrap_untrusted(claim_block, nonce, "claims"),
+        ),
     )
 
     by_id = {c.id: c for c in claims}
@@ -84,9 +110,11 @@ def map_claims(claims: list[Claim], requirements: list[Requirement]) -> list[Mat
             continue
         strength = m.strength if m.strength in {"strong", "moderate", "weak", "missing"} else "missing"
         ids = [cid for cid in m.claim_ids if cid in by_id]
+        basis = m.basis if m.basis in {"evidenced", "unstated", "contradicted"} else "unstated"
         seen[m.requirement_id] = Match(
             requirement_id=m.requirement_id,
             strength=strength,  # type: ignore[arg-type]
+            basis=basis,  # type: ignore[arg-type]
             claim_ids=ids,
             rationale=m.rationale,
             evidence=[by_id[cid].evidence for cid in ids],
@@ -95,5 +123,6 @@ def map_claims(claims: list[Claim], requirements: list[Requirement]) -> list[Mat
     # Any requirement the model skipped counts as missing. Dropping it instead would quietly
     # shrink the denominator and inflate everyone's coverage.
     for r in requirements:
-        seen.setdefault(r.id, Match(requirement_id=r.id, strength="missing", rationale="no evidence found"))
+        seen.setdefault(r.id, Match(requirement_id=r.id, strength="missing", basis="unstated",
+                                    rationale="the resume does not address this"))
     return [seen[r.id] for r in requirements]

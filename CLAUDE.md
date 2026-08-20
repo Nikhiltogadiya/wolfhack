@@ -18,8 +18,12 @@ Two components that must never contaminate each other: **Fit Engine** (matching)
    Guarded by `test_fit_score_ignores_slop`.
 3. **Style alone is never evidence.** Max style score + zero authenticity flags => `inconclusive`.
 4. **Fabrication needs two independent flags** — distinct `pattern_id` AND distinct span.
-5. **Absence of external evidence is never a negative signal.** No public GitHub must not cost
-   a candidate a single point. Guarded by `test_missing_github_never_lowers_any_score`.
+5. **Absence of evidence is never evidence of absence.** Two places this bites, same rule:
+   - No public GitHub must not cost a candidate a single point.
+   - A hard gate the resume is *silent* on (work authorisation, clearance) must not cap the
+     score. Only a *contradicted* gate caps. Silence becomes a follow-up question, not a
+     penalty - see `Match.basis`. Guarded by `test_unstated_dealbreaker_does_not_cap_the_score`
+     and `test_silence_never_scores_worse_than_contradiction`.
 6. **Decisions come from the pure-Python rules engine, never the LLM.** The LLM extracts and
    drafts; it does not decide. Date arithmetic is always deterministic.
 7. **Every score component carries an evidence span.** No span, no score.

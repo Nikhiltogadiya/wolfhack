@@ -41,7 +41,9 @@ def classify_gaps(matches: list[Match], requirements: list[Requirement]) -> list
         if m is None or m.strength == "strong":
             continue
         if r.dealbreaker and m.strength in {"missing", "weak"}:
-            severity = "critical"
+            gaps.append(Gap(requirement_id=r.id, severity="critical", text=r.text,
+                            needs_confirmation=(m.basis == "unstated")))
+            continue
         elif r.kind == "required" and m.strength == "missing":
             severity = "major"
         elif r.kind == "required" and m.strength == "weak":
@@ -70,10 +72,16 @@ def score_fit(matches: list[Match], requirements: list[Requirement]) -> FitScore
         raw = config.WEIGHT_REQUIRED * req_cov + config.WEIGHT_PREFERRED * pref_cov
 
     by_id = {m.requirement_id: m for m in matches}
-    unmet = [
-        r.id for r in requirements
-        if r.dealbreaker and by_id.get(r.id) and by_id[r.id].strength in {"missing", "weak"}
-    ]
+    # Split hard-gate failures by WHY. Only a contradicted gate caps the score; a gate the
+    # resume is simply silent on becomes a question we owe the candidate, not a penalty we
+    # impose on them. Most resumes never state work authorisation, and capping on that would
+    # quietly punish nearly every applicant for something nobody asked them.
+    unmet, unstated = [], []
+    for r in requirements:
+        m = by_id.get(r.id)
+        if not (r.dealbreaker and m and m.strength in {"missing", "weak"}):
+            continue
+        (unstated if m.basis == "unstated" else unmet).append(r.id)
 
     capped = bool(unmet) and raw > config.DEALBREAKER_CAP
     score = config.DEALBREAKER_CAP if capped else raw
@@ -85,6 +93,7 @@ def score_fit(matches: list[Match], requirements: list[Requirement]) -> FitScore
         matches=matches,
         gaps=classify_gaps(matches, requirements),
         dealbreakers_unmet=unmet,
+        dealbreakers_unstated=unstated,
         capped_by_dealbreaker=capped,
     )
 

@@ -133,6 +133,14 @@ class Employment(BaseModel):
 class Match(BaseModel):
     requirement_id: str
     strength: Literal["strong", "moderate", "weak", "missing"]
+    # Why a requirement is unmet matters more than that it is unmet:
+    #   evidenced    - the resume speaks to this, to some degree
+    #   unstated     - the resume is simply silent. NOT evidence of absence.
+    #   contradicted - the resume actively indicates the candidate does not have it
+    # Only `contradicted` may cap a score. Most resumes never mention work authorisation or
+    # clearance, and capping on silence would penalise almost everyone for a question we have
+    # not asked them yet. Silence generates a follow-up question instead.
+    basis: Literal["evidenced", "unstated", "contradicted"] = "evidenced"
     claim_ids: list[str] = []
     rationale: str = ""
     evidence: list[Span] = []
@@ -142,6 +150,9 @@ class Gap(BaseModel):
     requirement_id: str
     severity: Literal["critical", "major", "minor"]
     text: str
+    # A gap that exists only because the resume is silent. Seeds a follow-up question and is
+    # shown to the recruiter as "needs confirming", never as a deficiency.
+    needs_confirmation: bool = False
 
 
 class FitScore(BaseModel):
@@ -151,6 +162,7 @@ class FitScore(BaseModel):
     matches: list[Match] = []
     gaps: list[Gap] = []
     dealbreakers_unmet: list[str] = []
+    dealbreakers_unstated: list[str] = []
     capped_by_dealbreaker: bool = False
 
 

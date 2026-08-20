@@ -156,3 +156,75 @@ def test_evidence_density_is_not_an_input_to_the_score():
     src = inspect.getsource(score_mod.score_fit)
     assert "evidence_density" not in src
     assert FitScore.model_fields.keys().isdisjoint({"evidence_density", "writing_quality"})
+
+
+def test_cache_key_ignores_the_untrusted_block_nonce():
+    """The nonce is random per call. If it reached the cache key, every lookup would miss and
+    the cache would silently do nothing - which is exactly what happened before this test."""
+    from pydantic import BaseModel
+
+    from fit_happens import llm
+    from fit_happens.ingest.sanitize import wrap_untrusted
+
+    class S(BaseModel):
+        x: str
+
+    a = llm._key("m", S, wrap_untrusted("same resume text", "aaaaaaaa"))
+    b = llm._key("m", S, wrap_untrusted("same resume text", "bbbbbbbb"))
+    c = llm._key("m", S, wrap_untrusted("DIFFERENT resume text", "aaaaaaaa"))
+    assert a == b, "cache key changes with the nonce - the cache will never hit"
+    assert a != c, "cache key must still change when the actual content changes"
+
+
+# ---------------------------------------------------------------- silence is not evidence
+
+
+def _match_b(i: int, strength: str, basis: str) -> Match:
+    return Match(requirement_id=f"r{i}", strength=strength, basis=basis, rationale="x")
+
+
+def test_unstated_dealbreaker_does_not_cap_the_score():
+    """Almost no resume states work authorisation. Capping on silence would penalise nearly
+    every applicant for a question we have not asked them yet."""
+    reqs = [_req(0, "required", dealbreaker=True)] + [_req(i, "required") for i in range(1, 6)]
+    matches = [_match_b(0, "missing", "unstated")] + [_match(i, "strong") for i in range(1, 6)]
+    result = score_fit(matches, reqs)
+    assert not result.capped_by_dealbreaker
+    assert result.score > config.DEALBREAKER_CAP
+    assert result.dealbreakers_unstated == ["r0"]
+    assert result.dealbreakers_unmet == []
+
+
+def test_contradicted_dealbreaker_still_caps():
+    """Positive evidence against a hard gate is a different thing entirely, and still caps."""
+    reqs = [_req(0, "required", dealbreaker=True)] + [_req(i, "required") for i in range(1, 6)]
+    matches = [_match_b(0, "missing", "contradicted")] + [_match(i, "strong") for i in range(1, 6)]
+    result = score_fit(matches, reqs)
+    assert result.capped_by_dealbreaker
+    assert result.score == config.DEALBREAKER_CAP
+    assert result.dealbreakers_unmet == ["r0"]
+
+
+def test_unstated_dealbreaker_becomes_a_question_not_a_penalty():
+    reqs = [_req(0, "required", dealbreaker=True)]
+    gaps = score_fit([_match_b(0, "missing", "unstated")], reqs).gaps
+    assert len(gaps) == 1
+    assert gaps[0].severity == "critical"
+    assert gaps[0].needs_confirmation, "an unstated hard gate must be flagged for confirming"
+
+
+def test_contradicted_gap_is_not_marked_for_confirmation():
+    reqs = [_req(0, "required", dealbreaker=True)]
+    gaps = score_fit([_match_b(0, "missing", "contradicted")], reqs).gaps
+    assert gaps[0].severity == "critical"
+    assert not gaps[0].needs_confirmation
+
+
+def test_silence_never_scores_worse_than_contradiction():
+    """The ordering that makes this principle real: whatever else changes, a candidate whose
+    resume is silent must never rank below one whose resume argues against them."""
+    reqs = [_req(0, "required", dealbreaker=True)] + [_req(i, "required") for i in range(1, 4)]
+    rest = [_match(i, "moderate") for i in range(1, 4)]
+    silent = score_fit([_match_b(0, "missing", "unstated")] + rest, reqs)
+    against = score_fit([_match_b(0, "missing", "contradicted")] + rest, reqs)
+    assert silent.score >= against.score

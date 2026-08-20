@@ -18,3 +18,23 @@ tasks:
 
 temperature: 0.0
 max_retries: 3
+
+# Nemotron 3 is a reasoning model. For extraction and classification the thinking trace is pure
+# latency - measured on one 2,069-char resume chunk: 82.6s with thinking on producing 29 claims,
+# 13-35s with it off producing 29-39 claims. Faster AND better recall, so it stays off for the
+# mechanical tasks. Left ON for skill_map and bluff_llm, which are genuine judgement calls.
+disable_thinking_for:
+  - jd_parse
+  - claim_extract
+  - style_read
+  - question_gen
+  - jd_slop
+  - corpus_rewrite
+
+# Documented failover, NOT automatic. OpenAI-compatible and free, but measured unreliable on
+# 2026-08-20: deepseek-v4-pro-free timed out at 100s, qwen3.8-max-free returned 503. Kept here
+# so the option is one config edit away if NIM degrades during the demo.
+fallback_provider:
+  base_url: "https://api.tokenrouter.com/v1"
+  api_key_env: "TOKEN_ROUTER"
+  models: ["deepseek/deepseek-v4-pro-0813-free", "qwen/qwen3.8-max-free"]

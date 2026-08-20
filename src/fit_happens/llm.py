@@ -15,6 +15,7 @@ from __future__ import annotations
 
 import hashlib
 import json
+import re
 import threading
 import time
 from typing import TypeVar
@@ -47,21 +48,32 @@ def _throttle() -> None:
         _calls.append(time.monotonic())
 
 
-def _client(model: str) -> ChatOpenAI:
-    if model not in _clients:
-        _clients[model] = ChatOpenAI(
+def _client(model: str, no_think: bool) -> ChatOpenAI:
+    key = f"{model}|{no_think}"
+    if key not in _clients:
+        extra = {"chat_template_kwargs": {"thinking": False}} if no_think else {}
+        _clients[key] = ChatOpenAI(
             model=model,
             base_url=config.base_url(),
             api_key=config.api_key(),
             temperature=config.models().get("temperature", 0.0),
             max_retries=config.models().get("max_retries", 3),
+            timeout=180,
+            **({"extra_body": extra} if extra else {}),
         )
-    return _clients[model]
+    return _clients[key]
+
+
+# Untrusted-data blocks carry a random per-call nonce (see ingest/sanitize.wrap_untrusted) so
+# an injected instruction cannot guess the closing delimiter. That nonce must NOT reach the
+# cache key: it changes every call, so every lookup would miss and the cache would silently do
+# nothing. Normalising it out keeps the security property and makes the cache actually work.
+_NONCE_RE = re.compile(r"id=[0-9a-f]{6,}")
 
 
 def _key(model: str, schema: type[BaseModel], prompt: str) -> str:
     payload = json.dumps(
-        {"m": model, "s": schema.model_json_schema(), "p": prompt},
+        {"m": model, "s": schema.model_json_schema(), "p": _NONCE_RE.sub("id=NONCE", prompt)},
         sort_keys=True,
         separators=(",", ":"),
     )
@@ -87,10 +99,26 @@ def structured(task: str, schema: type[T], prompt: str, *, model: str | None = N
         )
 
     _throttle()
-    result = _client(model).with_structured_output(schema).invoke(prompt)
+    result = _client(model, config.thinking_disabled(task)).with_structured_output(schema).invoke(prompt)
     cache_file.parent.mkdir(parents=True, exist_ok=True)
     cache_file.write_text(result.model_dump_json(indent=2))
     return result
+
+
+def structured_many(task: str, schema: type[T], prompts: list[str], *, workers: int = 4) -> list[T]:
+    """Same as `structured`, run concurrently over many prompts, order preserved.
+
+    Chunked extraction is the reason this exists: a long resume splits into seven chunks, and
+    sequentially that is seven round trips of 13-35s each. The shared throttle still applies,
+    so concurrency cannot breach the provider's rate limit - it just stops us idling between
+    calls that were never going to contend for it.
+    """
+    from concurrent.futures import ThreadPoolExecutor
+
+    if not prompts:
+        return []
+    with ThreadPoolExecutor(max_workers=workers) as pool:
+        return list(pool.map(lambda p: structured(task, schema, p), prompts))
 
 
 def cache_stats() -> dict[str, int]:

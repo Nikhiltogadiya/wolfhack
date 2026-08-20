@@ -75,6 +75,15 @@ def api_key() -> str:
     return key
 
 
+def thinking_disabled(task: str) -> bool:
+    """Whether to switch the reasoning trace off for this task.
+
+    On for judgement calls (skill mapping, the two LLM bluff patterns), off for mechanical
+    extraction - where it measured 2.5-6x slower with no recall benefit.
+    """
+    return task in set(models().get("disable_thinking_for", []))
+
+
 def offline() -> bool:
     """Replay-only mode. Any cache miss raises instead of hitting the network."""
     return os.environ.get("FIT_HAPPENS_OFFLINE", "").lower() in {"1", "true", "yes"}
