@@ -38,8 +38,11 @@ Default model `nvidia/nemotron-3-nano-30b-a3b`; see `config/models.yaml`.
   Anything needing logprobs from the legacy completions API is off the table.
 - **`/v1/models` is public** — a 200 there does not prove your key works. Test a chat call.
 - **NIM free tier is ~40 req/min.** Bulk work goes through the disk cache; never live.
-- **PyMuPDF `TEXT_MEDIABOX_CLIP` (64) is ON by default** and silently discards off-page text —
-  one of the attacks we hunt. Clear it when extracting spans.
+- **Off-page text: engines disagree, and that disagreement IS the detector.** Verified on a
+  reportlab fixture whose injected text is physically in the content stream: `pdfplumber` and
+  `pdfminer` extract it; `pymupdf` and `pypdfium2` do not. Clearing
+  `TEXT_MEDIABOX_CLIP` changes nothing — that lever does not exist. Do not "fix" PyMuPDF;
+  run two engines and flag the delta (`ingest/divergence.py`).
 - **PyMuPDF is AGPL.** Fine for the hackathon; blocks permissive open-sourcing. `pypdfium2`
   (Apache/BSD) exposes render mode, fill colour and font size if we need to swap.
 - **AI-text detectors are unsafe per-bullet.** Score the whole résumé (400-700 words) or not at
