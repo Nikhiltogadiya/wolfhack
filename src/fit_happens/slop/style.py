@@ -16,6 +16,23 @@ Three hard rules, enforced below:
     any of this to mean anything;
   * a wide grey band, reported as inconclusive rather than resolved into a verdict;
   * the output can never, on its own, produce anything stronger than `inconclusive`.
+
+WHAT WE MEASURED, and why the third rule is not just caution.
+We calibrated on 60 real resumes and LLM rewrites of the SAME resumes (`scripts/calibrate.py`,
+`scripts/feature_analysis.py`). Share of rewrites exceeding the human 90th percentile:
+
+    em dashes            27%      <- the only signal with real separation
+    stock phrases/100w   18%
+    rule of three         8%
+    stock phrase types    3%
+    self-significance     2%
+    "not just X but Y"    0%
+    copula avoidance      0%
+
+The brief's four headline "vibe check" patterns are at or near zero. A detector built on them
+scores 0% detection at 0% false positives on real data - it fires only on caricature. We are
+reporting that rather than lowering thresholds until the number looks better, because the
+threshold that would buy 27% detection costs flagging one real person in ten.
 """
 
 from __future__ import annotations
@@ -41,9 +58,41 @@ RULE_OF_THREE = re.compile(r"\b\w+,\s+\w+,?\s+and\s+\w+\b")
 EM_DASH = re.compile(r"[—–]")
 
 
+# A line that starts a new bullet, rather than continuing the previous one.
+_BULLET_START = re.compile(r"^\s*(?:[-\u2022*\u00b7\u25aa\u25cf\u2013]|\d+[.)])\s+")
+# A line that ends where a thought ends, rather than at the edge of the page.
+_ENDS_COMPLETE = re.compile(r"[.!?;:]\s*$|^\s*$")
+
+
 def _bullets(text: str) -> list[str]:
-    lines = [re.sub(r"^\s*[-•*•]\s*", "", ln).strip() for ln in text.splitlines()]
-    return [ln for ln in lines if len(ln.split()) >= 4]
+    """Reconstruct bullets from PDF text, rejoining lines that were wrapped by layout.
+
+    This is a correctness fix, not tidying. Splitting naively on newlines treats every
+    page-width wrap as a separate bullet, so a PDF that wraps at a narrow column yields many
+    near-identical fragment lengths and an artificially LOW length variance. Measured on 60
+    real resumes against LLM rewrites of the same resumes, that artefact was the single
+    "strongest" signal in the whole detector - human median variance 0.40 vs 0.66 for rewrites -
+    and it was measuring column width. A candidate would have been flagged for how their PDF
+    happened to wrap.
+
+    A line continues the previous one when it does not begin a bullet, the previous line did
+    not end at a sentence boundary, and the previous line looks long enough to have been cut
+    off by the page rather than by the writer.
+    """
+    raw = text.splitlines()
+    merged: list[str] = []
+    for line in raw:
+        stripped = line.strip()
+        if not stripped:
+            continue
+        starts_new = bool(_BULLET_START.match(line)) or not merged
+        prev_complete = bool(_ENDS_COMPLETE.search(merged[-1])) if merged else True
+        prev_short = len(merged[-1].split()) < 8 if merged else True
+        if starts_new or prev_complete or prev_short:
+            merged.append(_BULLET_START.sub("", stripped))
+        else:
+            merged[-1] = f"{merged[-1]} {stripped}"
+    return [b for b in merged if len(b.split()) >= 4]
 
 
 def _flag(pattern_id: str, description: str, quote: str, confidence: float) -> Flag:
@@ -114,8 +163,10 @@ def read_style(text: str) -> StyleRead:
 
     return StyleRead(
         score=round(score, 3), band=band, patterns_fired=flags, word_count=len(words),
-        caveat=("Writing style alone is never evidence. Non-native English phrasing and "
-                "assistive writing tools are known false-positive triggers - a published "
-                "study found a 61% false-positive rate for non-native writers. Treat this as "
-                "a prompt to read the document, never as a finding."),
+        caveat=("Advisory only - this signal never contributes to a flag. We measured it on 60 "
+                "real resumes against LLM rewrites of the same resumes: the strongest pattern "
+                "separated the two classes for only 27% of rewrites, and most separated for "
+                "under 8%. Published work also finds a 61% false-positive rate for non-native "
+                "English writers. Read it as a prompt to look at the document yourself, never "
+                "as a finding about the person."),
     )

@@ -25,3 +25,6 @@ someone) · `WONTFIX` (decided against, reason recorded) · `DONE` (with date).
 | 17 | DEFERRED | Calibration corpus (M10) | Human vs LLM-rewritten resumes -> measured false-positive rate incl. a non-native-English slice | `scripts/calibrate.py` | Next session |
 | 18 | DEFERRED | Recruiter rejection feedback | ~20 min, textarea + storage; no demo payoff | `web/` | If M10 lands early |
 | 19 | UNVERIFIED | Undersold collapse leaks near-variants | 'uwsgi-nginx' survived alongside 'nginx' - prefix collapse is crude | `verify/github.py` | If it looks noisy on stage |
+| 20 | DONE 2026-08-20 | M10 calibration | 60 real resumes vs LLM rewrites of the same. 0% FPR, 0% TPR. Feature separation measured | `scripts/calibrate.py`, `scripts/feature_analysis.py` | - |
+| 21 | WONTFIX | Tune CP1 thresholds to raise detection | The only signal with separation (em dashes, 27%) costs ~10% false positives. For a hiring tool that trade is wrong, and the house rule already forbids style from flagging | `slop/style.py` | Only if a non-perplexity signal with real separation is found |
+| 22 | DEFERRED | Non-native-English FPR slice | The corpus has no such labels and inferring them from text would be unreliable AND inappropriate. Category-level FPR spread (0%) is the fairness check we CAN run honestly | `scripts/calibrate.py` | A labelled dataset |

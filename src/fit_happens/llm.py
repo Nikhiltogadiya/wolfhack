@@ -114,20 +114,57 @@ def structured(task: str, schema: type[T], prompt: str, *, model: str | None = N
     return result
 
 
-def structured_many(task: str, schema: type[T], prompts: list[str], *, workers: int = 4) -> list[T]:
+def structured_many(
+    task: str,
+    schema: type[T],
+    prompts: list[str],
+    *,
+    workers: int = 4,
+    timeout: float = 240.0,
+    tolerate_failures: bool = False,
+) -> list[T | None]:
     """Same as `structured`, run concurrently over many prompts, order preserved.
 
     Chunked extraction is the reason this exists: a long resume splits into seven chunks, and
     sequentially that is seven round trips of 13-35s each. The shared throttle still applies,
     so concurrency cannot breach the provider's rate limit - it just stops us idling between
     calls that were never going to contend for it.
+
+    `pool.map` waits for every future, so ONE hung request stalls the whole batch indefinitely.
+    That happened on a 60-item calibration run: 134 cached results, then zero progress, with no
+    error and no way to tell from the outside. Now each future has its own deadline, and with
+    `tolerate_failures` a batch of independent items degrades to a shorter batch instead of
+    hanging - which is what you want for corpus work, and not what you want for the seven
+    chunks of a single resume, where a missing chunk silently loses claims.
     """
-    from concurrent.futures import ThreadPoolExecutor
+    from concurrent.futures import FIRST_COMPLETED, ThreadPoolExecutor, wait
 
     if not prompts:
         return []
+
+    results: list[T | None] = [None] * len(prompts)
     with ThreadPoolExecutor(max_workers=workers) as pool:
-        return list(pool.map(lambda p: structured(task, schema, p), prompts))
+        futures = {pool.submit(structured, task, schema, p): i for i, p in enumerate(prompts)}
+        pending = set(futures)
+        deadline_hits = 0
+        while pending:
+            done, pending = wait(pending, timeout=timeout, return_when=FIRST_COMPLETED)
+            if not done:  # nothing finished within the window: the rest are stuck
+                deadline_hits += 1
+                for f in pending:
+                    f.cancel()
+                if not tolerate_failures:
+                    raise TimeoutError(
+                        f"{len(pending)} of {len(prompts)} {task!r} calls made no progress in "
+                        f"{timeout:.0f}s")
+                break
+            for f in done:
+                try:
+                    results[futures[f]] = f.result()
+                except Exception:
+                    if not tolerate_failures:
+                        raise
+    return results
 
 
 def cache_stats() -> dict[str, int]:

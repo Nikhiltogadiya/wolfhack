@@ -217,3 +217,59 @@ inside Jinja's cache with `unhashable type: 'dict'`. And pydantic v2 forbids set
 undeclared attributes, so display-only fields are computed properties.
 
 **State: the entire demo replays with `FIT_HAPPENS_OFFLINE=1` and no network.**
+
+---
+
+## 2026-08-20 — M10: calibration, and the style detector does not work
+
+Intake §11 q5 asked what ground truth exists for "this CV is bluffing". None existed, so we
+built some: **60 real resumes** from the corpus (known human, pre-LLM era) against **LLM
+rewrites of the same resumes** (known AI, same people, same facts, same distribution - only the
+prose differs). The rewrite prompt asks for a normal polish, the way an applicant actually
+would; measuring against slop we wrote ourselves would only prove we can detect our own writing.
+
+**Headline: 0% false positives, 0% detection.** At every threshold. Human mean style score
+0.014, rewrite mean 0.022, separation +0.009. Our hand-written "slop" sample scores 1.00 - the
+thresholds had been tuned against a caricature, not against the thing the system will meet.
+
+**Feature-level separation**, share of rewrites exceeding the human 90th percentile:
+
+| feature | separation |
+|---|---|
+| em dashes | **27%** |
+| stock phrases per 100 words | 18% |
+| rule of three | 8% |
+| stock phrase types | 3% |
+| self-significance | 2% |
+| "not just X, but Y" | 0% |
+| copula avoidance | 0% |
+
+**The brief's four headline "vibe check" patterns are at or near zero.** Only em-dash density
+separates at all, and a threshold there costs flagging one real person in ten to catch fewer
+than one rewrite in four. We are reporting that rather than lowering thresholds until the
+number looks better.
+
+**A correctness bug the calibration exposed, which would have flagged people for their PDF.**
+The first feature run made `bullet_cv` look like the strongest signal by far - 73% separation,
+human median variance 0.40 against 0.66 for rewrites. It was measuring **PDF line wrapping**.
+`_bullets()` split on newlines, so every page-width wrap became a separate "bullet", and a
+resume that wraps at a narrow column produced many near-identical fragment lengths and an
+artificially low variance. The fragments are visibly mid-sentence: *"account management, cables,
+cabling, Help Desk, Linux, MS Exchange server, Sha"*. After rejoining wrapped lines, separation
+fell **73% -> 2%**, and `mean_bullet_len` fell **30% -> 0%**. Both were artefacts. Shipping
+either would have flagged candidates for how their document happened to lay out.
+
+**Two harness bugs found on the way**, both of which produced confident wrong numbers:
+1. The first calibration loaded resume text from the CSV column, which is a single flattened
+   string with no newlines - silently disabling both bullet-rhythm patterns. It measured a
+   detector with two of its signals switched off and reported the result as meaningful.
+2. `structured_many` used `pool.map`, which waits for every future. One hung request stalled a
+   60-item run indefinitely: 134 cached results, then zero progress, no error, no external
+   signal. Each future now has its own deadline, and independent batches degrade to a shorter
+   batch rather than hanging.
+
+**What this changes.** Nothing about the house rules - style was already forbidden from
+contributing to a flag. What changes is that the rule is now backed by our own measurement on
+our own data rather than by someone else's paper. That is a better thing to say on stage than a
+detection rate: *we built exactly what the brief specified, measured it honestly, found it does
+not discriminate, and refused to tune it until it looked convincing.*
