@@ -206,6 +206,48 @@ class StyleRead(BaseModel):
     caveat: str = ""
 
 
+# ---------------------------------------------------------------- external verification
+
+
+class ExternalEvidence(BaseModel):
+    """Something observed outside the resume - a repo, a language, a commit history."""
+
+    source: Literal["github"] = "github"
+    name: str
+    detail: str = ""
+    first_seen_year: int | None = None
+    last_seen_year: int | None = None
+    url: str = ""
+    volume: int = 0
+
+
+class Verification(BaseModel):
+    """How one claim stands up against evidence found outside the document.
+
+    `unsupported` is NOT an accusation. Most work is not public: closed-source employers,
+    NDAs, non-engineering roles, and anyone who simply does not publish. It means only that
+    this particular external source had nothing to say.
+    """
+
+    claim_id: str
+    skill: str
+    state: Literal["corroborated", "unsupported", "undersold"]
+    evidence: list[ExternalEvidence] = []
+    note: str = ""
+
+
+class ExternalProfile(BaseModel):
+    handle: str = ""
+    found: bool = False
+    public_repos: int = 0
+    evidence: list[ExternalEvidence] = []
+    error: str = ""
+
+    @property
+    def usable(self) -> bool:
+        return self.found and bool(self.evidence)
+
+
 class CheckpointResult(BaseModel):
     checkpoint: Literal["cp1_style", "cp2_claims", "cp3_response"]
     verdict: Verdict
