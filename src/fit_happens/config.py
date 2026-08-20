@@ -60,19 +60,38 @@ def model_for(task: str) -> str:
     return cfg["tasks"].get(task, cfg["default"])
 
 
-def base_url() -> str:
-    return models()["provider"]["base_url"]
+def provider(fallback: bool = False) -> dict:
+    cfg = models()
+    return cfg["fallback_provider"] if fallback else cfg["provider"]
 
 
-def api_key() -> str:
-    env = models()["provider"]["api_key_env"]
+def base_url(fallback: bool = False) -> str:
+    return provider(fallback)["base_url"]
+
+
+def api_key(fallback: bool = False) -> str:
+    env = provider(fallback)["api_key_env"]
     key = os.environ.get(env)
     if not key:
         raise RuntimeError(
             f"{env} is not set. Add it to ~/.bashrc. "
-            f"Note: GET /v1/models is public, so a 200 there does not prove your key works."
+            f"Note: a provider's /models endpoint is often public, so a 200 there does not "
+            f"prove your key works - only a chat completion does."
         )
     return key
+
+
+def no_think_body(fallback: bool = False) -> dict:
+    """How THIS provider is told to skip its reasoning trace. Every vendor spells it
+    differently, and sending the wrong one silently leaves reasoning on."""
+    return provider(fallback).get("no_think_body") or {}
+
+
+def map_model(model: str, fallback: bool = False) -> str:
+    """Translate a primary-provider model id to the fallback's nearest equivalent."""
+    if not fallback:
+        return model
+    return provider(True).get("model_map", {}).get(model, model)
 
 
 def thinking_disabled(task: str) -> bool:

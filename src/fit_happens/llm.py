@@ -48,16 +48,16 @@ def _throttle() -> None:
         _calls.append(time.monotonic())
 
 
-def _client(model: str, no_think: bool) -> ChatOpenAI:
-    key = f"{model}|{no_think}"
+def _client(model: str, no_think: bool, fallback: bool = False) -> ChatOpenAI:
+    key = f"{model}|{no_think}|{fallback}"
     if key not in _clients:
-        extra = {"chat_template_kwargs": {"thinking": False}} if no_think else {}
+        extra = config.no_think_body(fallback) if no_think else {}
         _clients[key] = ChatOpenAI(
-            model=model,
-            base_url=config.base_url(),
-            api_key=config.api_key(),
+            model=config.map_model(model, fallback),
+            base_url=config.base_url(fallback),
+            api_key=config.api_key(fallback),
             temperature=config.models().get("temperature", 0.0),
-            max_retries=config.models().get("max_retries", 3),
+            max_retries=config.models().get("max_retries", 2),
             timeout=180,
             **({"extra_body": extra} if extra else {}),
         )
@@ -99,7 +99,16 @@ def structured(task: str, schema: type[T], prompt: str, *, model: str | None = N
         )
 
     _throttle()
-    result = _client(model, config.thinking_disabled(task)).with_structured_output(schema).invoke(prompt)
+    no_think = config.thinking_disabled(task)
+    try:
+        result = _client(model, no_think).with_structured_output(schema).invoke(prompt)
+    except Exception as primary_error:
+        # Failover is not a nicety here. The demo runs live on venue wifi against a provider we
+        # do not control, and the fallback is free and independent.
+        try:
+            result = _client(model, no_think, fallback=True).with_structured_output(schema).invoke(prompt)
+        except Exception:
+            raise primary_error
     cache_file.parent.mkdir(parents=True, exist_ok=True)
     cache_file.write_text(result.model_dump_json(indent=2))
     return result

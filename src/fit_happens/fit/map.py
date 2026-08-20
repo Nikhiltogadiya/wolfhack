@@ -14,7 +14,7 @@ from pydantic import BaseModel, Field
 from .. import llm
 from ..ingest import sanitize
 from ..schemas import Claim, Employment, Match, Requirement
-from . import derived
+from . import derived, select as selector
 
 
 class _Match(BaseModel):
@@ -84,6 +84,9 @@ def map_claims(
     if not requirements:
         return []
     req_block = "\n".join(f"[{r.id}] ({r.kind}) {r.text}" for r in requirements)
+    # Shortlist before the expensive call. All 303 claims from a thorough extraction make a
+    # ~33k-char prompt that times out and buries the ones that matter.
+    claims = selector.select(claims, requirements)
     claim_block = "\n".join(
         f"[{c.id}] {c.skill[:110]}"
         + (f" - {c.years_claimed}y claimed" if c.years_claimed else "")

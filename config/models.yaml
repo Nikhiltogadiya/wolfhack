@@ -1,40 +1,55 @@
-# Task -> model. Confirmed live against GET /v1/models on 2026-08-20.
-# Keep tasks cheap by default; escalate only where reasoning quality actually matters.
+# Task -> model routing. All ids confirmed live against each provider's /models endpoint.
+#
+# Both providers front REASONING models, and for mechanical extraction the reasoning trace is
+# pure latency. Measured on one 2,069-char resume chunk:
+#   NIM nemotron-3-nano  thinking on  -> 29 claims,  82.6s
+#   NIM nemotron-3-nano  thinking off -> 33 claims,  31.7s
+#   DeepSeek v4 flash    reasoning off-> 59 claims,  14.4s   <- primary
+# Each provider spells "stop thinking" differently, hence no_think_body below. Getting this
+# wrong is not a slow path, it is a broken one: with reasoning on and a small max_tokens,
+# DeepSeek returns content=null having spent the whole budget on the trace.
+
 provider:
+  name: openrouter
+  base_url: "https://openrouter.ai/api/v1"
+  api_key_env: "OPENROUTER_API_KEY"
+  no_think_body: {reasoning: {enabled: false}}
+
+# Automatic failover. Free, slower, and independent of OpenRouter - which is the point during
+# a live demo. Tried only when the primary raises.
+fallback_provider:
+  name: nim
   base_url: "https://integrate.api.nvidia.com/v1"
   api_key_env: "NVIDIA_API_KEY"
+  no_think_body: {chat_template_kwargs: {thinking: false}}
+  model_map:
+    deepseek/deepseek-v4-flash-0731: nvidia/nemotron-3-nano-30b-a3b
 
-default: &default nvidia/nemotron-3-nano-30b-a3b
+default: &default deepseek/deepseek-v4-flash-0731
 
 tasks:
-  jd_parse:        *default        # structured extraction, schema-guided
-  claim_extract:   *default        # structured extraction, schema-guided
-  skill_map:       nvidia/nemotron-3-super-120b-a12b   # hardest reasoning: does X evidence Y?
-  style_read:      *default        # CP1 narrative read (deterministic features do the scoring)
-  bluff_llm:       nvidia/nemotron-3-super-120b-a12b   # the 2 non-deterministic bluff patterns
+  jd_parse:        *default
+  claim_extract:   *default
+  skill_map:       *default
+  style_read:      *default
+  bluff_llm:       *default
   question_gen:    *default
   jd_slop:         *default
-  corpus_rewrite:  *default        # building the known-AI class for calibration
+  corpus_rewrite:  *default
 
-temperature: 0.0
-max_retries: 3
-
-# Nemotron 3 is a reasoning model. For extraction and classification the thinking trace is pure
-# latency - measured on one 2,069-char resume chunk: 82.6s with thinking on producing 29 claims,
-# 13-35s with it off producing 29-39 claims. Faster AND better recall, so it stays off for the
-# mechanical tasks. Left ON for skill_map and bluff_llm, which are genuine judgement calls.
+# Reasoning OFF for extraction, classification and mapping. Mapping was the last holdout: with
+# 303 unfiltered claims it genuinely needed the trace and still timed out. Shortlisting the
+# claims first (fit/select.py) made the question small enough to answer directly. Left ON only
+# for bluff_llm, where the model is asked to reason about plausibility rather than look things
+# up.
 disable_thinking_for:
   - jd_parse
   - claim_extract
+  - skill_map
   - style_read
   - question_gen
   - jd_slop
   - corpus_rewrite
 
-# Documented failover, NOT automatic. OpenAI-compatible and free, but measured unreliable on
-# 2026-08-20: deepseek-v4-pro-free timed out at 100s, qwen3.8-max-free returned 503. Kept here
-# so the option is one config edit away if NIM degrades during the demo.
-fallback_provider:
-  base_url: "https://api.tokenrouter.com/v1"
-  api_key_env: "TOKEN_ROUTER"
-  models: ["deepseek/deepseek-v4-pro-0813-free", "qwen/qwen3.8-max-free"]
+temperature: 0.0
+max_retries: 2

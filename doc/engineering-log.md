@@ -123,3 +123,50 @@ inspects the field names of every type `score_fit` accepts, plus its signature, 
 asserting that today's implementation ignores style. A behavioural test proves the current code
 does not use style; a structural one proves the function has no way to read it. Only the second
 is the guarantee we make out loud.
+
+---
+
+## 2026-08-20 — Provider switch, and two metrics that lied
+
+**Switched to DeepSeek V4 Flash on OpenRouter, NIM kept as automatic failover.** Measured on
+one 2,069-char resume chunk, same prompt:
+
+| provider / setting | claims | time |
+|---|---|---|
+| NIM nemotron-3-nano, thinking ON | 29 | 82.6s |
+| NIM nemotron-3-nano, thinking OFF | 33 | 31.7s |
+| **DeepSeek v4 flash, reasoning OFF** | **59** | **14.4s** |
+
+**Both are reasoning models, and each spells "stop thinking" differently.** NIM wants
+`chat_template_kwargs.thinking=false`; OpenRouter wants `reasoning.enabled=false`. This is not
+a tuning knob — with reasoning on and a small `max_tokens`, DeepSeek returns `content: null`
+and `finish_reason: "length"` having spent the entire budget on the trace. HTTP 200, no error,
+no output. `reasoning.effort=minimal` also returned null; do not use it.
+
+Cost, measured rather than estimated: ~30k input / ~16k output tokens per resume × JD, at
+$0.0679/$0.168 per 1M = **$0.0048 per candidate**. Whole project including a 200-resume
+calibration run lands around **$1.20**.
+
+**Failover is verified by its failure path**, not by hoping: with a deliberately invalid
+OpenRouter key the call transparently completes on NIM in 2.7s; with both keys invalid it
+raises the *primary* error rather than the fallback's.
+
+**Two metrics that lied, both in claim selection.** Chunked extraction produces ~250 claims per
+resume, which makes a 33k-char mapper prompt that times out, so claims are shortlisted per
+requirement with cheap fuzzy matching first. Two bugs, both of which looked like working code:
+
+1. **`partial_token_set_ratio` saturates.** It returns ~100 for almost any pair, so all 199
+   deduped claims scored an identical **90.0**. The "ranking" was document order. Firewall,
+   Cisco and VPN were dropped for a requirement that literally says "firewalls".
+2. **Token sets were not singularised** — `firewall` never matched `firewalls`. This is the
+   *same* bug class as the JD guard's word stems, in different code, found the same way: by
+   checking a case the implementation was not written against.
+
+Also fixed: normalising overlap by the requirement's token count penalised precisely the
+claims that were most on-point, since a one-word claim like "Firewall" can only ever cover a
+fifth of a five-word requirement. Normalising by the smaller set fixes it. After all three:
+Firewall and routing rank 100.0 for the network requirement, top of the list.
+
+**Result on real corpus resumes** — right background / flat writing **69%**, wrong background /
+polished writing **0%**. The one critical gap on the strong candidate is "right to work in
+Germany", correctly recorded as `unstated` and flagged for confirmation rather than capping.
