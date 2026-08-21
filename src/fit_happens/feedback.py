@@ -42,6 +42,10 @@ REASONS: dict[str, dict[str, str]] = {
     "already_progressed": {
         "label": "Pipeline reason, nothing to do with fit",
         "signal": "no model change needed - excluded from calibration"},
+    "cleared_by_human": {
+        "label": "Flags reviewed and cleared",
+        "signal": "a human judged the flags immaterial - if one pattern is cleared repeatedly, "
+                  "that pattern is too noisy and should be retired"},
     "other": {"label": "Something else",
               "signal": "no mapped signal - a human reads the note, and if the same thing "
                         "recurs it earns its own reason"},

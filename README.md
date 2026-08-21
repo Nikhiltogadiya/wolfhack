@@ -30,12 +30,15 @@ export GITHUB_TOKEN=...          # optional; 60 req/h without it
 uv run uvicorn fit_happens.web.app:app --reload --port 8000
 ```
 
-Build the demo run, then open http://127.0.0.1:8000
+Then open http://127.0.0.1:8000 and click **Load the sample role** — or create your own,
+paste an advert, and upload CVs. Everything works in the browser; the CLI is optional:
 
 ```bash
-uv run python scripts/build_demo.py data/demo/resumes/*.pdf
+uv run python scripts/build_demo.py data/demo/resumes/*.pdf          # same thing, headless
 FIT_HAPPENS_OFFLINE=1 uv run python scripts/build_demo.py data/demo/resumes/*.pdf  # no network
 ```
+
+Do not add `--reload` when demoing: it kills in-flight upload processing.
 
 Tests: `uv run pytest` (network tests are opt-in: `uv run pytest -m live`).
 

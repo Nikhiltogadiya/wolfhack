@@ -1,0 +1,147 @@
+{
+  "jd": {
+    "title": "Security Analyst",
+    "external_text": "## Requirements\n- At least 3 years in a SOC\n- Experience with SIEM tooling (Splunk or Sentinel)\n- Must have the right to work in Germany\n## Preferred\n- CISSP or equivalent is desirable\n- German language skills are advantageous",
+    "internal": [
+      {
+        "field_name": "mentoring_capacity",
+        "value": "team is junior, needs a mentor",
+        "weight": 1.0,
+        "required": false
+      },
+      {
+        "field_name": "team_context",
+        "value": "we want a young energetic team",
+        "weight": 1.0,
+        "required": false
+      }
+    ],
+    "audit": [
+      {
+        "at": "2026-08-21T02:15:10+00:00",
+        "event": "internal_constraint_accepted",
+        "detail": "mentoring_capacity: team is junior, needs a mentor",
+        "actor": "system"
+      },
+      {
+        "at": "2026-08-21T02:15:10+00:00",
+        "event": "internal_constraint_REFUSED",
+        "detail": "team_context: 'we want a young energetic team' - refused: age: age proxy",
+        "actor": "system"
+      }
+    ]
+  },
+  "requirements": [
+    {
+      "id": "ext-0",
+      "text": "At least 3 years in a SOC",
+      "kind": "required",
+      "category": "experience",
+      "dealbreaker": false,
+      "source": "external"
+    },
+    {
+      "id": "ext-1",
+      "text": "Experience with SIEM tooling (Splunk or Sentinel)",
+      "kind": "required",
+      "category": "skill",
+      "dealbreaker": false,
+      "source": "external"
+    },
+    {
+      "id": "ext-2",
+      "text": "Must have the right to work in Germany",
+      "kind": "required",
+      "category": "eligibility",
+      "dealbreaker": true,
+      "source": "external"
+    },
+    {
+      "id": "ext-3",
+      "text": "CISSP or equivalent is desirable",
+      "kind": "preferred",
+      "category": "credential",
+      "dealbreaker": false,
+      "source": "external"
+    },
+    {
+      "id": "ext-4",
+      "text": "German language skills are advantageous",
+      "kind": "preferred",
+      "category": "skill",
+      "dealbreaker": false,
+      "source": "external"
+    },
+    {
+      "id": "int-0",
+      "text": "team is junior, needs a mentor",
+      "kind": "preferred",
+      "category": "experience",
+      "dealbreaker": false,
+      "source": "internal"
+    }
+  ],
+  "clarity": 0.0,
+  "ad_flags": [
+    {
+      "pattern_id": "missing_specifics",
+      "description": "the advert never states location or remote policy",
+      "span": {
+        "text": "",
+        "page": null,
+        "line_start": null,
+        "line_end": null,
+        "bbox": null
+      },
+      "confidence": 0.3
+    },
+    {
+      "pattern_id": "missing_specifics",
+      "description": "the advert never states salary or band",
+      "span": {
+        "text": "",
+        "page": null,
+        "line_start": null,
+        "line_end": null,
+        "bbox": null
+      },
+      "confidence": 0.3
+    },
+    {
+      "pattern_id": "missing_specifics",
+      "description": "the advert never states specific tooling",
+      "span": {
+        "text": "",
+        "page": null,
+        "line_start": null,
+        "line_end": null,
+        "bbox": null
+      },
+      "confidence": 0.3
+    },
+    {
+      "pattern_id": "missing_specifics",
+      "description": "the advert never states team size",
+      "span": {
+        "text": "",
+        "page": null,
+        "line_start": null,
+        "line_end": null,
+        "bbox": null
+      },
+      "confidence": 0.3
+    },
+    {
+      "pattern_id": "missing_specifics",
+      "description": "the advert never states who they report to",
+      "span": {
+        "text": "",
+        "page": null,
+        "line_start": null,
+        "line_end": null,
+        "bbox": null
+      },
+      "confidence": 0.3
+    }
+  ]
+}

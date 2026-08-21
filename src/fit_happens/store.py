@@ -17,10 +17,60 @@ from .schemas import CandidateResult, Requirement
 RUNS = DATA_DIR / "runs"
 
 
+def slugify(text: str) -> str:
+    import re
+
+    slug = re.sub(r"[^a-z0-9]+", "-", (text or "role").lower()).strip("-")[:48]
+    return slug or "role"
+
+
+def roles() -> list[dict]:
+    """Every role that exists, newest first.
+
+    A role is a directory. There is no index file to fall out of sync with the directories it
+    describes - the filesystem is the index.
+    """
+    out = []
+    if not RUNS.exists():
+        return out
+    for d in RUNS.iterdir():
+        if not d.is_dir():
+            continue
+        run = Run(d.name)
+        role = run.load_role()
+        if not role:
+            continue
+        cands = run.candidates()
+        flagged = sum(1 for c in cands if c.cp2.verdict.value == "flag_for_human")
+        out.append({
+            "slug": d.name,
+            "title": role["jd"].get("title") or d.name,
+            "candidates": len(cands),
+            "flagged": flagged,
+            "awaiting": sum(1 for c in cands if c.fit.dealbreakers_unstated),
+            "top_fit": max((c.fit.score for c in cands), default=0.0),
+            "mean_fit": (sum(c.fit.score for c in cands) / len(cands)) if cands else 0.0,
+            "requirements": len(role.get("requirements", [])),
+            "internal": sum(1 for r in role.get("requirements", []) if r.get("source") == "internal"),
+            "blocked": sum(1 for e in role["jd"].get("audit", []) if e["event"] == "internal_constraint_REFUSED"),
+            "clarity": role.get("clarity", 0.0),
+            "modified": d.stat().st_mtime,
+        })
+    return sorted(out, key=lambda r: -r["modified"])
+
+
 class Run:
     def __init__(self, name: str = "demo"):
+        self.name = name
         self.dir = RUNS / name
         self.dir.mkdir(parents=True, exist_ok=True)
+
+    @property
+    def exists(self) -> bool:
+        return (self.dir / "role.json").exists()
+
+    def delete_candidate(self, cid: str) -> None:
+        (self.dir / f"c_{cid}.json").unlink(missing_ok=True)
 
     # ---- role ----
     def save_role(self, jd: JobDescription, requirements: list[Requirement], clarity: float = 0.0,

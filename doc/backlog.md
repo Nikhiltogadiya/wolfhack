@@ -70,6 +70,8 @@ A judge who opens it fresh is shown `uv run python scripts/build_demo.py`.
 | 38 | DONE 2026-08-21 | Job-ad page never shows the advert it is scoring |
 | 39 | DONE 2026-08-21 | No breadcrumbs; no way back up from a candidate |
 | 40 | DEFERRED | Narrow-viewport behaviour untested below ~1000px | Judges use laptops; low risk, not zero |
+| 43 | DONE 2026-08-21 | Stuck uploads shown as running forever | uvicorn `--reload` kills in-flight background tasks; the state file survives so the page spun on work that was never coming back. `tasks.pending()` now reaps anything past 480s. **Do not demo with `--reload`.** |
+| 44 | DONE 2026-08-21 | UI claimed a CV takes 30-60s | Measured 153s cold for a long CV. Copy corrected. |
 
 ### Carried forward
 

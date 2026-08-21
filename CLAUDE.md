@@ -36,9 +36,15 @@ Two components that must never contaminate each other: **Fit Engine** (matching)
    structurally barred from contributing to a flag.
 
 ## Surfaces
-Recruiter: `/` ranking · `/candidate/{id}` evidence · `/injection` · `/job-ad`.
+Recruiter: `/` overview · `/roles/new` create · `/role/{slug}` ranking ·
+`/role/{slug}/c/{cid}` evidence · `/role/{slug}/job-ad` · `/role/{slug}/integrity` · `/market`.
 Candidate: `/apply/{token}` - status, consent, what-we-read, what-we-noticed, questions.
-Tokens come from `ConsentStore().token_for(candidate_id)`.
+Tokens come from `ConsentStore(slug).token_for(candidate_id)`; every store is per-role.
+
+**Run the demo WITHOUT `--reload`.** The reloader restarts the process on any file change and
+kills in-flight upload tasks; the state file survives, so the page would spin on work that is
+never coming back. `tasks.pending()` reaps anything past 480s, but the upload is still lost.
+A CV takes 1-3 minutes cold (measured 153s for a long one) and seconds once cached.
 
 ## Stack
 Python 3.12 + `uv` (never `python -m venv`). FastAPI + Jinja2 + Tailwind CDN.

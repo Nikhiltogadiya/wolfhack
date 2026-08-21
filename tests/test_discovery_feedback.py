@@ -120,3 +120,36 @@ class TestRecruiterFeedback:
         s = store.summary()
         assert s["total"] == 2 and s["our_errors"] == 1 and s["contradicting"] == 2
         assert store.get("a").is_our_error
+
+
+class TestStuckUploads:
+    """uvicorn --reload kills in-flight background tasks. The state file survives, so without
+    this the page spins forever on work that will never finish."""
+
+    def test_a_task_running_too_long_is_reported_as_failed(self, tmp_path, monkeypatch):
+        from datetime import datetime, timedelta, timezone
+
+        from fit_happens.web import tasks
+        monkeypatch.setattr(tasks, "DATA_DIR", tmp_path)
+        tid = tasks.start("r", "cv.pdf")
+        tasks.update("r", tid, "running", "extracting")
+
+        old = (datetime.now(timezone.utc) - timedelta(seconds=tasks.STALE_AFTER_SECONDS + 60))
+        d = tasks._read("r")
+        d["items"][0]["at"] = old.isoformat(timespec="seconds")
+        tasks._write("r", d)
+
+        assert tasks.pending("r") == []
+        assert "restarted" in tasks.failed("r")[0]["error"]
+
+    def test_a_recent_task_is_left_alone(self, tmp_path, monkeypatch):
+        from fit_happens.web import tasks
+        monkeypatch.setattr(tasks, "DATA_DIR", tmp_path)
+        tid = tasks.start("r", "cv.pdf")
+        tasks.update("r", tid, "running", "extracting")
+        assert len(tasks.pending("r")) == 1
+
+    def test_the_cutoff_is_above_a_real_cold_run(self):
+        """Measured: a long CV takes ~150s. A cutoff near that would reap live work."""
+        from fit_happens.web import tasks
+        assert tasks.STALE_AFTER_SECONDS > 300

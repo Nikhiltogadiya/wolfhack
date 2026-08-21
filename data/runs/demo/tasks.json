@@ -1,0 +1,20 @@
+{
+ "items": [
+  {
+   "id": "15118506.pdf-0",
+   "name": "15118506.pdf",
+   "state": "failed",
+   "detail": "",
+   "at": "2026-08-21T02:03:35+00:00",
+   "error": "processing stopped before it finished - most likely the server restarted. Upload the file again."
+  },
+  {
+   "id": "15118506.pdf-1",
+   "name": "15118506.pdf",
+   "state": "done",
+   "detail": "72% fit \u00b7 78 claims",
+   "at": "2026-08-21T02:14:43+00:00",
+   "error": ""
+  }
+ ]
+}

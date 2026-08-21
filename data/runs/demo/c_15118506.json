@@ -1,0 +1,1796 @@
+{
+  "candidate_id": "15118506",
+  "name": "15118506",
+  "category": "demo",
+  "source_path": "data/uploads/demo/15118506.pdf",
+  "fit": {
+    "score": 0.7157,
+    "required_coverage": 0.9,
+    "preferred_coverage": 0.2857,
+    "matches": [
+      {
+        "requirement_id": "ext-0",
+        "strength": "strong",
+        "basis": "unstated",
+        "claim_ids": [
+          "c0",
+          "c20",
+          "c22",
+          "c24",
+          "c25"
+        ],
+        "rationale": "The candidate has 26.6 years of total experience, with 13+ years as Director of IT and prior IT roles, directly covering enterprise IT infrastructure management, including servers, virtualization, networking, and domain environments.",
+        "evidence": [
+          {
+            "text": "Microsoft Server 2003, 2008, 2012",
+            "page": null,
+            "line_start": 6,
+            "line_end": 6,
+            "bbox": null
+          },
+          {
+            "text": "Planned, installed and managed Microsoft domain environment utilizing Microsoft Server 2008",
+            "page": null,
+            "line_start": 28,
+            "line_end": 28,
+            "bbox": null
+          },
+          {
+            "text": "Planned, installed and managed VMware platform for a virtual environment. Converted all physical servers to virtual environment",
+            "page": null,
+            "line_start": 31,
+            "line_end": 31,
+            "bbox": null
+          },
+          {
+            "text": "Maintained Cisco routing, switching, VoIP, and camera infrastructure, implementing our design utilizing third party vendors",
+            "page": null,
+            "line_start": 34,
+            "line_end": 34,
+            "bbox": null
+          },
+          {
+            "text": "Maintained Cisco routing, switching, VoIP, and camera infrastructure, implementing our design utilizing third party vendors",
+            "page": null,
+            "line_start": 34,
+            "line_end": 34,
+            "bbox": null
+          }
+        ]
+      },
+      {
+        "requirement_id": "ext-1",
+        "strength": "strong",
+        "basis": "unstated",
+        "claim_ids": [
+          "c33",
+          "c66"
+        ],
+        "rationale": "The candidate has held a Director of Information Technology title for over 13 years, which directly demonstrates management/leadership of a technical team. The claim of managing staff and infrastructure supports this.",
+        "evidence": [
+          {
+            "text": "Managed staff of more than 10 independent IT contractors in implementation of contract projects",
+            "page": null,
+            "line_start": 41,
+            "line_end": 41,
+            "bbox": null
+          },
+          {
+            "text": "Managed the infrastructure to support 260 users selling 500 vehicles and servicing 7,000 vehicles each month",
+            "page": null,
+            "line_start": 75,
+            "line_end": 75,
+            "bbox": null
+          }
+        ]
+      },
+      {
+        "requirement_id": "ext-2",
+        "strength": "strong",
+        "basis": "unstated",
+        "claim_ids": [
+          "c20",
+          "c0"
+        ],
+        "rationale": "The candidate explicitly claims 'Planned, installed and managed Microsoft domain environment utilizing Microsoft Server 2008' and lists Microsoft Server 2003/2008/2012, which directly evidences Active Directory administration and design.",
+        "evidence": [
+          {
+            "text": "Planned, installed and managed Microsoft domain environment utilizing Microsoft Server 2008",
+            "page": null,
+            "line_start": 28,
+            "line_end": 28,
+            "bbox": null
+          },
+          {
+            "text": "Microsoft Server 2003, 2008, 2012",
+            "page": null,
+            "line_start": 6,
+            "line_end": 6,
+            "bbox": null
+          }
+        ]
+      },
+      {
+        "requirement_id": "ext-3",
+        "strength": "strong",
+        "basis": "unstated",
+        "claim_ids": [
+          "c24",
+          "c25"
+        ],
+        "rationale": "The candidate claims 'Maintained Cisco routing, switching, VoIP, and camera infrastructure', directly covering routing, switching, and network administration.",
+        "evidence": [
+          {
+            "text": "Maintained Cisco routing, switching, VoIP, and camera infrastructure, implementing our design utilizing third party vendors",
+            "page": null,
+            "line_start": 34,
+            "line_end": 34,
+            "bbox": null
+          },
+          {
+            "text": "Maintained Cisco routing, switching, VoIP, and camera infrastructure, implementing our design utilizing third party vendors",
+            "page": null,
+            "line_start": 34,
+            "line_end": 34,
+            "bbox": null
+          }
+        ]
+      },
+      {
+        "requirement_id": "ext-4",
+        "strength": "strong",
+        "basis": "unstated",
+        "claim_ids": [
+          "c40",
+          "c41"
+        ],
+        "rationale": "The candidate claims 'Charged with maintaining compliance and security for customer data', which directly evidences experience with information security and compliance, including audit-related activities.",
+        "evidence": [
+          {
+            "text": "Charged with maintaining compliance and security for customer data. Successfully manage data sharing relationships with more than ten third party vendors. Worked closely with DMS provider to develop an acceptable secure data sharing platform.",
+            "page": null,
+            "line_start": 53,
+            "line_end": 53,
+            "bbox": null
+          },
+          {
+            "text": "Charged with maintaining compliance and security for customer data. Successfully manage data sharing relationships with more than ten third party vendors. Worked closely with DMS provider to develop an acceptable secure data sharing platform.",
+            "page": null,
+            "line_start": 53,
+            "line_end": 53,
+            "bbox": null
+          }
+        ]
+      },
+      {
+        "requirement_id": "ext-5",
+        "strength": "strong",
+        "basis": "unstated",
+        "claim_ids": [
+          "c22",
+          "c20",
+          "c0"
+        ],
+        "rationale": "The candidate has extensive experience planning, installing, and managing infrastructure (servers, virtualization, domain) over many years, which directly evidences planning and executing infrastructure upgrade projects.",
+        "evidence": [
+          {
+            "text": "Planned, installed and managed VMware platform for a virtual environment. Converted all physical servers to virtual environment",
+            "page": null,
+            "line_start": 31,
+            "line_end": 31,
+            "bbox": null
+          },
+          {
+            "text": "Planned, installed and managed Microsoft domain environment utilizing Microsoft Server 2008",
+            "page": null,
+            "line_start": 28,
+            "line_end": 28,
+            "bbox": null
+          },
+          {
+            "text": "Microsoft Server 2003, 2008, 2012",
+            "page": null,
+            "line_start": 6,
+            "line_end": 6,
+            "bbox": null
+          }
+        ]
+      },
+      {
+        "requirement_id": "ext-6",
+        "strength": "strong",
+        "basis": "unstated",
+        "claim_ids": [
+          "c67"
+        ],
+        "rationale": "The candidate holds a Bachelor of Science in Management Information Systems, which is a technical field degree.",
+        "evidence": [
+          {
+            "text": "Bachelor of Science : Management Information Systems",
+            "page": null,
+            "line_start": 78,
+            "line_end": 78,
+            "bbox": null
+          }
+        ]
+      },
+      {
+        "requirement_id": "ext-7",
+        "strength": "missing",
+        "basis": "unstated",
+        "claim_ids": [],
+        "rationale": "The resume does not mention any information about the candidate's right to work in Germany. No evidence for or against.",
+        "evidence": []
+      },
+      {
+        "requirement_id": "ext-8",
+        "strength": "missing",
+        "basis": "unstated",
+        "claim_ids": [
+          "c34"
+        ],
+        "rationale": "The candidate claims 'VMware Certified Professional 5 - Data Center Virtualization', which is a security-related certification? No, it's virtualization. However, the requirement is for security certification (CISSP, Security+, etc.). The candidate does not list any security certification. The claim is not relevant. Therefore, this is unstated.",
+        "evidence": [
+          {
+            "text": "VMware Certified Professional 5 - Data Center Virtualization",
+            "page": null,
+            "line_start": 45,
+            "line_end": 45,
+            "bbox": null
+          }
+        ]
+      },
+      {
+        "requirement_id": "ext-9",
+        "strength": "strong",
+        "basis": "unstated",
+        "claim_ids": [
+          "c38",
+          "c66"
+        ],
+        "rationale": "The candidate's work at a car dealership (Smart Motors) and managing infrastructure for a dealership that sells and services vehicles directly evidences experience in the automotive/transport sector, which is a subset of transport.",
+        "evidence": [
+          {
+            "text": "Led committee to successfully changeÂ our organization's dealership management system (DMS).Â The DMS is similar to an ERP system for auto dealerships",
+            "page": null,
+            "line_start": 51,
+            "line_end": 51,
+            "bbox": null
+          },
+          {
+            "text": "Managed the infrastructure to support 260 users selling 500 vehicles and servicing 7,000 vehicles each month",
+            "page": null,
+            "line_start": 75,
+            "line_end": 75,
+            "bbox": null
+          }
+        ]
+      },
+      {
+        "requirement_id": "ext-10",
+        "strength": "strong",
+        "basis": "unstated",
+        "claim_ids": [
+          "c5",
+          "c6",
+          "c22"
+        ],
+        "rationale": "The candidate explicitly claims VMware ESXi, vCenter, and 'Planned, installed and managed VMware platform', directly evidencing familiarity with VMware virtualization.",
+        "evidence": [
+          {
+            "text": "VMware ESXi",
+            "page": null,
+            "line_start": 8,
+            "line_end": 8,
+            "bbox": null
+          },
+          {
+            "text": "VMware vCenter",
+            "page": null,
+            "line_start": 9,
+            "line_end": 9,
+            "bbox": null
+          },
+          {
+            "text": "Planned, installed and managed VMware platform for a virtual environment. Converted all physical servers to virtual environment",
+            "page": null,
+            "line_start": 31,
+            "line_end": 31,
+            "bbox": null
+          }
+        ]
+      },
+      {
+        "requirement_id": "ext-11",
+        "strength": "missing",
+        "basis": "unstated",
+        "claim_ids": [],
+        "rationale": "No mention of disaster recovery or business continuity planning in the resume.",
+        "evidence": []
+      },
+      {
+        "requirement_id": "ext-12",
+        "strength": "missing",
+        "basis": "unstated",
+        "claim_ids": [],
+        "rationale": "No mention of Azure or AWS or any cloud migration in the resume.",
+        "evidence": []
+      },
+      {
+        "requirement_id": "ext-13",
+        "strength": "missing",
+        "basis": "unstated",
+        "claim_ids": [],
+        "rationale": "No mention of German language skills in the resume.",
+        "evidence": []
+      },
+      {
+        "requirement_id": "int-0",
+        "strength": "strong",
+        "basis": "unstated",
+        "claim_ids": [
+          "c40"
+        ],
+        "rationale": "The candidate claims 'Charged with maintaining compliance and security for customer data', which directly evidences working under a compliance regime. ISO 27001 is a compliance framework, and the candidate's experience with compliance is strong evidence.",
+        "evidence": [
+          {
+            "text": "Charged with maintaining compliance and security for customer data. Successfully manage data sharing relationships with more than ten third party vendors. Worked closely with DMS provider to develop an acceptable secure data sharing platform.",
+            "page": null,
+            "line_start": 53,
+            "line_end": 53,
+            "bbox": null
+          }
+        ]
+      },
+      {
+        "requirement_id": "int-1",
+        "strength": "strong",
+        "basis": "unstated",
+        "claim_ids": [
+          "c33",
+          "c66"
+        ],
+        "rationale": "The candidate has been a Director of IT for 13+ years, managing staff and contractors. This directly evidences mentoring and leading engineers.",
+        "evidence": [
+          {
+            "text": "Managed staff of more than 10 independent IT contractors in implementation of contract projects",
+            "page": null,
+            "line_start": 41,
+            "line_end": 41,
+            "bbox": null
+          },
+          {
+            "text": "Managed the infrastructure to support 260 users selling 500 vehicles and servicing 7,000 vehicles each month",
+            "page": null,
+            "line_start": 75,
+            "line_end": 75,
+            "bbox": null
+          }
+        ]
+      },
+      {
+        "requirement_id": "int-2",
+        "strength": "missing",
+        "basis": "unstated",
+        "claim_ids": [],
+        "rationale": "No mention of Berlin or any location preference or ability to work on-site in Berlin. The resume does not address this.",
+        "evidence": []
+      }
+    ],
+    "gaps": [
+      {
+        "requirement_id": "ext-7",
+        "severity": "critical",
+        "text": "Must have the right to work in Germany",
+        "needs_confirmation": true
+      },
+      {
+        "requirement_id": "ext-8",
+        "severity": "minor",
+        "text": "Security certification such as CISSP, CISM or Security+",
+        "needs_confirmation": false
+      },
+      {
+        "requirement_id": "ext-11",
+        "severity": "minor",
+        "text": "Disaster recovery and business continuity planning",
+        "needs_confirmation": false
+      },
+      {
+        "requirement_id": "ext-12",
+        "severity": "minor",
+        "text": "Exposure to cloud migration (Azure or AWS)",
+        "needs_confirmation": false
+      },
+      {
+        "requirement_id": "ext-13",
+        "severity": "minor",
+        "text": "German language skills",
+        "needs_confirmation": false
+      },
+      {
+        "requirement_id": "int-2",
+        "severity": "minor",
+        "text": "three days a week in the Berlin office",
+        "needs_confirmation": false
+      }
+    ],
+    "dealbreakers_unmet": [],
+    "dealbreakers_unstated": [
+      "ext-7"
+    ],
+    "capped_by_dealbreaker": false
+  },
+  "style": {
+    "score": 0.0,
+    "band": "low",
+    "patterns_fired": [],
+    "word_count": 724,
+    "caveat": "Advisory only - this signal never contributes to a flag. We measured it on 60 real resumes against LLM rewrites of the same resumes: the strongest pattern separated the two classes for only 27% of rewrites, and most separated for under 8%. Published work also finds a 61% false-positive rate for non-native English writers. Read it as a prompt to look at the document yourself, never as a finding about the person."
+  },
+  "cp2": {
+    "checkpoint": "cp2_claims",
+    "verdict": "clear",
+    "flags": [],
+    "reason": "no authenticity inconsistencies found"
+  },
+  "cp3_pending": true,
+  "document": {
+    "source_path": "data/uploads/demo/15118506.pdf",
+    "text": "DIRECTOR OF INFORMATION TECHNOLOGY\nExecutive Profile\nInnovative executive and technology professional with strong work ethic and excellent communication skills, experienced in high-volume, multi-unit,\nretail and business operations. Desires a high-level position in a professional business environment.\nSkill Highlights\nMicrosoft Server 2003, 2008, 2012\nExchange Server 2007, 2010\nVMware ESXi\nVMware vCenter\nVMware Horizon ViewÂ 5.x, 6.x, and 7.x\nMicrosoft Hyper-V\nCisco UCM and Unity\nHelp Desk\nITIL Service Catalog\nVendor Management\nBudgeting\nProject Management\nSLA Management\nAsset Management\nProfessional Experience\nDirector of Information Technology 11/2012 to Current Company Name City , State\nDeveloped and implemented the IT strategy for the organization including software, support and infrastructure\nHired, developed, and managed IT staff\nNegotiated terms and products from external vendors, including changes needed as business needs changed\nMet and exceeded goals set by executive leadership accomplishing both time and financial gains\nSet annual budgets for organizational technology needs\nIT Administrator 03/2008 to 11/2012 Company Name City , State\nPlanned, installed and managed Microsoft domain environment utilizing Microsoft Server 2008\nUpgraded environment to Server 2012\nPlanned, installed and managed Microsoft Exchange server, successfully migrating end user data from third party non-Exchange environment\nPlanned, installed and managed VMware platform for a virtual environment. Converted all physical servers to virtual environment\nPlanned, installed and managed VMware Horizon View virtual desktop environment\nSuccessfully migrated 120 users from physical computers to zero clients utilizing the VDI environment\nMaintained Cisco routing, switching, VoIP, and camera infrastructure, implementing our design utilizing third party vendors\nManaged help desk, utilizing ITIL framework for 260 end users\nExecuted break/fix for computers, printers, security system, camera system, and all A/V systems\nNew Car Sales 08/2005 to 02/2008 Company Name City , State\nRecognized by Toyota as one of the top salespeople in the Chicago Region\nIT Consultant 01/2000 to 08/2005 Company Name City , State\nProvided IT consultation and implementation of retail cash register networks\nManaged staff of more than 10 independent IT contractors in implementation of contract projects\nActed as project manager for new equipment and software roll outs for some of the largest retail chains in the US including Wal-Mart, Mar-\nMaxx, and Toys 'R Us\nCertifications\nVMware Certified Professional 5 - Data Center Virtualization\nVMware Certified Professional 5 - Desktop Virtualization\nITIL Foundation Certified\nMicrosoft Certified Professional - Server 2012\nCore Accomplishments\nLeadership Skills:\nLed committee to successfully changeÂ our organization's dealership management system (DMS).Â The DMS is similar to an ERP system\nfor auto dealerships\nCharged with maintaining compliance and security for customer data. Successfully manage data sharing relationships with more than ten third\nparty vendors. Worked closely with DMS provider to develop an acceptable secure data sharing platform.\n\nProject Management:\nCurrently managing the conversion of the dealership to a newÂ dealership management system.Â Created and ran sub-committees,\nmapped out and executed the conversion plan, responsible for many key process changes and workflowsÂ \nServed as project manager for project creating a paperless work flow and digital storage process which resulted in 50% reduction of\nadministrative processing time, $30,000/year reduction in costs, while increasing document availability and storage accuracy.\nAs project manager, developed Smart Motors domain environment including group policy, DNS, multiple domain controllers, and OU\nstructure.\nManaged email conversion project, deploying Smart Motors' on-site Exchange server. Converted existing email accounts from non-\nExchange and provide access via Outlook Web App and mobile phone connectionsÂ \nServed as project manager on several projects developing Smart Motors' virtual environment, including 5 esxi hosts separated into two\nresource pools, vCenter, Horizon View for 120 users utilizing 2 view connection servers and a security server\nInstalled and mange TrendMicro agentless security for VMware View\nStaff Development:\nFrequently met one on one with staff to determine motivation and goals. Guided staff in creation of goals and the pursuit there of\nPresented daily topics in morning meetings to inform and reinforce company core values such as commitment to quality, customer\nsatisfaction, and continuous improvment\nDeveloped and implemented a training program for new employees, providing them with the technology skills necessary for efficient and\nsuccessful use of company technology tools\nOperations Management:\nManaged the infrastructure to support 260 users selling 500 vehicles and servicing 7,000Â vehicles each month\nHandled all technology vendor interactions including contract negotiations, SLA monitoring, and license utilization\nEducation\nBachelor of Science : Management Information Systems Cardinal Stritch University City , State\nOnline Profile\nLinkedIn\nwww.linkedin.com/in/RobertRJordan Â \n",
+    "raw_text": "DIRECTOR OF INFORMATION TECHNOLOGY\nExecutive Profile\nInnovative executive and technology professional with strong work ethic and excellent communication skills, experienced in high-volume, multi-unit,\nretail and business operations. Desires a high-level position in a professional business environment.\nSkill Highlights\nMicrosoft Server 2003, 2008, 2012\nExchange Server 2007, 2010\nVMware ESXi\nVMware vCenter\nVMware Horizon ViewÂ 5.x, 6.x, and 7.x\nMicrosoft Hyper-V\nCisco UCM and Unity\nHelp Desk\nITIL Service Catalog\nVendor Management\nBudgeting\nProject Management\nSLA Management\nAsset Management\nProfessional Experience\nDirector of Information Technology 11/2012 to Current Company Name City , State\nDeveloped and implemented the IT strategy for the organization including software, support and infrastructure\nHired, developed, and managed IT staff\nNegotiated terms and products from external vendors, including changes needed as business needs changed\nMet and exceeded goals set by executive leadership accomplishing both time and financial gains\nSet annual budgets for organizational technology needs\nIT Administrator 03/2008 to 11/2012 Company Name City , State\nPlanned, installed and managed Microsoft domain environment utilizing Microsoft Server 2008\nUpgraded environment to Server 2012\nPlanned, installed and managed Microsoft Exchange server, successfully migrating end user data from third party non-Exchange environment\nPlanned, installed and managed VMware platform for a virtual environment. Converted all physical servers to virtual environment\nPlanned, installed and managed VMware Horizon View virtual desktop environment\nSuccessfully migrated 120 users from physical computers to zero clients utilizing the VDI environment\nMaintained Cisco routing, switching, VoIP, and camera infrastructure, implementing our design utilizing third party vendors\nManaged help desk, utilizing ITIL framework for 260 end users\nExecuted break/fix for computers, printers, security system, camera system, and all A/V systems\nNew Car Sales 08/2005 to 02/2008 Company Name City , State\nRecognized by Toyota as one of the top salespeople in the Chicago Region\nIT Consultant 01/2000 to 08/2005 Company Name City , State\nProvided IT consultation and implementation of retail cash register networks\nManaged staff of more than 10 independent IT contractors in implementation of contract projects\nActed as project manager for new equipment and software roll outs for some of the largest retail chains in the US including Wal-Mart, Mar-\nMaxx, and Toys 'R Us\nCertifications\nVMware Certified Professional 5 - Data Center Virtualization\nVMware Certified Professional 5 - Desktop Virtualization\nITIL Foundation Certified\nMicrosoft Certified Professional - Server 2012\nCore Accomplishments\nLeadership Skills:\nLed committee to successfully changeÂ our organization's dealership management system (DMS).Â  The DMS is similar to an ERP system\nfor auto dealerships\nCharged with maintaining compliance and security for customer data. Successfully manage data sharing relationships with more than ten third\nparty vendors. Worked closely with DMS provider to develop an acceptable secure data sharing platform.\n\nProject Management:\nCurrently managing the conversion of the dealership to a newÂ dealership management system.Â  Created and ran sub-committees,\nmapped out and executed the conversion plan, responsible for many key process changes and workflowsÂ \nServed as project manager for project creating a paperless work flow and digital storage process which resulted in 50% reduction of\nadministrative processing time, $30,000/year reduction in costs, while increasing document availability and storage accuracy.\nAs project manager, developed Smart Motors domain environment including group policy, DNS, multiple domain controllers, and OU\nstructure.\nManaged email conversion project, deploying Smart Motors' on-site Exchange server. Converted existing email accounts from non-\nExchange and provide access via Outlook Web App and mobile phone connectionsÂ \nServed as project manager on several projects developing Smart Motors' virtual environment, including 5 esxi hosts separated into two\nresource pools, vCenter, Horizon View for 120 users utilizing 2 view connection servers and a security server\nInstalled and mange TrendMicro agentless security for VMware View\nStaff Development:\nFrequently met one on one with staff to determine motivation and goals. Guided staff in creation of goals and the pursuit there of\nPresented daily topics in morning meetings to inform and reinforce company core values such as commitment to quality, customer\nsatisfaction, and continuous improvment\nDeveloped and implemented a training program for new employees, providing them with the technology skills necessary for efficient and\nsuccessful use of company technology tools\nOperations Management:\nManaged the infrastructure to support 260 users selling 500 vehicles and servicing 7,000Â vehicles each month\nHandled all technology vendor interactions including contract negotiations, SLA monitoring, and license utilization\nEducation\nBachelor of Science : Management Information Systems Cardinal Stritch University City , State\nOnline Profile\nLinkedIn\nwww.linkedin.com/in/RobertRJordan Â \n",
+    "hidden": [],
+    "engine_chars": {
+      "pymupdf": 5254,
+      "pypdfium2": 5149,
+      "pdfplumber": 5247,
+      "pdfminer": 5284
+    },
+    "divergence": 0.02554882664647995
+  },
+  "claims": [
+    {
+      "id": "c0",
+      "skill": "Microsoft Server 2003",
+      "years_claimed": null,
+      "since_year": null,
+      "level": null,
+      "employer": null,
+      "evidence": {
+        "text": "Microsoft Server 2003, 2008, 2012",
+        "page": null,
+        "line_start": 6,
+        "line_end": 6,
+        "bbox": null
+      }
+    },
+    {
+      "id": "c1",
+      "skill": "Microsoft Server 2008",
+      "years_claimed": null,
+      "since_year": null,
+      "level": null,
+      "employer": null,
+      "evidence": {
+        "text": "Microsoft Server 2003, 2008, 2012",
+        "page": null,
+        "line_start": 6,
+        "line_end": 6,
+        "bbox": null
+      }
+    },
+    {
+      "id": "c2",
+      "skill": "Microsoft Server 2012",
+      "years_claimed": null,
+      "since_year": null,
+      "level": null,
+      "employer": null,
+      "evidence": {
+        "text": "Microsoft Server 2003, 2008, 2012",
+        "page": null,
+        "line_start": 6,
+        "line_end": 6,
+        "bbox": null
+      }
+    },
+    {
+      "id": "c3",
+      "skill": "Exchange Server 2007",
+      "years_claimed": null,
+      "since_year": null,
+      "level": null,
+      "employer": null,
+      "evidence": {
+        "text": "Exchange Server 2007, 2010",
+        "page": null,
+        "line_start": 7,
+        "line_end": 7,
+        "bbox": null
+      }
+    },
+    {
+      "id": "c4",
+      "skill": "Exchange Server 2010",
+      "years_claimed": null,
+      "since_year": null,
+      "level": null,
+      "employer": null,
+      "evidence": {
+        "text": "Exchange Server 2007, 2010",
+        "page": null,
+        "line_start": 7,
+        "line_end": 7,
+        "bbox": null
+      }
+    },
+    {
+      "id": "c5",
+      "skill": "VMware ESXi",
+      "years_claimed": null,
+      "since_year": null,
+      "level": null,
+      "employer": null,
+      "evidence": {
+        "text": "VMware ESXi",
+        "page": null,
+        "line_start": 8,
+        "line_end": 8,
+        "bbox": null
+      }
+    },
+    {
+      "id": "c6",
+      "skill": "VMware vCenter",
+      "years_claimed": null,
+      "since_year": null,
+      "level": null,
+      "employer": null,
+      "evidence": {
+        "text": "VMware vCenter",
+        "page": null,
+        "line_start": 9,
+        "line_end": 9,
+        "bbox": null
+      }
+    },
+    {
+      "id": "c7",
+      "skill": "VMware Horizon View 5.x",
+      "years_claimed": null,
+      "since_year": null,
+      "level": null,
+      "employer": null,
+      "evidence": {
+        "text": "VMware Horizon ViewÂ 5.x, 6.x, and 7.x",
+        "page": null,
+        "line_start": 10,
+        "line_end": 10,
+        "bbox": null
+      }
+    },
+    {
+      "id": "c8",
+      "skill": "VMware Horizon View 6.x",
+      "years_claimed": null,
+      "since_year": null,
+      "level": null,
+      "employer": null,
+      "evidence": {
+        "text": "VMware Horizon ViewÂ 5.x, 6.x, and 7.x",
+        "page": null,
+        "line_start": 10,
+        "line_end": 10,
+        "bbox": null
+      }
+    },
+    {
+      "id": "c9",
+      "skill": "VMware Horizon View 7.x",
+      "years_claimed": null,
+      "since_year": null,
+      "level": null,
+      "employer": null,
+      "evidence": {
+        "text": "VMware Horizon ViewÂ 5.x, 6.x, and 7.x",
+        "page": null,
+        "line_start": 10,
+        "line_end": 10,
+        "bbox": null
+      }
+    },
+    {
+      "id": "c10",
+      "skill": "Microsoft Hyper-V",
+      "years_claimed": null,
+      "since_year": null,
+      "level": null,
+      "employer": null,
+      "evidence": {
+        "text": "Microsoft Hyper-V",
+        "page": null,
+        "line_start": 11,
+        "line_end": 11,
+        "bbox": null
+      }
+    },
+    {
+      "id": "c11",
+      "skill": "Cisco UCM",
+      "years_claimed": null,
+      "since_year": null,
+      "level": null,
+      "employer": null,
+      "evidence": {
+        "text": "Cisco UCM and Unity",
+        "page": null,
+        "line_start": 12,
+        "line_end": 12,
+        "bbox": null
+      }
+    },
+    {
+      "id": "c12",
+      "skill": "Cisco Unity",
+      "years_claimed": null,
+      "since_year": null,
+      "level": null,
+      "employer": null,
+      "evidence": {
+        "text": "Cisco UCM and Unity",
+        "page": null,
+        "line_start": 12,
+        "line_end": 12,
+        "bbox": null
+      }
+    },
+    {
+      "id": "c13",
+      "skill": "Help Desk",
+      "years_claimed": null,
+      "since_year": null,
+      "level": null,
+      "employer": null,
+      "evidence": {
+        "text": "Help Desk",
+        "page": null,
+        "line_start": 13,
+        "line_end": 13,
+        "bbox": null
+      }
+    },
+    {
+      "id": "c14",
+      "skill": "ITIL Service Catalog",
+      "years_claimed": null,
+      "since_year": null,
+      "level": null,
+      "employer": null,
+      "evidence": {
+        "text": "ITIL Service Catalog",
+        "page": null,
+        "line_start": 14,
+        "line_end": 14,
+        "bbox": null
+      }
+    },
+    {
+      "id": "c15",
+      "skill": "Vendor Management",
+      "years_claimed": null,
+      "since_year": null,
+      "level": null,
+      "employer": null,
+      "evidence": {
+        "text": "Vendor Management",
+        "page": null,
+        "line_start": 15,
+        "line_end": 15,
+        "bbox": null
+      }
+    },
+    {
+      "id": "c16",
+      "skill": "Budgeting",
+      "years_claimed": null,
+      "since_year": null,
+      "level": null,
+      "employer": null,
+      "evidence": {
+        "text": "Budgeting",
+        "page": null,
+        "line_start": 16,
+        "line_end": 16,
+        "bbox": null
+      }
+    },
+    {
+      "id": "c17",
+      "skill": "Project Management",
+      "years_claimed": null,
+      "since_year": null,
+      "level": null,
+      "employer": null,
+      "evidence": {
+        "text": "Project Management",
+        "page": null,
+        "line_start": 17,
+        "line_end": 17,
+        "bbox": null
+      }
+    },
+    {
+      "id": "c18",
+      "skill": "SLA Management",
+      "years_claimed": null,
+      "since_year": null,
+      "level": null,
+      "employer": null,
+      "evidence": {
+        "text": "SLA Management",
+        "page": null,
+        "line_start": 18,
+        "line_end": 18,
+        "bbox": null
+      }
+    },
+    {
+      "id": "c19",
+      "skill": "Asset Management",
+      "years_claimed": null,
+      "since_year": null,
+      "level": null,
+      "employer": null,
+      "evidence": {
+        "text": "Asset Management",
+        "page": null,
+        "line_start": 19,
+        "line_end": 19,
+        "bbox": null
+      }
+    },
+    {
+      "id": "c20",
+      "skill": "Microsoft domain environment",
+      "years_claimed": null,
+      "since_year": null,
+      "level": null,
+      "employer": null,
+      "evidence": {
+        "text": "Planned, installed and managed Microsoft domain environment utilizing Microsoft Server 2008",
+        "page": null,
+        "line_start": 28,
+        "line_end": 28,
+        "bbox": null
+      }
+    },
+    {
+      "id": "c21",
+      "skill": "Microsoft Exchange server",
+      "years_claimed": null,
+      "since_year": null,
+      "level": null,
+      "employer": null,
+      "evidence": {
+        "text": "Planned, installed and managed Microsoft Exchange server, successfully migrating end user data from third party non-Exchange environment",
+        "page": null,
+        "line_start": 30,
+        "line_end": 30,
+        "bbox": null
+      }
+    },
+    {
+      "id": "c22",
+      "skill": "VMware platform",
+      "years_claimed": null,
+      "since_year": null,
+      "level": null,
+      "employer": null,
+      "evidence": {
+        "text": "Planned, installed and managed VMware platform for a virtual environment. Converted all physical servers to virtual environment",
+        "page": null,
+        "line_start": 31,
+        "line_end": 31,
+        "bbox": null
+      }
+    },
+    {
+      "id": "c23",
+      "skill": "VMware Horizon View virtual desktop environment",
+      "years_claimed": null,
+      "since_year": null,
+      "level": null,
+      "employer": null,
+      "evidence": {
+        "text": "Planned, installed and managed VMware Horizon View virtual desktop environment",
+        "page": null,
+        "line_start": 32,
+        "line_end": 32,
+        "bbox": null
+      }
+    },
+    {
+      "id": "c24",
+      "skill": "Cisco routing",
+      "years_claimed": null,
+      "since_year": null,
+      "level": null,
+      "employer": null,
+      "evidence": {
+        "text": "Maintained Cisco routing, switching, VoIP, and camera infrastructure, implementing our design utilizing third party vendors",
+        "page": null,
+        "line_start": 34,
+        "line_end": 34,
+        "bbox": null
+      }
+    },
+    {
+      "id": "c25",
+      "skill": "Cisco switching",
+      "years_claimed": null,
+      "since_year": null,
+      "level": null,
+      "employer": null,
+      "evidence": {
+        "text": "Maintained Cisco routing, switching, VoIP, and camera infrastructure, implementing our design utilizing third party vendors",
+        "page": null,
+        "line_start": 34,
+        "line_end": 34,
+        "bbox": null
+      }
+    },
+    {
+      "id": "c26",
+      "skill": "Cisco VoIP",
+      "years_claimed": null,
+      "since_year": null,
+      "level": null,
+      "employer": null,
+      "evidence": {
+        "text": "Maintained Cisco routing, switching, VoIP, and camera infrastructure, implementing our design utilizing third party vendors",
+        "page": null,
+        "line_start": 34,
+        "line_end": 34,
+        "bbox": null
+      }
+    },
+    {
+      "id": "c27",
+      "skill": "Cisco camera infrastructure",
+      "years_claimed": null,
+      "since_year": null,
+      "level": null,
+      "employer": null,
+      "evidence": {
+        "text": "Maintained Cisco routing, switching, VoIP, and camera infrastructure, implementing our design utilizing third party vendors",
+        "page": null,
+        "line_start": 34,
+        "line_end": 34,
+        "bbox": null
+      }
+    },
+    {
+      "id": "c28",
+      "skill": "ITIL framework",
+      "years_claimed": null,
+      "since_year": null,
+      "level": null,
+      "employer": null,
+      "evidence": {
+        "text": "Managed help desk, utilizing ITIL framework for 260 end users",
+        "page": null,
+        "line_start": 35,
+        "line_end": 35,
+        "bbox": null
+      }
+    },
+    {
+      "id": "c29",
+      "skill": "break/fix",
+      "years_claimed": null,
+      "since_year": null,
+      "level": null,
+      "employer": null,
+      "evidence": {
+        "text": "Executed break/fix for computers, printers, security system, camera system, and all A/V systems",
+        "page": null,
+        "line_start": 36,
+        "line_end": 36,
+        "bbox": null
+      }
+    },
+    {
+      "id": "c30",
+      "skill": "A/V systems",
+      "years_claimed": null,
+      "since_year": null,
+      "level": null,
+      "employer": null,
+      "evidence": {
+        "text": "Executed break/fix for computers, printers, security system, camera system, and all A/V systems",
+        "page": null,
+        "line_start": 36,
+        "line_end": 36,
+        "bbox": null
+      }
+    },
+    {
+      "id": "c31",
+      "skill": "IT consultation",
+      "years_claimed": null,
+      "since_year": null,
+      "level": null,
+      "employer": null,
+      "evidence": {
+        "text": "Provided IT consultation and implementation of retail cash register networks",
+        "page": null,
+        "line_start": 40,
+        "line_end": 40,
+        "bbox": null
+      }
+    },
+    {
+      "id": "c32",
+      "skill": "retail cash register networks",
+      "years_claimed": null,
+      "since_year": null,
+      "level": null,
+      "employer": null,
+      "evidence": {
+        "text": "Provided IT consultation and implementation of retail cash register networks",
+        "page": null,
+        "line_start": 40,
+        "line_end": 40,
+        "bbox": null
+      }
+    },
+    {
+      "id": "c33",
+      "skill": "staff management",
+      "years_claimed": null,
+      "since_year": null,
+      "level": null,
+      "employer": null,
+      "evidence": {
+        "text": "Managed staff of more than 10 independent IT contractors in implementation of contract projects",
+        "page": null,
+        "line_start": 41,
+        "line_end": 41,
+        "bbox": null
+      }
+    },
+    {
+      "id": "c34",
+      "skill": "VMware Certified Professional 5 - Data Center Virtualization",
+      "years_claimed": null,
+      "since_year": null,
+      "level": null,
+      "employer": null,
+      "evidence": {
+        "text": "VMware Certified Professional 5 - Data Center Virtualization",
+        "page": null,
+        "line_start": 45,
+        "line_end": 45,
+        "bbox": null
+      }
+    },
+    {
+      "id": "c35",
+      "skill": "VMware Certified Professional 5 - Desktop Virtualization",
+      "years_claimed": null,
+      "since_year": null,
+      "level": null,
+      "employer": null,
+      "evidence": {
+        "text": "VMware Certified Professional 5 - Desktop Virtualization",
+        "page": null,
+        "line_start": 46,
+        "line_end": 46,
+        "bbox": null
+      }
+    },
+    {
+      "id": "c36",
+      "skill": "ITIL Foundation",
+      "years_claimed": null,
+      "since_year": null,
+      "level": null,
+      "employer": null,
+      "evidence": {
+        "text": "ITIL Foundation Certified",
+        "page": null,
+        "line_start": 47,
+        "line_end": 47,
+        "bbox": null
+      }
+    },
+    {
+      "id": "c37",
+      "skill": "Microsoft Certified Professional - Server 2012",
+      "years_claimed": null,
+      "since_year": null,
+      "level": null,
+      "employer": null,
+      "evidence": {
+        "text": "Microsoft Certified Professional - Server 2012",
+        "page": null,
+        "line_start": 48,
+        "line_end": 48,
+        "bbox": null
+      }
+    },
+    {
+      "id": "c38",
+      "skill": "dealership management system (DMS)",
+      "years_claimed": null,
+      "since_year": null,
+      "level": null,
+      "employer": null,
+      "evidence": {
+        "text": "Led committee to successfully changeÂ our organization's dealership management system (DMS).Â The DMS is similar to an ERP system for auto dealerships",
+        "page": null,
+        "line_start": 51,
+        "line_end": 51,
+        "bbox": null
+      }
+    },
+    {
+      "id": "c39",
+      "skill": "ERP system",
+      "years_claimed": null,
+      "since_year": null,
+      "level": null,
+      "employer": null,
+      "evidence": {
+        "text": "Led committee to successfully changeÂ our organization's dealership management system (DMS).Â The DMS is similar to an ERP system for auto dealerships",
+        "page": null,
+        "line_start": 51,
+        "line_end": 51,
+        "bbox": null
+      }
+    },
+    {
+      "id": "c40",
+      "skill": "compliance",
+      "years_claimed": null,
+      "since_year": null,
+      "level": null,
+      "employer": null,
+      "evidence": {
+        "text": "Charged with maintaining compliance and security for customer data. Successfully manage data sharing relationships with more than ten third party vendors. Worked closely with DMS provider to develop an acceptable secure data sharing platform.",
+        "page": null,
+        "line_start": 53,
+        "line_end": 53,
+        "bbox": null
+      }
+    },
+    {
+      "id": "c41",
+      "skill": "security",
+      "years_claimed": null,
+      "since_year": null,
+      "level": null,
+      "employer": null,
+      "evidence": {
+        "text": "Charged with maintaining compliance and security for customer data. Successfully manage data sharing relationships with more than ten third party vendors. Worked closely with DMS provider to develop an acceptable secure data sharing platform.",
+        "page": null,
+        "line_start": 53,
+        "line_end": 53,
+        "bbox": null
+      }
+    },
+    {
+      "id": "c42",
+      "skill": "data sharing",
+      "years_claimed": null,
+      "since_year": null,
+      "level": null,
+      "employer": null,
+      "evidence": {
+        "text": "Charged with maintaining compliance and security for customer data. Successfully manage data sharing relationships with more than ten third party vendors. Worked closely with DMS provider to develop an acceptable secure data sharing platform.",
+        "page": null,
+        "line_start": 53,
+        "line_end": 53,
+        "bbox": null
+      }
+    },
+    {
+      "id": "c43",
+      "skill": "conversion management",
+      "years_claimed": null,
+      "since_year": null,
+      "level": null,
+      "employer": null,
+      "evidence": {
+        "text": "Currently managing the conversion of the dealership to a newÂ dealership management system.Â Created and ran sub-committees, mapped out and executed the conversion plan, responsible for many key process changes and workflowsÂ",
+        "page": null,
+        "line_start": 57,
+        "line_end": 57,
+        "bbox": null
+      }
+    },
+    {
+      "id": "c44",
+      "skill": "workflow management",
+      "years_claimed": null,
+      "since_year": null,
+      "level": null,
+      "employer": null,
+      "evidence": {
+        "text": "Currently managing the conversion of the dealership to a newÂ dealership management system.Â Created and ran sub-committees, mapped out and executed the conversion plan, responsible for many key process changes and workflowsÂ",
+        "page": null,
+        "line_start": 57,
+        "line_end": 57,
+        "bbox": null
+      }
+    },
+    {
+      "id": "c45",
+      "skill": "paperless workflow",
+      "years_claimed": null,
+      "since_year": null,
+      "level": null,
+      "employer": null,
+      "evidence": {
+        "text": "Served as project manager for project creating a paperless work flow and digital storage process which resulted in 50% reduction of administrative processing time, $30,000/year reduction in costs, while increasing document availability and storage accuracy.",
+        "page": null,
+        "line_start": 59,
+        "line_end": 59,
+        "bbox": null
+      }
+    },
+    {
+      "id": "c46",
+      "skill": "digital storage",
+      "years_claimed": null,
+      "since_year": null,
+      "level": null,
+      "employer": null,
+      "evidence": {
+        "text": "Served as project manager for project creating a paperless work flow and digital storage process which resulted in 50% reduction of administrative processing time, $30,000/year reduction in costs, while increasing document availability and storage accuracy.",
+        "page": null,
+        "line_start": 59,
+        "line_end": 59,
+        "bbox": null
+      }
+    },
+    {
+      "id": "c47",
+      "skill": "domain environment",
+      "years_claimed": null,
+      "since_year": null,
+      "level": null,
+      "employer": null,
+      "evidence": {
+        "text": "As project manager, developed Smart Motors domain environment including group policy, DNS, multiple domain controllers, and OU structure.",
+        "page": null,
+        "line_start": 61,
+        "line_end": 61,
+        "bbox": null
+      }
+    },
+    {
+      "id": "c48",
+      "skill": "group policy",
+      "years_claimed": null,
+      "since_year": null,
+      "level": null,
+      "employer": null,
+      "evidence": {
+        "text": "As project manager, developed Smart Motors domain environment including group policy, DNS, multiple domain controllers, and OU structure.",
+        "page": null,
+        "line_start": 61,
+        "line_end": 61,
+        "bbox": null
+      }
+    },
+    {
+      "id": "c49",
+      "skill": "DNS",
+      "years_claimed": null,
+      "since_year": null,
+      "level": null,
+      "employer": null,
+      "evidence": {
+        "text": "As project manager, developed Smart Motors domain environment including group policy, DNS, multiple domain controllers, and OU structure.",
+        "page": null,
+        "line_start": 61,
+        "line_end": 61,
+        "bbox": null
+      }
+    },
+    {
+      "id": "c50",
+      "skill": "domain controllers",
+      "years_claimed": null,
+      "since_year": null,
+      "level": null,
+      "employer": null,
+      "evidence": {
+        "text": "As project manager, developed Smart Motors domain environment including group policy, DNS, multiple domain controllers, and OU structure.",
+        "page": null,
+        "line_start": 61,
+        "line_end": 61,
+        "bbox": null
+      }
+    },
+    {
+      "id": "c51",
+      "skill": "OU structure",
+      "years_claimed": null,
+      "since_year": null,
+      "level": null,
+      "employer": null,
+      "evidence": {
+        "text": "As project manager, developed Smart Motors domain environment including group policy, DNS, multiple domain controllers, and OU structure.",
+        "page": null,
+        "line_start": 61,
+        "line_end": 61,
+        "bbox": null
+      }
+    },
+    {
+      "id": "c52",
+      "skill": "email conversion",
+      "years_claimed": null,
+      "since_year": null,
+      "level": null,
+      "employer": null,
+      "evidence": {
+        "text": "Managed email conversion project, deploying Smart Motors' on-site Exchange server. Converted existing email accounts from non-Exchange and provide access via Outlook Web App and mobile phone connectionsÂ",
+        "page": null,
+        "line_start": 63,
+        "line_end": 63,
+        "bbox": null
+      }
+    },
+    {
+      "id": "c53",
+      "skill": "Exchange server",
+      "years_claimed": null,
+      "since_year": null,
+      "level": null,
+      "employer": null,
+      "evidence": {
+        "text": "Managed email conversion project, deploying Smart Motors' on-site Exchange server. Converted existing email accounts from non-Exchange and provide access via Outlook Web App and mobile phone connectionsÂ",
+        "page": null,
+        "line_start": 63,
+        "line_end": 63,
+        "bbox": null
+      }
+    },
+    {
+      "id": "c54",
+      "skill": "Outlook Web App",
+      "years_claimed": null,
+      "since_year": null,
+      "level": null,
+      "employer": null,
+      "evidence": {
+        "text": "Managed email conversion project, deploying Smart Motors' on-site Exchange server. Converted existing email accounts from non-Exchange and provide access via Outlook Web App and mobile phone connectionsÂ",
+        "page": null,
+        "line_start": 63,
+        "line_end": 63,
+        "bbox": null
+      }
+    },
+    {
+      "id": "c55",
+      "skill": "mobile phone connections",
+      "years_claimed": null,
+      "since_year": null,
+      "level": null,
+      "employer": null,
+      "evidence": {
+        "text": "Managed email conversion project, deploying Smart Motors' on-site Exchange server. Converted existing email accounts from non-Exchange and provide access via Outlook Web App and mobile phone connectionsÂ",
+        "page": null,
+        "line_start": 63,
+        "line_end": 63,
+        "bbox": null
+      }
+    },
+    {
+      "id": "c56",
+      "skill": "virtual environment",
+      "years_claimed": null,
+      "since_year": null,
+      "level": null,
+      "employer": null,
+      "evidence": {
+        "text": "Served as project manager on several projects developing Smart Motors' virtual environment, including 5 esxi hosts separated into two resource pools, vCenter, Horizon View for 120 users utilizing 2 view connection servers and a security server",
+        "page": null,
+        "line_start": 65,
+        "line_end": 65,
+        "bbox": null
+      }
+    },
+    {
+      "id": "c57",
+      "skill": "esxi hosts",
+      "years_claimed": null,
+      "since_year": null,
+      "level": null,
+      "employer": null,
+      "evidence": {
+        "text": "Served as project manager on several projects developing Smart Motors' virtual environment, including 5 esxi hosts separated into two resource pools, vCenter, Horizon View for 120 users utilizing 2 view connection servers and a security server",
+        "page": null,
+        "line_start": 65,
+        "line_end": 65,
+        "bbox": null
+      }
+    },
+    {
+      "id": "c58",
+      "skill": "resource pools",
+      "years_claimed": null,
+      "since_year": null,
+      "level": null,
+      "employer": null,
+      "evidence": {
+        "text": "Served as project manager on several projects developing Smart Motors' virtual environment, including 5 esxi hosts separated into two resource pools, vCenter, Horizon View for 120 users utilizing 2 view connection servers and a security server",
+        "page": null,
+        "line_start": 65,
+        "line_end": 65,
+        "bbox": null
+      }
+    },
+    {
+      "id": "c59",
+      "skill": "vCenter",
+      "years_claimed": null,
+      "since_year": null,
+      "level": null,
+      "employer": null,
+      "evidence": {
+        "text": "Served as project manager on several projects developing Smart Motors' virtual environment, including 5 esxi hosts separated into two resource pools, vCenter, Horizon View for 120 users utilizing 2 view connection servers and a security server",
+        "page": null,
+        "line_start": 65,
+        "line_end": 65,
+        "bbox": null
+      }
+    },
+    {
+      "id": "c60",
+      "skill": "Horizon View",
+      "years_claimed": null,
+      "since_year": null,
+      "level": null,
+      "employer": null,
+      "evidence": {
+        "text": "Served as project manager on several projects developing Smart Motors' virtual environment, including 5 esxi hosts separated into two resource pools, vCenter, Horizon View for 120 users utilizing 2 view connection servers and a security server",
+        "page": null,
+        "line_start": 65,
+        "line_end": 65,
+        "bbox": null
+      }
+    },
+    {
+      "id": "c61",
+      "skill": "view connection servers",
+      "years_claimed": null,
+      "since_year": null,
+      "level": null,
+      "employer": null,
+      "evidence": {
+        "text": "Served as project manager on several projects developing Smart Motors' virtual environment, including 5 esxi hosts separated into two resource pools, vCenter, Horizon View for 120 users utilizing 2 view connection servers and a security server",
+        "page": null,
+        "line_start": 65,
+        "line_end": 65,
+        "bbox": null
+      }
+    },
+    {
+      "id": "c62",
+      "skill": "security server",
+      "years_claimed": null,
+      "since_year": null,
+      "level": null,
+      "employer": null,
+      "evidence": {
+        "text": "Served as project manager on several projects developing Smart Motors' virtual environment, including 5 esxi hosts separated into two resource pools, vCenter, Horizon View for 120 users utilizing 2 view connection servers and a security server",
+        "page": null,
+        "line_start": 65,
+        "line_end": 65,
+        "bbox": null
+      }
+    },
+    {
+      "id": "c63",
+      "skill": "TrendMicro agentless security",
+      "years_claimed": null,
+      "since_year": null,
+      "level": null,
+      "employer": null,
+      "evidence": {
+        "text": "Installed and mange TrendMicro agentless security for VMware View",
+        "page": null,
+        "line_start": 67,
+        "line_end": 67,
+        "bbox": null
+      }
+    },
+    {
+      "id": "c64",
+      "skill": "VMware View",
+      "years_claimed": null,
+      "since_year": null,
+      "level": null,
+      "employer": null,
+      "evidence": {
+        "text": "Installed and mange TrendMicro agentless security for VMware View",
+        "page": null,
+        "line_start": 67,
+        "line_end": 67,
+        "bbox": null
+      }
+    },
+    {
+      "id": "c65",
+      "skill": "Staff Development",
+      "years_claimed": null,
+      "since_year": null,
+      "level": "Senior",
+      "employer": "N/A",
+      "evidence": {
+        "text": "Frequently met one on one with staff to determine motivation and goals. Guided staff in creation of goals and the pursuit there of",
+        "page": null,
+        "line_start": 69,
+        "line_end": 69,
+        "bbox": null
+      }
+    },
+    {
+      "id": "c66",
+      "skill": "Operations Management",
+      "years_claimed": null,
+      "since_year": null,
+      "level": "Senior",
+      "employer": "N/A",
+      "evidence": {
+        "text": "Managed the infrastructure to support 260 users selling 500 vehicles and servicing 7,000 vehicles each month",
+        "page": null,
+        "line_start": 75,
+        "line_end": 75,
+        "bbox": null
+      }
+    },
+    {
+      "id": "c67",
+      "skill": "Bachelor of Science",
+      "years_claimed": null,
+      "since_year": null,
+      "level": "N/A",
+      "employer": "Cardinal Stritch University",
+      "evidence": {
+        "text": "Bachelor of Science : Management Information Systems",
+        "page": null,
+        "line_start": 78,
+        "line_end": 78,
+        "bbox": null
+      }
+    },
+    {
+      "id": "c68",
+      "skill": "Management Information Systems",
+      "years_claimed": null,
+      "since_year": null,
+      "level": "N/A",
+      "employer": "Cardinal Stritch University",
+      "evidence": {
+        "text": "Management Information Systems",
+        "page": null,
+        "line_start": 78,
+        "line_end": 78,
+        "bbox": null
+      }
+    },
+    {
+      "id": "c69",
+      "skill": "LinkedIn",
+      "years_claimed": null,
+      "since_year": null,
+      "level": "N/A",
+      "employer": "N/A",
+      "evidence": {
+        "text": "www.linkedin.com/in/RobertRJordan",
+        "page": null,
+        "line_start": 81,
+        "line_end": 81,
+        "bbox": null
+      }
+    },
+    {
+      "id": "c70",
+      "skill": "Online Profile",
+      "years_claimed": null,
+      "since_year": null,
+      "level": "N/A",
+      "employer": "N/A",
+      "evidence": {
+        "text": "Online Profile",
+        "page": null,
+        "line_start": 79,
+        "line_end": 79,
+        "bbox": null
+      }
+    },
+    {
+      "id": "c71",
+      "skill": "Active Directory",
+      "years_claimed": null,
+      "since_year": null,
+      "level": "N/A",
+      "employer": "N/A",
+      "evidence": {
+        "text": "technology skills necessary for efficient and successful use of company technology tools",
+        "page": null,
+        "line_start": null,
+        "line_end": null,
+        "bbox": null
+      }
+    },
+    {
+      "id": "c72",
+      "skill": "VMware",
+      "years_claimed": null,
+      "since_year": null,
+      "level": "N/A",
+      "employer": "N/A",
+      "evidence": {
+        "text": "technology skills necessary for efficient and successful use of company technology tools",
+        "page": null,
+        "line_start": null,
+        "line_end": null,
+        "bbox": null
+      }
+    },
+    {
+      "id": "c73",
+      "skill": "risk assessment",
+      "years_claimed": null,
+      "since_year": null,
+      "level": "N/A",
+      "employer": "N/A",
+      "evidence": {
+        "text": "technology skills necessary for efficient and successful use of company technology tools",
+        "page": null,
+        "line_start": null,
+        "line_end": null,
+        "bbox": null
+      }
+    },
+    {
+      "id": "c74",
+      "skill": "server administration",
+      "years_claimed": null,
+      "since_year": null,
+      "level": "N/A",
+      "employer": "N/A",
+      "evidence": {
+        "text": "Managed the infrastructure to support 260 users selling 500 vehicles and servicing 7,000 vehicles each month",
+        "page": null,
+        "line_start": 75,
+        "line_end": 75,
+        "bbox": null
+      }
+    },
+    {
+      "id": "c75",
+      "skill": "contract negotiation",
+      "years_claimed": null,
+      "since_year": null,
+      "level": "N/A",
+      "employer": "N/A",
+      "evidence": {
+        "text": "Handled all technology vendor interactions including contract negotiations, SLA monitoring, and license utilization",
+        "page": null,
+        "line_start": 76,
+        "line_end": 76,
+        "bbox": null
+      }
+    },
+    {
+      "id": "c76",
+      "skill": "SLA monitoring",
+      "years_claimed": null,
+      "since_year": null,
+      "level": "N/A",
+      "employer": "N/A",
+      "evidence": {
+        "text": "Handled all technology vendor interactions including contract negotiations, SLA monitoring, and license utilization",
+        "page": null,
+        "line_start": 76,
+        "line_end": 76,
+        "bbox": null
+      }
+    },
+    {
+      "id": "c77",
+      "skill": "license utilization",
+      "years_claimed": null,
+      "since_year": null,
+      "level": "N/A",
+      "employer": "N/A",
+      "evidence": {
+        "text": "Handled all technology vendor interactions including contract negotiations, SLA monitoring, and license utilization",
+        "page": null,
+        "line_start": 76,
+        "line_end": 76,
+        "bbox": null
+      }
+    }
+  ],
+  "employment": [
+    {
+      "employer": "Company Name",
+      "title": "Director of Information Technology",
+      "start": "11/2012",
+      "end": "Current",
+      "full_time": true,
+      "evidence": {
+        "text": "Director of Information Technology 11/2012 to Current Company Name City , State",
+        "page": null,
+        "line_start": 21,
+        "line_end": 21,
+        "bbox": null
+      }
+    },
+    {
+      "employer": "Company Name",
+      "title": "IT Administrator",
+      "start": "03/2008",
+      "end": "11/2012",
+      "full_time": true,
+      "evidence": {
+        "text": "IT Administrator 03/2008 to 11/2012 Company Name City , State",
+        "page": null,
+        "line_start": 27,
+        "line_end": 27,
+        "bbox": null
+      }
+    },
+    {
+      "employer": "Company Name",
+      "title": "New Car Sales",
+      "start": "08/2005",
+      "end": "02/2008",
+      "full_time": true,
+      "evidence": {
+        "text": "New Car Sales 08/2005 to 02/2008 Company Name City , State",
+        "page": null,
+        "line_start": 37,
+        "line_end": 37,
+        "bbox": null
+      }
+    },
+    {
+      "employer": "Company Name",
+      "title": "IT Consultant",
+      "start": "01/2000",
+      "end": "08/2005",
+      "full_time": true,
+      "evidence": {
+        "text": "IT Consultant 01/2000 to 08/2005 Company Name City , State",
+        "page": null,
+        "line_start": 39,
+        "line_end": 39,
+        "bbox": null
+      }
+    }
+  ],
+  "verifications": [],
+  "credentials": [
+    {
+      "claim_id": "",
+      "skill": "MCP (Microsoft)",
+      "state": "corroborated",
+      "evidence": [],
+      "note": "named as its issuer names it (microsoft certified professional)",
+      "source_scope": "cv"
+    },
+    {
+      "claim_id": "",
+      "skill": "VCP (VMware)",
+      "state": "corroborated",
+      "evidence": [],
+      "note": "named as its issuer names it (vmware certified professional)",
+      "source_scope": "cv"
+    },
+    {
+      "claim_id": "",
+      "skill": "ITIL (Axelos)",
+      "state": "corroborated",
+      "evidence": [],
+      "note": "named as its issuer names it (itil)",
+      "source_scope": "cv"
+    },
+    {
+      "claim_id": "c77",
+      "skill": "license utilization",
+      "state": "unsupported",
+      "evidence": [],
+      "note": "not in our credential registry - we could not check this one, which says nothing about whether it is genuine",
+      "source_scope": "cv"
+    }
+  ],
+  "consent_summary": "The CV you sent us",
+  "consent_grants": {
+    "cv": true,
+    "github": false,
+    "publications": false
+  },
+  "freshness_label": "CURRENT",
+  "freshness_note": "Most recent dated activity: 2026.",
+  "freshness_tone": "green",
+  "last_active_year": 2026,
+  "questions": [
+    {
+      "question": "One requirement for this role isn't mentioned in your CV: the right to work in Germany. Could you let us know where you stand on that?",
+      "reason": "this is a hard requirement your CV does not address",
+      "source": "confirmation",
+      "requirement_id": "ext-7",
+      "severity": "critical"
+    },
+    {
+      "question": "We didn't see any security certification like CISSP, CISM, or Security+ in your CV. Have you worked on getting one of those?",
+      "reason": "minor gap against a preferred requirement",
+      "source": "gap",
+      "requirement_id": "ext-8",
+      "severity": "minor"
+    },
+    {
+      "question": "We didn't see disaster recovery or business continuity planning in your CV. Have you had any experience with that kind of work?",
+      "reason": "minor gap against a preferred requirement",
+      "source": "gap",
+      "requirement_id": "ext-11",
+      "severity": "minor"
+    },
+    {
+      "question": "We didn't see any cloud migration experience with Azure or AWS in your CV. Have you worked on that before?",
+      "reason": "minor gap against a preferred requirement",
+      "source": "gap",
+      "requirement_id": "ext-12",
+      "severity": "minor"
+    },
+    {
+      "question": "We didn't see German language skills listed in your CV. Have you had a chance to develop those?",
+      "reason": "minor gap against a preferred requirement",
+      "source": "gap",
+      "requirement_id": "ext-13",
+      "severity": "minor"
+    },
+    {
+      "question": "We didn't see anything about being in the Berlin office three days a week in your CV. Is that something you've done or can do?",
+      "reason": "minor gap against a preferred requirement",
+      "source": "gap",
+      "requirement_id": "int-2",
+      "severity": "minor"
+    }
+  ],
+  "audit": [
+    {
+      "at": "2026-08-20T22:46:19+00:00",
+      "event": "internal_constraint_accepted",
+      "detail": "team_context: we go into an ISO 27001 audit next year, so this hire must have worked under a formal compliance or accreditation regime",
+      "actor": "system"
+    },
+    {
+      "at": "2026-08-20T22:46:19+00:00",
+      "event": "internal_constraint_accepted",
+      "detail": "mentoring_capacity: the team is junior, this hire must mentor two engineers",
+      "actor": "system"
+    },
+    {
+      "at": "2026-08-20T22:46:19+00:00",
+      "event": "internal_constraint_accepted",
+      "detail": "onsite_days: three days a week in the Berlin office",
+      "actor": "system"
+    },
+    {
+      "at": "2026-08-20T22:46:19+00:00",
+      "event": "internal_constraint_REFUSED",
+      "detail": "team_context: 'we want a young energetic team with no career gaps' - refused: age: age proxy; socioeconomic/proxy: career-gap screening - a proxy for parental leave, illness and disability",
+      "actor": "system"
+    }
+  ]
+}

@@ -4,7 +4,11 @@
 {% block body %}
 <div class="px-6 py-7 max-w-[1160px] mx-auto">
 
-  <div class="flex items-start justify-between gap-6">
+  <a href="/" class="inline-flex items-center gap-2 text-[13px] text-ink-muted hover:text-ink">
+    <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
+    All roles</a>
+
+  <div class="mt-4 flex items-start justify-between gap-6">
     <div>
       <h1 class="text-[30px] font-bold tracking-tight">{{ role.jd.title }}</h1>
       <p class="mt-1.5 text-[13.5px] text-ink-muted">{{ candidates|length }} applicants · scored against
@@ -14,17 +18,53 @@
           <span class="font-medium">{{ internal_count }} internal criteria withheld</span>
         {% endif %}</p>
     </div>
+    <div class="flex items-center gap-3 shrink-0">
+    <form method="post" action="/role/{{ slug }}/upload" enctype="multipart/form-data"
+          class="flex items-center gap-2" id="uploadForm">
+      <label class="cursor-pointer rounded-lg border border-hair bg-white px-4 py-2.5 text-[13px] font-semibold hover:border-forest-600">
+        <input type="file" name="files" multiple accept=".pdf,.docx,.txt" class="hidden"
+               onchange="document.getElementById('uploadForm').submit()">
+        + Upload CVs
+      </label>
+    </form>
     <form method="get" class="flex items-center gap-2">
       <input type="hidden" name="internal" value="{{ 0 if use_internal else 1 }}">
       <button class="rounded-lg px-4 py-2.5 text-[13px] font-semibold border transition
         {{ 'bg-forest text-white border-forest' if use_internal else 'bg-white text-ink border-hair hover:border-forest-600' }}">
         {{ 'Internal JD: ON' if use_internal else 'Internal JD: OFF' }}
       </button>
-      <span class="text-[12px] text-ink-muted max-w-[190px] leading-snug">
+      <span class="text-[12px] text-ink-muted max-w-[170px] leading-snug">
         {{ 'Scoring on the public advert plus the real, unpublished preferences.'
            if use_internal else 'Scoring on the public advert alone.' }}</span>
     </form>
+    </div>
+    </form>
   </div>
+
+  <div id="progress" class="{{ '' if pending else 'hidden' }} mt-5 rounded-xl border border-forest-600/30 bg-forest-50/50 p-4">
+    <div class="flex items-center gap-3">
+      <svg class="animate-spin h-4 w-4 text-forest-600" viewBox="0 0 24 24" fill="none">
+        <circle cx="12" cy="12" r="10" stroke="currentColor" stroke-width="3" opacity=".25"/>
+        <path d="M22 12a10 10 0 0 1-10 10" stroke="currentColor" stroke-width="3" stroke-linecap="round"/></svg>
+      <span id="progressText" class="text-[13px] font-medium">
+        Processing {{ pending|length }} CV{{ '' if pending|length == 1 else 's' }}…</span>
+    </div>
+    <div id="progressItems" class="mt-2.5 space-y-1 text-[12px] text-ink-muted"></div>
+    <p class="mt-2 text-[11.5px] text-ink-muted">
+      A CV takes one to three minutes the first time — several model calls to extract every
+      claim, then the match against this role. Cached afterwards, so a re-run is instant.</p>
+  </div>
+
+  {% set failures = recent | selectattr('state','equalto','failed') | list %}
+  {% if failures %}
+  <div class="mt-5 rounded-xl border border-rose-300 bg-rose-50 p-4">
+    <div class="text-[13px] font-semibold text-rose-900">
+      {{ failures|length }} upload{{ '' if failures|length == 1 else 's' }} could not be read</div>
+    <ul class="mt-2 space-y-1 text-[12.5px] text-rose-900/80">
+      {% for f in failures %}<li><span class="font-mono">{{ f.name }}</span> — {{ f.error }}</li>{% endfor %}
+    </ul>
+  </div>
+  {% endif %}
 
   <div class="mt-7 grid grid-cols-1 lg:grid-cols-12 gap-6">
     <div class="lg:col-span-8 min-w-0">
@@ -41,10 +81,18 @@
             </tr>
           </thead>
           <tbody>
+          {% if not candidates %}
+            <tr><td colspan="6" class="px-5 py-14 text-center">
+              <div class="text-[14px] font-semibold">No CVs yet</div>
+              <p class="mx-auto mt-1.5 max-w-[360px] text-[12.5px] leading-relaxed text-ink-muted">
+                Upload some with the button above. We read them, match them against this role's
+                requirements, and rank on evidence.</p>
+            </td></tr>
+          {% endif %}
           {% for c in candidates %}
             <tr class="border-t border-hair hover:bg-cream/60">
               <td class="py-4 pl-5 pr-3">
-                <a href="/candidate/{{ c.candidate_id }}?internal={{ 1 if use_internal else 0 }}" class="flex items-center gap-3 group">
+                <a href="/role/{{ slug }}/c/{{ c.candidate_id }}?internal={{ 1 if use_internal else 0 }}" class="flex items-center gap-3 group">
                   <span class="grid h-9 w-9 place-items-center rounded-full bg-forest-50 text-forest text-[12px] font-bold">
                     {{ c.display_initials }}</span>
                   <span>
@@ -115,4 +163,27 @@
     </div>
   </div>
 </div>
+
+<script>
+// Poll while anything is in flight. Uploads run in the background because a CV takes 30-60s
+// and the browser should not be held open for it.
+(function () {
+  const panel = document.getElementById('progress');
+  if (!panel || panel.classList.contains('hidden')) return;
+  const text = document.getElementById('progressText');
+  const list = document.getElementById('progressItems');
+  const tick = async () => {
+    try {
+      const r = await fetch('/role/{{ slug }}/status');
+      const j = await r.json();
+      if (!j.pending.length) { location.reload(); return; }
+      text.textContent = `Processing ${j.pending.length} CV${j.pending.length === 1 ? '' : 's'}…`;
+      list.innerHTML = j.pending.map(p =>
+        `<div>· <span class="font-mono">${p.name}</span> — ${p.detail}</div>`).join('');
+      setTimeout(tick, 2500);
+    } catch (e) { setTimeout(tick, 4000); }
+  };
+  tick();
+})();
+</script>
 {% endblock %}
