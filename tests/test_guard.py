@@ -170,3 +170,35 @@ def test_hard_gates_are_detected(text):
 def test_ordinary_requirements_are_not_hard_gates(text):
     from fit_happens.jd.parse import DEALBREAKER_CUES
     assert not DEALBREAKER_CUES.search(text), f"wrongly a hard gate: {text!r}"
+
+
+def test_every_guard_category_has_a_label():
+    """CATEGORY_LABELS exists because a blind `_` -> `/` replace rendered a category as
+    "not/an/allowed/field" in the audit record. That fix introduced a second list that has to
+    agree with the Category type - so this asserts they do, rather than a comment asking
+    someone to remember. An unlabelled category degrades to the old blind replace, which is
+    exactly the bug."""
+    import typing
+
+    from fit_happens.jd.guard import CATEGORY_LABELS, Category
+
+    declared = set(typing.get_args(Category))
+    assert declared, "Category is not a Literal any more"
+    assert declared == set(CATEGORY_LABELS), (
+        f"unlabelled: {sorted(declared - set(CATEGORY_LABELS))}; "
+        f"labels with no category: {sorted(set(CATEGORY_LABELS) - declared)}")
+
+
+def test_the_proxies_the_brief_names_are_all_refused():
+    """The brief names four proxies by name. Three were caught; "recent graduate" was not,
+    because the pattern required the word "only" - so the plain form, which does the same
+    work, went straight through. Anything typed into an internal-constraint box is a scoring
+    criterion, and the lawful way to say this already has a home in seniority_band."""
+    from fit_happens.jd.guard import check_value
+
+    for value in ("digital native", "recent graduate", "cultural fit", "no career gaps"):
+        assert not check_value("team_context", value).allowed, f"{value!r} was allowed"
+
+    # ...and the lawful expression of the same intent still passes
+    assert check_value("seniority_band", "graduate").allowed
+    assert check_value("team_context", "small platform team, lots of pairing").allowed

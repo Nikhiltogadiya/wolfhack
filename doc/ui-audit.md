@@ -84,6 +84,8 @@ loop-generated ids that a template grep would have missed.
 | I4 | P2 | landing, processing | Neither set `nav`, so no header item was highlighted. `processing` now marks "My application"; **landing deliberately sets none** — `/` is not a nav destination, so nothing should look selected. Verified in the rendered header, not the template |
 | I5 | P2 | sign-in | The session cookie had `httponly` and `samesite` but no `secure`. Now keyed to the request scheme — pinning it `True` would silently break sign-in on the `http://127.0.0.1` the demo runs on, a worse failure than the one it prevents |
 | I6 | P1 | `/track` | With no email sending in this build, this page stands in for the mailed link — so **an email address alone opens someone's application**. That is a demo limitation, not a design position, and the page now says so where it applies rather than shipping it silently |
+| J1 | **P1** | internal JD guard | **"recent graduate" was allowed** — one of the four proxies the brief names by name. The pattern required the word *only* (`recent\s+grad\w*\s+only`), so the emphatic form was caught and the plain one, which does the same work, went straight through. Anything typed into an internal-constraint box is a scoring criterion. Blocked, and verified that the lawful way to say it still passes: `seniority_band=graduate` |
+| J2 | P2 | internal JD guard | An unknown field name was reported under the **`socioeconomic_proxy`** category — the wrong reason, in text that lands in the audit record a compliance reviewer reads. Given its own category, and the blind `_`→`/` replace that rendered it "not/an/allowed/field" replaced with real labels. Both the new label map and the proxy list are now guarded by tests |
 
 ## Left undone, and why
 

@@ -44,6 +44,10 @@ Category = Literal[
     "age", "sex_gender", "pregnancy_family", "race_ethnicity_origin", "religion_belief",
     "disability_health", "sexual_orientation", "marital_status", "union_political",
     "socioeconomic_proxy", "appearance",
+    # Not a protected characteristic - the field name itself is not on the allowlist. It was
+    # being reported as "socioeconomic/proxy", which is the wrong reason, in text that lands
+    # in the audit record a compliance reviewer reads.
+    "not_an_allowed_field",
 ]
 
 
@@ -67,7 +71,11 @@ RULES: list[Rule] = [
     # "union member\b" never matches "union members" - and the failure is invisible because the
     # rule still compiles and still matches the one example you tested it on.
     _r("age", r"\b(age[ds]?\s*(under|over|below|above|\d)|aged?\s+\d{2}|under\s*\d{2}\s*years?\s*old|born\s+(after|before))", "explicit age criterion"),
-    _r("age", r"\b(young\w*|youthful|recent\s+grad\w*\s+only|new\s+grad\w*\s+only|digital\s+native\w*|fresh\s+out\s+of|no\s+one\s+over)", "age proxy"),
+    # "recent grad ... only" required the word "only", so a plain "recent graduate" - one of
+    # the four proxies the brief names by name - went straight through. Anything typed into
+    # this box is a scoring criterion, so the plain form does the same work as the emphatic
+    # one. The lawful way to say it already has a home: seniority_band.
+    _r("age", r"\b(young\w*|youthful|recent\s+grad\w*|new\s+grad\w*|grad\w*\s+only|digital\s+native\w*|fresh\s+out\s+of|no\s+one\s+over)", "age proxy"),
     _r("age", r"\b(\d{1,2}\s*[-\u2013]\s*\d{1,2}\s*years?\s*old|generation\s*[zy]\b|millennial\w*)", "age proxy"),
     _r("sex_gender", r"\b(male|female|man|woman|men|women|gentlem\w+|lad(y|ies))\s+(only|preferred|candidate\w*|applicant\w*)", "explicit sex criterion"),
     _r("sex_gender", r"\b(he|she)\s+(must|should|will)\b|\b(salesm\w+|saleswom\w+|handym\w+|waitress\w*|steward(ess)?\w*)\b", "gendered requirement"),
@@ -88,6 +96,22 @@ RULES: list[Rule] = [
 ]
 
 
+CATEGORY_LABELS: dict[str, str] = {
+    "age": "age",
+    "sex_gender": "sex/gender",
+    "pregnancy_family": "pregnancy/family",
+    "race_ethnicity_origin": "race/ethnicity/origin",
+    "religion_belief": "religion/belief",
+    "disability_health": "disability/health",
+    "sexual_orientation": "sexual orientation",
+    "marital_status": "marital status",
+    "union_political": "union/political",
+    "socioeconomic_proxy": "socioeconomic proxy",
+    "appearance": "appearance",
+    "not_an_allowed_field": "not an allowed field",
+}
+
+
 @dataclass
 class GuardResult:
     allowed: bool
@@ -97,16 +121,19 @@ class GuardResult:
 
     @property
     def reason(self) -> str:
+        """A blind `_` -> `/` replace turned "not_an_allowed_field" into "not/an/allowed/field".
+        This text goes into the audit record, so the categories get real names."""
         if self.allowed:
             return ""
-        return "; ".join(f"{cat.replace('_', '/')}: {why}" for cat, why in self.violations)
+        return "; ".join(f"{CATEGORY_LABELS.get(cat, cat.replace('_', '/'))}: {why}"
+                         for cat, why in self.violations)
 
 
 def check_value(field_name: str, value: str) -> GuardResult:
     if field_name not in ALLOWED_FIELDS:
         return GuardResult(
             False, field_name, value,
-            [("socioeconomic_proxy", f"'{field_name}' is not an allowed constraint type; "
+            [("not_an_allowed_field", f"'{field_name}' is not an allowed constraint type; "
                                      f"permitted: {', '.join(sorted(ALLOWED_FIELDS))}")],
         )
     hits = [(r.category, r.why) for r in RULES if r.pattern.search(value)]
