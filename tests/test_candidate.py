@@ -340,3 +340,16 @@ def test_revoking_deletes_only_the_revoking_candidates_cache(tmp_path, monkeypat
     assert deleted == 1
     assert not mine.exists(), "the revoking candidate's cache should be gone"
     assert theirs.exists(), "another candidate's cache must never be deleted"
+
+
+def test_a_retired_scope_on_disk_does_not_crash_the_portal():
+    """SCOPES shrank once and the records written before that still name the removed scope.
+    `summary()` maps SCOPES[k]["label"] over the stored grants, so a retired scope set to true
+    raised KeyError and 500'd the candidate's own portal. Live data was one flag away from it:
+    two demo records still carry "community": false, latent only because it is false."""
+    c = Consent(token="t", candidate_id="ada",
+                grants={"cv": True, "community": True, "github": False})
+
+    assert "community" not in c.grants, "a scope no longer offered must not survive a load"
+    assert c.summary()  # would have raised KeyError
+    assert not c.allows("community")

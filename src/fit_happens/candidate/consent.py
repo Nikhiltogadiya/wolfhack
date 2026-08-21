@@ -22,10 +22,10 @@ from __future__ import annotations
 import hashlib
 import json
 import secrets
-from datetime import datetime, timezone
+from datetime import UTC, datetime
 from pathlib import Path
 
-from pydantic import BaseModel, Field
+from pydantic import BaseModel, Field, field_validator
 
 from ..config import DATA_DIR
 
@@ -72,6 +72,17 @@ class Consent(BaseModel):
     grants: dict[str, bool] = Field(default_factory=lambda: dict(DEFAULT_GRANTS))
     history: list[ConsentEvent] = Field(default_factory=list)
 
+    @field_validator("grants")
+    @classmethod
+    def _drop_retired_scopes(cls, grants: dict[str, bool]) -> dict[str, bool]:
+        """SCOPES shrank once - the `community` scope was removed - and the records written
+        before that still name it on disk. `summary()` does SCOPES[k]["label"] over these
+        keys, so a retired scope set to true raises KeyError and 500s the candidate's own
+        portal. Pruning here means nothing downstream has to know that happened; making each
+        consumer defensive instead would just move the trap around.
+        """
+        return {k: v for k, v in grants.items() if k in SCOPES}
+
     def allows(self, scope: str) -> bool:
         if scope == "cv":
             return True
@@ -85,7 +96,7 @@ class Consent(BaseModel):
         was = self.grants.get(scope, False)
         self.grants[scope] = granted
         self.history.append(ConsentEvent(
-            at=datetime.now(timezone.utc).isoformat(timespec="seconds"),
+            at=datetime.now(UTC).isoformat(timespec="seconds"),
             scope=scope, granted=granted))
         return bool(was and not granted)
 
