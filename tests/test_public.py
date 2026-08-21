@@ -137,7 +137,21 @@ class TestTheHiringGate:
         assert r.status_code == 303
         assert "/hiring/sign-in" in r.headers["location"]
 
-    def test_the_sign_in_page_does_not_oversell_itself(self, monkeypatch):
+    def test_a_wrong_passcode_is_refused_at_the_form(self, monkeypatch):
         monkeypatch.setenv(auth.ENV_VAR, "letmein")
-        body = client.get("/hiring/sign-in").text
-        assert "not real authentication" in body
+        r = client.post("/hiring/sign-in", data={"passcode": "nope", "next": "/hiring"})
+        assert r.status_code == 401
+        assert "not right" in r.text
+
+    def test_a_dotenv_passcode_is_actually_read(self, tmp_path, monkeypatch):
+        """A .env was created with the passcode in it and nothing read it, so the area stayed
+        open while it looked configured. A setting that silently does nothing is the worst
+        kind, and this one guards applicants' files."""
+        monkeypatch.delenv(auth.ENV_VAR, raising=False)
+        env = tmp_path / ".env"
+        env.write_text(f"{auth.ENV_VAR}=from-the-file\n")
+        from dotenv import load_dotenv
+
+        load_dotenv(env, override=False)
+        assert auth.configured()
+        assert auth.check("from-the-file")
