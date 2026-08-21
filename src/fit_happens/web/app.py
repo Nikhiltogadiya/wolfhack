@@ -41,9 +41,17 @@ from ..stages import ORDER as STAGE_ORDER, STAGES, StageStore
 from ..store import Run, roles, slugify
 from . import auth, tasks  # noqa: E402
 
+# One bound for the internal-constraint rows. There were four: the create form rendered 4
+# rows, its handler read 6; the edit form rendered 6, its handler read 8. Nothing broke -
+# create simply could never fill two of the rows its handler looked for - but no two of the
+# four agreed, and a comment asking someone to keep them aligned would have been the trap
+# rather than the fix.
+MAX_INTERNAL = 6
+
 TEMPLATES = Jinja2Templates(directory=str(Path(__file__).parent / "templates"))
 # Available to every template, so the hiring pages can say when they are unprotected.
 TEMPLATES.env.globals["gated"] = auth.configured  # callable: templates use {% if gated() %}
+TEMPLATES.env.globals["max_internal"] = MAX_INTERNAL
 app = FastAPI(title="Fit Happens")
 
 
@@ -245,7 +253,7 @@ async def edit_role(request: Request, slug: str):
     internal = [
         InternalConstraint(field_name=str(form.get(f"if{i}")), value=str(form.get(f"iv{i}")).strip(),
                            required=bool(form.get(f"ir{i}")))
-        for i in range(8)
+        for i in range(MAX_INTERNAL)
         if str(form.get(f"if{i}", "")) and str(form.get(f"iv{i}", "")).strip()
     ]
     # blocking network call inside an async route: without the threadpool this freezes
@@ -369,7 +377,7 @@ async def create_role(request: Request, background: BackgroundTasks):
     internal = [
         InternalConstraint(field_name=str(form.get(f"if{i}")), value=str(form.get(f"iv{i}")).strip(),
                            required=bool(form.get(f"ir{i}")))
-        for i in range(6)
+        for i in range(MAX_INTERNAL)
         if str(form.get(f"if{i}", "")) and str(form.get(f"iv{i}", "")).strip()
     ]
     jd = JobDescription(title=title or parsed_title, external_text=jd_text, internal=internal)

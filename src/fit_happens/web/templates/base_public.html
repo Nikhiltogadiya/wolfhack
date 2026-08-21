@@ -4,24 +4,13 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>{% block title %}Fit Happens{% endblock %}</title>
-<script src="https://cdn.tailwindcss.com"></script>
-<script>
-tailwind.config = { theme: { extend: { colors: {
-  forest: { DEFAULT:'#12402F', 700:'#164C38', 600:'#1C6B4A', 50:'#EAF2ED' },
-  cream:  { DEFAULT:'#FAF9F5', 100:'#F3F1EA' },
-  hair:   '#E6E3DB',
-  ink:    { DEFAULT:'#1B1B19', muted:'#6F6C64' },
-}, fontFamily: { sans: ['Inter','ui-sans-serif','system-ui','sans-serif'] } } } }
-</script>
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
-<style>body { font-family: Inter, ui-sans-serif, system-ui, sans-serif; }</style>
+{% include "_head.html" %}
 </head>
 <body class="bg-cream text-ink antialiased min-h-screen flex flex-col">
   <header class="border-b border-hair bg-white/70 backdrop-blur">
     <div class="mx-auto max-w-[1000px] px-6 py-3.5 flex flex-wrap items-center gap-x-6 gap-y-2">
       <a href="/" class="flex items-center gap-2.5 shrink-0">
-        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" class="text-forest">
+        <svg aria-hidden="true" focusable="false" width="20" height="20" viewBox="0 0 24 24" fill="none" class="text-forest">
           <path d="M12 3c4 3 7 6 7 10a7 7 0 1 1-14 0c0-4 3-7 7-10z" fill="currentColor" opacity=".9"/>
         </svg>
         <span class="text-[15px] font-semibold">Fit Happens</span>

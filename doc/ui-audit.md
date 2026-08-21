@@ -67,6 +67,17 @@ sub-nav sitting beside its siblings instead of on its own row.
 | G1 | P1 | candidate detail | **Evidence rows vanished after a role edit.** The skill map iterated the candidate's *matches* and dropped any whose `requirement_id` no longer existed — and requirement ids are positional (`ext-0..N`), so editing a role re-parses the advert and renumbers them. A candidate scored before the edit lost rows from the one table whose stated promise is *"every score traces to a line in the résumé"*, while the header above still showed their old fit score. Now iterates the **requirements**, so the table always lists what the role asks for and names which ones this CV was not scored against. Verified on a throwaway copy: 6 of 17 matches now renders 17 rows and 11 explicit notices, where it used to render 6 |
 | G2 | P1 | role create / edit | `parse_jd` — a blocking network round trip — ran directly inside three `async def` routes, **freezing every other request in the process** for its duration, applicants mid-application included. Now through `run_in_threadpool` |
 | G3 | P2 | candidate detail | With no preferred requirements, a bare "PREFERRED SKILLS · COVERAGE · GAP · EVIDENCE" header rendered over nothing. Now the block is skipped |
+| H1 | P1 | 3 base templates | The Tailwind theme — the whole palette — was copy-pasted verbatim into `base.html`, `base_public.html` and `base_candidate.html`. All three need byte-identical values, so none could drop its copy; extracted to `_head.html` and included, because a comment asking someone to keep three palettes aligned is the trap, not the fix |
+| H2 | P2 | 2 base templates | `.pill { @apply ... }` was dead **and** non-functional: the Play CDN only processes `@apply` inside `<style type="text/tailwindcss">`, and `class="pill"` appears **zero** times anywhere. Deleted with the extraction |
+| H3 | P2 | role create / edit | Four different bounds for the same internal-constraint list: create rendered 4 rows against a handler reading 6; edit rendered 6 against a handler reading 8. One `MAX_INTERNAL`, exposed to Jinja |
+| H4 | P2 | 18 templates | **26 decorative SVG icons** were announced to screen readers as unlabelled graphics. All now `aria-hidden` |
+| H5 | P1 | 8 templates | Form controls with no accessible name — orphan `<label>`s with no `for`, unlabelled selects, placeholder-as-label, an unlabelled row checkbox, two unlabelled search boxes. Bound or given `aria-label` |
+| H6 | P2 | ranking | No `scope="col"` on any of the 7 `<th>`, and the checkbox column header was empty. Fixed |
+
+**Verified against the rendered pages, not the templates:** 44 form controls and 65 icons across
+17 pages — every control has an accessible name, every icon is hidden from assistive tech, and
+no `for=` points at a missing element. Checking the rendered HTML is what covers the
+loop-generated ids that a template grep would have missed.
 
 ## Verified working (tested, not assumed)
 

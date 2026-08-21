@@ -4,7 +4,7 @@
 <div class="mx-auto max-w-[600px] px-6 py-20 text-center">
   {% if failed or stalled %}
     <div class="mx-auto grid h-12 w-12 place-items-center rounded-full bg-rose-50 text-rose-700">
-      <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
+      <svg aria-hidden="true" focusable="false" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
         <circle cx="12" cy="12" r="9"/><path d="M12 16v-4M12 8h.01"/></svg>
     </div>
     <h1 class="mt-5 text-[22px] font-bold tracking-tight">
@@ -19,7 +19,7 @@
       Try applying again</a>
   {% else %}
     <div class="mx-auto grid h-12 w-12 place-items-center rounded-full bg-forest-50">
-      <svg class="animate-spin h-6 w-6 text-forest-600" viewBox="0 0 24 24" fill="none">
+      <svg aria-hidden="true" focusable="false" class="animate-spin h-6 w-6 text-forest-600" viewBox="0 0 24 24" fill="none">
         <circle cx="12" cy="12" r="10" stroke="currentColor" stroke-width="3" opacity=".25"/>
         <path d="M22 12a10 10 0 0 1-10 10" stroke="currentColor" stroke-width="3" stroke-linecap="round"/></svg>
     </div>

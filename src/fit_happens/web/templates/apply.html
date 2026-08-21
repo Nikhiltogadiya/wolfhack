@@ -4,7 +4,7 @@
 {% block body %}
 <div class="mx-auto max-w-[640px] px-6 py-10">
   <a href="/jobs/{{ slug }}" class="inline-flex items-center gap-2 text-[13px] text-ink-muted hover:text-ink">
-    <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
+    <svg aria-hidden="true" focusable="false" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
     {{ role.jd.title }}</a>
 
   <h1 class="mt-4 text-[28px] font-bold tracking-tight">Apply</h1>
@@ -18,13 +18,13 @@
   <form method="post" action="/jobs/{{ slug }}/apply" enctype="multipart/form-data" class="mt-6 space-y-5">
     <div class="rounded-xl border border-hair bg-white p-6 space-y-5">
       <div>
-        <label class="text-[13.5px] font-semibold">Your name</label>
-        <input name="name" required autofocus value="{{ name | default('') }}"
+        <label for="name" class="text-[13.5px] font-semibold">Your name</label>
+        <input id="name" name="name" required autofocus value="{{ name | default('') }}"
                class="mt-2 w-full rounded-lg border border-hair px-3.5 py-2.5 text-[14px]">
       </div>
       <div>
-        <label class="text-[13.5px] font-semibold">Email</label>
-        <input name="email" type="email" required value="{{ email | default('') }}"
+        <label for="email" class="text-[13.5px] font-semibold">Email</label>
+        <input id="email" name="email" type="email" required value="{{ email | default('') }}"
                class="mt-2 w-full rounded-lg border border-hair px-3.5 py-2.5 text-[14px]">
         <p class="mt-1.5 text-[12px] text-ink-muted">
           Used so you can find your application again, and so they can reach you. Nothing else.</p>
@@ -32,7 +32,7 @@
       <div>
         <label class="text-[13.5px] font-semibold">Your CV</label>
         <label id="drop" class="mt-2 flex flex-col items-center justify-center gap-2 rounded-xl border-2 border-dashed border-hair p-8 cursor-pointer hover:border-forest-600 transition">
-          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" class="text-ink-muted">
+          <svg aria-hidden="true" focusable="false" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" class="text-ink-muted">
             <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><path d="M7 10l5-5 5 5"/><path d="M12 5v12"/></svg>
           <span class="text-[13.5px] font-medium">Drop it here, or click to choose</span>
           <span id="hint" class="max-w-full break-all text-[12px] text-ink-muted">PDF, DOCX or TXT</span>

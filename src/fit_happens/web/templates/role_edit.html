@@ -4,7 +4,7 @@
 {% block body %}
 <div class="px-6 py-7 max-w-[880px] mx-auto">
   <a href="/hiring/role/{{ slug }}" class="inline-flex items-center gap-2 text-[13px] text-ink-muted hover:text-ink">
-    <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
+    <svg aria-hidden="true" focusable="false" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
     {{ role.jd.title }}</a>
 
   <h1 class="mt-4 text-[28px] font-bold tracking-tight">Edit this role</h1>
@@ -18,11 +18,11 @@
 
   <form method="post" action="/hiring/role/{{ slug }}/edit" class="mt-6 space-y-5">
     <div class="rounded-xl border border-hair bg-white p-6">
-      <label class="text-[13.5px] font-semibold">Role title</label>
-      <input name="title" value="{{ role.jd.title }}"
+      <label for="title" class="text-[13.5px] font-semibold">Role title</label>
+      <input id="title" name="title" value="{{ role.jd.title }}"
              class="mt-2 w-full rounded-lg border border-hair px-3.5 py-2.5 text-[14px]">
-      <label class="mt-5 block text-[13.5px] font-semibold">The public advert</label>
-      <textarea name="jd_text" rows="16"
+      <label for="jd_text" class="mt-5 block text-[13.5px] font-semibold">The public advert</label>
+      <textarea id="jd_text" name="jd_text" rows="16"
                 class="mt-2 w-full rounded-lg border border-hair px-3.5 py-3 text-[13px] font-mono leading-relaxed">{{ role.jd.external_text }}</textarea>
     </div>
 
@@ -30,17 +30,17 @@
       <h2 class="text-[15px] font-bold">Private preferences</h2>
       <p class="mt-1.5 text-[12.5px] text-ink-muted">Checked as you type. Refusals are recorded.</p>
       <div class="mt-4 space-y-3">
-        {% for i in range(6) %}
+        {% for i in range(max_internal) %}
         {% set existing = internal[i] if i < internal|length else None %}
         <div class="flex flex-wrap items-start gap-3" data-row="{{ i }}">
-          <select name="if{{ i }}" class="rounded-lg border border-hair px-3 py-2.5 text-[13px] w-[200px]">
+          <select name="if{{ i }}" aria-label="Preference type {{ i + 1 }}" class="rounded-lg border border-hair px-3 py-2.5 text-[13px] w-[200px]">
             <option value="">—</option>
             {% for key, label in allowed.items() %}
             <option value="{{ key }}" {{ 'selected' if existing and existing.field_name == key else '' }}>{{ label }}</option>
             {% endfor %}
           </select>
           <div class="flex-1 min-w-[280px]">
-            <input name="iv{{ i }}" value="{{ existing.value if existing else '' }}"
+            <input name="iv{{ i }}" aria-label="Preference value {{ i + 1 }}" value="{{ existing.value if existing else '' }}"
                    class="w-full rounded-lg border border-hair px-3.5 py-2.5 text-[13px] guard-input">
             <p class="guard-msg mt-1.5 text-[12px] leading-snug hidden"></p>
           </div>
