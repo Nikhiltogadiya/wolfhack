@@ -103,7 +103,7 @@
             <div class="col-span-5 min-w-0">
               <div class="text-[13px] font-medium leading-snug">{{ r.text }}</div>
               {% if r.source == 'internal' %}<span class="mt-1 inline-block text-[10.5px] font-semibold text-forest-600">INTERNAL CRITERION</span>{% endif %}
-              {% if m and m.rationale %}<div class="mt-1 text-[11.5px] text-ink-muted leading-snug">{{ m.rationale[:130] }}</div>{% endif %}
+              {% if m and m.rationale %}<div class="mt-1 text-[11.5px] text-ink-muted leading-snug">{{ m.rationale|truncate(130, false, '…') }}</div>{% endif %}
             </div>
             {% if m %}
             {% set cov = {'strong':1.0,'moderate':0.6,'weak':0.2,'missing':0.0}[m.strength] %}
@@ -159,7 +159,7 @@
               <div class="mt-2 text-[11px] text-ink-muted">Source</div>
               <div class="mt-1 flex items-center gap-2 flex-wrap">
                 {{ chip(f.span.cite()) }}
-                <span class="text-[12px] text-ink-muted italic">"{{ f.span.text[:110] }}"</span>
+                <span class="text-[12px] text-ink-muted italic">"{{ f.span.text|truncate(110, false, '…') }}"</span>
               </div>{% endif %}
             </div>
           </div>
@@ -235,8 +235,8 @@
           {% for a in answers.answers %}
           <div class="rounded-lg border border-hair p-3">
             <div class="text-[11.5px] font-semibold text-ink-muted">
-              {{ a.question[:110] }}{% if a.is_baseline %} · informal baseline{% endif %}</div>
-            <p class="mt-1 text-[12.5px] leading-relaxed">{{ a.text[:400] }}</p>
+              {{ a.question|truncate(110, false, '…') }}{% if a.is_baseline %} · informal baseline{% endif %}</div>
+            <p class="mt-1 text-[12.5px] leading-relaxed">{{ a.text|truncate(400, false, '…') }}</p>
           </div>
           {% endfor %}
         </div>
@@ -254,7 +254,7 @@
             <p class="text-[13px] leading-relaxed">{{ q.question }}</p>
             <div class="mt-2 flex items-center gap-2">
               {{ pill(q.source|upper, 'red' if q.severity=='critical' else ('amber' if q.severity=='major' else 'grey')) }}
-              <span class="text-[11.5px] text-ink-muted">{{ q.reason[:80] }}</span>
+              <span class="text-[11.5px] text-ink-muted">{{ q.reason|truncate(80, false, '…') }}</span>
             </div>
           </div>
           {% endfor %}
@@ -335,7 +335,7 @@
       <ul class="mt-2 space-y-1 text-[12px]">
         {% for e in c.audit %}
         <li class="{{ 'text-rose-700' if 'REFUSED' in e.event else 'text-ink-muted' }}">
-          <span class="font-mono text-[11px]">{{ e.at[11:16] }}</span> · {{ e.event.replace('_',' ') }} — {{ e.detail[:120] }}</li>
+          <span class="font-mono text-[11px]">{{ e.at[11:16] }}</span> · {{ e.event.replace('_',' ') }} — {{ e.detail|truncate(120, false, '…') }}</li>
         {% endfor %}
       </ul>
     </div>

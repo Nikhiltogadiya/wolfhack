@@ -60,7 +60,7 @@
       <div class="mt-4 space-y-4">
         {% for a in answers.answers %}
         <div>
-          <div class="text-[12.5px] font-semibold text-ink-muted">{{ a.question[:140] }}</div>
+          <div class="text-[12.5px] font-semibold text-ink-muted">{{ a.question|truncate(140, false, '…') }}</div>
           <p class="mt-1 text-[13px] leading-relaxed">{{ a.text }}</p>
         </div>
         {% endfor %}
@@ -152,7 +152,7 @@
       <div class="rounded-lg border border-hair p-4">
         <div class="text-[13px]">{{ f.description }}</div>
         {% if f.span.text %}
-        <div class="mt-1.5 text-[12px] text-ink-muted">From your CV: <span class="italic">"{{ f.span.text[:150] }}"</span></div>
+        <div class="mt-1.5 text-[12px] text-ink-muted">From your CV: <span class="italic">"{{ f.span.text|truncate(150, false, '…') }}"</span></div>
         {% endif %}
       </div>
       {% endfor %}
