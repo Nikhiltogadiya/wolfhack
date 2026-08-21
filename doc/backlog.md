@@ -155,3 +155,14 @@ Signed in as a recruiter and used it. What is wrong, in the order it hurts.
 
 | 70 | DONE | `.env` was created with the passcode and nothing read it — the hiring area stayed open while it looked configured. `config.py` now loads `.env` (shell wins), and `.env` is gitignored |
 | 71 | DONE | Widening the ranking table pushed the Stage column off-screen. Fixed by giving the table more of the row and tightening the rail, verified by measuring rather than eyeballing |
+
+### Full-site audit, 21 Aug 2026
+Every page opened, every control exercised, every scenario tried. 48 defects found and fixed
+across nine batches — full record with evidence in `doc/ui-audit.md`. The four kept open:
+
+| # | Status | Problem |
+|---|---|---|
+| 72 | WONTFIX | **No rate limiting on the hiring sign-in.** Unlimited passcode attempts. On a single shared passcode behind a URL nobody has, a lockout firing mid-demo is a worse outcome than the risk it removes. Revisit when the passcode guards anything real |
+| 73 | DEFERRED | **No pagination** on `/jobs`, the ranking table or `/track` — every list renders its whole collection, and each ranking row runs a per-candidate response scan. Fine at demo scale; a role with 300 applicants would feel broken. Pick up when the corpus outgrows a demo |
+| 74 | DEFERRED | **Repeated full re-reads per request** — `overview` deserialises every candidate in every role three times; `role()` calls `run.candidates()` twice. Same trigger as 73 |
+| 75 | DEFERRED | **Requirement ids are positional (`ext-0..N`) and the create form passes indices, not texts.** Correct today only because `parse_jd` is disk-cached by prompt hash; clear the cache between step 2 and create and the recruiter unticks requirement 3 while a different one vanishes. The candidate page no longer *hides* the consequence (finding G1), but the create path still carries it. Pick up before this runs on adverts that change between steps |
