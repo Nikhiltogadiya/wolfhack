@@ -5,6 +5,8 @@ Two components that must never contaminate each other: **Fit Engine** (matching)
 **Slop Bouncer** (detection).
 
 ## Read before touching anything
+- `doc/architecture.md` — how the whole thing fits together, with diagrams. Start here.
+- `doc/demo-script.md` — what to click, in order, and what not to claim.
 - `doc/project-brief.md` — canonical spec, milestones, demo script.
 - `doc/engineering-log.md` — what was tried, what failed, why. Append as you go.
 - `doc/backlog.md` — what we owe. Add the entry when you defer, not at the end.

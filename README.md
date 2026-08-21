@@ -1,5 +1,8 @@
 # Fit Happens
 
+**Start here:** [`doc/architecture.md`](doc/architecture.md) — the whole design with
+diagrams. [`doc/demo-script.md`](doc/demo-script.md) — the demo, beat by beat.
+
 Ranks who **fits** the role. Flags who **isn't real**. Never decides.
 
 An applicant-screening layer built for the Akkodis *Talent & Opportunity Marketplace*
