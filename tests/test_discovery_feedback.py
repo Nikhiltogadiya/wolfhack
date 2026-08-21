@@ -153,3 +153,14 @@ class TestStuckUploads:
         """Measured: a long CV takes ~150s. A cutoff near that would reap live work."""
         from fit_happens.web import tasks
         assert tasks.STALE_AFTER_SECONDS > 300
+
+
+def test_looking_up_a_role_does_not_create_it(tmp_path, monkeypatch):
+    """Constructing a Run used to mkdir, so visiting /role/typo brought an empty role into
+    existence. A crawler or a mistyped URL would fill the data directory with them."""
+    import fit_happens.store as store
+    monkeypatch.setattr(store, "RUNS", tmp_path / "runs")
+    run = store.Run("a-role-that-does-not-exist")
+    assert not run.exists
+    assert not run.dir.exists(), "merely looking up a role created it"
+    assert store.roles() == []

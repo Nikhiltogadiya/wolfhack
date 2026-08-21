@@ -27,7 +27,7 @@ class AnswerSet(BaseModel):
 class AnswerStore:
     def __init__(self, run: str = "demo"):
         self.dir = DATA_DIR / "runs" / run / "answers"
-        self.dir.mkdir(parents=True, exist_ok=True)
+        self.dir.mkdir(parents=True, exist_ok=True)  # keyed by an existing role
 
     def load(self, candidate_id: str) -> AnswerSet:
         p = self.dir / f"{candidate_id}.json"

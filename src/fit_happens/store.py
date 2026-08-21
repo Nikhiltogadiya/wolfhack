@@ -60,9 +60,19 @@ def roles() -> list[dict]:
 
 
 class Run:
+    """One role's stored state.
+
+    Constructing a Run does NOT create its directory. It used to, which meant merely LOOKING UP
+    a slug brought it into existence: visiting /role/typo created an empty role, and a crawler
+    or a mistyped URL would litter the data directory with them. The directory is created on
+    the first write instead.
+    """
+
     def __init__(self, name: str = "demo"):
         self.name = name
         self.dir = RUNS / name
+
+    def _ensure(self) -> None:
         self.dir.mkdir(parents=True, exist_ok=True)
 
     @property
@@ -75,6 +85,7 @@ class Run:
     # ---- role ----
     def save_role(self, jd: JobDescription, requirements: list[Requirement], clarity: float = 0.0,
                   ad_flags: list | None = None) -> None:
+        self._ensure()
         (self.dir / "role.json").write_text(json.dumps({
             "jd": jd.model_dump(),
             "requirements": [r.model_dump() for r in requirements],
@@ -88,6 +99,7 @@ class Run:
 
     # ---- candidates ----
     def save_candidate(self, result: CandidateResult) -> None:
+        self._ensure()
         (self.dir / f"c_{result.candidate_id}.json").write_text(result.model_dump_json(indent=2))
 
     def candidates(self) -> list[CandidateResult]:

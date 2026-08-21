@@ -83,7 +83,7 @@ class Rejection(BaseModel):
 class FeedbackStore:
     def __init__(self, run: str = "demo"):
         self.dir = DATA_DIR / "runs" / run / "feedback"
-        self.dir.mkdir(parents=True, exist_ok=True)
+        self.dir.mkdir(parents=True, exist_ok=True)  # keyed by an existing role
 
     def record(self, r: Rejection) -> None:
         (self.dir / f"{r.candidate_id}.json").write_text(r.model_dump_json(indent=2))

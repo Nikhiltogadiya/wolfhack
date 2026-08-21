@@ -100,7 +100,7 @@ class ConsentStore:
 
     def __init__(self, run: str = "demo"):
         self.dir = DATA_DIR / "runs" / run / "consent"
-        self.dir.mkdir(parents=True, exist_ok=True)
+        self.dir.mkdir(parents=True, exist_ok=True)  # keyed by an existing role
         self._secret_file = self.dir / ".secret"
         if not self._secret_file.exists():
             self._secret_file.write_text(secrets.token_hex(16))
