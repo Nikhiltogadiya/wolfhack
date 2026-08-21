@@ -40,13 +40,23 @@
   <p class="mt-2 text-[11.5px] text-ink-muted">
     Every stage here is set by you. Nothing in this product moves a candidate on its own.</p>
 
-  <div class="mt-5 rounded-xl border border-hair bg-white p-6 flex items-center gap-6">
-    <span class="grid h-16 w-16 shrink-0 place-items-center rounded-full bg-forest-50 text-forest text-[19px] font-bold">{{ c.display_initials }}</span>
-    <div class="min-w-0">
-      <h1 class="text-[25px] font-bold tracking-tight">{{ c.display_name }}</h1>
-      <p class="text-[13.5px] text-ink-muted">{{ role.jd.title }} · {{ c.employment|length }} roles · {{ c.claims|length }} claims extracted</p>
+  {# Header was a single flex row: avatar, name block, then a 986px `shrink-0` score grid.
+     The grid refused to shrink, so the name block was squeezed to ZERO width and its text
+     wrapped one character at a time, while the grid still escaped the card by 11px. Identity
+     and scores are two different things; they get two rows. #}
+  <div class="mt-5 rounded-xl border border-hair bg-white p-6">
+    <div class="flex items-center gap-5">
+      <span class="grid h-14 w-14 shrink-0 place-items-center rounded-full bg-forest-50 text-forest text-[17px] font-bold">
+        {{ c.display_initials }}</span>
+      <div class="min-w-0 flex-1">
+        <h1 class="text-[24px] font-bold tracking-tight truncate">{{ c.display_name }}</h1>
+        <p class="mt-0.5 text-[13px] text-ink-muted truncate">
+          {{ role.jd.title }} · {{ c.employment|length }} role{{ '' if c.employment|length == 1 else 's' }}
+          · {{ c.claims|length }} claims extracted</p>
+      </div>
     </div>
-    <div class="ml-auto grid grid-cols-2 lg:grid-cols-4 gap-3 shrink-0">
+
+    <div class="mt-5 grid grid-cols-2 md:grid-cols-4 gap-3">
       {% set cards = [
         ('Fit score', (c.fit.score*100)|round(0)|int|string + '%', 'forest' if c.fit.score>=0.6 else ('amber' if c.fit.score>=0.35 else 'rose')),
         ('Résumé sloppiness', c.style_label, 'forest' if c.style.band=='low' else ('amber' if c.style.band=='grey' else 'rose')),
@@ -54,10 +64,11 @@
         ('Response authenticity', response_label[0],
          'forest' if response_label[1]=='green' else ('amber' if response_label[1]=='amber' else ('rose' if response_label[1]=='red' else 'grey'))) ] %}
       {% for label, value, tone in cards %}
-      <div class="rounded-lg border border-hair px-4 py-3 min-w-[132px]">
-        <div class="text-[11px] text-ink-muted">{{ label }}</div>
-        <div class="mt-1 text-[19px] font-bold
-          {{ 'text-forest-600' if tone=='forest' else ('text-amber-600' if tone=='amber' else ('text-rose-600' if tone=='rose' else 'text-ink-muted')) }}">{{ value }}</div>
+      <div class="min-w-0 rounded-lg border border-hair px-4 py-3">
+        <div class="text-[11px] text-ink-muted truncate">{{ label }}</div>
+        <div class="mt-1 text-[18px] font-bold truncate
+          {{ 'text-forest-600' if tone=='forest' else ('text-amber-600' if tone=='amber' else ('text-rose-600' if tone=='rose' else 'text-ink-muted')) }}"
+          title="{{ value }}">{{ value }}</div>
       </div>
       {% endfor %}
     </div>
