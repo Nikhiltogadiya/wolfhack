@@ -1,7 +1,11 @@
 # Fit Happens — how it is built
 
 Written for the demo: read top to bottom, and each diagram is followed by a short explanation
-in plain words. Every diagram is a PNG in `doc/diagrams/`.
+in plain words. Every diagram is a PNG in `doc/diagrams/`, regenerated with
+`uv run python -c "import tools.diagrams as d; [f() for f in (d.d1_two_doors, d.d2_layers, d.d3_pipeline, d.d4_separation, d.d5_checkpoints, d.d6_consent, d.d7_llm_call)]"`.
+
+**Shareable version:** https://claude.ai/code/artifact/3ab0c39c-951e-4296-a44c-d03c9afc415b
+(same content, one page, diagrams embedded — private until you share it).
 
 ---
 
