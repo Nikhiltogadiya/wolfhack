@@ -34,7 +34,7 @@ tailwind.config = { theme: { extend: { colors: {
     <nav class="px-3 space-y-0.5 text-[13.5px]">
       {# Active state is driven by the `nav` the route passes. It used to be hard-coded to the
          first item, so every page except the overview highlighted the wrong thing. #}
-      {% set items = [('overview','/hiring','Overview'), ('roles','/hiring/roles/new','Roles'),
+      {% set items = [('overview','/hiring','Overview'), ('roles','/hiring/roles','Roles'),
                       ('market','/hiring/market','Market \u0026 feedback')] %}
       {% for key, href, label in items %}
       <a href="{{ href }}" class="flex items-center gap-3 rounded-lg px-3 py-2.5

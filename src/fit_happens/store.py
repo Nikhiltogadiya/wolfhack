@@ -44,6 +44,7 @@ def roles() -> list[dict]:
         flagged = sum(1 for c in cands if c.cp2.verdict.value == "flag_for_human")
         out.append({
             "slug": d.name,
+            "closed": run.closed,
             "title": role["jd"].get("title") or d.name,
             "candidates": len(cands),
             "flagged": flagged,
@@ -78,6 +79,24 @@ class Run:
     @property
     def exists(self) -> bool:
         return (self.dir / "role.json").exists()
+
+    @property
+    def closed(self) -> bool:
+        return (self.dir / "closed").exists()
+
+    def set_closed(self, closed: bool) -> None:
+        """Closed roles stop accepting applications and drop off the public board.
+
+        Deliberately not a delete: a filled role's applicants still have files, questions they
+        answered, and consent decisions - all of which they can still open, and all of which
+        the employer may be asked about later.
+        """
+        marker = self.dir / "closed"
+        if closed:
+            self._ensure()
+            marker.write_text("")
+        else:
+            marker.unlink(missing_ok=True)
 
     def delete_candidate(self, cid: str) -> None:
         (self.dir / f"c_{cid}.json").unlink(missing_ok=True)

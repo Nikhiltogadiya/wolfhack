@@ -39,10 +39,11 @@
   </div>
   {% else %}
 
-  <div class="mt-7 grid grid-cols-4 gap-4">
+  <div class="mt-7 grid grid-cols-2 lg:grid-cols-5 gap-4">
     {% for label, value, tone in [
         ('Open roles', open_roles, ''), ('Applicants', applicants, ''),
         ('Need a human', needs_review, 'amber'),
+        ('Replied to you', replied_count, 'forest' if replied_count else ''),
         ('Average fit', (mean_fit*100)|round(0)|int|string + '%', 'forest') ] %}
     <div class="rounded-xl border border-hair bg-white p-5">
       <div class="text-[12px] text-ink-muted">{{ label }}</div>
@@ -98,7 +99,11 @@
               <span class="block text-[13px] font-medium group-hover:text-forest-600 truncate">{{ c.display_name }}</span>
               <span class="block text-[11.5px] text-ink-muted truncate">{{ r.title }}</span>
             </span>
-            <span class="text-[13px] font-bold shrink-0">{{ (c.fit.score*100)|round(0)|int }}%</span>
+            <span class="shrink-0 flex items-center gap-2">
+              {% set st = stage_of.get((r.slug, c.candidate_id)) %}
+              {% if st and st.stage != 'new' %}{{ pill(st.label|upper, st.tone) }}{% endif %}
+              <span class="text-[13px] font-bold">{{ (c.fit.score*100)|round(0)|int }}%</span>
+            </span>
           </a>
           {% endfor %}
         </div>

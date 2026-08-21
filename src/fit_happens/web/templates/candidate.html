@@ -30,6 +30,11 @@
       {% endfor %}
       <a href="#feedback" class="rounded-lg border border-hair px-4 py-2 text-[13px] font-semibold hover:border-rose-300 hover:text-rose-700">
         Pass</a>
+      <form method="post" action="/hiring/role/{{ slug }}/c/{{ c.candidate_id }}/remove"
+            onsubmit="return confirm('Remove this application entirely? Use Pass instead if you are just not progressing them.')">
+        <button class="rounded-lg px-3 py-2 text-[13px] text-ink-muted hover:text-rose-700"
+                title="For a duplicate or a wrong file">Remove</button>
+      </form>
     </div>
   </div>
   <p class="mt-2 text-[11.5px] text-ink-muted">

@@ -82,7 +82,16 @@ def overview(request: Request):
         return gate
     all_roles = roles()
     everyone = [(r, c) for r in all_roles for c in Run(r["slug"]).candidates()]
+    stage_of, replied_count = {}, 0
+    for r in all_roles:
+        st, ans = StageStore(r["slug"]), AnswerStore(r["slug"])
+        for c in Run(r["slug"]).candidates():
+            rec = st.load(c.candidate_id)
+            stage_of[(r["slug"], c.candidate_id)] = rec
+            if ans.load(c.candidate_id).submitted and rec.stage == "questions_sent":
+                replied_count += 1
     return TEMPLATES.TemplateResponse(request, "overview.html", {
+        "stage_of": stage_of, "replied_count": replied_count,
         "roles": all_roles,
         "open_roles": len(all_roles),
         "applicants": sum(r["candidates"] for r in all_roles),
@@ -104,6 +113,93 @@ def seed_demo(background: BackgroundTasks):
 
 
 # ---------------------------------------------------------------- a role
+
+
+@app.get("/hiring/roles", response_class=HTMLResponse)
+def roles_list(request: Request):
+    """A list of roles. The nav used to jump straight to 'create new', which is not a list."""
+    if (gate := auth.require(request)):
+        return gate
+    return TEMPLATES.TemplateResponse(request, "roles_list.html", {
+        "roles": roles(), "nav": "roles"})
+
+
+@app.get("/hiring/role/{slug}/edit", response_class=HTMLResponse)
+def edit_role_form(request: Request, slug: str):
+    if (gate := auth.require(request)):
+        return gate
+    role_data = Run(slug).load_role()
+    if not role_data:
+        return _err(request, "That role does not exist.", 404, "/hiring/roles")
+    return TEMPLATES.TemplateResponse(request, "role_edit.html", {
+        "slug": slug, "role": role_data, "allowed": ALLOWED_FIELDS, "nav": "roles",
+        "internal": role_data["jd"].get("internal", [])})
+
+
+@app.post("/hiring/role/{slug}/edit")
+async def edit_role(request: Request, slug: str):
+    """Re-parse the advert and rebuild the requirements.
+
+    Existing candidates keep their stored scores until they are re-run - shown on the page,
+    because silently leaving stale scores against changed requirements would be worse than
+    saying so.
+    """
+    if (gate := auth.require(request)):
+        return gate
+    run = Run(slug)
+    role_data = run.load_role()
+    if not role_data:
+        return _err(request, "That role does not exist.", 404, "/hiring/roles")
+
+    form = await request.form()
+    from ..jd.model import InternalConstraint, JobDescription
+    from ..jd.parse import parse_jd
+
+    jd_text = str(form.get("jd_text", "")).strip() or role_data["jd"]["external_text"]
+    title = str(form.get("title", "")).strip() or role_data["jd"]["title"]
+    internal = [
+        InternalConstraint(field_name=str(form.get(f"if{i}")), value=str(form.get(f"iv{i}")).strip(),
+                           required=bool(form.get(f"ir{i}")))
+        for i in range(8)
+        if str(form.get(f"if{i}", "")) and str(form.get(f"iv{i}", "")).strip()
+    ]
+    parsed_title, external = parse_jd(jd_text, title)
+    jd = JobDescription(title=title or parsed_title, external_text=jd_text, internal=internal)
+    reqs = external + jd.internal_requirements()
+    _, ad_flags, clarity = scan_job_ad(jd_text)
+    run.save_role(jd, reqs, clarity, ad_flags)
+    return RedirectResponse(f"/hiring/role/{slug}?edited=1", status_code=303)
+
+
+@app.post("/hiring/role/{slug}/close")
+def close_role(request: Request, slug: str, closed: str = Form("")):
+    if (gate := auth.require(request)):
+        return gate
+    Run(slug).set_closed(closed == "on")
+    return RedirectResponse(f"/hiring/role/{slug}", status_code=303)
+
+
+@app.post("/hiring/role/{slug}/c/{cid}/remove")
+def remove_candidate(request: Request, slug: str, cid: str):
+    """Duplicate application, wrong file attached. Was permanent until now."""
+    if (gate := auth.require(request)):
+        return gate
+    Run(slug).delete_candidate(cid)
+    return RedirectResponse(f"/hiring/role/{slug}", status_code=303)
+
+
+@app.post("/hiring/role/{slug}/bulk")
+async def bulk_stage(request: Request, slug: str):
+    """Shortlisting five people used to be five page loads."""
+    if (gate := auth.require(request)):
+        return gate
+    form = await request.form()
+    stage = str(form.get("stage", ""))
+    ids = form.getlist("ids")
+    store = StageStore(slug)
+    for cid in ids:
+        store.set(str(cid), stage)
+    return RedirectResponse(f"/hiring/role/{slug}", status_code=303)
 
 
 @app.get("/hiring/roles/new", response_class=HTMLResponse)
@@ -227,7 +323,15 @@ def role(request: Request, slug: str, internal: int = 1, sort: str = "fit",
 
     stages = StageStore(slug)
     stage_of = {c.candidate_id: stages.load(c.candidate_id) for c in candidates}
-    if filter_by == "review":
+    answers_store = AnswerStore(slug)
+    # She asked, they replied, and she has not moved them on. Without this she has to keep
+    # revisiting the page to find out whether anyone answered.
+    replied = {c.candidate_id for c in candidates
+               if answers_store.load(c.candidate_id).submitted
+               and stage_of[c.candidate_id].stage == "questions_sent"}
+    if filter_by == "replied":
+        candidates = [c for c in candidates if c.candidate_id in replied]
+    elif filter_by == "review":
         candidates = [c for c in candidates
                       if c.cp2.verdict.value == "flag_for_human" or c.style.band != "low"]
     elif filter_by == "top":
@@ -249,6 +353,7 @@ def role(request: Request, slug: str, internal: int = 1, sort: str = "fit",
     return TEMPLATES.TemplateResponse(request, "ranking.html", {
         "slug": slug, "role": role_data, "candidates": candidates,
         "stage_of": stage_of, "stages": STAGES, "sort": sort, "filter_by": filter_by,
+        "replied": replied, "closed": run.closed, "edited": bool(request.query_params.get("edited")),
         "total": len(run.candidates()),
         "use_internal": bool(internal),
         "required_count": sum(1 for r in reqs if r["kind"] == "required"),
@@ -547,6 +652,8 @@ def landing(request: Request):
 def job_board(request: Request, q: str = ""):
     listed = []
     for r in roles():
+        if r.get("closed"):
+            continue  # a closed role is not open for applications
         role_data = Run(r["slug"]).load_role()
         if not role_data:
             continue
@@ -562,8 +669,9 @@ def job_board(request: Request, q: str = ""):
 
 @app.get("/jobs/{slug}", response_class=HTMLResponse)
 def job_detail(request: Request, slug: str):
-    role_data = Run(slug).load_role()
-    if not role_data:
+    run = Run(slug)
+    role_data = run.load_role()
+    if not role_data or run.closed:
         return _err(request, "That job is no longer listed.", 404, "/jobs")
     text = role_data["jd"]["external_text"]
     _, flags, clarity = scan_job_ad(text)
@@ -579,8 +687,9 @@ def job_detail(request: Request, slug: str):
 
 @app.get("/jobs/{slug}/apply", response_class=HTMLResponse)
 def apply_form(request: Request, slug: str):
-    role_data = Run(slug).load_role()
-    if not role_data:
+    run = Run(slug)
+    role_data = run.load_role()
+    if not role_data or run.closed:
         return _err(request, "That job is no longer listed.", 404, "/jobs")
     return TEMPLATES.TemplateResponse(request, "apply.html", {
         "slug": slug, "role": role_data, "error": ""})
@@ -590,7 +699,7 @@ def apply_form(request: Request, slug: str):
 async def submit_application(request: Request, slug: str, background: BackgroundTasks):
     run = Run(slug)
     role_data = run.load_role()
-    if not role_data:
+    if not role_data or run.closed:
         return _err(request, "That job is no longer listed.", 404, "/jobs")
 
     form = await request.form()

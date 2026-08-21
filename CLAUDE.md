@@ -43,8 +43,9 @@ Candidate (public): `/` · `/jobs` board · `/jobs/{slug}` advert + our clarity 
 `/jobs/{slug}/apply` · `/apply/{token}` their application · `/track` recover a lost link.
 Private preferences are never rendered on a candidate-facing page.
 
-Recruiter (behind `FIT_HAPPENS_TEAM_PASSCODE`, open with a visible warning if unset):
-`/hiring` overview · `/hiring/roles/new` → `/hiring/roles/preview` → create (two steps) ·
+Recruiter (behind `FIT_HAPPENS_TEAM_PASSCODE`, read from the shell or a `.env`; open with a
+visible banner if unset): `/hiring` overview · `/hiring/roles` list · `/hiring/roles/new` →
+`/hiring/roles/preview` → create · `/hiring/role/{slug}/edit` · close/reopen ·
 `/hiring/role/{slug}` ranking · `/hiring/role/{slug}/compare?ids=a,b` ·
 `/hiring/role/{slug}/c/{cid}` evidence · `.../ask` · `/hiring/market`. Stages live in `stages.py` and are ALWAYS set by a person - that module must never
 read a score, pinned by an AST test.

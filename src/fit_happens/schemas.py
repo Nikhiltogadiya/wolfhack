@@ -15,6 +15,7 @@ that breaks one, those tests fail, which is the point.
 
 from __future__ import annotations
 
+import re
 from enum import Enum
 from typing import Literal
 
@@ -305,12 +306,25 @@ class CandidateResult(BaseModel):
 
     @property
     def display_name(self) -> str:
-        return self.name.replace("_", " ").replace("-", " ").title()
+        """What a recruiter reads.
+
+        `name` holds whatever we know: the name someone typed when applying, or - for a CV
+        added straight from the dashboard - the filename. Two things had leaked into the UI:
+        the id hash ("Naledi Dube 7B4F54") and bare filenames ("15118506").
+        """
+        raw = (self.name or self.candidate_id).strip()
+        parts = [p for p in re.split(r"[\s_-]+", raw) if p]
+        # drop a trailing id hash: short, and not word-like
+        if len(parts) > 1 and re.fullmatch(r"[0-9a-f]{4,8}", parts[-1].lower()):
+            parts = parts[:-1]
+        if not parts or all(p.isdigit() for p in parts):
+            return f"Applicant {raw}"
+        return " ".join(p if p.isupper() else p.capitalize() for p in parts)
 
     @property
     def display_initials(self) -> str:
-        parts = [p for p in self.name.replace("_", " ").replace("-", " ").split() if p]
-        return "".join(p[0].upper() for p in parts[:2]) or self.name[:2].upper()
+        parts = [p for p in self.display_name.split() if p and p[0].isalpha()]
+        return "".join(p[0].upper() for p in parts[:2]) or "?"
 
     @property
     def authenticity_flags(self) -> list[Flag]:

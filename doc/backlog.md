@@ -121,3 +121,37 @@ Found by opening the site as a candidate instead of curling it.
 | 56 | DONE | Hiring area behind a shared passcode, with a visible banner when unset |
 | 57 | DEFERRED | Real per-user auth with a record of who viewed which application | The passcode is honest about not being this. A subject access request asks exactly "who looked at my file", and we cannot answer it |
 | 58 | DEFERRED | Email delivery of the application link | Copy/paste today; needs an SMTP provider |
+
+## Employer walkthrough, 2026-08-21
+
+Signed in as a recruiter and used it. What is wrong, in the order it hurts.
+
+### Identity — visible and embarrassing
+| # | Status | Problem |
+|---|---|---|
+| 59 | DONE | An applicant shows as **"Naledi Dube 7B4F54"** — the id hash leaks into the display name |
+| 60 | DONE | CVs added from the dashboard show as **"15118506"**, a filename. The pipeline names a candidate after the file even when an application carries a real name |
+
+### Workflow — things a recruiter needs and simply cannot do
+| # | Status | Problem |
+|---|---|---|
+| 61 | DONE | **Cannot edit a role.** A typo in the advert means deleting and starting again |
+| 62 | DONE | **Cannot close a filled role.** It sits under "Open roles" forever, and candidates keep applying |
+| 63 | DONE | **Cannot remove a candidate** — a duplicate application or a wrong file is permanent |
+| 64 | DONE | **No bulk actions.** Shortlisting five people is five page loads |
+| 65 | DONE | "Roles" in the nav goes to *create new*, not a list of roles |
+
+### Awareness — she has to keep checking
+| # | Status | Problem |
+|---|---|---|
+| 66 | DONE | Nothing tells her a candidate has **answered**. She asked, and now must revisit the page to find out |
+| 67 | DONE | Overview "strongest matches" shows no stage, so someone already shortlisted looks identical to someone untouched |
+
+### Layout
+| # | Status | Problem |
+|---|---|---|
+| 68 | DONE | Stage pill clipped — "SHORTLI…" |
+| 69 | DONE | Candidate column too narrow; names wrap to three lines |
+
+| 70 | DONE | `.env` was created with the passcode and nothing read it — the hiring area stayed open while it looked configured. `config.py` now loads `.env` (shell wins), and `.env` is gitignored |
+| 71 | DONE | Widening the ranking table pushed the Stage column off-screen. Fixed by giving the table more of the row and tightening the rail, verified by measuring rather than eyeballing |

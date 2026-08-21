@@ -156,6 +156,7 @@ def run_candidate(
     jd: JobDescription,
     requirements: list[Requirement],
     consent: Consent | None = None,
+    display_name: str = "",
 ) -> CandidateResult:
     global _GRAPH
     if _GRAPH is None:
@@ -167,7 +168,7 @@ def run_candidate(
     stem = Path(path).stem
     return CandidateResult(
         candidate_id=stem,
-        name=stem,
+        name=display_name or stem,
         category=Path(path).parent.name,
         source_path=str(path),
         fit=out["fit"],

@@ -21,6 +21,8 @@
     <div class="flex items-center gap-3 shrink-0">
     <form method="post" action="/hiring/role/{{ slug }}/upload" enctype="multipart/form-data"
           class="flex items-center gap-2" id="uploadForm">
+      <a href="/hiring/role/{{ slug }}/edit"
+         class="rounded-lg border border-hair bg-white px-4 py-2.5 text-[13px] font-semibold hover:border-forest-600">Edit role</a>
       <label class="cursor-pointer rounded-lg border border-hair bg-white px-4 py-2.5 text-[13px] font-semibold hover:border-forest-600">
         <input type="file" name="files" multiple accept=".pdf,.docx,.txt" class="hidden"
                onchange="document.getElementById('uploadForm').submit()">
@@ -40,6 +42,23 @@
     </div>
     </form>
   </div>
+
+  {% if closed %}
+  <div class="mt-5 rounded-xl border border-hair bg-cream-100 p-4 flex items-center justify-between gap-4">
+    <div class="text-[13px]"><span class="font-semibold">This role is closed.</span>
+      It is off the public board and not accepting applications. Everything here is kept.</div>
+    <form method="post" action="/hiring/role/{{ slug }}/close">
+      <input type="hidden" name="closed" value="">
+      <button class="rounded-lg border border-hair bg-white px-3.5 py-2 text-[12.5px] font-semibold hover:border-forest-600">Reopen</button>
+    </form>
+  </div>
+  {% endif %}
+  {% if edited %}
+  <div class="mt-5 rounded-xl border border-forest-600/30 bg-forest-50 p-4 text-[13px]">
+    <span class="font-semibold">Saved.</span> Existing applicants keep the scores they already
+    have — changing requirements does not silently re-judge people who applied under different terms.
+  </div>
+  {% endif %}
 
   <div id="explainer" class="mt-5 hidden rounded-xl border border-hair bg-white p-5">
     <div class="flex items-start justify-between gap-4">
@@ -95,10 +114,10 @@
   {% endif %}
 
   <div class="mt-7 grid grid-cols-1 lg:grid-cols-12 gap-6">
-    <div class="lg:col-span-8 min-w-0">
+    <div class="lg:col-span-9 min-w-0">
       <div class="mb-3 flex flex-wrap items-center gap-2">
         {% for key, label in [('','Everyone'), ('undecided','Not yet decided'), ('review','Needs a human'),
-                              ('top','Top fit'), ('waiting','Waiting on them')] %}
+                              ('top','Top fit'), ('waiting','Waiting on them'), ('replied','They replied')] %}
         <a href="?sort={{ sort }}&filter_by={{ key }}&internal={{ 1 if use_internal else 0 }}"
            class="rounded-lg border px-3 py-1.5 text-[12.5px] font-medium transition
            {{ 'border-forest bg-forest text-white' if filter_by == key else 'border-hair bg-white hover:border-forest-600' }}">
@@ -106,13 +125,20 @@
         {% endfor %}
         <span class="ml-auto text-[12px] text-ink-muted">
           showing {{ candidates|length }} of {{ total }}</span>
-        <button id="compareBtn" disabled
+        <button id="compareBtn" disabled type="button"
                 class="rounded-lg border border-hair bg-white px-3 py-1.5 text-[12.5px] font-semibold disabled:opacity-40 enabled:hover:border-forest-600">
           Compare <span id="compareCount">0</span>/2</button>
+        <span id="bulkBar" class="hidden items-center gap-2">
+          <span class="text-[12px] text-ink-muted"><span id="bulkCount">0</span> selected</span>
+          <button type="button" data-bulk="shortlisted"
+                  class="rounded-lg bg-forest px-3 py-1.5 text-[12.5px] font-semibold text-white hover:bg-forest-700">Shortlist</button>
+          <button type="button" data-bulk="reviewing"
+                  class="rounded-lg border border-hair bg-white px-3 py-1.5 text-[12.5px] font-semibold hover:border-forest-600">Reviewing</button>
+        </span>
       </div>
 
       <div class="rounded-xl border border-hair bg-white overflow-hidden">
-        <div class="overflow-x-auto"><table class="w-full text-[13.5px] min-w-[680px]">
+        <div class="overflow-x-auto"><table class="w-full text-[13px] min-w-[760px]">
           <thead>
             <tr class="bg-cream-100 text-left text-[11.5px] uppercase tracking-wide text-ink-muted">
               <th class="py-3 pl-4 pr-2 w-8"></th>
@@ -121,12 +147,12 @@
                  class="inline-flex items-center gap-1 hover:text-ink {{ 'text-ink' if sort == key else '' }}">
                 {{ label }}{% if sort == key %}<span>↓</span>{% endif %}</a>
               {% endmacro %}
-              <th class="py-3 pr-3 font-semibold">{{ sortlink('name','Candidate') }}</th>
+              <th class="py-3 pr-3 font-semibold w-[170px]">{{ sortlink('name','Candidate') }}</th>
               <th class="px-3 font-semibold">{{ sortlink('fit','Fit score') }}</th>
-              <th class="px-3 font-semibold">{{ sortlink('style','Résumé sloppiness') }}</th>
-              <th class="px-3 font-semibold">{{ sortlink('claims','CV bluff risk') }}</th>
-              <th class="px-3 font-semibold">Response authenticity</th>
-              <th class="px-3 pr-5 font-semibold">Stage</th>
+              <th class="px-3 font-semibold">{{ sortlink('style','Sloppiness') }}</th>
+              <th class="px-3 font-semibold">{{ sortlink('claims','Bluff risk') }}</th>
+              <th class="px-2 font-semibold">Response</th>
+              <th class="px-2 pr-4 font-semibold w-[120px]">Stage</th>
             </tr>
           </thead>
           <tbody>
@@ -147,7 +173,7 @@
                   <span class="grid h-9 w-9 place-items-center rounded-full bg-forest-50 text-forest text-[12px] font-bold">
                     {{ c.display_initials }}</span>
                   <span>
-                    <span class="font-semibold group-hover:text-forest-600">{{ c.display_name }}</span>
+                    <span class="font-semibold group-hover:text-forest-600 whitespace-nowrap">{{ c.display_name }}</span>
                     <span class="block text-[11.5px] text-ink-muted">{{ c.employment|length }} roles · {{ c.claims|length }} claims</span>
                     {% if c.freshness_label == 'STALE' %}
                     <span class="mt-1 inline-flex items-center gap-1 rounded px-1.5 py-0.5 text-[10.5px] font-semibold bg-amber-50 text-amber-800 border border-amber-200"
@@ -165,9 +191,11 @@
               <td class="px-3">{{ pill(c.bluff_label, c.risk_tone) }}</td>
               {% set rl = response_labels.get(c.candidate_id, ('PENDING','grey')) %}
               <td class="px-3">{{ pill(rl[0], rl[1]) }}</td>
-              <td class="px-3 pr-5">
+              <td class="px-2 pr-4">
                 {% set st = stage_of[c.candidate_id] %}
-                {{ pill(st.label|upper, st.tone) }}
+                {% if c.candidate_id in replied %}
+                  {{ pill('REPLIED', 'green') }}
+                {% else %}{{ pill(st.label|upper, st.tone) }}{% endif %}
               </td>
             </tr>
           {% endfor %}
@@ -180,7 +208,7 @@
       </div>
     </div>
 
-    <div class="lg:col-span-4 space-y-5">
+    <div class="lg:col-span-3 space-y-5">
       <div class="rounded-xl border border-hair bg-white p-5">
         <div class="text-[12px] font-semibold text-ink-muted">Role fit configuration</div>
         <div class="mt-3 text-[34px] font-bold leading-none tracking-tight">70 / 30</div>
@@ -229,13 +257,28 @@ if (localStorage.getItem('fh.explainer') !== 'hidden') {
     const picked = boxes.filter(b => b.checked);
     count.textContent = picked.length;
     btn.disabled = picked.length !== 2;
-    boxes.forEach(b => { b.disabled = !b.checked && picked.length >= 2; });
+    // compare needs exactly two; bulk staging has no such limit, so nothing is disabled
+    const bulk = document.getElementById('bulkBar');
+    bulk.classList.toggle('hidden', picked.length === 0);
+    bulk.classList.toggle('inline-flex', picked.length > 0);
+    document.getElementById('bulkCount').textContent = picked.length;
   };
   boxes.forEach(b => b.addEventListener('change', sync));
   btn.addEventListener('click', () => {
     const ids = boxes.filter(b => b.checked).map(b => b.value).join(',');
     location.href = `/hiring/role/{{ slug }}/compare?ids=${ids}`;
   });
+
+  // Bulk staging: shortlisting five people used to be five page loads.
+  document.querySelectorAll('[data-bulk]').forEach(b => b.addEventListener('click', () => {
+    const picked = boxes.filter(x => x.checked);
+    if (!picked.length) return;
+    const f = document.createElement('form');
+    f.method = 'post'; f.action = `/hiring/role/{{ slug }}/bulk`;
+    f.innerHTML = `<input name="stage" value="${b.dataset.bulk}">` +
+      picked.map(x => `<input name="ids" value="${x.value}">`).join('');
+    document.body.appendChild(f); f.submit();
+  }));
   sync();
 })();
 

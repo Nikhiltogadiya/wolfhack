@@ -138,7 +138,12 @@ def process_cv(slug: str, path: str, tid: str) -> None:
         consent = ConsentStore(slug).load(cid)
 
         update(slug, tid, "running", "extracting claims and matching to the role")
-        result = run_candidate(path, jd, reqs, consent)
+        # An application carries the name the person typed. Without this the recruiter sees a
+        # filename, which is how one applicant came to be listed as "15118506".
+        from ..candidate.applications import ApplicationStore
+
+        appn = ApplicationStore(slug).get(cid)
+        result = run_candidate(path, jd, reqs, consent, display_name=appn.name if appn else "")
         run.save_candidate(result)
         ConsentStore(slug).save(consent)
         update(slug, tid, "done", f"{result.fit.score:.0%} fit · {len(result.claims)} claims")

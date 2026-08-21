@@ -1,28 +1,3 @@
 {
- "items": [
-  {
-   "id": "15118506.pdf-0",
-   "name": "15118506.pdf",
-   "state": "failed",
-   "detail": "",
-   "at": "2026-08-21T02:29:01+00:00",
-   "error": "TimeoutError: 1 of 3 'claim_extract' calls made no progress in 240s"
-  },
-  {
-   "id": "15118506.pdf-1",
-   "name": "15118506.pdf",
-   "state": "done",
-   "detail": "72% fit \u00b7 78 claims",
-   "at": "2026-08-21T02:14:43+00:00",
-   "error": ""
-  },
-  {
-   "id": "naledi-dube-7b4f54-2",
-   "name": "naledi-dube-7b4f54",
-   "state": "done",
-   "detail": "59% fit \u00b7 240 claims",
-   "at": "2026-08-21T06:50:11+00:00",
-   "error": ""
-  }
- ]
+ "items": []
 }

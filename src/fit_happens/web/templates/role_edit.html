@@ -1,0 +1,81 @@
+{% extends "base.html" %}
+{% from "_macros.html" import pill %}
+{% block title %}Edit {{ role.jd.title }} — Fit Happens{% endblock %}
+{% block body %}
+<div class="px-6 py-7 max-w-[880px] mx-auto">
+  <a href="/hiring/role/{{ slug }}" class="inline-flex items-center gap-2 text-[13px] text-ink-muted hover:text-ink">
+    <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
+    {{ role.jd.title }}</a>
+
+  <h1 class="mt-4 text-[28px] font-bold tracking-tight">Edit this role</h1>
+
+  <div class="mt-4 rounded-lg border border-amber-300 bg-amber-50 p-4 text-[12.5px] leading-relaxed text-amber-900">
+    <span class="font-semibold">Existing applicants keep the scores they already have.</span>
+    Changing the requirements does not re-score anyone automatically — that would mean silently
+    re-judging people who applied under different terms. Re-upload a CV to score it against the
+    new version.
+  </div>
+
+  <form method="post" action="/hiring/role/{{ slug }}/edit" class="mt-6 space-y-5">
+    <div class="rounded-xl border border-hair bg-white p-6">
+      <label class="text-[13.5px] font-semibold">Role title</label>
+      <input name="title" value="{{ role.jd.title }}"
+             class="mt-2 w-full rounded-lg border border-hair px-3.5 py-2.5 text-[14px]">
+      <label class="mt-5 block text-[13.5px] font-semibold">The public advert</label>
+      <textarea name="jd_text" rows="16"
+                class="mt-2 w-full rounded-lg border border-hair px-3.5 py-3 text-[13px] font-mono leading-relaxed">{{ role.jd.external_text }}</textarea>
+    </div>
+
+    <div class="rounded-xl border border-hair bg-white p-6">
+      <h2 class="text-[15px] font-bold">Private preferences</h2>
+      <p class="mt-1.5 text-[12.5px] text-ink-muted">Checked as you type. Refusals are recorded.</p>
+      <div class="mt-4 space-y-3">
+        {% for i in range(6) %}
+        {% set existing = internal[i] if i < internal|length else None %}
+        <div class="flex flex-wrap items-start gap-3" data-row="{{ i }}">
+          <select name="if{{ i }}" class="rounded-lg border border-hair px-3 py-2.5 text-[13px] w-[200px]">
+            <option value="">—</option>
+            {% for key, label in allowed.items() %}
+            <option value="{{ key }}" {{ 'selected' if existing and existing.field_name == key else '' }}>{{ label }}</option>
+            {% endfor %}
+          </select>
+          <div class="flex-1 min-w-[280px]">
+            <input name="iv{{ i }}" value="{{ existing.value if existing else '' }}"
+                   class="w-full rounded-lg border border-hair px-3.5 py-2.5 text-[13px] guard-input">
+            <p class="guard-msg mt-1.5 text-[12px] leading-snug hidden"></p>
+          </div>
+          <label class="flex items-center gap-2 text-[12.5px] text-ink-muted pt-2.5">
+            <input type="checkbox" name="ir{{ i }}" {{ 'checked' if existing and existing.required else '' }}> must have</label>
+        </div>
+        {% endfor %}
+      </div>
+    </div>
+
+    <div class="flex items-center gap-3 pb-4">
+      <button class="rounded-lg bg-forest px-5 py-2.5 text-[13.5px] font-semibold text-white hover:bg-forest-700">
+        Save changes</button>
+      <a href="/hiring/role/{{ slug }}" class="text-[13px] text-ink-muted hover:text-ink">Cancel</a>
+    </div>
+  </form>
+</div>
+<script>
+document.querySelectorAll('[data-row]').forEach(row => {
+  const input = row.querySelector('.guard-input'), msg = row.querySelector('.guard-msg'),
+        field = row.querySelector('select');
+  let timer;
+  const check = async () => {
+    const value = input.value.trim();
+    if (!value || !field.value) { msg.classList.add('hidden'); return; }
+    try {
+      const r = await fetch('/hiring/roles/check', {method:'POST', body:new URLSearchParams({field_name:field.value, value})});
+      const j = await r.json();
+      msg.classList.remove('hidden');
+      msg.textContent = j.allowed ? 'Fine — this will be scored.' : 'Refused: ' + j.reason;
+      msg.className = 'guard-msg mt-1.5 text-[12px] leading-snug ' + (j.allowed ? 'text-forest-600' : 'text-rose-700');
+    } catch (e) { msg.classList.add('hidden'); }
+  };
+  input.addEventListener('input', () => { clearTimeout(timer); timer = setTimeout(check, 350); });
+  field.addEventListener('change', check);
+});
+</script>
+{% endblock %}
