@@ -48,12 +48,20 @@ A CV takes 1-3 minutes cold (measured 153s for a long one) and seconds once cach
 
 ## Stack
 Python 3.12 + `uv` (never `python -m venv`). FastAPI + Jinja2 + Tailwind CDN.
-LangGraph orchestration; `ChatOpenAI` from `langchain_openai` pointed at NVIDIA NIM
-(`https://integrate.api.nvidia.com/v1`), structured output via `.with_structured_output()`.
-Default model `nvidia/nemotron-3-nano-30b-a3b`; see `config/models.yaml`.
+LangGraph orchestration; `ChatOpenAI` from `langchain_openai`, structured output via
+`.with_structured_output()`. Routing lives in `config/models.yaml`, never inline.
+
+**Primary: DeepSeek V4 Flash via OpenRouter. Fallback: NVIDIA NIM, automatic on any error.**
+Measured on one resume chunk: DeepSeek 59 claims/14.4s, NIM 33 claims/31.7s.
+
+Both are REASONING models and each disables it differently - OpenRouter wants
+`reasoning.enabled=false`, NIM wants `chat_template_kwargs.thinking=false`. Getting this wrong
+is not a slow path but a broken one: with reasoning on and a small `max_tokens`, DeepSeek
+returns `content: null` at HTTP 200 having spent the whole budget on the trace.
 
 ## Env vars (names only — never read or echo values)
-`NVIDIA_API_KEY` (required) · `GITHUB_TOKEN` (optional; 60 req/h without it)
+`OPENROUTER_API_KEY` (primary) · `NVIDIA_API_KEY` (fallback) · `GITHUB_TOKEN` (optional;
+60 req/h without it) · `FIT_HAPPENS_OFFLINE=1` for cache-only replay
 
 ## Gotchas that will bite you
 - **NIM has no `/v1/completions`** (404) — only `/v1/chat/completions` and `/v1/embeddings`.
