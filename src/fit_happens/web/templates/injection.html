@@ -25,7 +25,7 @@
           <span class="text-[12px] text-ink-muted">{{ h.provenance }}</span>
           {% if h.looks_like_instruction %}{{ pill('READS AS AN INSTRUCTION', 'amber') }}{% endif %}
         </div>
-        <div class="mt-3 rounded-md bg-ink px-4 py-3 font-mono text-[12px] leading-relaxed text-rose-200">
+        <div class="mt-3 overflow-x-auto break-all rounded-md bg-ink px-4 py-3 font-mono text-[12px] leading-relaxed text-rose-200">
           {{ h.excerpt[:300] }}</div>
       </div>
       {% endfor %}

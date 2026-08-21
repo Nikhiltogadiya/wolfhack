@@ -191,7 +191,7 @@
       <summary class="text-[12px] text-ink-muted cursor-pointer">Your choices, with times ({{ consent.history|length }})</summary>
       <ul class="mt-2 space-y-1 text-[11.5px] text-ink-muted">
         {% for e in consent.history|reverse %}
-        <li><span class="font-mono">{{ e.at[:16].replace('T',' ') }}</span> — {{ scopes[e.scope].label }}:
+        <li><span class="font-mono">{{ e.at[:16].replace('T',' ') }}</span> — {{ scopes[e.scope].label if e.scope in scopes else e.scope }}:
           {{ 'shared' if e.granted else 'stopped sharing' }}</li>
         {% endfor %}
       </ul>
