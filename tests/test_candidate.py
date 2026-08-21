@@ -254,3 +254,67 @@ def test_every_consent_scope_actually_changes_behaviour():
             continue  # the CV is always in scope by definition
         assert f'allows("{scope}")' in source, (
             f"consent scope {scope!r} is offered to candidates but no code reads it")
+
+
+def _isolated_store(tmp_path, monkeypatch):
+    from fit_happens.candidate import consent as consent_mod
+
+    monkeypatch.setattr(consent_mod, "DATA_DIR", tmp_path)
+    return ConsentStore("demo")
+
+
+def test_granting_a_scope_triggers_the_fetch_it_authorises(tmp_path, monkeypatch):
+    """The test above greps n_verify's source, which answers "does this string appear" - not
+    "does granting change anything". It passed all the way through the release in which
+    granting did nothing whatsoever: consent was read only inside run_candidate, which had
+    finished long before the candidate ever touched the toggle. The pill flipped to SHARING
+    and no repo was ever fetched.
+
+    So this one exercises the route instead: grant, and assert the re-verification is actually
+    scheduled for this candidate.
+    """
+    from fastapi.testclient import TestClient
+
+    from fit_happens.web import app as web
+
+    store = _isolated_store(tmp_path, monkeypatch)
+    store.save(store.load("ada"))  # by_token scans saved records, not derived ids
+    assert not store.load("ada").allows("github")
+    token = store.token_for("ada")
+
+    scheduled: list[tuple[str, str]] = []
+    monkeypatch.setattr(web.tasks, "reverify",
+                        lambda slug, cid: scheduled.append((slug, cid)))
+
+    r = TestClient(web.app).post(f"/apply/{token}/consent",
+                                 data={"scope": "github", "granted": "on"},
+                                 follow_redirects=False)
+
+    assert r.status_code == 303, r.status_code
+    assert store.load("ada").allows("github"), "the grant was not persisted"
+    assert scheduled == [("demo", "ada")], (
+        "granting a scope must trigger the fetch it authorises; nothing was scheduled")
+
+
+def test_revoking_a_scope_schedules_no_fetch(tmp_path, monkeypatch):
+    """The mirror: withdrawal deletes what was gathered, it must never go and get more."""
+    from fastapi.testclient import TestClient
+
+    from fit_happens.web import app as web
+
+    store = _isolated_store(tmp_path, monkeypatch)
+    c = store.load("ada")
+    c.set("github", True)
+    store.save(c)
+    token = store.token_for("ada")
+
+    scheduled: list[tuple[str, str]] = []
+    monkeypatch.setattr(web.tasks, "reverify",
+                        lambda slug, cid: scheduled.append((slug, cid)))
+
+    TestClient(web.app).post(f"/apply/{token}/consent",
+                             data={"scope": "github", "granted": ""},
+                             follow_redirects=False)
+
+    assert not store.load("ada").allows("github")
+    assert scheduled == [], "revoking must not trigger a fetch"

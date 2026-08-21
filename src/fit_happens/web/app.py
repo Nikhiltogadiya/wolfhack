@@ -43,13 +43,36 @@ TEMPLATES = Jinja2Templates(directory=str(Path(__file__).parent / "templates"))
 TEMPLATES.env.globals["gated"] = auth.configured  # callable: templates use {% if gated() %}
 app = FastAPI(title="Fit Happens")
 
+
+# Eight /hiring routes shipped with no gate - upload, seed, set-stage, record-pass,
+# clear-flags, dismiss-notices, status, check-internal - and they were exactly the eight
+# written without a `request` parameter, so `auth.require` was impossible to call and got
+# quietly dropped. Gating them one by one would just wait for the ninth. The prefix is the
+# boundary, so the prefix is where the check goes.
+_OPEN_HIRING_PATHS = {"/hiring/sign-in", "/hiring/sign-out"}
+
+
+@app.middleware("http")
+async def _gate_hiring(request: Request, call_next):
+    path = request.url.path
+    gated = path.startswith("/hiring") and path not in _OPEN_HIRING_PATHS
+    if gated and (gate := auth.require(request)) is not None:
+        return gate
+    return await call_next(request)
+
 UPLOADS = Path("data/uploads")
 STYLE_PATTERNS = {"stock_phrases", "self_significance", "negative_parallelism", "copula_avoidance",
                   "uniform_rhythm", "rule_of_three", "em_dash_density", "style_divergence"}
 
 
 def _err(request: Request, message: str, status: int = 404, back: str = "/") -> HTMLResponse:
-    return TEMPLATES.TemplateResponse(request, "error.html",
+    """Public callers get the public shell. error.html extends base.html, so a candidate with
+    a dead application link was being shown the hiring sidebar - and, with no passcode set,
+    the "this area is unprotected" banner meant for the recruiter."""
+    # Decided from the path being served, not from `back`: most call sites leave `back` at
+    # its default, and a recruiter 404 was landing on the public shell because of it.
+    template = "error.html" if request.url.path.startswith("/hiring") else "error_public.html"
+    return TEMPLATES.TemplateResponse(request, template,
                                       {"message": message, "back": back}, status_code=status)
 
 
@@ -224,7 +247,7 @@ async def new_role_step2(request: Request):
     jd_text = str(form.get("jd_text", "")).strip()
     title = str(form.get("title", "")).strip()
     if not jd_text:
-        return _err(request, "Paste the advert first - we score against it.", 400, "/roles/new")
+        return _err(request, "Paste the advert first - we score against it.", 400, "/hiring/roles/new")
 
     from ..jd.parse import parse_jd
 
@@ -257,7 +280,7 @@ async def create_role(request: Request, background: BackgroundTasks):
     title = str(form.get("title", "")).strip()
     jd_text = str(form.get("jd_text", "")).strip()
     if not jd_text:
-        return _err(request, "A role needs an advert to score against.", 400, "/roles/new")
+        return _err(request, "A role needs an advert to score against.", 400, "/hiring/roles/new")
 
     slug, n = slugify(title or "role"), 2
     base = slug
@@ -437,7 +460,7 @@ def candidate(request: Request, slug: str, cid: str, internal: int = 1):
     c = run.candidate(cid)
     role_data = run.load_role()
     if not c or not role_data:
-        return _err(request, "That candidate does not exist.", 404, f"/role/{slug}")
+        return _err(request, "That candidate does not exist.", 404, f"/hiring/role/{slug}")
     cp3 = _cp3_for(slug, c)
     return TEMPLATES.TemplateResponse(request, "candidate.html", {
         "slug": slug, "c": c, "role": role_data,
@@ -463,7 +486,7 @@ def record_pass(slug: str, cid: str, reason: str = Form(...), note: str = Form("
 @app.post("/hiring/role/{slug}/c/{cid}/stage")
 def set_stage(slug: str, cid: str, stage: str = Form(...), back: str = Form("")):
     StageStore(slug).set(cid, stage)
-    return RedirectResponse(back or f"/role/{slug}/c/{cid}", status_code=303)
+    return RedirectResponse(back or f"/hiring/role/{slug}/c/{cid}", status_code=303)
 
 
 @app.get("/hiring/role/{slug}/compare", response_class=HTMLResponse)
@@ -482,7 +505,7 @@ def compare(request: Request, slug: str, ids: str = ""):
     wanted = [i for i in ids.split(",") if i][:2]
     picked = [c for c in (run.candidate(i) for i in wanted) if c]
     if len(picked) < 2:
-        return _err(request, "Pick two candidates to compare.", 400, f"/role/{slug}")
+        return _err(request, "Pick two candidates to compare.", 400, f"/hiring/role/{slug}")
     reqs = {r["id"]: r for r in role_data["requirements"]}
     matches = [{m.requirement_id: m for m in c.fit.matches} for c in picked]
     rows = []
@@ -509,7 +532,7 @@ def ask_questions(request: Request, slug: str, cid: str):
     c = run.candidate(cid)
     role_data = run.load_role()
     if not c or not role_data:
-        return _err(request, "That candidate does not exist.", 404, f"/role/{slug}")
+        return _err(request, "That candidate does not exist.", 404, f"/hiring/role/{slug}")
     StageStore(slug).set(cid, "questions_sent")
     link = f"/apply/{ConsentStore(slug).token_for(cid)}"
     return TEMPLATES.TemplateResponse(request, "ask.html", {
@@ -596,12 +619,18 @@ def candidate_portal(request: Request, token: str):
 
 
 @app.post("/apply/{token}/consent")
-def set_consent(token: str, scope: str = Form(...), granted: str = Form("")):
+def set_consent(request: Request, background: BackgroundTasks, token: str,
+                scope: str = Form(...), granted: str = Form("")):
     slug, consent = _find_consent(token)
     if not consent:
-        return RedirectResponse("/hiring", status_code=303)
+        return _err(request, "That link is not valid any more.", 404, "/")
+    if scope not in SCOPES or SCOPES[scope]["locked"]:
+        return _err(request, "That is not a scope you can change.", 400, f"/apply/{token}")
     revoked = consent.set(scope, granted == "on")
     ConsentStore(slug).save(consent)
+    if not revoked:
+        # Granting has to trigger the fetch it authorises, or the toggle is decorative.
+        background.add_task(tasks.reverify, slug, consent.candidate_id)
     if revoked:
         # Withdrawal has to delete what was gathered under that scope, or it is not withdrawal.
         from ..config import CACHE_DIR
@@ -622,7 +651,7 @@ def set_consent(token: str, scope: str = Form(...), granted: str = Form("")):
 async def submit_answers(request: Request, token: str):
     slug, consent = _find_consent(token)
     if not consent:
-        return RedirectResponse("/hiring", status_code=303)
+        return _err(request, "That link is not valid any more.", 404, "/")
     form = await request.form()
     c = Run(slug).candidate(consent.candidate_id)
     questions = [q["question"] for q in (c.questions if c else [])]
@@ -750,8 +779,17 @@ def track(request: Request, email: str = ""):
 # ---------------------------------------------------------------- hiring gate
 
 
+def _safe_next(target: str) -> str:
+    """`next` is attacker-controlled on a sign-in page and went straight into a redirect.
+    "//evil.example" counts as off-site too - a browser reads it as protocol-relative."""
+    if target.startswith("/") and not target.startswith("//"):
+        return target
+    return "/hiring"
+
+
 @app.get("/hiring/sign-in", response_class=HTMLResponse)
 def sign_in_form(request: Request, next: str = "/hiring"):
+    next = _safe_next(next)
     if auth.is_signed_in(request):
         return RedirectResponse(next, status_code=303)
     return TEMPLATES.TemplateResponse(request, "sign_in.html", {"next": next, "error": ""})
@@ -759,6 +797,7 @@ def sign_in_form(request: Request, next: str = "/hiring"):
 
 @app.post("/hiring/sign-in")
 def do_sign_in(request: Request, passcode: str = Form(""), next: str = Form("/hiring")):
+    next = _safe_next(next)
     if not auth.check(passcode):
         return TEMPLATES.TemplateResponse(request, "sign_in.html", {
             "next": next, "error": "That passcode is not right."}, status_code=401)

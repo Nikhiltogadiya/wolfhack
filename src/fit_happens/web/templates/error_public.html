@@ -1,0 +1,13 @@
+{% extends "base_public.html" %}
+{% block title %}Not found — Fit Happens{% endblock %}
+{% block body %}
+<div class="px-6 py-20 max-w-[560px] mx-auto text-center">
+  <div class="mx-auto grid h-12 w-12 place-items-center rounded-full bg-cream-100 text-ink-muted">
+    <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
+      <circle cx="12" cy="12" r="9"/><path d="M12 16v-4M12 8h.01"/></svg>
+  </div>
+  <h1 class="mt-5 text-[21px] font-bold tracking-tight">{{ message }}</h1>
+  <a href="{{ back }}" class="mt-6 inline-block rounded-lg bg-forest px-5 py-2.5 text-[13.5px] font-semibold text-white hover:bg-forest-700">
+    Go back</a>
+</div>
+{% endblock %}

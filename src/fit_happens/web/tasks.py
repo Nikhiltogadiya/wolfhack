@@ -150,3 +150,41 @@ def process_cv(slug: str, path: str, tid: str) -> None:
     except Exception as exc:
         update(slug, tid, "failed", "", f"{type(exc).__name__}: {exc}"[:200])
         traceback.print_exc()
+
+
+def reverify(slug: str, cid: str) -> None:
+    """Re-run the external lookups after a consent grant.
+
+    Granting used to do nothing at all. The pill flipped to SHARING, the audit line was
+    written, and no repo or paper was ever fetched, because consent was read in exactly one
+    place - `run_candidate` - which had already finished hours earlier. A toggle that reports
+    a state it never brings about is worse than no toggle, so the grant now triggers the fetch
+    that the candidate just authorised.
+
+    Only the verify step re-runs: the claims and the fit score are unchanged by consent, and
+    re-scoring here would let an external source move a number it must never move.
+    """
+    from ..candidate.consent import ConsentStore
+    from ..pipeline import n_verify
+    from ..schemas import Requirement
+    from ..store import Run
+
+    try:
+        run = Run(slug)
+        role = run.load_role()
+        c = run.candidate(cid)
+        if not role or not c:
+            return
+        consent = ConsentStore(slug).load(cid)
+        out = n_verify({
+            "document": c.document,
+            "claims": c.claims,
+            "requirements": [Requirement(**r) for r in role["requirements"]],
+            "consent": consent,
+        })
+        c.verifications = out.get("verifications", [])
+        c.consent_grants = dict(consent.grants)
+        c.consent_summary = consent.summary()
+        run.save_candidate(c)
+    except Exception:  # a failed lookup must never cost the candidate their application
+        traceback.print_exc()

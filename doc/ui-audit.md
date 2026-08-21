@@ -24,6 +24,23 @@ Severity: **P0** broken or wrong · **P1** confusing or missing · **P2** polish
 | B10 | P1 | candidate portal | Consent history looked up `scopes[e.scope].label` against the *current* scope dict; the `community` scope was removed in a0a135c, so an old entry rendered as an empty string. Now falls back to the raw scope name |
 | B11 | P2 | processing | Dead empty anchor building a URL from the role **title** where the slug belongs. Deleted |
 | B12 | P2 | apply | A long CV filename replaced the hint text with no width constraint. Now `max-w-full break-all` |
+| C1 | **P0** | every candidate page | **Shortlist / Start reviewing saved the stage, then showed a 404.** `set_stage` redirected to `/role/{slug}/c/{cid}` — a pre-`/hiring` path — and the only form that posts there sends no `back`, so the broken fallback fired every time. The most visible break in the recruiter flow |
+| C2 | **P0** | 8 `/hiring` routes | **No auth gate at all**: upload, seed, set-stage, record-pass, clear-flags, dismiss, status, check-internal. Six of them mutate state. They were exactly the eight written without a `request` parameter, so `auth.require` was impossible to call and got dropped. Fixed with one middleware on the prefix rather than eight prologues — a ninth route cannot now be added ungated. Verified: all eight redirect to sign-in |
+| C3 | **P0** | `/hiring/sign-in` | Open redirect — `next` went straight into `RedirectResponse`. `?next=https://evil.example` left the site; `//evil.example` did too (a browser reads it as protocol-relative). Both now fall back to `/hiring` |
+| C4 | **P0** | `/apply/{token}` consent | **Granting a scope did nothing.** Consent was read only inside `run_candidate`, which had finished hours before the candidate touched the toggle. The pill flipped to SHARING, the audit line was written, and no repo or paper was ever fetched. Now schedules `tasks.reverify`, which re-runs only the verify step (re-scoring would let an external source move a number it must never move) |
+| C5 | **P0** | error page | `error.html` extends the **recruiter** base, and `_err` is called from public routes. A candidate with a dead link saw the hiring sidebar and, with no passcode set, the "this area is unprotected" banner. Split into `error_public.html`; the shell is now chosen from the request path, not from `back` |
+| C6 | P1 | `/apply/{token}` | An expired link redirected the candidate to `/hiring` — the recruiter dashboard. Now a public 404 |
+| C7 | P1 | `/apply/{token}/consent` | An unknown or locked scope saved and redirected identically to a real one — a silent no-op. Now 400 |
+| C8 | P1 | 5 error pages | "Go back" pointed at pre-`/hiring` paths and 404'd |
+
+### The test that should have caught C4
+
+`test_every_consent_scope_actually_changes_behaviour` greps `n_verify`'s **source** for
+`allows("github")`. That answers *does this string appear*, not *does granting change
+anything* — so it passed throughout the release in which granting did nothing at all.
+Replaced with two tests that exercise the route: one asserts a grant schedules the fetch for
+that candidate, one asserts a revoke schedules nothing. **Verified by reinstating the bug:
+the new test fails, and passes again once fixed.**
 
 ## Verified working (tested, not assumed)
 
