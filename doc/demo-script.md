@@ -3,12 +3,27 @@
 Listed in the original scaffolding and never written. This is what to click, in order, and
 what to say — plus what **not** to claim.
 
+Two companion files, kept separate on purpose: `doc/demo-recording.md` is how to produce
+the screen capture, and `doc/demo-narration.md` is the timecoded voice-over for it. The
+claims to make out loud and the do-not-claim list live **here** and are not repeated there.
+
 ## Before you start
 
 ```bash
 export FIT_HAPPENS_TEAM_PASSCODE=...          # or put it in .env
 uv run uvicorn fit_happens.web.app:app --port 8010
 ```
+
+**Reset the demo state first:**
+
+```bash
+uv run python tools/reset_demo_state.py
+```
+
+Beat ③ only works if Rowan's GitHub switch starts OFF — pressing it on camera *is* the beat.
+Anyone testing the consent flow leaves it ON, and then the panel is already full and there is
+nothing to reveal. This puts it back without deleting the cached lookup, so the reveal stays
+instant and needs no network.
 
 **No `--reload`.** The reloader restarts on any file change and kills in-flight uploads; the
 page then spins on work that is never coming back.

@@ -30,6 +30,8 @@ someone) · `WONTFIX` (decided against, reason recorded) · `DONE` (with date).
 | 22 | UNVERIFIED | Fraser "detectors need >=100 words" | Could not retrieve the paper; NBER cuts against it. Not used as a constraint | `doc/project-brief.md` | Someone gets the JAIR full text |
 | 23 | UNVERIFIED | Undersold collapse leaks near-variants | 'uwsgi-nginx' survived beside 'nginx'; prefix collapse is crude | `verify/github.py` | If it looks noisy on stage |
 | 24 | UNVERIFIED | Publications on our own demo data | The corpus is anonymised, so no name resolves. Verified live against a known author instead | `verify/publications.py` | A CV with a real name |
+| 81 | BLOCKED | `demo-script.md` beat ③ assumes GitHub consent is **off**, but Rowan's seeded portal is **SHARING** | The live "press Share this" reveal cannot be shown from the seeded state - the findings panel is already filled. The recorded walkthrough narrates it as state instead | `doc/demo-script.md`, `data/runs/demo/consent/` | Decide: reset the scope to off before demoing, or rewrite beat ③ to match the seeded state |
+| 82 | DEFERRED | Demo video is not in the repo | 23 MB, too big to commit; only the scripts are versioned | `doc/demo-recording.md` | If a hosted copy or Git LFS is wanted |
 
 ---
 
