@@ -1,0 +1,48 @@
+{% extends "base_public.html" %}
+{% set nav = 'jobs' %}
+{% block title %}Open roles — Fit Happens{% endblock %}
+{% block body %}
+<div class="mx-auto max-w-[860px] px-6 py-10">
+  <h1 class="text-[30px] font-bold tracking-tight">Open roles</h1>
+  <p class="mt-1.5 text-[13.5px] text-ink-muted">
+    We show you how specific each advert is, and what it does not tell you. Nobody else does
+    that, and it is the first thing worth knowing before you spend an hour applying.</p>
+
+  <form method="get" class="mt-6">
+    <input name="q" value="{{ q }}" placeholder="Search roles, skills, places…"
+           class="w-full rounded-lg border border-hair px-4 py-3 text-[14px]">
+  </form>
+
+  {% if not jobs %}
+  <div class="mt-8 rounded-xl border border-hair bg-white p-10 text-center">
+    <h2 class="text-[17px] font-bold">{{ 'Nothing matches that' if q else 'No roles are open yet' }}</h2>
+    <p class="mt-2 text-[13.5px] text-ink-muted">
+      {{ 'Try a broader search.' if q else 'Check back soon.' }}</p>
+    {% if q %}<a href="/jobs" class="mt-4 inline-block text-[13.5px] font-semibold text-forest-600">Show everything</a>{% endif %}
+  </div>
+  {% else %}
+  <div class="mt-6 space-y-4">
+    {% for j in jobs %}
+    <a href="/jobs/{{ j.slug }}" class="block rounded-xl border border-hair bg-white p-6 hover:border-forest-600 transition">
+      <div class="flex items-start justify-between gap-4">
+        <div class="min-w-0">
+          <h2 class="text-[17px] font-semibold">{{ j.title }}</h2>
+          <p class="mt-1 text-[12.5px] text-ink-muted">
+            {{ j.requirements }} things they are looking for
+            {%- if j.candidates %} · {{ j.candidates }} {{ 'person has' if j.candidates == 1 else 'people have' }} applied{% endif %}</p>
+        </div>
+        <span class="shrink-0 rounded-full border px-2.5 py-1 text-[11px] font-semibold
+          {{ 'border-emerald-300 bg-emerald-50 text-emerald-800' if j.clarity >= 0.7
+             else 'border-amber-300 bg-amber-50 text-amber-800' }}">
+          {{ (j.clarity*100)|round(0)|int }}% specific</span>
+      </div>
+      {% if j.missing %}
+      <p class="mt-3 text-[12.5px] text-ink-muted">
+        <span class="font-medium text-ink">Does not say:</span> {{ j.missing|join(' · ') }}</p>
+      {% endif %}
+    </a>
+    {% endfor %}
+  </div>
+  {% endif %}
+</div>
+{% endblock %}

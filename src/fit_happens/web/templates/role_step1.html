@@ -3,7 +3,7 @@
 {% block title %}New role — Fit Happens{% endblock %}
 {% block body %}
 <div class="px-6 py-7 max-w-[760px] mx-auto">
-  <a href="/" class="inline-flex items-center gap-2 text-[13px] text-ink-muted hover:text-ink">
+  <a href="/hiring" class="inline-flex items-center gap-2 text-[13px] text-ink-muted hover:text-ink">
     <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
     Overview</a>
 
@@ -12,7 +12,7 @@
     {{ steps(1) }}
   </div>
 
-  <form method="post" action="/roles/preview" class="mt-6 space-y-5">
+  <form method="post" action="/hiring/roles/preview" class="mt-6 space-y-5">
     <div class="rounded-xl border border-hair bg-white p-6">
       <label class="text-[13.5px] font-semibold">What is the role called?</label>
       <input name="title" required autofocus placeholder="IT Infrastructure &amp; Security Manager"

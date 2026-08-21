@@ -1,0 +1,40 @@
+{% extends "base_public.html" %}
+{% set nav = 'track' %}
+{% block title %}My application — Fit Happens{% endblock %}
+{% block body %}
+<div class="mx-auto max-w-[640px] px-6 py-10">
+  <h1 class="text-[28px] font-bold tracking-tight">Find my application</h1>
+  <p class="mt-1.5 text-[13.5px] text-ink-muted">
+    Lost the link? Enter the email you applied with. A link in an email people delete is not a
+    system of record.</p>
+
+  <form method="get" class="mt-6 flex gap-2">
+    <input name="email" type="email" required value="{{ email }}" placeholder="you@example.com"
+           class="flex-1 rounded-lg border border-hair px-4 py-3 text-[14px]">
+    <button class="rounded-lg bg-forest px-6 py-3 text-[14px] font-semibold text-white hover:bg-forest-700">Find</button>
+  </form>
+
+  {% if searched %}
+    {% if found %}
+    <div class="mt-7 space-y-3">
+      {% for f in found %}
+      <a href="/apply/{{ f.token }}" class="block rounded-xl border border-hair bg-white p-5 hover:border-forest-600 transition">
+        <div class="text-[15px] font-semibold">{{ f.title }}</div>
+        <div class="mt-1 text-[12.5px] text-ink-muted">
+          Applied {{ f.app.at[:10] }} as {{ f.app.name }}</div>
+        <span class="mt-3 inline-block text-[13px] font-semibold text-forest-600">Open my application →</span>
+      </a>
+      {% endfor %}
+    </div>
+    {% else %}
+    <div class="mt-7 rounded-xl border border-hair bg-white p-8 text-center">
+      <h2 class="text-[16px] font-bold">Nothing found for that address</h2>
+      <p class="mx-auto mt-2 max-w-[380px] text-[13px] leading-relaxed text-ink-muted">
+        Check the spelling, or try the other address you might have used. If you have not
+        applied yet, the open roles are a good place to start.</p>
+      <a href="/jobs" class="mt-4 inline-block text-[13.5px] font-semibold text-forest-600">See open roles →</a>
+    </div>
+    {% endif %}
+  {% endif %}
+</div>
+{% endblock %}

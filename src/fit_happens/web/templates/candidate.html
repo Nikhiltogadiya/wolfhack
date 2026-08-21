@@ -3,7 +3,7 @@
 {% block title %}{{ c.display_name }} — Fit Happens{% endblock %}
 {% block body %}
 <div class="px-6 py-7 max-w-[1160px] mx-auto">
-  <a href="/role/{{ slug }}?internal={{ 1 if use_internal else 0 }}" id="review" class="inline-flex items-center gap-2 text-[13px] text-ink-muted hover:text-ink">
+  <a href="/hiring/role/{{ slug }}?internal={{ 1 if use_internal else 0 }}" id="review" class="inline-flex items-center gap-2 text-[13px] text-ink-muted hover:text-ink">
     <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
     Back to candidates</a>
 
@@ -15,14 +15,14 @@
       <span class="text-[12px] text-ink-muted">{{ stage.hint }}</span>
     </div>
     <div class="ml-auto flex flex-wrap items-center gap-2">
-      <a href="/role/{{ slug }}/c/{{ c.candidate_id }}/ask"
+      <a href="/hiring/role/{{ slug }}/c/{{ c.candidate_id }}/ask"
          class="rounded-lg border border-hair px-4 py-2 text-[13px] font-semibold hover:border-forest-600">
         Ask questions</a>
       {% for key, label, cls in [
           ('reviewing','Start reviewing','border border-hair hover:border-forest-600'),
           ('shortlisted','Shortlist','bg-forest text-white hover:bg-forest-700') ] %}
       {% if stage.stage != key %}
-      <form method="post" action="/role/{{ slug }}/c/{{ c.candidate_id }}/stage">
+      <form method="post" action="/hiring/role/{{ slug }}/c/{{ c.candidate_id }}/stage">
         <input type="hidden" name="stage" value="{{ key }}">
         <button class="rounded-lg px-4 py-2 text-[13px] font-semibold {{ cls }}">{{ label }}</button>
       </form>
@@ -223,7 +223,7 @@
           {% endfor %}
         </div>
         <div class="mt-4 flex flex-wrap items-center gap-3">
-          <form method="post" action="/role/{{ slug }}/c/{{ c.candidate_id }}/clear">
+          <form method="post" action="/hiring/role/{{ slug }}/c/{{ c.candidate_id }}/clear">
             <button class="rounded-lg border border-hair px-4 py-2.5 text-[13px] font-semibold hover:bg-cream">
               Clear flags</button>
           </form>
@@ -262,7 +262,7 @@
         If you would pass on this candidate, saying why now is the only feedback we get. It is
         read by a person and used to adjust thresholds deliberately — never to retrain
         automatically, which would just learn whatever bias the rejections contain.</p>
-      <form method="post" action="/role/{{ slug }}/c/{{ c.candidate_id }}/pass" class="mt-4 flex flex-wrap items-start gap-3">
+      <form method="post" action="/hiring/role/{{ slug }}/c/{{ c.candidate_id }}/pass" class="mt-4 flex flex-wrap items-start gap-3">
         <input type="hidden" name="set_stage" value="passed">
         <select name="reason" class="rounded-lg border border-hair px-3 py-2.5 text-[13px]">
           {% for key, meta in reasons.items() %}<option value="{{ key }}">{{ meta.label }}</option>{% endfor %}

@@ -4,7 +4,7 @@
 {% block body %}
 <div class="px-6 py-7 max-w-[1160px] mx-auto">
 
-  <a href="/" class="inline-flex items-center gap-2 text-[13px] text-ink-muted hover:text-ink">
+  <a href="/hiring" class="inline-flex items-center gap-2 text-[13px] text-ink-muted hover:text-ink">
     <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
     All roles</a>
 
@@ -19,7 +19,7 @@
         {% endif %}</p>
     </div>
     <div class="flex items-center gap-3 shrink-0">
-    <form method="post" action="/role/{{ slug }}/upload" enctype="multipart/form-data"
+    <form method="post" action="/hiring/role/{{ slug }}/upload" enctype="multipart/form-data"
           class="flex items-center gap-2" id="uploadForm">
       <label class="cursor-pointer rounded-lg border border-hair bg-white px-4 py-2.5 text-[13px] font-semibold hover:border-forest-600">
         <input type="file" name="files" multiple accept=".pdf,.docx,.txt" class="hidden"
@@ -84,7 +84,7 @@
     <div class="flex items-start justify-between gap-4">
       <div class="text-[13px] font-semibold text-rose-900">
         {{ failures|length }} upload{{ '' if failures|length == 1 else 's' }} could not be read</div>
-      <form method="post" action="/role/{{ slug }}/dismiss">
+      <form method="post" action="/hiring/role/{{ slug }}/dismiss">
         <button class="text-[12px] text-rose-900/70 hover:text-rose-900">Dismiss</button>
       </form>
     </div>
@@ -143,7 +143,7 @@
               <td class="py-4 pl-4 pr-2">
                 <input type="checkbox" class="cmp" value="{{ c.candidate_id }}"></td>
               <td class="py-4 pr-3">
-                <a href="/role/{{ slug }}/c/{{ c.candidate_id }}?internal={{ 1 if use_internal else 0 }}" class="flex items-center gap-3 group">
+                <a href="/hiring/role/{{ slug }}/c/{{ c.candidate_id }}?internal={{ 1 if use_internal else 0 }}" class="flex items-center gap-3 group">
                   <span class="grid h-9 w-9 place-items-center rounded-full bg-forest-50 text-forest text-[12px] font-bold">
                     {{ c.display_initials }}</span>
                   <span>
@@ -234,7 +234,7 @@ if (localStorage.getItem('fh.explainer') !== 'hidden') {
   boxes.forEach(b => b.addEventListener('change', sync));
   btn.addEventListener('click', () => {
     const ids = boxes.filter(b => b.checked).map(b => b.value).join(',');
-    location.href = `/role/{{ slug }}/compare?ids=${ids}`;
+    location.href = `/hiring/role/{{ slug }}/compare?ids=${ids}`;
   });
   sync();
 })();
@@ -248,7 +248,7 @@ if (localStorage.getItem('fh.explainer') !== 'hidden') {
   const list = document.getElementById('progressItems');
   const tick = async () => {
     try {
-      const r = await fetch('/role/{{ slug }}/status');
+      const r = await fetch('/hiring/role/{{ slug }}/status');
       const j = await r.json();
       if (!j.pending.length) { location.reload(); return; }
       text.textContent = `Processing ${j.pending.length} CV${j.pending.length === 1 ? '' : 's'}…`;

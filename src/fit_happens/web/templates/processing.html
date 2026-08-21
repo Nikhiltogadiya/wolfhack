@@ -1,0 +1,41 @@
+{% extends "base_public.html" %}
+{% block title %}Application received — Fit Happens{% endblock %}
+{% block body %}
+<div class="mx-auto max-w-[600px] px-6 py-20 text-center">
+  {% if failed %}
+    <div class="mx-auto grid h-12 w-12 place-items-center rounded-full bg-rose-50 text-rose-700">
+      <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
+        <circle cx="12" cy="12" r="9"/><path d="M12 16v-4M12 8h.01"/></svg>
+    </div>
+    <h1 class="mt-5 text-[22px] font-bold tracking-tight">We could not read your CV</h1>
+    <p class="mx-auto mt-3 max-w-[420px] text-[13.5px] leading-relaxed text-ink-muted">
+      Your application did reach us — this is a problem at our end, not with you.
+      {% if error %}<span class="block mt-2 font-mono text-[12px]">{{ error }}</span>{% endif %}
+    </p>
+    <a href="/jobs/{{ role.jd.title }}" class="hidden"></a>
+    <a href="/jobs" class="mt-6 inline-block rounded-lg bg-forest px-5 py-2.5 text-[13.5px] font-semibold text-white hover:bg-forest-700">
+      Try applying again</a>
+  {% else %}
+    <div class="mx-auto grid h-12 w-12 place-items-center rounded-full bg-forest-50">
+      <svg class="animate-spin h-6 w-6 text-forest-600" viewBox="0 0 24 24" fill="none">
+        <circle cx="12" cy="12" r="10" stroke="currentColor" stroke-width="3" opacity=".25"/>
+        <path d="M22 12a10 10 0 0 1-10 10" stroke="currentColor" stroke-width="3" stroke-linecap="round"/></svg>
+    </div>
+    <h1 class="mt-5 text-[22px] font-bold tracking-tight">
+      {% if name %}Thanks, {{ name.split(' ')[0] }} — we have your application{% else %}We have your application{% endif %}</h1>
+    <p class="mx-auto mt-3 max-w-[440px] text-[13.5px] leading-relaxed text-ink-muted">
+      We are reading your CV for <span class="font-medium text-ink">{{ role.jd.title }}</span> now.
+      It takes a minute or two. This page will update by itself.</p>
+    <p class="mx-auto mt-5 max-w-[440px] text-[12.5px] leading-relaxed text-ink-muted">
+      <span class="font-medium text-ink">Bookmark this page.</span> It is your application — you
+      can come back to it any time to see what we read, answer anything we ask, and choose what
+      we are allowed to look at. If you lose it, you can find it again with your email address.</p>
+    <div class="mt-6 flex items-center justify-center gap-4 text-[13px]">
+      <a href="/track" class="text-forest-600 font-semibold hover:underline">Find my application</a>
+      <span class="text-hair">·</span>
+      <a href="/jobs" class="text-ink-muted hover:text-ink">Other open roles</a>
+    </div>
+  {% endif %}
+</div>
+{% if not failed %}<script>setTimeout(() => location.reload(), 6000);</script>{% endif %}
+{% endblock %}

@@ -9,7 +9,7 @@
       <h1 class="text-[30px] font-bold tracking-tight">Hiring overview</h1>
       <p class="mt-1.5 text-[13.5px] text-ink-muted">Find the right fit, not the best-written CV.</p>
     </div>
-    <a href="/roles/new" class="rounded-lg bg-forest px-4 py-2.5 text-[13.5px] font-semibold text-white hover:bg-forest-700">
+    <a href="/hiring/roles/new" class="rounded-lg bg-forest px-4 py-2.5 text-[13.5px] font-semibold text-white hover:bg-forest-700">
       + Create role</a>
   </div>
 
@@ -26,9 +26,9 @@
       Create a role by pasting the public advert and, if you have them, the real preferences you
       cannot publish. Then upload CVs and we will rank them on evidence.</p>
     <div class="mt-6 flex items-center justify-center gap-3">
-      <a href="/roles/new" class="rounded-lg bg-forest px-5 py-2.5 text-[13.5px] font-semibold text-white hover:bg-forest-700">
+      <a href="/hiring/roles/new" class="rounded-lg bg-forest px-5 py-2.5 text-[13.5px] font-semibold text-white hover:bg-forest-700">
         Create your first role</a>
-      <form method="post" action="/seed">
+      <form method="post" action="/hiring/seed">
         <button class="rounded-lg border border-hair px-5 py-2.5 text-[13.5px] font-semibold hover:border-forest-600">
           Load the sample role</button>
       </form>
@@ -57,7 +57,7 @@
       <h2 class="text-[16px] font-bold">Open roles</h2>
       <div class="mt-3 space-y-3">
         {% for r in roles %}
-        <a href="/role/{{ r.slug }}" class="block rounded-xl border border-hair bg-white p-5 hover:border-forest-600 transition">
+        <a href="/hiring/role/{{ r.slug }}" class="block rounded-xl border border-hair bg-white p-5 hover:border-forest-600 transition">
           <div class="flex items-start justify-between gap-4">
             <div class="min-w-0">
               <div class="text-[15px] font-semibold">{{ r.title }}</div>
@@ -91,7 +91,7 @@
         {% if top %}
         <div class="mt-3 space-y-2.5">
           {% for r, c in top %}
-          <a href="/role/{{ r.slug }}/c/{{ c.candidate_id }}" class="flex items-center gap-3 group">
+          <a href="/hiring/role/{{ r.slug }}/c/{{ c.candidate_id }}" class="flex items-center gap-3 group">
             <span class="grid h-8 w-8 shrink-0 place-items-center rounded-full bg-forest-50 text-forest text-[11px] font-bold">
               {{ c.display_initials }}</span>
             <span class="min-w-0 flex-1">

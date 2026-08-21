@@ -36,10 +36,17 @@ Two components that must never contaminate each other: **Fit Engine** (matching)
    structurally barred from contributing to a flag.
 
 ## Surfaces
-Recruiter: `/` overview · `/roles/new` → `/roles/preview` → create (two steps) ·
-`/role/{slug}` ranking (sort, filter, compare) · `/role/{slug}/compare?ids=a,b` ·
-`/role/{slug}/c/{cid}` evidence · `.../ask` · `/role/{slug}/job-ad` · `/role/{slug}/integrity` ·
-`/market`. Stages live in `stages.py` and are ALWAYS set by a person - that module must never
+**Two audiences, two doors.** `/` is a split landing - candidate or employer. It used to be the
+recruiter dashboard, so an applicant landed on other applicants' names and fit scores.
+
+Candidate (public): `/` · `/jobs` board · `/jobs/{slug}` advert + our clarity read ·
+`/jobs/{slug}/apply` · `/apply/{token}` their application · `/track` recover a lost link.
+Private preferences are never rendered on a candidate-facing page.
+
+Recruiter (behind `FIT_HAPPENS_TEAM_PASSCODE`, open with a visible warning if unset):
+`/hiring` overview · `/hiring/roles/new` → `/hiring/roles/preview` → create (two steps) ·
+`/hiring/role/{slug}` ranking · `/hiring/role/{slug}/compare?ids=a,b` ·
+`/hiring/role/{slug}/c/{cid}` evidence · `.../ask` · `/hiring/market`. Stages live in `stages.py` and are ALWAYS set by a person - that module must never
 read a score, pinned by an AST test.
 Candidate: `/apply/{token}` - status, consent, what-we-read, what-we-noticed, questions.
 Tokens come from `ConsentStore(slug).token_for(candidate_id)`; every store is per-role.

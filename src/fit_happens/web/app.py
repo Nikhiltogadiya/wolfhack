@@ -26,6 +26,8 @@ from fastapi.responses import HTMLResponse, JSONResponse, RedirectResponse
 from fastapi.templating import Jinja2Templates
 
 from ..candidate.answers import AnswerStore
+from ..candidate.applications import (
+    Application, ApplicationStore, candidate_id_for, find_by_email, looks_like_email)
 from ..candidate.consent import SCOPES, ConsentStore
 from ..feedback import REASONS, FeedbackStore, Rejection
 from ..jd.discovery import corpus_stats, duplicates
@@ -34,9 +36,11 @@ from ..jd.slop import scan_job_ad
 from ..slop.response import CASUAL_QUESTION, scan_responses
 from ..stages import ORDER as STAGE_ORDER, STAGES, StageStore
 from ..store import Run, roles, slugify
-from . import tasks
+from . import auth, tasks  # noqa: E402
 
 TEMPLATES = Jinja2Templates(directory=str(Path(__file__).parent / "templates"))
+# Available to every template, so the hiring pages can say when they are unprotected.
+TEMPLATES.env.globals["gated"] = auth.configured  # callable: templates use {% if gated() %}
 app = FastAPI(title="Fit Happens")
 
 UPLOADS = Path("data/uploads")
@@ -72,8 +76,10 @@ def _response_label(cp3) -> tuple[str, str]:
 # ---------------------------------------------------------------- overview
 
 
-@app.get("/", response_class=HTMLResponse)
+@app.get("/hiring", response_class=HTMLResponse)
 def overview(request: Request):
+    if (gate := auth.require(request)):
+        return gate
     all_roles = roles()
     everyone = [(r, c) for r in all_roles for c in Run(r["slug"]).candidates()]
     return TEMPLATES.TemplateResponse(request, "overview.html", {
@@ -87,27 +93,31 @@ def overview(request: Request):
     })
 
 
-@app.post("/seed")
+@app.post("/hiring/seed")
 def seed_demo(background: BackgroundTasks):
     """One click to a populated demo. The old empty state told a first-time visitor to go and
     run a shell command, which is not an empty state, it is a dead end."""
     from ..demo import seed
 
     background.add_task(seed)
-    return RedirectResponse("/?seeding=1", status_code=303)
+    return RedirectResponse("/hiring?seeding=1", status_code=303)
 
 
 # ---------------------------------------------------------------- a role
 
 
-@app.get("/roles/new", response_class=HTMLResponse)
+@app.get("/hiring/roles/new", response_class=HTMLResponse)
 def new_role_step1(request: Request):
+    if (gate := auth.require(request)):
+        return gate
     """Step 1 of 3. Just the advert - asking for everything at once was the problem."""
     return TEMPLATES.TemplateResponse(request, "role_step1.html", {"nav": "roles", "step": 1})
 
 
-@app.post("/roles/preview", response_class=HTMLResponse)
+@app.post("/hiring/roles/preview", response_class=HTMLResponse)
 async def new_role_step2(request: Request):
+    if (gate := auth.require(request)):
+        return gate
     """Step 2 of 3. Show her what we extracted BEFORE the role exists.
 
     Previously she pasted an advert and pressed Create having seen nothing of what we
@@ -131,7 +141,7 @@ async def new_role_step2(request: Request):
         "hollow": [f for f in ad_flags if f.pattern_id == "hollow_phrase"]})
 
 
-@app.post("/roles/check")
+@app.post("/hiring/roles/check")
 def check_internal(field_name: str = Form(...), value: str = Form("")):
     """Live guard feedback while the recruiter types an internal criterion.
 
@@ -142,8 +152,10 @@ def check_internal(field_name: str = Form(...), value: str = Form("")):
     return JSONResponse({"allowed": r.allowed, "reason": r.reason})
 
 
-@app.post("/roles/new")
+@app.post("/hiring/roles/new")
 async def create_role(request: Request, background: BackgroundTasks):
+    if (gate := auth.require(request)):
+        return gate
     """Step 3: create the role, honouring the requirement edits, and start any CVs processing."""
     form = await request.form()
     title = str(form.get("title", "")).strip()
@@ -187,12 +199,14 @@ async def create_role(request: Request, background: BackgroundTasks):
             shutil.copyfileobj(f.file, out)
         background.add_task(tasks.process_cv, slug, str(dest / safe), tasks.start(slug, safe))
 
-    return RedirectResponse(f"/role/{slug}", status_code=303)
+    return RedirectResponse(f"/hiring/role/{slug}", status_code=303)
 
 
-@app.get("/role/{slug}", response_class=HTMLResponse)
+@app.get("/hiring/role/{slug}", response_class=HTMLResponse)
 def role(request: Request, slug: str, internal: int = 1, sort: str = "fit",
          filter_by: str = ""):
+    if (gate := auth.require(request)):
+        return gate
     run = Run(slug)
     role_data = run.load_role()
     if not role_data:
@@ -246,11 +260,11 @@ def role(request: Request, slug: str, internal: int = 1, sort: str = "fit",
     })
 
 
-@app.post("/role/{slug}/upload")
+@app.post("/hiring/role/{slug}/upload")
 async def upload_cvs(slug: str, background: BackgroundTasks, files: list[UploadFile] = None):
     run = Run(slug)
     if not run.exists:
-        return RedirectResponse("/", status_code=303)
+        return RedirectResponse("/hiring", status_code=303)
     dest = UPLOADS / slug
     dest.mkdir(parents=True, exist_ok=True)
     for f in files or []:
@@ -262,25 +276,27 @@ async def upload_cvs(slug: str, background: BackgroundTasks, files: list[UploadF
             shutil.copyfileobj(f.file, out)
         tid = tasks.start(slug, safe)
         background.add_task(tasks.process_cv, slug, str(target), tid)
-    return RedirectResponse(f"/role/{slug}", status_code=303)
+    return RedirectResponse(f"/hiring/role/{slug}", status_code=303)
 
 
-@app.post("/role/{slug}/dismiss")
+@app.post("/hiring/role/{slug}/dismiss")
 def dismiss_notices(slug: str):
     """Clear finished and failed upload notices. Without this a single old failure sat at the
     top of the page permanently, describing a problem that had already been resolved."""
     tasks.clear_finished(slug)
-    return RedirectResponse(f"/role/{slug}", status_code=303)
+    return RedirectResponse(f"/hiring/role/{slug}", status_code=303)
 
 
-@app.get("/role/{slug}/status")
+@app.get("/hiring/role/{slug}/status")
 def role_status(slug: str):
     """Polled by the ranking page while uploads process."""
     return JSONResponse({"pending": tasks.pending(slug), "recent": tasks.recent(slug)})
 
 
-@app.get("/role/{slug}/job-ad", response_class=HTMLResponse)
+@app.get("/hiring/role/{slug}/job-ad", response_class=HTMLResponse)
 def job_ad(request: Request, slug: str):
+    if (gate := auth.require(request)):
+        return gate
     role_data = Run(slug).load_role()
     if not role_data:
         return _err(request, "That role does not exist.", 404)
@@ -292,8 +308,10 @@ def job_ad(request: Request, slug: str):
         "missing": [f for f in flags if f.pattern_id == "missing_specifics"], "nav": "roles"})
 
 
-@app.get("/role/{slug}/integrity", response_class=HTMLResponse)
+@app.get("/hiring/role/{slug}/integrity", response_class=HTMLResponse)
 def integrity(request: Request, slug: str):
+    if (gate := auth.require(request)):
+        return gate
     run = Run(slug)
     if not run.load_role():
         return _err(request, "That role does not exist.", 404)
@@ -306,8 +324,10 @@ def integrity(request: Request, slug: str):
 # ---------------------------------------------------------------- a candidate
 
 
-@app.get("/role/{slug}/c/{cid}", response_class=HTMLResponse)
+@app.get("/hiring/role/{slug}/c/{cid}", response_class=HTMLResponse)
 def candidate(request: Request, slug: str, cid: str, internal: int = 1):
+    if (gate := auth.require(request)):
+        return gate
     run = Run(slug)
     c = run.candidate(cid)
     role_data = run.load_role()
@@ -324,7 +344,7 @@ def candidate(request: Request, slug: str, cid: str, internal: int = 1):
         "stage": StageStore(slug).load(cid), "stages": STAGES})
 
 
-@app.post("/role/{slug}/c/{cid}/pass")
+@app.post("/hiring/role/{slug}/c/{cid}/pass")
 def record_pass(slug: str, cid: str, reason: str = Form(...), note: str = Form(""),
                 set_stage: str = Form("")):
     c = Run(slug).candidate(cid)
@@ -332,17 +352,19 @@ def record_pass(slug: str, cid: str, reason: str = Form(...), note: str = Form("
                                          fit_score=c.fit.score if c else 0.0))
     if set_stage:
         StageStore(slug).set(cid, set_stage)
-    return RedirectResponse(f"/role/{slug}/c/{cid}#feedback", status_code=303)
+    return RedirectResponse(f"/hiring/role/{slug}/c/{cid}#feedback", status_code=303)
 
 
-@app.post("/role/{slug}/c/{cid}/stage")
+@app.post("/hiring/role/{slug}/c/{cid}/stage")
 def set_stage(slug: str, cid: str, stage: str = Form(...), back: str = Form("")):
     StageStore(slug).set(cid, stage)
     return RedirectResponse(back or f"/role/{slug}/c/{cid}", status_code=303)
 
 
-@app.get("/role/{slug}/compare", response_class=HTMLResponse)
+@app.get("/hiring/role/{slug}/compare", response_class=HTMLResponse)
 def compare(request: Request, slug: str, ids: str = ""):
+    if (gate := auth.require(request)):
+        return gate
     """Two candidates side by side, requirement by requirement.
 
     The product's whole argument is that a flat CV from the right person beats a polished one
@@ -373,8 +395,10 @@ def compare(request: Request, slug: str, ids: str = ""):
         "nav": "roles"})
 
 
-@app.get("/role/{slug}/c/{cid}/ask", response_class=HTMLResponse)
+@app.get("/hiring/role/{slug}/c/{cid}/ask", response_class=HTMLResponse)
 def ask_questions(request: Request, slug: str, cid: str):
+    if (gate := auth.require(request)):
+        return gate
     """What the recruiter sends, and what the candidate will see when they open it."""
     run = Run(slug)
     c = run.candidate(cid)
@@ -394,21 +418,23 @@ def ask_questions(request: Request, slug: str, cid: str):
             f"application.\n\nBest wishes")})
 
 
-@app.post("/role/{slug}/c/{cid}/clear")
+@app.post("/hiring/role/{slug}/c/{cid}/clear")
 def clear_flags(slug: str, cid: str):
     """A human deciding the flags do not matter. Recorded, not deleted - a checkpoint that can
     be silently cleared is a checkpoint nobody can audit."""
     FeedbackStore(slug).record(Rejection(
         candidate_id=cid, reason="cleared_by_human", note="flags reviewed and cleared",
         fit_score=(Run(slug).candidate(cid).fit.score if Run(slug).candidate(cid) else 0.0)))
-    return RedirectResponse(f"/role/{slug}/c/{cid}#review", status_code=303)
+    return RedirectResponse(f"/hiring/role/{slug}/c/{cid}#review", status_code=303)
 
 
 # ---------------------------------------------------------------- global views
 
 
-@app.get("/market", response_class=HTMLResponse)
+@app.get("/hiring/market", response_class=HTMLResponse)
 def market(request: Request):
+    if (gate := auth.require(request)):
+        return gate
     all_feedback = {"total": 0, "by_reason": [], "our_errors": 0, "contradicting": 0}
     for r in roles():
         s = FeedbackStore(r["slug"]).summary()
@@ -440,8 +466,21 @@ def candidate_portal(request: Request, token: str):
     run = Run(slug)
     c = run.candidate(consent.candidate_id)
     role_data = run.load_role()
-    if not c or not role_data:
+    if not role_data:
         return _err(request, "This application could not be found.", 404)
+
+    if not c:
+        # They have just applied and their CV is still being read. Landing them on a 404 at the
+        # exact moment they are most anxious about whether it went through would be the worst
+        # possible reply, so this is a real state with a real answer.
+        appn = ApplicationStore(slug).get(consent.candidate_id)
+        pend = [t for t in tasks.recent(slug) if t["name"].startswith(consent.candidate_id)]
+        state = pend[0] if pend else None
+        return TEMPLATES.TemplateResponse(request, "processing.html", {
+            "role": role_data, "token": token, "name": appn.name if appn else "",
+            "failed": bool(state and state["state"] == "failed"),
+            "error": state["error"] if state else "",
+        })
     _, ad_flags, clarity = scan_job_ad(role_data["jd"]["external_text"])
     return TEMPLATES.TemplateResponse(request, "candidate_portal.html", {
         "c": c, "role": role_data, "consent": consent, "scopes": SCOPES,
@@ -455,7 +494,7 @@ def candidate_portal(request: Request, token: str):
 def set_consent(token: str, scope: str = Form(...), granted: str = Form("")):
     slug, consent = _find_consent(token)
     if not consent:
-        return RedirectResponse("/", status_code=303)
+        return RedirectResponse("/hiring", status_code=303)
     revoked = consent.set(scope, granted == "on")
     ConsentStore(slug).save(consent)
     if revoked:
@@ -478,7 +517,7 @@ def set_consent(token: str, scope: str = Form(...), granted: str = Form("")):
 async def submit_answers(request: Request, token: str):
     slug, consent = _find_consent(token)
     if not consent:
-        return RedirectResponse("/", status_code=303)
+        return RedirectResponse("/hiring", status_code=303)
     form = await request.form()
     c = Run(slug).candidate(consent.candidate_id)
     questions = [q["question"] for q in (c.questions if c else [])]
@@ -487,3 +526,140 @@ async def submit_answers(request: Request, token: str):
         [str(form.get(f"a{i}", "")) for i in range(len(questions))],
         str(form.get("baseline", "")))
     return RedirectResponse(f"/apply/{token}#answers", status_code=303)
+
+
+# ---------------------------------------------------------------- the front door
+#
+# `/` used to be the recruiter dashboard, so a candidate arriving at the site was looking at
+# other applicants' names and fit scores. Two audiences, two doors, stated plainly - which also
+# makes it obvious at a glance that this is a two-sided thing rather than an ATS.
+
+
+@app.get("/", response_class=HTMLResponse)
+def landing(request: Request):
+    all_roles = roles()
+    return TEMPLATES.TemplateResponse(request, "landing.html", {
+        "open_roles": sum(1 for r in all_roles if r["slug"]),
+        "roles": all_roles[:3]})
+
+
+@app.get("/jobs", response_class=HTMLResponse)
+def job_board(request: Request, q: str = ""):
+    listed = []
+    for r in roles():
+        role_data = Run(r["slug"]).load_role()
+        if not role_data:
+            continue
+        text = role_data["jd"]["external_text"]
+        if q and q.lower() not in (r["title"] + " " + text).lower():
+            continue
+        _, flags, clarity = scan_job_ad(text)
+        listed.append({**r, "clarity": clarity,
+                       "missing": [f.description.replace("the advert never states", "").strip()
+                                   for f in flags if f.pattern_id == "missing_specifics"]})
+    return TEMPLATES.TemplateResponse(request, "jobs.html", {"jobs": listed, "q": q})
+
+
+@app.get("/jobs/{slug}", response_class=HTMLResponse)
+def job_detail(request: Request, slug: str):
+    role_data = Run(slug).load_role()
+    if not role_data:
+        return _err(request, "That job is no longer listed.", 404, "/jobs")
+    text = role_data["jd"]["external_text"]
+    _, flags, clarity = scan_job_ad(text)
+    reqs = [r for r in role_data["requirements"] if r["source"] == "external"]
+    return TEMPLATES.TemplateResponse(request, "job_detail.html", {
+        "slug": slug, "role": role_data, "ad_text": text, "clarity": clarity,
+        "required": [r for r in reqs if r["kind"] == "required"],
+        "preferred": [r for r in reqs if r["kind"] == "preferred"],
+        "missing": [f.description.replace("the advert never states", "").strip()
+                    for f in flags if f.pattern_id == "missing_specifics"],
+        "hollow": [f for f in flags if f.pattern_id == "hollow_phrase"]})
+
+
+@app.get("/jobs/{slug}/apply", response_class=HTMLResponse)
+def apply_form(request: Request, slug: str):
+    role_data = Run(slug).load_role()
+    if not role_data:
+        return _err(request, "That job is no longer listed.", 404, "/jobs")
+    return TEMPLATES.TemplateResponse(request, "apply.html", {
+        "slug": slug, "role": role_data, "error": ""})
+
+
+@app.post("/jobs/{slug}/apply")
+async def submit_application(request: Request, slug: str, background: BackgroundTasks):
+    run = Run(slug)
+    role_data = run.load_role()
+    if not role_data:
+        return _err(request, "That job is no longer listed.", 404, "/jobs")
+
+    form = await request.form()
+    name = str(form.get("name", "")).strip()
+    email = str(form.get("email", "")).strip()
+    cv = form.get("cv")
+
+    problem = ""
+    if not name:
+        problem = "We need a name to put on your application."
+    elif not looks_like_email(email):
+        problem = "That email address does not look right — we need it so you can find your application again."
+    elif not getattr(cv, "filename", ""):
+        problem = "Please attach your CV. PDF, DOCX or TXT."
+    if problem:
+        return TEMPLATES.TemplateResponse(request, "apply.html", {
+            "slug": slug, "role": role_data, "error": problem,
+            "name": name, "email": email}, status_code=400)
+
+    cid = candidate_id_for(name, email)
+    dest = UPLOADS / slug
+    dest.mkdir(parents=True, exist_ok=True)
+    target = dest / f"{cid}{Path(cv.filename).suffix.lower()}"
+    with target.open("wb") as out:
+        shutil.copyfileobj(cv.file, out)
+
+    ApplicationStore(slug).save(Application(
+        candidate_id=cid, name=name, email=email, role_slug=slug, cv_filename=cv.filename))
+    ConsentStore(slug).save(ConsentStore(slug).load(cid))
+
+    background.add_task(tasks.process_cv, slug, str(target), tasks.start(slug, cid))
+    return RedirectResponse(f"/apply/{ConsentStore(slug).token_for(cid)}", status_code=303)
+
+
+@app.get("/track", response_class=HTMLResponse)
+def track(request: Request, email: str = ""):
+    found = []
+    if email:
+        for slug, appn in find_by_email(email):
+            role_data = Run(slug).load_role()
+            found.append({"slug": slug, "app": appn,
+                          "title": role_data["jd"]["title"] if role_data else slug,
+                          "token": ConsentStore(slug).token_for(appn.candidate_id)})
+    return TEMPLATES.TemplateResponse(request, "track.html", {
+        "email": email, "found": found, "searched": bool(email)})
+
+
+# ---------------------------------------------------------------- hiring gate
+
+
+@app.get("/hiring/sign-in", response_class=HTMLResponse)
+def sign_in_form(request: Request, next: str = "/hiring"):
+    if auth.is_signed_in(request):
+        return RedirectResponse(next, status_code=303)
+    return TEMPLATES.TemplateResponse(request, "sign_in.html", {"next": next, "error": ""})
+
+
+@app.post("/hiring/sign-in")
+def do_sign_in(request: Request, passcode: str = Form(""), next: str = Form("/hiring")):
+    if not auth.check(passcode):
+        return TEMPLATES.TemplateResponse(request, "sign_in.html", {
+            "next": next, "error": "That passcode is not right."}, status_code=401)
+    resp = RedirectResponse(next, status_code=303)
+    auth.sign_in(resp)
+    return resp
+
+
+@app.post("/hiring/sign-out")
+def do_sign_out():
+    resp = RedirectResponse("/", status_code=303)
+    auth.sign_out(resp)
+    return resp

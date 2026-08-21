@@ -1,0 +1,80 @@
+{% extends "base_public.html" %}
+{% set nav = 'jobs' %}
+{% block title %}{{ role.jd.title }} — Fit Happens{% endblock %}
+{% block body %}
+<div class="mx-auto max-w-[860px] px-6 py-10">
+  <a href="/jobs" class="inline-flex items-center gap-2 text-[13px] text-ink-muted hover:text-ink">
+    <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
+    All roles</a>
+
+  <div class="mt-4 flex flex-wrap items-start justify-between gap-4">
+    <h1 class="text-[30px] font-bold tracking-tight">{{ role.jd.title }}</h1>
+    <a href="/jobs/{{ slug }}/apply"
+       class="rounded-lg bg-forest px-6 py-3 text-[14px] font-semibold text-white hover:bg-forest-700">
+      Apply for this role</a>
+  </div>
+
+  <!-- our honest read of the advert: the thing no other job board shows you -->
+  <div class="mt-6 rounded-xl border border-hair bg-white p-6">
+    <div class="flex items-center gap-3">
+      <span class="text-[13px] font-semibold">How specific this advert is</span>
+      <span class="rounded-full border px-2.5 py-1 text-[11px] font-semibold
+        {{ 'border-emerald-300 bg-emerald-50 text-emerald-800' if clarity >= 0.7
+           else 'border-amber-300 bg-amber-50 text-amber-800' }}">
+        {{ (clarity*100)|round(0)|int }}%</span>
+    </div>
+    {% if missing %}
+    <p class="mt-3 text-[13px] leading-relaxed text-ink-muted">
+      <span class="font-medium text-ink">It does not tell you:</span> {{ missing|join(' · ') }}.
+      Those are fair things to ask them before you spend an hour on an application.</p>
+    {% endif %}
+    {% if hollow %}
+    <p class="mt-2 text-[13px] leading-relaxed text-ink-muted">
+      <span class="font-medium text-ink">Phrases that fill space:</span>
+      {{ hollow|map(attribute='description')|map('truncate', 60)|join('; ') }}</p>
+    {% endif %}
+    {% if not missing and not hollow %}
+    <p class="mt-3 text-[13px] text-forest-600">This advert states everything we look for.</p>
+    {% endif %}
+  </div>
+
+  <div class="mt-6 grid grid-cols-1 md:grid-cols-2 gap-5">
+    {% for label, items, tone in [('What they need', required, 'forest'), ('Nice to have', preferred, 'grey')] %}
+    <div class="rounded-xl border border-hair bg-white p-6">
+      <h2 class="text-[15px] font-bold">{{ label }}</h2>
+      {% if items %}
+      <ul class="mt-3 space-y-2">
+        {% for r in items %}
+        <li class="flex items-start gap-2.5 text-[13px] leading-snug">
+          <span class="mt-1.5 h-1.5 w-1.5 shrink-0 rounded-full {{ 'bg-forest-600' if tone=='forest' else 'bg-hair' }}"></span>
+          <span>{{ r.text }}{% if r.dealbreaker %}
+            <span class="ml-1 text-[11px] font-semibold text-rose-700">MUST HAVE</span>{% endif %}</span>
+        </li>
+        {% endfor %}
+      </ul>
+      {% else %}<p class="mt-2 text-[13px] text-ink-muted">Nothing listed.</p>{% endif %}
+    </div>
+    {% endfor %}
+  </div>
+
+  <div class="mt-6 rounded-xl border border-hair bg-white p-6">
+    <h2 class="text-[15px] font-bold">The advert, as published</h2>
+    <div class="mt-3 whitespace-pre-wrap text-[13.5px] leading-relaxed text-ink-muted">{{ ad_text }}</div>
+  </div>
+
+  <div class="mt-6 rounded-xl border border-forest-600/25 bg-forest-50/50 p-6">
+    <h2 class="text-[15px] font-bold">What happens after you apply</h2>
+    <ol class="mt-3 space-y-2 text-[13px] leading-relaxed text-ink-muted">
+      <li><span class="font-semibold text-ink">1.</span> We read your CV and work out which parts
+        of this role it evidences. That takes a couple of minutes.</li>
+      <li><span class="font-semibold text-ink">2.</span> You get your own page immediately —
+        what we read, what we could not find, and anything we want to ask.</li>
+      <li><span class="font-semibold text-ink">3.</span> A person at the company reviews it.
+        Nothing here rejects anyone automatically.</li>
+    </ol>
+    <a href="/jobs/{{ slug }}/apply"
+       class="mt-5 inline-block rounded-lg bg-forest px-6 py-3 text-[14px] font-semibold text-white hover:bg-forest-700">
+      Apply for this role</a>
+  </div>
+</div>
+{% endblock %}

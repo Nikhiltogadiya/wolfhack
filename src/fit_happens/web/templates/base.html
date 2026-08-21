@@ -34,8 +34,8 @@ tailwind.config = { theme: { extend: { colors: {
     <nav class="px-3 space-y-0.5 text-[13.5px]">
       {# Active state is driven by the `nav` the route passes. It used to be hard-coded to the
          first item, so every page except the overview highlighted the wrong thing. #}
-      {% set items = [('overview','/','Overview'), ('roles','/roles/new','Roles'),
-                      ('market','/market','Market & feedback')] %}
+      {% set items = [('overview','/hiring','Overview'), ('roles','/hiring/roles/new','Roles'),
+                      ('market','/hiring/market','Market \u0026 feedback')] %}
       {% for key, href, label in items %}
       <a href="{{ href }}" class="flex items-center gap-3 rounded-lg px-3 py-2.5
          {{ 'bg-white/10 text-white font-medium' if nav == key else 'hover:bg-white/5' }}">
@@ -49,20 +49,35 @@ tailwind.config = { theme: { extend: { colors: {
         <div class="px-3 pb-1.5 text-[10.5px] uppercase tracking-wider text-white/40">This role</div>
         {% for href, label in [('', 'Ranking'), ('/job-ad', 'Job ad quality'),
                                ('/integrity', 'Document integrity')] %}
-        <a href="/role/{{ slug }}{{ href }}"
+        <a href="/hiring/role/{{ slug }}{{ href }}"
            class="flex items-center gap-3 rounded-lg px-3 py-2 text-[13px]
-           {{ 'bg-white/10 text-white' if request.url.path == '/role/' ~ slug ~ href else 'hover:bg-white/5' }}">
+           {{ 'bg-white/10 text-white' if request.url.path == '/hiring/role/' ~ slug ~ href else 'hover:bg-white/5' }}">
           <span class="w-1 h-1 rounded-full bg-white/30"></span>{{ label }}</a>
         {% endfor %}
       </div>
       {% endif %}
     </nav>
-    <div class="mt-auto px-5 py-5 text-[11.5px] leading-relaxed text-white/55 border-t border-white/10">
-      Ranks who fits. Flags who isn't real.<br>Never decides.
+    <div class="mt-auto px-5 py-5 border-t border-white/10">
+      <a href="/" class="block text-[12px] text-white/70 hover:text-white">← Candidate site</a>
+      {% if gated() %}
+      <form method="post" action="/hiring/sign-out" class="mt-2">
+        <button class="text-[12px] text-white/50 hover:text-white/80">Sign out</button>
+      </form>
+      {% endif %}
+      <p class="mt-3 text-[11.5px] leading-relaxed text-white/45">
+        Ranks who fits. Flags who isn't real.<br>Never decides.</p>
     </div>
   </aside>
 
   <main class="flex-1 min-w-0">
+    {% if not gated() %}
+    {# A lock that is silently unlocked is worse than a visible absence of one. #}
+    <div class="border-b border-amber-300 bg-amber-50 px-6 py-2.5 text-[12.5px] text-amber-900">
+      <span class="font-semibold">This area is unprotected.</span>
+      Anyone with the address can read applicants' files. Set
+      <span class="font-mono">FIT_HAPPENS_TEAM_PASSCODE</span> to require a passcode.
+    </div>
+    {% endif %}
     {% block body %}{% endblock %}
   </main>
 </div>

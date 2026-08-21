@@ -3,7 +3,7 @@
 {% block title %}New role — Fit Happens{% endblock %}
 {% block body %}
 <div class="px-6 py-7 max-w-[980px] mx-auto">
-  <a href="/roles/new" class="inline-flex items-center gap-2 text-[13px] text-ink-muted hover:text-ink">
+  <a href="/hiring/roles/new" class="inline-flex items-center gap-2 text-[13px] text-ink-muted hover:text-ink">
     <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
     Back to the advert</a>
 
@@ -12,7 +12,7 @@
     {{ steps(2) }}
   </div>
 
-  <form method="post" action="/roles/new" enctype="multipart/form-data" class="mt-6 space-y-5">
+  <form method="post" action="/hiring/roles/new" enctype="multipart/form-data" class="mt-6 space-y-5">
     <input type="hidden" name="title" value="{{ title }}">
     <input type="hidden" name="jd_text" value="{{ jd_text }}">
 
@@ -105,7 +105,7 @@
     <div class="flex items-center gap-3 pb-4">
       <button class="rounded-lg bg-forest px-5 py-2.5 text-[13.5px] font-semibold text-white hover:bg-forest-700">
         Create role</button>
-      <a href="/roles/new" class="text-[13px] text-ink-muted hover:text-ink">Back</a>
+      <a href="/hiring/roles/new" class="text-[13px] text-ink-muted hover:text-ink">Back</a>
     </div>
   </form>
 </div>
@@ -120,7 +120,7 @@ document.querySelectorAll('[data-row]').forEach(row => {
     const value = input.value.trim();
     if (!value || !field.value) { msg.classList.add('hidden'); input.classList.remove('border-rose-400','border-forest-600'); return; }
     try {
-      const r = await fetch('/roles/check', {method:'POST', body:new URLSearchParams({field_name:field.value, value})});
+      const r = await fetch('/hiring/roles/check', {method:'POST', body:new URLSearchParams({field_name:field.value, value})});
       const j = await r.json();
       msg.classList.remove('hidden');
       msg.textContent = j.allowed ? 'Fine — this will be scored.' : 'Refused: ' + j.reason;

@@ -3,7 +3,7 @@
 {% block title %}Compare — Fit Happens{% endblock %}
 {% block body %}
 <div class="px-6 py-7 max-w-[1100px] mx-auto">
-  <a href="/role/{{ slug }}" class="inline-flex items-center gap-2 text-[13px] text-ink-muted hover:text-ink">
+  <a href="/hiring/role/{{ slug }}" class="inline-flex items-center gap-2 text-[13px] text-ink-muted hover:text-ink">
     <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
     {{ role.jd.title }}</a>
 
@@ -15,7 +15,7 @@
     <div class="bg-cream-100 px-5 py-4 text-[11.5px] uppercase tracking-wide text-ink-muted">Requirement</div>
     {% for c in [a, b] %}
     <div class="bg-cream-100 px-4 py-3 text-center border-l border-hair">
-      <a href="/role/{{ slug }}/c/{{ c.candidate_id }}" class="block">
+      <a href="/hiring/role/{{ slug }}/c/{{ c.candidate_id }}" class="block">
         <span class="mx-auto grid h-8 w-8 place-items-center rounded-full bg-forest-50 text-forest text-[11px] font-bold">
           {{ c.display_initials }}</span>
         <span class="mt-1 block text-[12.5px] font-semibold truncate">{{ c.display_name }}</span>
@@ -53,7 +53,7 @@
         <div class="flex justify-between"><span>Roles on the CV</span><span>{{ c.employment|length }}</span></div>
         <div class="flex justify-between"><span>CV last updated</span><span>{{ c.last_active_year or 'unclear' }}</span></div>
       </div>
-      <a href="/role/{{ slug }}/c/{{ c.candidate_id }}"
+      <a href="/hiring/role/{{ slug }}/c/{{ c.candidate_id }}"
          class="mt-4 block rounded-lg border border-hair px-4 py-2 text-center text-[13px] font-semibold hover:border-forest-600">
         Open {{ c.display_name.split(' ')[0] }}'s evidence</a>
     </div>

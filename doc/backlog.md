@@ -103,3 +103,21 @@ signals is the one we do not build, and we say so.
 | C3 | DONE | Answer progress, drafts saved in-browser, confirmation after sending | candidate |
 | 46 | DONE | One stalled chunk failed the whole CV | Retried once, then fails loudly. Silently dropping it would lose claims without saying so |
 | 47 | DONE | Stale upload failures sat at the top of the page forever | Dismissible |
+
+## Candidate entry, 2026-08-21
+
+Found by opening the site as a candidate instead of curling it.
+
+| # | Status | Item |
+|---|---|---|
+| 48 | DONE | **`/` was the recruiter dashboard.** A candidate landed on other applicants' names, fit scores and flags. Every `/role/...` page answered 200 with no credentials. |
+| 49 | DONE | Split landing: candidate or employer |
+| 50 | DONE | Public job board with our clarity read of each advert |
+| 51 | DONE | Job detail: advert, requirements, what it does not tell you |
+| 52 | DONE | **Apply** - name, email, CV. There was no way to apply at all |
+| 53 | DONE | Their own page immediately, including a real "still reading your CV" state |
+| 54 | DONE | `/track` recovers a lost link by email |
+| 55 | DONE | Applicants are people, not filenames - one appeared as `15118506` |
+| 56 | DONE | Hiring area behind a shared passcode, with a visible banner when unset |
+| 57 | DEFERRED | Real per-user auth with a record of who viewed which application | The passcode is honest about not being this. A subject access request asks exactly "who looked at my file", and we cannot answer it |
+| 58 | DEFERRED | Email delivery of the application link | Copy/paste today; needs an SMTP provider |

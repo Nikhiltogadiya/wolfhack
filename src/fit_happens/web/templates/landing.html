@@ -1,0 +1,56 @@
+{% extends "base_public.html" %}
+{% block title %}Fit Happens — hiring on evidence{% endblock %}
+{% block body %}
+<div class="mx-auto max-w-[900px] px-6 py-16">
+  <div class="text-center">
+    <h1 class="text-[40px] font-bold tracking-tight leading-tight">
+      Hiring that reads the evidence,<br>not the adjectives.</h1>
+    <p class="mx-auto mt-4 max-w-[560px] text-[15px] leading-relaxed text-ink-muted">
+      A flat CV from the right person should beat a beautifully written one from the wrong
+      person. We rank on what a CV actually evidences, flag what does not add up, and leave
+      every decision to a human.</p>
+  </div>
+
+  <div class="mt-12 grid grid-cols-1 md:grid-cols-2 gap-5">
+    <a href="/jobs" class="group rounded-2xl border border-hair bg-white p-8 hover:border-forest-600 transition">
+      <div class="grid h-11 w-11 place-items-center rounded-xl bg-forest-50 text-forest">
+        <svg width="21" height="21" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
+          <circle cx="11" cy="11" r="7"/><path d="M21 21l-4.3-4.3"/></svg>
+      </div>
+      <h2 class="mt-5 text-[20px] font-bold">I'm looking for work</h2>
+      <p class="mt-2 text-[13.5px] leading-relaxed text-ink-muted">
+        Browse {{ open_roles }} open role{{ '' if open_roles == 1 else 's' }} and apply. You will
+        see exactly what we read from your CV, what we could not find, and anything we want to
+        ask you — the same things the hiring team sees.</p>
+      <span class="mt-5 inline-flex items-center gap-1.5 text-[13.5px] font-semibold text-forest-600">
+        See open roles <span class="group-hover:translate-x-0.5 transition">→</span></span>
+    </a>
+
+    <a href="/hiring" class="group rounded-2xl border border-hair bg-white p-8 hover:border-forest-600 transition">
+      <div class="grid h-11 w-11 place-items-center rounded-xl bg-forest-50 text-forest">
+        <svg width="21" height="21" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
+          <path d="M20 7H4a1 1 0 0 0-1 1v11a1 1 0 0 0 1 1h16a1 1 0 0 0 1-1V8a1 1 0 0 0-1-1z"/>
+          <path d="M16 7V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v2"/></svg>
+      </div>
+      <h2 class="mt-5 text-[20px] font-bold">I'm hiring</h2>
+      <p class="mt-2 text-[13.5px] leading-relaxed text-ink-muted">
+        Post a role, add the preferences you cannot publish, and rank applicants on evidence
+        with every score traced to a line in their CV.</p>
+      <span class="mt-5 inline-flex items-center gap-1.5 text-[13.5px] font-semibold text-forest-600">
+        Open the hiring area <span class="group-hover:translate-x-0.5 transition">→</span></span>
+    </a>
+  </div>
+
+  <div class="mt-14 grid grid-cols-1 md:grid-cols-3 gap-8">
+    {% for title, body in [
+      ('Writing quality earns nothing', 'The fit score is computed from evidence only. There is no arithmetic path from prose to that number, and a test proves it.'),
+      ('Nothing is ever auto-rejected', 'The strongest thing our checks can say is "a person should look at this". There is no reject option in the code.'),
+      ('You see what they see', 'Applicants get the evidence we read, the gaps we found, and anything we flagged — because flagging something to an employer and hiding it from you would be worse.') ] %}
+    <div>
+      <h3 class="text-[14px] font-bold">{{ title }}</h3>
+      <p class="mt-1.5 text-[13px] leading-relaxed text-ink-muted">{{ body }}</p>
+    </div>
+    {% endfor %}
+  </div>
+</div>
+{% endblock %}
