@@ -41,6 +41,29 @@
     </form>
   </div>
 
+  <div id="explainer" class="mt-5 hidden rounded-xl border border-hair bg-white p-5">
+    <div class="flex items-start justify-between gap-4">
+      <h2 class="text-[14px] font-bold">What the four columns mean</h2>
+      <button onclick="localStorage.setItem('fh.explainer','hidden'); document.getElementById('explainer').classList.add('hidden')"
+              class="text-[12px] text-ink-muted hover:text-ink">Got it</button>
+    </div>
+    <div class="mt-3 grid grid-cols-1 md:grid-cols-4 gap-4 text-[12.5px] leading-relaxed">
+      {% for name, body in [
+        ('Fit score', 'How much of this role the CV actually evidences. Writing quality has no arithmetic path into it.'),
+        ('Résumé sloppiness', 'How much the writing reads as AI-assisted. Advisory only — we measured it and it barely distinguishes anything, so it never causes a flag.'),
+        ('CV bluff risk', 'Claims that do not add up against the CV itself. Two independent inconsistencies are needed before anything is flagged.'),
+        ('Response authenticity', "The same checks on the candidate's own answers. Pending until they reply.") ] %}
+      <div>
+        <div class="font-semibold text-ink">{{ name }}</div>
+        <p class="mt-1 text-ink-muted">{{ body }}</p>
+      </div>
+      {% endfor %}
+    </div>
+    <p class="mt-3 border-t border-hair pt-3 text-[12px] text-ink-muted">
+      They stay four numbers. There is deliberately no blended score, because the moment one
+      exists someone sorts by it and the separation stops meaning anything.</p>
+  </div>
+
   <div id="progress" class="{{ '' if pending else 'hidden' }} mt-5 rounded-xl border border-forest-600/30 bg-forest-50/50 p-4">
     <div class="flex items-center gap-3">
       <svg class="animate-spin h-4 w-4 text-forest-600" viewBox="0 0 24 24" fill="none">
@@ -58,8 +81,13 @@
   {% set failures = recent | selectattr('state','equalto','failed') | list %}
   {% if failures %}
   <div class="mt-5 rounded-xl border border-rose-300 bg-rose-50 p-4">
-    <div class="text-[13px] font-semibold text-rose-900">
-      {{ failures|length }} upload{{ '' if failures|length == 1 else 's' }} could not be read</div>
+    <div class="flex items-start justify-between gap-4">
+      <div class="text-[13px] font-semibold text-rose-900">
+        {{ failures|length }} upload{{ '' if failures|length == 1 else 's' }} could not be read</div>
+      <form method="post" action="/role/{{ slug }}/dismiss">
+        <button class="text-[12px] text-rose-900/70 hover:text-rose-900">Dismiss</button>
+      </form>
+    </div>
     <ul class="mt-2 space-y-1 text-[12.5px] text-rose-900/80">
       {% for f in failures %}<li><span class="font-mono">{{ f.name }}</span> — {{ f.error }}</li>{% endfor %}
     </ul>
@@ -68,14 +96,35 @@
 
   <div class="mt-7 grid grid-cols-1 lg:grid-cols-12 gap-6">
     <div class="lg:col-span-8 min-w-0">
+      <div class="mb-3 flex flex-wrap items-center gap-2">
+        {% for key, label in [('','Everyone'), ('undecided','Not yet decided'), ('review','Needs a human'),
+                              ('top','Top fit'), ('waiting','Waiting on them')] %}
+        <a href="?sort={{ sort }}&filter_by={{ key }}&internal={{ 1 if use_internal else 0 }}"
+           class="rounded-lg border px-3 py-1.5 text-[12.5px] font-medium transition
+           {{ 'border-forest bg-forest text-white' if filter_by == key else 'border-hair bg-white hover:border-forest-600' }}">
+          {{ label }}</a>
+        {% endfor %}
+        <span class="ml-auto text-[12px] text-ink-muted">
+          showing {{ candidates|length }} of {{ total }}</span>
+        <button id="compareBtn" disabled
+                class="rounded-lg border border-hair bg-white px-3 py-1.5 text-[12.5px] font-semibold disabled:opacity-40 enabled:hover:border-forest-600">
+          Compare <span id="compareCount">0</span>/2</button>
+      </div>
+
       <div class="rounded-xl border border-hair bg-white overflow-hidden">
         <div class="overflow-x-auto"><table class="w-full text-[13.5px] min-w-[680px]">
           <thead>
             <tr class="bg-cream-100 text-left text-[11.5px] uppercase tracking-wide text-ink-muted">
-              <th class="py-3 pl-5 pr-3 font-semibold">Candidate</th>
-              <th class="px-3 font-semibold">Fit score</th>
-              <th class="px-3 font-semibold">Résumé sloppiness</th>
-              <th class="px-3 font-semibold">CV bluff risk</th>
+              <th class="py-3 pl-4 pr-2 w-8"></th>
+              {% macro sortlink(key, label) %}
+              <a href="?sort={{ key }}&filter_by={{ filter_by }}&internal={{ 1 if use_internal else 0 }}"
+                 class="inline-flex items-center gap-1 hover:text-ink {{ 'text-ink' if sort == key else '' }}">
+                {{ label }}{% if sort == key %}<span>↓</span>{% endif %}</a>
+              {% endmacro %}
+              <th class="py-3 pr-3 font-semibold">{{ sortlink('name','Candidate') }}</th>
+              <th class="px-3 font-semibold">{{ sortlink('fit','Fit score') }}</th>
+              <th class="px-3 font-semibold">{{ sortlink('style','Résumé sloppiness') }}</th>
+              <th class="px-3 font-semibold">{{ sortlink('claims','CV bluff risk') }}</th>
               <th class="px-3 font-semibold">Response authenticity</th>
               <th class="px-3 pr-5 font-semibold">Stage</th>
             </tr>
@@ -91,7 +140,9 @@
           {% endif %}
           {% for c in candidates %}
             <tr class="border-t border-hair hover:bg-cream/60">
-              <td class="py-4 pl-5 pr-3">
+              <td class="py-4 pl-4 pr-2">
+                <input type="checkbox" class="cmp" value="{{ c.candidate_id }}"></td>
+              <td class="py-4 pr-3">
                 <a href="/role/{{ slug }}/c/{{ c.candidate_id }}?internal={{ 1 if use_internal else 0 }}" class="flex items-center gap-3 group">
                   <span class="grid h-9 w-9 place-items-center rounded-full bg-forest-50 text-forest text-[12px] font-bold">
                     {{ c.display_initials }}</span>
@@ -115,10 +166,8 @@
               {% set rl = response_labels.get(c.candidate_id, ('PENDING','grey')) %}
               <td class="px-3">{{ pill(rl[0], rl[1]) }}</td>
               <td class="px-3 pr-5">
-                {% if c.risk_tone=='red' %}{{ pill('HUMAN REVIEW', 'red') }}
-                {% elif c.fit.score>=0.55 %}{{ pill('TOP FIT', 'green') }}
-                {% elif c.fit.dealbreakers_unstated %}{{ pill('NEEDS CONFIRMING', 'blue') }}
-                {% else %}{{ pill('REVIEW', 'grey') }}{% endif %}
+                {% set st = stage_of[c.candidate_id] %}
+                {{ pill(st.label|upper, st.tone) }}
               </td>
             </tr>
           {% endfor %}
@@ -165,6 +214,31 @@
 </div>
 
 <script>
+// the explainer is shown until dismissed, then stays dismissed for this browser
+if (localStorage.getItem('fh.explainer') !== 'hidden') {
+  document.getElementById('explainer')?.classList.remove('hidden');
+}
+
+// compare: exactly two, because a three-way comparison on a laptop is unreadable
+(function () {
+  const boxes = [...document.querySelectorAll('.cmp')];
+  const btn = document.getElementById('compareBtn');
+  const count = document.getElementById('compareCount');
+  if (!btn) return;
+  const sync = () => {
+    const picked = boxes.filter(b => b.checked);
+    count.textContent = picked.length;
+    btn.disabled = picked.length !== 2;
+    boxes.forEach(b => { b.disabled = !b.checked && picked.length >= 2; });
+  };
+  boxes.forEach(b => b.addEventListener('change', sync));
+  btn.addEventListener('click', () => {
+    const ids = boxes.filter(b => b.checked).map(b => b.value).join(',');
+    location.href = `/role/{{ slug }}/compare?ids=${ids}`;
+  });
+  sync();
+})();
+
 // Poll while anything is in flight. Uploads run in the background because a CV takes 30-60s
 // and the browser should not be held open for it.
 (function () {

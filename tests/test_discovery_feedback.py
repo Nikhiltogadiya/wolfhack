@@ -164,3 +164,99 @@ def test_looking_up_a_role_does_not_create_it(tmp_path, monkeypatch):
     assert not run.exists
     assert not run.dir.exists(), "merely looking up a role created it"
     assert store.roles() == []
+
+
+class TestStages:
+    """A tool that can only record a 'no' quietly frames every decision as one."""
+
+    def test_a_new_candidate_starts_at_new(self, tmp_path, monkeypatch):
+        import fit_happens.stages as st
+        monkeypatch.setattr(st, "DATA_DIR", tmp_path)
+        assert st.StageStore().load("x").stage == "new"
+
+    def test_moving_stage_records_who_and_when(self, tmp_path, monkeypatch):
+        import fit_happens.stages as st
+        monkeypatch.setattr(st, "DATA_DIR", tmp_path)
+        s = st.StageStore()
+        s.set("x", "reviewing")
+        rec = s.set("x", "shortlisted")
+        assert rec.stage == "shortlisted"
+        assert [h["to"] for h in rec.history] == ["reviewing", "shortlisted"]
+        assert all(h["actor"] == "recruiter" for h in rec.history)
+
+    def test_setting_the_same_stage_twice_adds_no_history(self, tmp_path, monkeypatch):
+        import fit_happens.stages as st
+        monkeypatch.setattr(st, "DATA_DIR", tmp_path)
+        s = st.StageStore()
+        s.set("x", "reviewing")
+        assert len(s.set("x", "reviewing").history) == 1
+
+    def test_an_unknown_stage_is_refused(self, tmp_path, monkeypatch):
+        import fit_happens.stages as st
+        monkeypatch.setattr(st, "DATA_DIR", tmp_path)
+        assert st.StageStore().set("x", "hired_immediately").stage == "new"
+
+    def test_the_system_never_sets_a_stage_from_a_score(self):
+        """Stages are a human decision. If this module ever reads a score it has become an
+        automated hiring decision, which is the one thing we promise not to make.
+
+        Checked against the parsed AST, not the source text: an earlier version grepped the
+        raw file and failed on the word "flags" in this module's own docstring, which proves
+        nothing about the code.
+        """
+        import ast
+        import inspect
+
+        import fit_happens.stages as st
+
+        tree = ast.parse(inspect.getsource(st))
+        imported = {
+            n.module or "" for n in ast.walk(tree) if isinstance(n, ast.ImportFrom)
+        } | {
+            a.name for n in ast.walk(tree) if isinstance(n, ast.Import) for a in n.names
+        }
+        assert not any("schemas" in m or "fit" in m.split(".") for m in imported), imported
+
+        attrs = {n.attr for n in ast.walk(tree) if isinstance(n, ast.Attribute)}
+        for banned in ("score", "verdict", "flags", "cp2", "fit"):
+            assert banned not in attrs, f"stages reads .{banned}"
+
+
+def test_one_stalled_chunk_is_retried_not_fatal(monkeypatch):
+    """A hung call used to fail the whole CV, wasting the other chunks' work and showing an
+    error for a document that reads perfectly well."""
+    from fit_happens.fit import extract_claims as ex
+
+    calls = {"n": 0}
+
+    def fake_many(task, schema, prompts, **kw):
+        calls["n"] += 1
+        if calls["n"] == 1:
+            return [schema(claims=[], employment=[]), None, schema(claims=[], employment=[])]
+        return [schema(claims=[], employment=[])]  # the retry succeeds
+
+    monkeypatch.setattr(ex.llm, "structured_many", fake_many)
+    monkeypatch.setattr(ex, "chunk_text", lambda t, size=0: ["a", "b", "c"])
+
+    class Doc:
+        text = "a\nb\nc"
+
+    claims, employment = ex.extract_claims(Doc())
+    assert calls["n"] == 2, "the failed chunk was not retried"
+    assert claims == [] and employment == []
+
+
+def test_a_chunk_that_fails_twice_fails_loudly(monkeypatch):
+    """Silently dropping it would lose claims without saying so."""
+    import pytest as _pytest
+
+    from fit_happens.fit import extract_claims as ex
+
+    monkeypatch.setattr(ex.llm, "structured_many", lambda t, s, p, **k: [None] * len(p))
+    monkeypatch.setattr(ex, "chunk_text", lambda t, size=0: ["a", "b"])
+
+    class Doc:
+        text = "a\nb"
+
+    with _pytest.raises(RuntimeError, match="could not be read"):
+        ex.extract_claims(Doc())

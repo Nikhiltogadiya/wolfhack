@@ -5,8 +5,8 @@
    "name": "15118506.pdf",
    "state": "failed",
    "detail": "",
-   "at": "2026-08-21T02:03:35+00:00",
-   "error": "processing stopped before it finished - most likely the server restarted. Upload the file again."
+   "at": "2026-08-21T02:29:01+00:00",
+   "error": "TimeoutError: 1 of 3 'claim_extract' calls made no progress in 240s"
   },
   {
    "id": "15118506.pdf-1",

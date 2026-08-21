@@ -36,8 +36,11 @@ Two components that must never contaminate each other: **Fit Engine** (matching)
    structurally barred from contributing to a flag.
 
 ## Surfaces
-Recruiter: `/` overview · `/roles/new` create · `/role/{slug}` ranking ·
-`/role/{slug}/c/{cid}` evidence · `/role/{slug}/job-ad` · `/role/{slug}/integrity` · `/market`.
+Recruiter: `/` overview · `/roles/new` → `/roles/preview` → create (two steps) ·
+`/role/{slug}` ranking (sort, filter, compare) · `/role/{slug}/compare?ids=a,b` ·
+`/role/{slug}/c/{cid}` evidence · `.../ask` · `/role/{slug}/job-ad` · `/role/{slug}/integrity` ·
+`/market`. Stages live in `stages.py` and are ALWAYS set by a person - that module must never
+read a score, pinned by an AST test.
 Candidate: `/apply/{token}` - status, consent, what-we-read, what-we-noticed, questions.
 Tokens come from `ConsentStore(slug).token_for(candidate_id)`; every store is per-role.
 

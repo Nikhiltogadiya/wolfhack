@@ -1,0 +1,149 @@
+{% extends "base.html" %}
+{% from "_macros.html" import steps, pill, bar %}
+{% block title %}New role — Fit Happens{% endblock %}
+{% block body %}
+<div class="px-6 py-7 max-w-[980px] mx-auto">
+  <a href="/roles/new" class="inline-flex items-center gap-2 text-[13px] text-ink-muted hover:text-ink">
+    <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
+    Back to the advert</a>
+
+  <div class="mt-4 flex items-end justify-between gap-6">
+    <h1 class="text-[28px] font-bold tracking-tight">{{ title }}</h1>
+    {{ steps(2) }}
+  </div>
+
+  <form method="post" action="/roles/new" enctype="multipart/form-data" class="mt-6 space-y-5">
+    <input type="hidden" name="title" value="{{ title }}">
+    <input type="hidden" name="jd_text" value="{{ jd_text }}">
+
+    <!-- what we read -->
+    <div class="rounded-xl border border-hair bg-white p-6">
+      <div class="flex items-start justify-between gap-4">
+        <div>
+          <h2 class="text-[16px] font-bold">What we read from your advert</h2>
+          <p class="mt-1 text-[12.5px] text-ink-muted">
+            {{ requirements|length }} requirements — {{ requirements|selectattr('kind','equalto','required')|list|length }}
+            required, {{ requirements|selectattr('kind','equalto','preferred')|list|length }} preferred.
+            Untick anything we got wrong.</p>
+        </div>
+        <div class="shrink-0 text-right">
+          <div class="text-[11.5px] text-ink-muted">Advert clarity</div>
+          <div class="text-[20px] font-bold {{ 'text-forest-600' if clarity>=0.7 else 'text-amber-600' }}">
+            {{ (clarity*100)|round(0)|int }}%</div>
+        </div>
+      </div>
+
+      <div class="mt-4 space-y-1.5 max-h-[300px] overflow-y-auto pr-1">
+        {% for r in requirements %}
+        <label class="flex items-start gap-3 rounded-lg border border-hair p-2.5 hover:bg-cream/60 cursor-pointer">
+          <input type="checkbox" name="keep" value="{{ loop.index0 }}" checked class="mt-1">
+          <span class="min-w-0 flex-1 text-[13px]">{{ r.text }}</span>
+          <span class="shrink-0 flex items-center gap-1.5">
+            {% if r.dealbreaker %}{{ pill('HARD GATE', 'red') }}{% endif %}
+            {{ pill(r.kind|upper, 'forest' if r.kind == 'required' else 'grey') }}
+          </span>
+        </label>
+        {% endfor %}
+      </div>
+
+      {% if missing %}
+      <div class="mt-4 rounded-lg bg-amber-50 border border-amber-200 p-3.5">
+        <div class="text-[12.5px] font-semibold text-amber-900">Your advert does not tell a candidate:</div>
+        <ul class="mt-1.5 space-y-0.5 text-[12.5px] text-amber-900/85">
+          {% for f in missing %}<li>· {{ f.description.replace('the advert never states','') }}</li>{% endfor %}
+        </ul>
+        <p class="mt-2 text-[11.5px] text-amber-900/70">Not blocking — but these are the things
+          candidates most often ask about, and stating them attracts better-matched applicants.</p>
+      </div>
+      {% endif %}
+    </div>
+
+    <!-- private preferences -->
+    <div class="rounded-xl border border-hair bg-white p-6">
+      <h2 class="text-[16px] font-bold">Private preferences <span class="font-normal text-ink-muted">(optional)</span></h2>
+      <p class="mt-1.5 text-[13px] leading-relaxed text-ink-muted">
+        The things that genuinely matter but do not belong in a public advert — an audit coming
+        up, a junior team that needs a mentor, a hard start date. They are scored alongside the
+        public requirements, and shown on each candidate's file so the reasoning is never hidden.</p>
+      <p class="mt-2 text-[12.5px] leading-relaxed text-ink-muted">
+        We check each one as you type. Operational constraints are fine. Anything that is a
+        protected characteristic — or a proxy for one — is refused before it can affect a score,
+        and the refusal is written into the audit trail.</p>
+
+      <div class="mt-5 space-y-3">
+        {% for i in range(4) %}
+        <div class="flex flex-wrap items-start gap-3" data-row="{{ i }}">
+          <select name="if{{ i }}" class="rounded-lg border border-hair px-3 py-2.5 text-[13px] w-[200px]">
+            <option value="">Choose a type…</option>
+            {% for key, label in allowed.items() %}<option value="{{ key }}">{{ label }}</option>{% endfor %}
+          </select>
+          <div class="flex-1 min-w-[280px]">
+            <input name="iv{{ i }}" placeholder="e.g. the team is junior, this hire has to mentor two engineers"
+                   class="w-full rounded-lg border border-hair px-3.5 py-2.5 text-[13px] guard-input">
+            <p class="guard-msg mt-1.5 text-[12px] leading-snug hidden"></p>
+          </div>
+          <label class="flex items-center gap-2 text-[12.5px] text-ink-muted pt-2.5">
+            <input type="checkbox" name="ir{{ i }}"> must have</label>
+        </div>
+        {% endfor %}
+      </div>
+    </div>
+
+    <!-- CVs -->
+    <div class="rounded-xl border border-hair bg-white p-6">
+      <h2 class="text-[16px] font-bold">Add CVs <span class="font-normal text-ink-muted">(optional)</span></h2>
+      <p class="mt-1.5 text-[12.5px] text-ink-muted">You can add these later too.</p>
+      <label id="drop" class="mt-4 flex flex-col items-center justify-center gap-2 rounded-xl border-2 border-dashed border-hair p-8 cursor-pointer hover:border-forest-600 transition">
+        <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" class="text-ink-muted">
+          <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><path d="M7 10l5-5 5 5"/><path d="M12 5v12"/></svg>
+        <span class="text-[13.5px] font-medium">Drop CVs here, or click to choose</span>
+        <span id="dropHint" class="text-[12px] text-ink-muted">PDF, DOCX or TXT · several at once is fine</span>
+        <input type="file" name="files" multiple accept=".pdf,.docx,.txt" class="hidden" id="fileInput">
+      </label>
+    </div>
+
+    <div class="flex items-center gap-3 pb-4">
+      <button class="rounded-lg bg-forest px-5 py-2.5 text-[13.5px] font-semibold text-white hover:bg-forest-700">
+        Create role</button>
+      <a href="/roles/new" class="text-[13px] text-ink-muted hover:text-ink">Back</a>
+    </div>
+  </form>
+</div>
+
+<script>
+document.querySelectorAll('[data-row]').forEach(row => {
+  const input = row.querySelector('.guard-input');
+  const msg = row.querySelector('.guard-msg');
+  const field = row.querySelector('select');
+  let timer;
+  const check = async () => {
+    const value = input.value.trim();
+    if (!value || !field.value) { msg.classList.add('hidden'); input.classList.remove('border-rose-400','border-forest-600'); return; }
+    try {
+      const r = await fetch('/roles/check', {method:'POST', body:new URLSearchParams({field_name:field.value, value})});
+      const j = await r.json();
+      msg.classList.remove('hidden');
+      msg.textContent = j.allowed ? 'Fine — this will be scored.' : 'Refused: ' + j.reason;
+      msg.className = 'guard-msg mt-1.5 text-[12px] leading-snug ' + (j.allowed ? 'text-forest-600' : 'text-rose-700');
+      input.classList.toggle('border-forest-600', j.allowed);
+      input.classList.toggle('border-rose-400', !j.allowed);
+    } catch (e) { msg.classList.add('hidden'); }
+  };
+  input.addEventListener('input', () => { clearTimeout(timer); timer = setTimeout(check, 350); });
+  field.addEventListener('change', check);
+});
+
+// drag and drop
+const drop = document.getElementById('drop'), fileInput = document.getElementById('fileInput'),
+      hint = document.getElementById('dropHint');
+const show = () => { const n = fileInput.files.length;
+  hint.textContent = n ? `${n} file${n===1?'':'s'} ready` : 'PDF, DOCX or TXT · several at once is fine';
+  hint.className = n ? 'text-[12px] font-semibold text-forest-600' : 'text-[12px] text-ink-muted'; };
+fileInput.addEventListener('change', show);
+['dragenter','dragover'].forEach(e => drop.addEventListener(e, ev => {
+  ev.preventDefault(); drop.classList.add('border-forest-600','bg-forest-50/40'); }));
+['dragleave','drop'].forEach(e => drop.addEventListener(e, ev => {
+  ev.preventDefault(); drop.classList.remove('border-forest-600','bg-forest-50/40'); }));
+drop.addEventListener('drop', ev => { fileInput.files = ev.dataTransfer.files; show(); });
+</script>
+{% endblock %}

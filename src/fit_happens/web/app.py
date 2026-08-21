@@ -32,6 +32,7 @@ from ..jd.discovery import corpus_stats, duplicates
 from ..jd.guard import ALLOWED_FIELDS, check_value
 from ..jd.slop import scan_job_ad
 from ..slop.response import CASUAL_QUESTION, scan_responses
+from ..stages import ORDER as STAGE_ORDER, STAGES, StageStore
 from ..store import Run, roles, slugify
 from . import tasks
 
@@ -100,9 +101,34 @@ def seed_demo(background: BackgroundTasks):
 
 
 @app.get("/roles/new", response_class=HTMLResponse)
-def new_role_form(request: Request):
-    return TEMPLATES.TemplateResponse(request, "role_new.html", {
-        "allowed": ALLOWED_FIELDS, "nav": "roles", "checked": None})
+def new_role_step1(request: Request):
+    """Step 1 of 3. Just the advert - asking for everything at once was the problem."""
+    return TEMPLATES.TemplateResponse(request, "role_step1.html", {"nav": "roles", "step": 1})
+
+
+@app.post("/roles/preview", response_class=HTMLResponse)
+async def new_role_step2(request: Request):
+    """Step 2 of 3. Show her what we extracted BEFORE the role exists.
+
+    Previously she pasted an advert and pressed Create having seen nothing of what we
+    understood; the first time she learned what we read was after the fact. Requirements are
+    editable here, because our parse is a draft of her intent, not a ruling on it.
+    """
+    form = await request.form()
+    jd_text = str(form.get("jd_text", "")).strip()
+    title = str(form.get("title", "")).strip()
+    if not jd_text:
+        return _err(request, "Paste the advert first - we score against it.", 400, "/roles/new")
+
+    from ..jd.parse import parse_jd
+
+    parsed_title, reqs = parse_jd(jd_text, title)
+    _, ad_flags, clarity = scan_job_ad(jd_text)
+    return TEMPLATES.TemplateResponse(request, "role_step2.html", {
+        "nav": "roles", "step": 2, "title": title or parsed_title, "jd_text": jd_text,
+        "requirements": reqs, "clarity": clarity, "allowed": ALLOWED_FIELDS,
+        "missing": [f for f in ad_flags if f.pattern_id == "missing_specifics"],
+        "hollow": [f for f in ad_flags if f.pattern_id == "hollow_phrase"]})
 
 
 @app.post("/roles/check")
@@ -118,36 +144,55 @@ def check_internal(field_name: str = Form(...), value: str = Form("")):
 
 @app.post("/roles/new")
 async def create_role(request: Request, background: BackgroundTasks):
+    """Step 3: create the role, honouring the requirement edits, and start any CVs processing."""
     form = await request.form()
     title = str(form.get("title", "")).strip()
     jd_text = str(form.get("jd_text", "")).strip()
     if not jd_text:
-        return _err(request, "A role needs a job description to score against.", 400, "/roles/new")
+        return _err(request, "A role needs an advert to score against.", 400, "/roles/new")
 
-    slug = slugify(title or "role")
-    base, n = slug, 2
+    slug, n = slugify(title or "role"), 2
+    base = slug
     while Run(slug).exists:
         slug, n = f"{base}-{n}", n + 1
 
     from ..jd.model import InternalConstraint, JobDescription
     from ..jd.parse import parse_jd
 
-    internal = []
-    for i in range(6):
-        f, v = str(form.get(f"if{i}", "")), str(form.get(f"iv{i}", "")).strip()
-        if f and v:
-            internal.append(InternalConstraint(field_name=f, value=v,
-                                               required=bool(form.get(f"ir{i}"))))
     parsed_title, external = parse_jd(jd_text, title)
+    # She reviewed the parse and may have unticked things we got wrong. Our extraction is a
+    # draft of her intent, not a ruling on it.
+    keep = {int(v) for v in form.getlist("keep") if str(v).isdigit()}
+    if keep:
+        external = [r for i, r in enumerate(external) if i in keep]
+
+    internal = [
+        InternalConstraint(field_name=str(form.get(f"if{i}")), value=str(form.get(f"iv{i}")).strip(),
+                           required=bool(form.get(f"ir{i}")))
+        for i in range(6)
+        if str(form.get(f"if{i}", "")) and str(form.get(f"iv{i}", "")).strip()
+    ]
     jd = JobDescription(title=title or parsed_title, external_text=jd_text, internal=internal)
     reqs = external + jd.internal_requirements()
     _, ad_flags, clarity = scan_job_ad(jd_text)
     Run(slug).save_role(jd, reqs, clarity, ad_flags)
+
+    dest = UPLOADS / slug
+    for f in form.getlist("files"):
+        if not getattr(f, "filename", ""):
+            continue
+        dest.mkdir(parents=True, exist_ok=True)
+        safe = slugify(Path(f.filename).stem) + Path(f.filename).suffix.lower()
+        with (dest / safe).open("wb") as out:
+            shutil.copyfileobj(f.file, out)
+        background.add_task(tasks.process_cv, slug, str(dest / safe), tasks.start(slug, safe))
+
     return RedirectResponse(f"/role/{slug}", status_code=303)
 
 
 @app.get("/role/{slug}", response_class=HTMLResponse)
-def role(request: Request, slug: str, internal: int = 1):
+def role(request: Request, slug: str, internal: int = 1, sort: str = "fit",
+         filter_by: str = ""):
     run = Run(slug)
     role_data = run.load_role()
     if not role_data:
@@ -166,8 +211,31 @@ def role(request: Request, slug: str, internal: int = 1):
             c.fit = score_fit([m for m in c.fit.matches if m.requirement_id in ids], public)
         candidates.sort(key=lambda c: -c.fit.score)
 
+    stages = StageStore(slug)
+    stage_of = {c.candidate_id: stages.load(c.candidate_id) for c in candidates}
+    if filter_by == "review":
+        candidates = [c for c in candidates
+                      if c.cp2.verdict.value == "flag_for_human" or c.style.band != "low"]
+    elif filter_by == "top":
+        candidates = [c for c in candidates if c.fit.score >= 0.55]
+    elif filter_by == "waiting":
+        candidates = [c for c in candidates if stage_of[c.candidate_id].stage == "questions_sent"]
+    elif filter_by == "undecided":
+        candidates = [c for c in candidates if not stage_of[c.candidate_id].is_decided]
+
+    keys = {
+        "fit": lambda c: -c.fit.score,
+        "style": lambda c: {"low": 0, "grey": 1, "high": 2}[c.style.band],
+        "claims": lambda c: -len(c.authenticity_flags),
+        "name": lambda c: c.display_name.lower(),
+    }
+    if sort in keys:
+        candidates = sorted(candidates, key=keys[sort])
+
     return TEMPLATES.TemplateResponse(request, "ranking.html", {
         "slug": slug, "role": role_data, "candidates": candidates,
+        "stage_of": stage_of, "stages": STAGES, "sort": sort, "filter_by": filter_by,
+        "total": len(run.candidates()),
         "use_internal": bool(internal),
         "required_count": sum(1 for r in reqs if r["kind"] == "required"),
         "preferred_count": sum(1 for r in reqs if r["kind"] == "preferred"),
@@ -194,6 +262,14 @@ async def upload_cvs(slug: str, background: BackgroundTasks, files: list[UploadF
             shutil.copyfileobj(f.file, out)
         tid = tasks.start(slug, safe)
         background.add_task(tasks.process_cv, slug, str(target), tid)
+    return RedirectResponse(f"/role/{slug}", status_code=303)
+
+
+@app.post("/role/{slug}/dismiss")
+def dismiss_notices(slug: str):
+    """Clear finished and failed upload notices. Without this a single old failure sat at the
+    top of the page permanently, describing a problem that had already been resolved."""
+    tasks.clear_finished(slug)
     return RedirectResponse(f"/role/{slug}", status_code=303)
 
 
@@ -244,15 +320,78 @@ def candidate(request: Request, slug: str, cid: str, internal: int = 1):
         "use_internal": bool(internal), "cp3": cp3,
         "answers": AnswerStore(slug).load(cid), "response_label": _response_label(cp3),
         "candidate_link": f"/apply/{ConsentStore(slug).token_for(cid)}",
-        "reasons": REASONS, "rejection": FeedbackStore(slug).get(cid), "nav": "roles"})
+        "reasons": REASONS, "rejection": FeedbackStore(slug).get(cid), "nav": "roles",
+        "stage": StageStore(slug).load(cid), "stages": STAGES})
 
 
 @app.post("/role/{slug}/c/{cid}/pass")
-def record_pass(slug: str, cid: str, reason: str = Form(...), note: str = Form("")):
+def record_pass(slug: str, cid: str, reason: str = Form(...), note: str = Form(""),
+                set_stage: str = Form("")):
     c = Run(slug).candidate(cid)
     FeedbackStore(slug).record(Rejection(candidate_id=cid, reason=reason, note=note,
                                          fit_score=c.fit.score if c else 0.0))
+    if set_stage:
+        StageStore(slug).set(cid, set_stage)
     return RedirectResponse(f"/role/{slug}/c/{cid}#feedback", status_code=303)
+
+
+@app.post("/role/{slug}/c/{cid}/stage")
+def set_stage(slug: str, cid: str, stage: str = Form(...), back: str = Form("")):
+    StageStore(slug).set(cid, stage)
+    return RedirectResponse(back or f"/role/{slug}/c/{cid}", status_code=303)
+
+
+@app.get("/role/{slug}/compare", response_class=HTMLResponse)
+def compare(request: Request, slug: str, ids: str = ""):
+    """Two candidates side by side, requirement by requirement.
+
+    The product's whole argument is that a flat CV from the right person beats a polished one
+    from the wrong person, and until now there was no screen that let anyone see that happen.
+    """
+    run = Run(slug)
+    role_data = run.load_role()
+    if not role_data:
+        return _err(request, "That role does not exist.", 404)
+    wanted = [i for i in ids.split(",") if i][:2]
+    picked = [c for c in (run.candidate(i) for i in wanted) if c]
+    if len(picked) < 2:
+        return _err(request, "Pick two candidates to compare.", 400, f"/role/{slug}")
+    reqs = {r["id"]: r for r in role_data["requirements"]}
+    matches = [{m.requirement_id: m for m in c.fit.matches} for c in picked]
+    rows = []
+    for rid, r in reqs.items():
+        a, b = matches[0].get(rid), matches[1].get(rid)
+        credit = {"strong": 1.0, "moderate": 0.6, "weak": 0.2, "missing": 0.0}
+        rows.append({
+            "req": r, "a": a, "b": b,
+            "a_cov": credit.get(a.strength, 0) if a else 0,
+            "b_cov": credit.get(b.strength, 0) if b else 0,
+            "diverges": bool(a and b and a.strength != b.strength)})
+    rows.sort(key=lambda x: (not x["diverges"], x["req"]["kind"] != "required"))
+    return TEMPLATES.TemplateResponse(request, "compare.html", {
+        "slug": slug, "role": role_data, "a": picked[0], "b": picked[1], "rows": rows,
+        "nav": "roles"})
+
+
+@app.get("/role/{slug}/c/{cid}/ask", response_class=HTMLResponse)
+def ask_questions(request: Request, slug: str, cid: str):
+    """What the recruiter sends, and what the candidate will see when they open it."""
+    run = Run(slug)
+    c = run.candidate(cid)
+    role_data = run.load_role()
+    if not c or not role_data:
+        return _err(request, "That candidate does not exist.", 404, f"/role/{slug}")
+    StageStore(slug).set(cid, "questions_sent")
+    link = f"/apply/{ConsentStore(slug).token_for(cid)}"
+    return TEMPLATES.TemplateResponse(request, "ask.html", {
+        "slug": slug, "c": c, "role": role_data, "link": link, "nav": "roles",
+        "message": (
+            f"Hello,\n\nThank you for applying for {role_data['jd']['title']}. Before we take "
+            f"this further there are a couple of things we would like to hear from you in your "
+            f"own words.\n\nYou can answer them here — it should take a few minutes, and you "
+            f"can also see exactly what we read from your CV:\n\n{{link}}\n\n"
+            f"No decision has been made, and nothing is automated: a person reviews every "
+            f"application.\n\nBest wishes")})
 
 
 @app.post("/role/{slug}/c/{cid}/clear")

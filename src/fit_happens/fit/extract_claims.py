@@ -101,9 +101,28 @@ def extract_claims(doc: Document) -> tuple[list[Claim], list[Employment]]:
         for chunk in chunk_text(doc.text)
         if chunk.strip()
     ]
+    # Tolerate a stalled chunk on the first pass, then retry just the ones that failed.
+    # Neither extreme is right: failing the whole CV because one call hung wastes the other
+    # six chunks' work and shows the user an error for a document that is perfectly readable,
+    # while silently dropping a chunk loses claims without saying so. Retrying the gap and
+    # failing loudly only if it persists keeps both properties.
+    results = llm.structured_many("claim_extract", _Extraction, prompts, tolerate_failures=True)
+    missing = [i for i, r in enumerate(results) if r is None]
+    if missing:
+        retried = llm.structured_many(
+            "claim_extract", _Extraction, [prompts[i] for i in missing], tolerate_failures=True)
+        for i, r in zip(missing, retried):
+            results[i] = r
+    still_missing = [i for i, r in enumerate(results) if r is None]
+    if still_missing:
+        raise RuntimeError(
+            f"{len(still_missing)} of {len(prompts)} sections of this CV could not be read, "
+            f"even after a retry. Claims from them would be missing, so the result is not "
+            f"trustworthy - try again.")
+
     raw_claims: list[_Claim] = []
     raw_emp: list[_Employment] = []
-    for ext in llm.structured_many("claim_extract", _Extraction, prompts):
+    for ext in results:
         raw_claims.extend(ext.claims)
         raw_emp.extend(ext.employment)
 

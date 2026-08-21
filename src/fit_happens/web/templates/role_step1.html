@@ -1,0 +1,38 @@
+{% extends "base.html" %}
+{% from "_macros.html" import steps %}
+{% block title %}New role — Fit Happens{% endblock %}
+{% block body %}
+<div class="px-6 py-7 max-w-[760px] mx-auto">
+  <a href="/" class="inline-flex items-center gap-2 text-[13px] text-ink-muted hover:text-ink">
+    <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
+    Overview</a>
+
+  <div class="mt-4 flex items-end justify-between gap-6">
+    <h1 class="text-[28px] font-bold tracking-tight">New role</h1>
+    {{ steps(1) }}
+  </div>
+
+  <form method="post" action="/roles/preview" class="mt-6 space-y-5">
+    <div class="rounded-xl border border-hair bg-white p-6">
+      <label class="text-[13.5px] font-semibold">What is the role called?</label>
+      <input name="title" required autofocus placeholder="IT Infrastructure &amp; Security Manager"
+             class="mt-2 w-full rounded-lg border border-hair px-3.5 py-2.5 text-[14px]">
+
+      <label class="mt-6 block text-[13.5px] font-semibold">Paste the advert candidates see</label>
+      <p class="mt-1 text-[12.5px] leading-relaxed text-ink-muted">
+        Exactly as published — we read the requirements out of it, and we score how clear it is
+        too. A vague advert produces vague requirements, which produce weak matches for
+        everybody, so that score is a warning about the ranking rather than about the prose.</p>
+      <textarea name="jd_text" rows="16" required
+                class="mt-2.5 w-full rounded-lg border border-hair px-3.5 py-3 text-[13px] font-mono leading-relaxed"
+                placeholder="## What you'll do&#10;Own our infrastructure end to end and lead a team of four.&#10;&#10;## Requirements&#10;- At least 5 years of enterprise IT infrastructure experience&#10;- Hands-on Active Directory administration&#10;- Must have the right to work in Germany&#10;&#10;## Preferred&#10;- A security certification such as CISSP is desirable&#10;- Experience in logistics is a plus"></textarea>
+    </div>
+
+    <div class="flex items-center gap-3">
+      <button class="rounded-lg bg-forest px-5 py-2.5 text-[13.5px] font-semibold text-white hover:bg-forest-700">
+        Read the advert →</button>
+      <span class="text-[12.5px] text-ink-muted">You will see what we extracted before anything is created.</span>
+    </div>
+  </form>
+</div>
+{% endblock %}

@@ -84,3 +84,22 @@ A judge who opens it fresh is shown `uv run python scripts/build_demo.py`.
 signals is the one we do not build, and we say so.
 
 | 45 | DONE 2026-08-21 | Looking up a role created it | `Run.__init__` called mkdir, so /role/typo brought an empty role into existence. Created on first write now | `store.py` | - |
+
+## Redesign delivered, 2026-08-21
+
+| # | Status | Item | Side |
+|---|---|---|---|
+| R1 | DONE | First-run screen explaining the product | recruiter |
+| R2 | DONE | Role creation in two steps, with a requirements preview she can edit before committing | recruiter |
+| R3 | DONE | Drag-and-drop upload, formats stated, per-file progress | recruiter |
+| R4 | DONE | Dismissible explainer for the four scores | recruiter |
+| R5 | DONE | Sort on any column; filters for undecided / needs-a-human / top fit / waiting | recruiter |
+| R6 | DONE | **Compare two candidates side by side**, divergences first | recruiter |
+| R7 | DONE | Decision bar: Ask questions / Start reviewing / Shortlist / Pass | recruiter |
+| R8 | DONE | Stages, so the product models progression and not only rejection | recruiter |
+| R9 | DONE | "Ask questions" sets the stage and produces a link, a preview and a written message | recruiter |
+| C1 | DONE | One clear task at the top of the portal | candidate |
+| C2 | DONE | Reordered: action, then transparency, then consent | candidate |
+| C3 | DONE | Answer progress, drafts saved in-browser, confirmation after sending | candidate |
+| 46 | DONE | One stalled chunk failed the whole CV | Retried once, then fails loudly. Silently dropping it would lose claims without saying so |
+| 47 | DONE | Stale upload failures sat at the top of the page forever | Dismissible |

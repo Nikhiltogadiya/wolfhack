@@ -7,6 +7,34 @@
     <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
     Back to candidates</a>
 
+  <!-- decision bar: what she came here to do, before the wall of evidence -->
+  <div class="mt-4 rounded-xl border border-hair bg-white px-6 py-4 flex flex-wrap items-center gap-4">
+    <div class="flex items-center gap-2.5">
+      <span class="text-[12px] text-ink-muted">Stage</span>
+      {{ pill(stage.label|upper, stage.tone) }}
+      <span class="text-[12px] text-ink-muted">{{ stage.hint }}</span>
+    </div>
+    <div class="ml-auto flex flex-wrap items-center gap-2">
+      <a href="/role/{{ slug }}/c/{{ c.candidate_id }}/ask"
+         class="rounded-lg border border-hair px-4 py-2 text-[13px] font-semibold hover:border-forest-600">
+        Ask questions</a>
+      {% for key, label, cls in [
+          ('reviewing','Start reviewing','border border-hair hover:border-forest-600'),
+          ('shortlisted','Shortlist','bg-forest text-white hover:bg-forest-700') ] %}
+      {% if stage.stage != key %}
+      <form method="post" action="/role/{{ slug }}/c/{{ c.candidate_id }}/stage">
+        <input type="hidden" name="stage" value="{{ key }}">
+        <button class="rounded-lg px-4 py-2 text-[13px] font-semibold {{ cls }}">{{ label }}</button>
+      </form>
+      {% endif %}
+      {% endfor %}
+      <a href="#feedback" class="rounded-lg border border-hair px-4 py-2 text-[13px] font-semibold hover:border-rose-300 hover:text-rose-700">
+        Pass</a>
+    </div>
+  </div>
+  <p class="mt-2 text-[11.5px] text-ink-muted">
+    Every stage here is set by you. Nothing in this product moves a candidate on its own.</p>
+
   <div class="mt-5 rounded-xl border border-hair bg-white p-6 flex items-center gap-6">
     <span class="grid h-16 w-16 shrink-0 place-items-center rounded-full bg-forest-50 text-forest text-[19px] font-bold">{{ c.display_initials }}</span>
     <div class="min-w-0">
@@ -235,6 +263,7 @@
         read by a person and used to adjust thresholds deliberately — never to retrain
         automatically, which would just learn whatever bias the rejections contain.</p>
       <form method="post" action="/role/{{ slug }}/c/{{ c.candidate_id }}/pass" class="mt-4 flex flex-wrap items-start gap-3">
+        <input type="hidden" name="set_stage" value="passed">
         <select name="reason" class="rounded-lg border border-hair px-3 py-2.5 text-[13px]">
           {% for key, meta in reasons.items() %}<option value="{{ key }}">{{ meta.label }}</option>{% endfor %}
         </select>

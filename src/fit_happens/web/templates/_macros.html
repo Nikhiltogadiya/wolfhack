@@ -21,3 +21,22 @@
   {{ text }}
 </span>
 {%- endmacro %}
+
+{% macro steps(current) -%}
+<div class="flex items-center gap-2 text-[12px]">
+  {% for n, label in [(1,'The advert'), (2,'Preferences & CVs')] %}
+  <span class="flex items-center gap-2">
+    <span class="grid h-5 w-5 place-items-center rounded-full text-[10.5px] font-bold
+      {{ 'bg-forest text-white' if n <= current else 'bg-cream-100 text-ink-muted' }}">{{ n }}</span>
+    <span class="{{ 'font-semibold' if n == current else 'text-ink-muted' }}">{{ label }}</span>
+  </span>
+  {% if not loop.last %}<span class="h-px w-8 bg-hair"></span>{% endif %}
+  {% endfor %}
+</div>
+{%- endmacro %}
+
+{% macro strength(s) -%}
+{% set map = {'strong':('Strong','green'), 'moderate':('Partial','amber'),
+              'weak':('Weak','amber'), 'missing':('Nothing found','grey')} %}
+{{ pill(map.get(s, ('—','grey'))[0], map.get(s, ('—','grey'))[1]) }}
+{%- endmacro %}

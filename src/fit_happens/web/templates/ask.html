@@ -1,0 +1,53 @@
+{% extends "base.html" %}
+{% from "_macros.html" import pill %}
+{% block title %}Ask {{ c.display_name }} — Fit Happens{% endblock %}
+{% block body %}
+<div class="px-6 py-7 max-w-[880px] mx-auto">
+  <a href="/role/{{ slug }}/c/{{ c.candidate_id }}" class="inline-flex items-center gap-2 text-[13px] text-ink-muted hover:text-ink">
+    <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
+    Back to {{ c.display_name }}</a>
+
+  <h1 class="mt-4 text-[28px] font-bold tracking-tight">Ask {{ c.display_name.split(' ')[0] }}</h1>
+  <p class="mt-1.5 text-[13.5px] text-ink-muted">
+    Marked as <strong>questions sent</strong>. Send them this link — it is private to them and
+    needs no account.</p>
+
+  <div class="mt-6 rounded-xl border border-hair bg-white p-6">
+    <div class="text-[12px] font-semibold text-ink-muted">Their link</div>
+    <div class="mt-2 flex gap-2">
+      <input id="link" readonly value="{{ request.base_url }}{{ link[1:] }}"
+             class="flex-1 rounded-lg border border-hair bg-cream-100 px-3.5 py-2.5 text-[13px] font-mono">
+      <button onclick="navigator.clipboard.writeText(document.getElementById('link').value);
+                       this.textContent='Copied'"
+              class="rounded-lg bg-forest px-4 py-2.5 text-[13px] font-semibold text-white hover:bg-forest-700">Copy</button>
+      <a href="{{ link }}" target="_blank"
+         class="rounded-lg border border-hair px-4 py-2.5 text-[13px] font-semibold hover:border-forest-600">Preview</a>
+    </div>
+  </div>
+
+  <div class="mt-5 rounded-xl border border-hair bg-white p-6">
+    <div class="flex items-center justify-between">
+      <div class="text-[12px] font-semibold text-ink-muted">A message you can send</div>
+      <button onclick="navigator.clipboard.writeText(document.getElementById('msg').value);
+                       this.textContent='Copied'"
+              class="text-[12.5px] font-semibold text-forest-600 hover:underline">Copy message</button>
+    </div>
+    <textarea id="msg" rows="12"
+      class="mt-2 w-full rounded-lg border border-hair px-3.5 py-3 text-[13px] leading-relaxed">{{ message.replace('{link}', request.base_url|string + link[1:]) }}</textarea>
+  </div>
+
+  <div class="mt-5 rounded-xl border border-hair bg-white p-6">
+    <div class="text-[12px] font-semibold text-ink-muted">The {{ c.questions|length }} question{{ '' if c.questions|length == 1 else 's' }} they will see</div>
+    <ol class="mt-3 space-y-2.5 list-decimal list-inside">
+      {% for q in c.questions %}
+      <li class="text-[13px] leading-relaxed">{{ q.question }}
+        <span class="ml-1 align-middle">{{ pill(q.source|upper, 'red' if q.severity=='critical' else ('amber' if q.severity=='major' else 'grey')) }}</span>
+      </li>
+      {% endfor %}
+    </ol>
+    <p class="mt-4 text-[12px] leading-relaxed text-ink-muted">
+      They also see what we read from their CV and can correct us. Their answers are checked
+      against the CV for consistency — that is the fourth score on your dashboard.</p>
+  </div>
+</div>
+{% endblock %}

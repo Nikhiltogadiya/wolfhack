@@ -1,0 +1,63 @@
+{% extends "base.html" %}
+{% from "_macros.html" import pill, bar, strength %}
+{% block title %}Compare — Fit Happens{% endblock %}
+{% block body %}
+<div class="px-6 py-7 max-w-[1100px] mx-auto">
+  <a href="/role/{{ slug }}" class="inline-flex items-center gap-2 text-[13px] text-ink-muted hover:text-ink">
+    <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
+    {{ role.jd.title }}</a>
+
+  <h1 class="mt-4 text-[28px] font-bold tracking-tight">Side by side</h1>
+  <p class="mt-1.5 text-[13.5px] text-ink-muted">
+    Requirements where they differ are shown first — that is where the decision actually is.</p>
+
+  <div class="mt-6 grid grid-cols-[1fr_150px_150px] gap-0 rounded-xl border border-hair bg-white overflow-hidden">
+    <div class="bg-cream-100 px-5 py-4 text-[11.5px] uppercase tracking-wide text-ink-muted">Requirement</div>
+    {% for c in [a, b] %}
+    <div class="bg-cream-100 px-4 py-3 text-center border-l border-hair">
+      <a href="/role/{{ slug }}/c/{{ c.candidate_id }}" class="block">
+        <span class="mx-auto grid h-8 w-8 place-items-center rounded-full bg-forest-50 text-forest text-[11px] font-bold">
+          {{ c.display_initials }}</span>
+        <span class="mt-1 block text-[12.5px] font-semibold truncate">{{ c.display_name }}</span>
+        <span class="block text-[15px] font-bold {{ 'text-forest-600' if c.fit.score>=0.55 else 'text-amber-600' }}">
+          {{ (c.fit.score*100)|round(0)|int }}%</span>
+      </a>
+    </div>
+    {% endfor %}
+
+    {% for row in rows %}
+    <div class="border-t border-hair px-5 py-3 {{ 'bg-amber-50/40' if row.diverges else '' }}">
+      <div class="text-[13px] {{ 'font-medium' if row.req.kind == 'required' else '' }}">{{ row.req.text }}</div>
+      <div class="mt-0.5 flex items-center gap-2 text-[11px] text-ink-muted">
+        <span>{{ row.req.kind }}</span>
+        {% if row.req.source == 'internal' %}<span class="text-forest-600 font-semibold">PRIVATE</span>{% endif %}
+        {% if row.req.dealbreaker %}<span class="text-rose-700 font-semibold">HARD GATE</span>{% endif %}
+      </div>
+    </div>
+    {% for m, cov in [(row.a, row.a_cov), (row.b, row.b_cov)] %}
+    <div class="border-t border-l border-hair px-4 py-3 text-center {{ 'bg-amber-50/40' if row.diverges else '' }}">
+      {{ strength(m.strength if m else 'missing') }}
+      <div class="mt-1.5 px-2">{{ bar(cov, 'forest' if cov>=0.6 else ('amber' if cov>0 else 'red')) }}</div>
+    </div>
+    {% endfor %}
+    {% endfor %}
+  </div>
+
+  <div class="mt-5 grid grid-cols-2 gap-4">
+    {% for c in [a, b] %}
+    <div class="rounded-xl border border-hair bg-white p-5">
+      <div class="text-[13.5px] font-semibold">{{ c.display_name }}</div>
+      <div class="mt-2.5 space-y-1.5 text-[12.5px] text-ink-muted">
+        <div class="flex justify-between"><span>Writing style</span><span>{{ c.style_label }}</span></div>
+        <div class="flex justify-between"><span>Claim consistency</span><span>{{ c.bluff_label }}</span></div>
+        <div class="flex justify-between"><span>Roles on the CV</span><span>{{ c.employment|length }}</span></div>
+        <div class="flex justify-between"><span>CV last updated</span><span>{{ c.last_active_year or 'unclear' }}</span></div>
+      </div>
+      <a href="/role/{{ slug }}/c/{{ c.candidate_id }}"
+         class="mt-4 block rounded-lg border border-hair px-4 py-2 text-center text-[13px] font-semibold hover:border-forest-600">
+        Open {{ c.display_name.split(' ')[0] }}'s evidence</a>
+    </div>
+    {% endfor %}
+  </div>
+</div>
+{% endblock %}

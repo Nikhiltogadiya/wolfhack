@@ -1,0 +1,19 @@
+{
+  "candidate_id": "amara_osei",
+  "stage": "shortlisted",
+  "at": "2026-08-21T02:34:36+00:00",
+  "history": [
+    {
+      "from": "new",
+      "to": "questions_sent",
+      "actor": "recruiter",
+      "at": "2026-08-21T02:32:04+00:00"
+    },
+    {
+      "from": "questions_sent",
+      "to": "shortlisted",
+      "actor": "recruiter",
+      "at": "2026-08-21T02:34:36+00:00"
+    }
+  ]
+}
