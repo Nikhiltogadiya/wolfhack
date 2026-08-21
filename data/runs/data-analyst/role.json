@@ -1,0 +1,93 @@
+{
+  "jd": {
+    "title": "Data Analyst",
+    "external_text": "Brightmoor Retail Group runs 214 convenience stores across the north of England plus a growing online grocery arm. The commercial analytics team of five supports buying, supply chain and store operations. We are recruiting an analyst to sit with the buying team. Leeds, hybrid, two days a week in our head office.\n\nWhat you'll do\n- Build and maintain the weekly range performance reporting the buyers use to decide what stays on shelf.\n- Investigate availability gaps: why a line was out of stock in 40 stores on a Saturday, using EPOS and stock movement data.\n- Work with the supply chain analysts on forecast accuracy for promotional lines.\n- Present findings to category managers who are not analysts. A chart they act on beats a model they do not.\n\nRequirements\n- 2+ years in an analyst role, retail or FMCG preferred.\n- SQL you can write unaided against a warehouse of a few hundred million rows. Ours is Postgres.\n- Power BI or Tableau. We use Power BI.\n- Comfortable being questioned on your numbers by people who know the category better than you do.\n\nNice to have\n- Python for the analysis that outgrows SQL.\n- Promotional uplift or price elasticity work.\n\nYou would report to the Head of Commercial Analytics. Competitive salary, 25 days holiday plus bank holidays, and staff discount across the estate.",
+    "internal": [],
+    "audit": []
+  },
+  "requirements": [
+    {
+      "id": "ext-0",
+      "text": "2+ years in an analyst role",
+      "kind": "required",
+      "category": "experience",
+      "dealbreaker": false,
+      "source": "external"
+    },
+    {
+      "id": "ext-1",
+      "text": "retail or FMCG preferred",
+      "kind": "preferred",
+      "category": "domain",
+      "dealbreaker": false,
+      "source": "external"
+    },
+    {
+      "id": "ext-2",
+      "text": "SQL you can write unaided against a warehouse of a few hundred million rows",
+      "kind": "required",
+      "category": "skill",
+      "dealbreaker": false,
+      "source": "external"
+    },
+    {
+      "id": "ext-3",
+      "text": "Power BI or Tableau",
+      "kind": "required",
+      "category": "skill",
+      "dealbreaker": false,
+      "source": "external"
+    },
+    {
+      "id": "ext-4",
+      "text": "Comfortable being questioned on your numbers by people who know the category better than you do",
+      "kind": "required",
+      "category": "experience",
+      "dealbreaker": false,
+      "source": "external"
+    },
+    {
+      "id": "ext-5",
+      "text": "Python for the analysis that outgrows SQL",
+      "kind": "preferred",
+      "category": "skill",
+      "dealbreaker": false,
+      "source": "external"
+    },
+    {
+      "id": "ext-6",
+      "text": "Promotional uplift or price elasticity work",
+      "kind": "preferred",
+      "category": "experience",
+      "dealbreaker": false,
+      "source": "external"
+    }
+  ],
+  "clarity": 0.72,
+  "ad_flags": [
+    {
+      "pattern_id": "hollow_phrase",
+      "description": "'competitive salary' tells a candidate nothing - publish the band",
+      "span": {
+        "text": "rt to the Head of Commercial Analytics. Competitive salary, 25 days holiday plus bank holidays, an",
+        "page": null,
+        "line_start": null,
+        "line_end": null,
+        "bbox": null
+      },
+      "confidence": 0.4
+    },
+    {
+      "pattern_id": "missing_specifics",
+      "description": "the advert never states salary or band",
+      "span": {
+        "text": "",
+        "page": null,
+        "line_start": null,
+        "line_end": null,
+        "bbox": null
+      },
+      "confidence": 0.3
+    }
+  ]
+}

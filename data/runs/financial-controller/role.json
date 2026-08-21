@@ -1,0 +1,137 @@
+{
+  "jd": {
+    "title": "Financial Controller",
+    "external_text": "Marchwood Industries is a well-established group operating across several industrial sectors. Following a period of sustained growth we are seeking a Financial Controller to join our finance function at what is a genuinely exciting time for the business.\n\nWhat you'll do\n- Take ownership of the month-end close and the production of the management accounts.\n- Business partner with operational stakeholders across the group.\n- Support the annual budgeting and forecasting cycle.\n- Maintain and strengthen the control environment.\n- Assist with the year-end audit and liaise with our external advisors.\n- Drive continuous improvement across finance processes and systems.\n\nRequirements\n- Fully qualified accountant (ACA, ACCA or CIMA).\n- Previous experience in a similar role within a multi-site business.\n- Strong Excel skills and confidence with an ERP system.\n- Excellent communication skills and strong attention to detail.\n- Comfortable in a hands-on role within a lean finance function.\n\nNice to have\n- Manufacturing or engineering sector background.\n- Group consolidation experience.\n- Exposure to a finance systems implementation.\n\nWhat we offer\n- Hybrid working following an initial settling-in period.\n- A benefits package including car allowance, private medical cover and an enhanced pension.\n- Reporting into the Group Finance Director, with genuine visibility at board level and a clear route to a Head of Finance seat.",
+    "internal": [],
+    "audit": []
+  },
+  "requirements": [
+    {
+      "id": "ext-0",
+      "text": "Fully qualified accountant (ACA, ACCA or CIMA)",
+      "kind": "required",
+      "category": "credential",
+      "dealbreaker": false,
+      "source": "external"
+    },
+    {
+      "id": "ext-1",
+      "text": "Previous experience in a similar role within a multi-site business",
+      "kind": "required",
+      "category": "experience",
+      "dealbreaker": false,
+      "source": "external"
+    },
+    {
+      "id": "ext-2",
+      "text": "Strong Excel skills and confidence with an ERP system",
+      "kind": "required",
+      "category": "skill",
+      "dealbreaker": false,
+      "source": "external"
+    },
+    {
+      "id": "ext-3",
+      "text": "Excellent communication skills and strong attention to detail",
+      "kind": "required",
+      "category": "skill",
+      "dealbreaker": false,
+      "source": "external"
+    },
+    {
+      "id": "ext-4",
+      "text": "Comfortable in a hands-on role within a lean finance function",
+      "kind": "required",
+      "category": "skill",
+      "dealbreaker": false,
+      "source": "external"
+    },
+    {
+      "id": "ext-5",
+      "text": "Manufacturing or engineering sector background",
+      "kind": "preferred",
+      "category": "domain",
+      "dealbreaker": false,
+      "source": "external"
+    },
+    {
+      "id": "ext-6",
+      "text": "Group consolidation experience",
+      "kind": "preferred",
+      "category": "experience",
+      "dealbreaker": false,
+      "source": "external"
+    },
+    {
+      "id": "ext-7",
+      "text": "Exposure to a finance systems implementation",
+      "kind": "preferred",
+      "category": "skill",
+      "dealbreaker": false,
+      "source": "external"
+    }
+  ],
+  "clarity": 0.24,
+  "ad_flags": [
+    {
+      "pattern_id": "hollow_phrase",
+      "description": "'excellent communication skills' tells a candidate nothing - say who they communicate with and about what",
+      "span": {
+        "text": "ls and confidence with an ERP system.\n- Excellent communication skills and strong attention to detail.\n- Comfo",
+        "page": null,
+        "line_start": null,
+        "line_end": null,
+        "bbox": null
+      },
+      "confidence": 0.4
+    },
+    {
+      "pattern_id": "hollow_phrase",
+      "description": "'attention to detail' tells a candidate nothing - say what accuracy the work demands",
+      "span": {
+        "text": "cellent communication skills and strong attention to detail.\n- Comfortable in a hands-on role withi",
+        "page": null,
+        "line_start": null,
+        "line_end": null,
+        "bbox": null
+      },
+      "confidence": 0.4
+    },
+    {
+      "pattern_id": "missing_specifics",
+      "description": "the advert never states salary or band",
+      "span": {
+        "text": "",
+        "page": null,
+        "line_start": null,
+        "line_end": null,
+        "bbox": null
+      },
+      "confidence": 0.3
+    },
+    {
+      "pattern_id": "missing_specifics",
+      "description": "the advert never states specific tooling",
+      "span": {
+        "text": "",
+        "page": null,
+        "line_start": null,
+        "line_end": null,
+        "bbox": null
+      },
+      "confidence": 0.3
+    },
+    {
+      "pattern_id": "missing_specifics",
+      "description": "the advert never states team size",
+      "span": {
+        "text": "",
+        "page": null,
+        "line_start": null,
+        "line_end": null,
+        "bbox": null
+      },
+      "confidence": 0.3
+    }
+  ]
+}

@@ -1,0 +1,253 @@
+{
+  "jd": {
+    "title": "IT Support Specialist (1st and 2nd Line)",
+    "external_text": "Halvern Precision Components machines parts for the automotive and aerospace supply chain. Three shifts, two sites and around 380 staff who need their machines and their laptops working. This role is on-site by design: when a line stops because a terminal will not authenticate, someone has to walk to it.\n\nWhat you'll do\n- Handle 1st and 2nd line tickets across Windows 11 desktops, Microsoft 365 and our shop-floor terminals.\n- Manage user accounts, group policy and the printer estate in Active Directory.\n- Rebuild and deploy laptops and shop-floor PCs, and keep the asset register honest.\n- Support production on the MES terminals: escalate to the vendor when it is the application, fix it yourself when it is not.\n- Cover the 07:00 start on a rota with the rest of the IT department.\n\nRequirements\n- 2+ years in a hands-on IT support role.\n- Active Directory and Microsoft 365 administration.\n- Basic networking - you can tell a switch problem from a DHCP problem.\n- Full UK driving licence. You will be at our second site in Nuneaton roughly one day a week.\n- A team player with strong attention to detail.\n\nNice to have\n- Manufacturing or warehouse environment experience.\n- Any exposure to VMware or Hyper-V.\n- ITIL foundation, or an interest in getting it.\n\nYou will report to the IT Manager. Coventry based, with the Nuneaton travel above.",
+    "internal": [],
+    "audit": []
+  },
+  "requirements": [
+    {
+      "id": "ext-0",
+      "text": "Handle 1st and 2nd line tickets across Windows 11 desktops",
+      "kind": "required",
+      "category": "skill",
+      "dealbreaker": false,
+      "source": "external"
+    },
+    {
+      "id": "ext-1",
+      "text": "Handle 1st and 2nd line tickets across Microsoft 365",
+      "kind": "required",
+      "category": "skill",
+      "dealbreaker": false,
+      "source": "external"
+    },
+    {
+      "id": "ext-2",
+      "text": "Handle 1st and 2nd line tickets across shop-floor terminals",
+      "kind": "required",
+      "category": "skill",
+      "dealbreaker": false,
+      "source": "external"
+    },
+    {
+      "id": "ext-3",
+      "text": "Manage user accounts in Active Directory",
+      "kind": "required",
+      "category": "skill",
+      "dealbreaker": false,
+      "source": "external"
+    },
+    {
+      "id": "ext-4",
+      "text": "Manage group policy in Active Directory",
+      "kind": "required",
+      "category": "skill",
+      "dealbreaker": false,
+      "source": "external"
+    },
+    {
+      "id": "ext-5",
+      "text": "Manage the printer estate in Active Directory",
+      "kind": "required",
+      "category": "skill",
+      "dealbreaker": false,
+      "source": "external"
+    },
+    {
+      "id": "ext-6",
+      "text": "Rebuild and deploy laptops",
+      "kind": "required",
+      "category": "skill",
+      "dealbreaker": false,
+      "source": "external"
+    },
+    {
+      "id": "ext-7",
+      "text": "Rebuild and deploy shop-floor PCs",
+      "kind": "required",
+      "category": "skill",
+      "dealbreaker": false,
+      "source": "external"
+    },
+    {
+      "id": "ext-8",
+      "text": "Keep the asset register honest",
+      "kind": "required",
+      "category": "skill",
+      "dealbreaker": false,
+      "source": "external"
+    },
+    {
+      "id": "ext-9",
+      "text": "Support production on the MES terminals",
+      "kind": "required",
+      "category": "skill",
+      "dealbreaker": false,
+      "source": "external"
+    },
+    {
+      "id": "ext-10",
+      "text": "Escalate to the vendor when it is the application",
+      "kind": "required",
+      "category": "skill",
+      "dealbreaker": false,
+      "source": "external"
+    },
+    {
+      "id": "ext-11",
+      "text": "Fix it yourself when it is not the application",
+      "kind": "required",
+      "category": "skill",
+      "dealbreaker": false,
+      "source": "external"
+    },
+    {
+      "id": "ext-12",
+      "text": "Cover the 07:00 start on a rota with the rest of the IT department",
+      "kind": "required",
+      "category": "skill",
+      "dealbreaker": false,
+      "source": "external"
+    },
+    {
+      "id": "ext-13",
+      "text": "2+ years in a hands-on IT support role",
+      "kind": "required",
+      "category": "experience",
+      "dealbreaker": false,
+      "source": "external"
+    },
+    {
+      "id": "ext-14",
+      "text": "Active Directory administration",
+      "kind": "required",
+      "category": "skill",
+      "dealbreaker": false,
+      "source": "external"
+    },
+    {
+      "id": "ext-15",
+      "text": "Microsoft 365 administration",
+      "kind": "required",
+      "category": "skill",
+      "dealbreaker": false,
+      "source": "external"
+    },
+    {
+      "id": "ext-16",
+      "text": "Basic networking - you can tell a switch problem from a DHCP problem",
+      "kind": "required",
+      "category": "skill",
+      "dealbreaker": false,
+      "source": "external"
+    },
+    {
+      "id": "ext-17",
+      "text": "Full UK driving licence",
+      "kind": "required",
+      "category": "credential",
+      "dealbreaker": true,
+      "source": "external"
+    },
+    {
+      "id": "ext-18",
+      "text": "A team player with strong attention to detail",
+      "kind": "required",
+      "category": "skill",
+      "dealbreaker": false,
+      "source": "external"
+    },
+    {
+      "id": "ext-19",
+      "text": "Manufacturing or warehouse environment experience",
+      "kind": "preferred",
+      "category": "experience",
+      "dealbreaker": false,
+      "source": "external"
+    },
+    {
+      "id": "ext-20",
+      "text": "Any exposure to VMware",
+      "kind": "preferred",
+      "category": "skill",
+      "dealbreaker": false,
+      "source": "external"
+    },
+    {
+      "id": "ext-21",
+      "text": "Any exposure to Hyper-V",
+      "kind": "preferred",
+      "category": "skill",
+      "dealbreaker": false,
+      "source": "external"
+    },
+    {
+      "id": "ext-22",
+      "text": "ITIL foundation",
+      "kind": "preferred",
+      "category": "credential",
+      "dealbreaker": false,
+      "source": "external"
+    },
+    {
+      "id": "ext-23",
+      "text": "An interest in getting ITIL foundation",
+      "kind": "preferred",
+      "category": "credential",
+      "dealbreaker": false,
+      "source": "external"
+    }
+  ],
+  "clarity": 0.44,
+  "ad_flags": [
+    {
+      "pattern_id": "hollow_phrase",
+      "description": "'team player' tells a candidate nothing - describe how the team collaborates",
+      "span": {
+        "text": "in Nuneaton roughly one day a week.\n- A team player with strong attention to detail.\n\nNice",
+        "page": null,
+        "line_start": null,
+        "line_end": null,
+        "bbox": null
+      },
+      "confidence": 0.4
+    },
+    {
+      "pattern_id": "hollow_phrase",
+      "description": "'attention to detail' tells a candidate nothing - say what accuracy the work demands",
+      "span": {
+        "text": "day a week.\n- A team player with strong attention to detail.\n\nNice to have\n- Manufacturing or wareh",
+        "page": null,
+        "line_start": null,
+        "line_end": null,
+        "bbox": null
+      },
+      "confidence": 0.4
+    },
+    {
+      "pattern_id": "missing_specifics",
+      "description": "the advert never states salary or band",
+      "span": {
+        "text": "",
+        "page": null,
+        "line_start": null,
+        "line_end": null,
+        "bbox": null
+      },
+      "confidence": 0.3
+    },
+    {
+      "pattern_id": "missing_specifics",
+      "description": "the advert never states team size",
+      "span": {
+        "text": "",
+        "page": null,
+        "line_start": null,
+        "line_end": null,
+        "bbox": null
+      },
+      "confidence": 0.3
+    }
+  ]
+}

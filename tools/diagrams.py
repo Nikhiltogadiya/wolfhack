@@ -301,3 +301,48 @@ def d7_llm_call():
   note [label="Both providers put a reasoning model in front, and each turns that\\noff with different wording. Get it wrong and the model spends its\\nwhole budget thinking and returns nothing - a broken path, not a slow one.\\nThe wording for each lives in one config file, never in the code.", {P_WARN}, shape=note];
   out -> note [style=invis];
 ''', rankdir="TB")
+
+
+# ---------------------------------------------------------------- 8. the fit score
+def d8_scoring():
+    return render("08-how-the-fit-score-is-worked-out", f'''
+  start [label="Every requirement in the role, and how well\\nthe CV covers each one", {P_HEAD}];
+
+  subgraph cluster_credit {{
+    label="Step 1  -  turn each match into a number"; fontname="{FONT}"; fontsize=11; fontcolor="{FOREST}";
+    color="{HAIR}"; style="rounded"; bgcolor="white"; margin=14;
+    cred [label="strong   = 1.0\\nmoderate = 0.6\\nweak     = 0.2\\nmissing  = 0.0", {P_RULES}, fontname="DejaVu Sans Mono"];
+  }}
+
+  subgraph cluster_bucket {{
+    label="Step 2  -  add up inside each bucket separately"; fontname="{FONT}"; fontsize=11; fontcolor="{FOREST}";
+    color="{HAIR}"; style="rounded"; bgcolor="white"; margin=14;
+    reqb [label="Required requirements\\ncredit earned divided by how many there are", {P_RULES}];
+    prefb [label="Preferred requirements\\ncredit earned divided by how many there are", {P_RULES}];
+  }}
+
+  combine [label="Step 3  -  combine at fixed weights\\n\\nscore = 0.70 x required + 0.30 x preferred", {P_HEAD}];
+
+  gate [label="Step 4  -  is a hard requirement\\nactually contradicted by the CV?", shape=diamond,
+        {box(CREAM_DEEP, HAIR, INK)}, margin="0.14,0.07"];
+
+  capped [label="Cap the score at 49%\\n\\nSo it can never outrank someone who\\nmeets the hard requirement.\\nNot zero - the person is still real.", {P_WARN}];
+  keep [label="Keep the score as calculated", {P_RULES}];
+
+  silent [label="If the CV is merely SILENT about a hard\\nrequirement, nothing is capped.\\n\\nMost CVs never mention work authorisation.\\nCapping on that would punish nearly everyone\\nfor something nobody asked them.\\nIt becomes a question instead.", {P_WARN}];
+
+  out [label="One number, 0 to 100", {P_HEAD}];
+
+  start -> cred;
+  cred -> reqb; cred -> prefb;
+  reqb -> combine [label="  70% of the score  "];
+  prefb -> combine [label="  30% of the score  "];
+  combine -> gate;
+  gate -> capped [label="  yes, contradicted  "];
+  gate -> keep [label="  no  "];
+  gate -> silent [label="  silent about it  ", style=dashed];
+  capped -> out; keep -> out; silent -> keep [style=dashed];
+
+  note [label="Nothing in this diagram can see how the CV is written.\\nThe function that does this takes only the matches and the\\nrequirements - neither type has a field for writing style,\\nso the number cannot be influenced by it.", {P_STORE}, shape=note];
+  out -> note [style=invis];
+''', rankdir="TB")

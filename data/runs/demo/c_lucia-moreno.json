@@ -1,0 +1,709 @@
+{
+  "candidate_id": "lucia-moreno",
+  "name": "lucia-moreno",
+  "category": "demo",
+  "source_path": "data/uploads/demo/lucia-moreno.pdf",
+  "fit": {
+    "score": 0.3649,
+    "required_coverage": 0.46,
+    "preferred_coverage": 0.1429,
+    "matches": [
+      {
+        "requirement_id": "ext-0",
+        "strength": "strong",
+        "basis": "unstated",
+        "claim_ids": [
+          "c10"
+        ],
+        "rationale": "The computed career facts show 12.9 years of total experience, with 10+ years as an IT Manager covering infrastructure. This directly evidences the 5-year enterprise IT infrastructure requirement.",
+        "evidence": [
+          {
+            "text": "IT manager with ten years running technology for retail businesses, covering infrastructure, applications and the service desk.",
+            "page": null,
+            "line_start": 5,
+            "line_end": 5,
+            "bbox": null
+          }
+        ]
+      },
+      {
+        "requirement_id": "ext-1",
+        "strength": "strong",
+        "basis": "unstated",
+        "claim_ids": [
+          "c6",
+          "c10"
+        ],
+        "rationale": "The computed career facts list one role with a leadership title (IT Manager) for 10+ years, and the candidate claims 'team leadership' and 'running technology for retail businesses'. This is direct evidence of managing/leading a technical team.",
+        "evidence": [
+          {
+            "text": "IT service management - supplier and budget management - point of sale systems - Microsoft 365 - Windows Server - team leadership - Spanish (native), English (fluent)",
+            "page": null,
+            "line_start": 16,
+            "line_end": 16,
+            "bbox": null
+          },
+          {
+            "text": "IT manager with ten years running technology for retail businesses, covering infrastructure, applications and the service desk.",
+            "page": null,
+            "line_start": 5,
+            "line_end": 5,
+            "bbox": null
+          }
+        ]
+      },
+      {
+        "requirement_id": "ext-2",
+        "strength": "weak",
+        "basis": "unstated",
+        "claim_ids": [
+          "c5"
+        ],
+        "rationale": "The candidate lists 'Windows Server' but does not mention Active Directory administration or design. Windows Server is related but not the same as AD; this is tangential at best.",
+        "evidence": [
+          {
+            "text": "IT service management - supplier and budget management - point of sale systems - Microsoft 365 - Windows Server - team leadership - Spanish (native), English (fluent)",
+            "page": null,
+            "line_start": 16,
+            "line_end": 16,
+            "bbox": null
+          }
+        ]
+      },
+      {
+        "requirement_id": "ext-3",
+        "strength": "weak",
+        "basis": "unstated",
+        "claim_ids": [
+          "c10",
+          "c14"
+        ],
+        "rationale": "The candidate mentions infrastructure management and overseeing a managed service provider, but there is no explicit mention of routing, switching, or firewalls. This is tangential—overseeing network services via an MSP does not evidence hands-on network administration.",
+        "evidence": [
+          {
+            "text": "IT manager with ten years running technology for retail businesses, covering infrastructure, applications and the service desk.",
+            "page": null,
+            "line_start": 5,
+            "line_end": 5,
+            "bbox": null
+          },
+          {
+            "text": "Infrastructure is largely outsourced to a managed service provider, which I oversee.",
+            "page": null,
+            "line_start": 11,
+            "line_end": 11,
+            "bbox": null
+          }
+        ]
+      },
+      {
+        "requirement_id": "ext-4",
+        "strength": "missing",
+        "basis": "unstated",
+        "claim_ids": [],
+        "rationale": "No claims mention information security risk management, audits, or compliance. The candidate does not address this requirement.",
+        "evidence": []
+      },
+      {
+        "requirement_id": "ext-5",
+        "strength": "strong",
+        "basis": "unstated",
+        "claim_ids": [
+          "c13"
+        ],
+        "rationale": "The candidate explicitly claims delivering a point-of-sale replacement across all stores, which is a clear infrastructure upgrade project. This is direct evidence.",
+        "evidence": [
+          {
+            "text": "Delivered the point-of-sale replacement across all stores.",
+            "page": null,
+            "line_start": 10,
+            "line_end": 10,
+            "bbox": null
+          }
+        ]
+      },
+      {
+        "requirement_id": "ext-6",
+        "strength": "moderate",
+        "basis": "unstated",
+        "claim_ids": [
+          "c10"
+        ],
+        "rationale": "No degree is mentioned, but the candidate has 12.9 years of experience in IT roles, including infrastructure management. This is closely related experience that plainly transfers to 'equivalent demonstrable experience'.",
+        "evidence": [
+          {
+            "text": "IT manager with ten years running technology for retail businesses, covering infrastructure, applications and the service desk.",
+            "page": null,
+            "line_start": 5,
+            "line_end": 5,
+            "bbox": null
+          }
+        ]
+      },
+      {
+        "requirement_id": "ext-7",
+        "strength": "missing",
+        "basis": "unstated",
+        "claim_ids": [],
+        "rationale": "No claim addresses right to work in Germany. The resume does not mention visa or work authorisation status.",
+        "evidence": []
+      },
+      {
+        "requirement_id": "ext-8",
+        "strength": "missing",
+        "basis": "unstated",
+        "claim_ids": [],
+        "rationale": "No security certification (CISSP, CISM, Security+) is mentioned anywhere in the claims.",
+        "evidence": []
+      },
+      {
+        "requirement_id": "ext-9",
+        "strength": "strong",
+        "basis": "unstated",
+        "claim_ids": [
+          "c10",
+          "c13"
+        ],
+        "rationale": "The candidate has 10+ years running technology for retail businesses, including point-of-sale systems. Retail is closely related to logistics/transport/manufacturing in terms of operational IT, and the POS replacement is direct evidence of working in a retail environment.",
+        "evidence": [
+          {
+            "text": "IT manager with ten years running technology for retail businesses, covering infrastructure, applications and the service desk.",
+            "page": null,
+            "line_start": 5,
+            "line_end": 5,
+            "bbox": null
+          },
+          {
+            "text": "Delivered the point-of-sale replacement across all stores.",
+            "page": null,
+            "line_start": 10,
+            "line_end": 10,
+            "bbox": null
+          }
+        ]
+      },
+      {
+        "requirement_id": "ext-10",
+        "strength": "missing",
+        "basis": "unstated",
+        "claim_ids": [],
+        "rationale": "No mention of VMware, Hyper-V, or any virtualisation technology.",
+        "evidence": []
+      },
+      {
+        "requirement_id": "ext-11",
+        "strength": "missing",
+        "basis": "unstated",
+        "claim_ids": [],
+        "rationale": "No claims mention disaster recovery or business continuity planning.",
+        "evidence": []
+      },
+      {
+        "requirement_id": "ext-12",
+        "strength": "missing",
+        "basis": "unstated",
+        "claim_ids": [],
+        "rationale": "No mention of Azure, AWS, or any cloud migration experience.",
+        "evidence": []
+      },
+      {
+        "requirement_id": "ext-13",
+        "strength": "missing",
+        "basis": "unstated",
+        "claim_ids": [],
+        "rationale": "The candidate lists Spanish and English, but no German language skills are mentioned.",
+        "evidence": []
+      },
+      {
+        "requirement_id": "int-0",
+        "strength": "missing",
+        "basis": "unstated",
+        "claim_ids": [],
+        "rationale": "No claims mention ISO 27001, any formal compliance regime, or audit experience. The candidate does not address this requirement.",
+        "evidence": []
+      },
+      {
+        "requirement_id": "int-1",
+        "strength": "moderate",
+        "basis": "unstated",
+        "claim_ids": [
+          "c6",
+          "c10"
+        ],
+        "rationale": "The candidate has a leadership title and claims team leadership, but there is no specific mention of mentoring junior engineers. Leading a team is closely related and plainly transfers to mentoring, but it is not direct evidence of mentoring.",
+        "evidence": [
+          {
+            "text": "IT service management - supplier and budget management - point of sale systems - Microsoft 365 - Windows Server - team leadership - Spanish (native), English (fluent)",
+            "page": null,
+            "line_start": 16,
+            "line_end": 16,
+            "bbox": null
+          },
+          {
+            "text": "IT manager with ten years running technology for retail businesses, covering infrastructure, applications and the service desk.",
+            "page": null,
+            "line_start": 5,
+            "line_end": 5,
+            "bbox": null
+          }
+        ]
+      },
+      {
+        "requirement_id": "int-2",
+        "strength": "missing",
+        "basis": "unstated",
+        "claim_ids": [],
+        "rationale": "No claim addresses office location or willingness to work in Berlin. The resume does not mention this.",
+        "evidence": []
+      }
+    ],
+    "gaps": [
+      {
+        "requirement_id": "ext-2",
+        "severity": "major",
+        "text": "Hands-on Active Directory administration and design",
+        "needs_confirmation": false
+      },
+      {
+        "requirement_id": "ext-3",
+        "severity": "major",
+        "text": "Network administration experience (routing, switching, firewalls)",
+        "needs_confirmation": false
+      },
+      {
+        "requirement_id": "ext-4",
+        "severity": "major",
+        "text": "Experience with information security risk management and audit",
+        "needs_confirmation": false
+      },
+      {
+        "requirement_id": "ext-7",
+        "severity": "critical",
+        "text": "Must have the right to work in Germany",
+        "needs_confirmation": true
+      },
+      {
+        "requirement_id": "ext-8",
+        "severity": "minor",
+        "text": "Security certification such as CISSP, CISM or Security+",
+        "needs_confirmation": false
+      },
+      {
+        "requirement_id": "ext-10",
+        "severity": "minor",
+        "text": "Familiarity with virtualisation (VMware or Hyper-V)",
+        "needs_confirmation": false
+      },
+      {
+        "requirement_id": "ext-11",
+        "severity": "minor",
+        "text": "Disaster recovery and business continuity planning",
+        "needs_confirmation": false
+      },
+      {
+        "requirement_id": "ext-12",
+        "severity": "minor",
+        "text": "Exposure to cloud migration (Azure or AWS)",
+        "needs_confirmation": false
+      },
+      {
+        "requirement_id": "ext-13",
+        "severity": "minor",
+        "text": "German language skills",
+        "needs_confirmation": false
+      },
+      {
+        "requirement_id": "int-0",
+        "severity": "major",
+        "text": "we go into an ISO 27001 audit next year, so this hire must have worked under a formal compliance or accreditation regime",
+        "needs_confirmation": false
+      },
+      {
+        "requirement_id": "int-2",
+        "severity": "minor",
+        "text": "three days a week in the Berlin office",
+        "needs_confirmation": false
+      }
+    ],
+    "dealbreakers_unmet": [],
+    "dealbreakers_unstated": [
+      "ext-7"
+    ],
+    "capped_by_dealbreaker": false
+  },
+  "style": {
+    "score": 0.0,
+    "band": "low",
+    "patterns_fired": [],
+    "word_count": 157,
+    "caveat": "Advisory only - this signal never contributes to a flag. We measured it on 60 real resumes against LLM rewrites of the same resumes: the strongest pattern separated the two classes for only 27% of rewrites, and most separated for under 8%. Published work also finds a 61% false-positive rate for non-native English writers. Read it as a prompt to look at the document yourself, never as a finding about the person."
+  },
+  "cp2": {
+    "checkpoint": "cp2_claims",
+    "verdict": "clear",
+    "flags": [],
+    "reason": "no authenticity inconsistencies found"
+  },
+  "cp3_pending": true,
+  "document": {
+    "source_path": "data/uploads/demo/lucia-moreno.pdf",
+    "text": "Lucia Moreno\nIT Manager\nMadrid · lucia.moreno@example.com\nSummary\nIT manager with ten years running technology for retail businesses, covering infrastructure, applications and the\nservice desk.\nExperience\nIT Manager - Grupo Peninsular Retail, Madrid · March 2016 - present\nOwn all technology for a retailer with 140 stores and 1,100 staff. Lead a team of seven covering infrastructure,\napplications and support. Delivered the point-of-sale replacement across all stores. Manage the supplier\nrelationships and the technology budget. Infrastructure is largely outsourced to a managed service provider,\nwhich I oversee.\nIT Coordinator - Textiles Ibericos, Valencia · September 2013 - February 2016\nWindows Server and desktop estate for 300 staff across two sites.\nSkills\nIT service management - supplier and budget management - point of sale systems - Microsoft 365 - Windows\nServer - team leadership - Spanish (native), English (fluent)\nEducation & Certifications\nLicenciatura en Administracion de Empresas, Universidad Complutense de Madrid, 2012. PRINCE2\nPractitioner. Spanish and EU citizen.\n",
+    "raw_text": "Lucia Moreno\nIT Manager\nMadrid · lucia.moreno@example.com\nSummary\nIT manager with ten years running technology for retail businesses, covering infrastructure, applications and the\nservice desk.\nExperience\nIT Manager - Grupo Peninsular Retail, Madrid · March 2016 - present\nOwn all technology for a retailer with 140 stores and 1,100 staff. Lead a team of seven covering infrastructure,\napplications and support. Delivered the point-of-sale replacement across all stores. Manage the supplier\nrelationships and the technology budget. Infrastructure is largely outsourced to a managed service provider,\nwhich I oversee.\nIT Coordinator - Textiles Ibericos, Valencia · September 2013 - February 2016\nWindows Server and desktop estate for 300 staff across two sites.\nSkills\nIT service management - supplier and budget management - point of sale systems - Microsoft 365 - Windows\nServer - team leadership - Spanish (native), English (fluent)\nEducation & Certifications\nLicenciatura en Administracion de Empresas, Universidad Complutense de Madrid, 2012. PRINCE2\nPractitioner. Spanish and EU citizen.\n",
+    "hidden": [],
+    "engine_chars": {
+      "pymupdf": 1093,
+      "pypdfium2": 1111,
+      "pdfplumber": 1092,
+      "pdfminer": 1106
+    },
+    "divergence": 0.017101710171017137
+  },
+  "claims": [
+    {
+      "id": "c0",
+      "skill": "IT service management",
+      "years_claimed": null,
+      "since_year": null,
+      "level": null,
+      "employer": null,
+      "evidence": {
+        "text": "IT service management - supplier and budget management - point of sale systems - Microsoft 365 - Windows Server - team leadership - Spanish (native), English (fluent)",
+        "page": null,
+        "line_start": 16,
+        "line_end": 16,
+        "bbox": null
+      }
+    },
+    {
+      "id": "c1",
+      "skill": "supplier management",
+      "years_claimed": null,
+      "since_year": null,
+      "level": null,
+      "employer": null,
+      "evidence": {
+        "text": "IT service management - supplier and budget management - point of sale systems - Microsoft 365 - Windows Server - team leadership - Spanish (native), English (fluent)",
+        "page": null,
+        "line_start": 16,
+        "line_end": 16,
+        "bbox": null
+      }
+    },
+    {
+      "id": "c2",
+      "skill": "budget management",
+      "years_claimed": null,
+      "since_year": null,
+      "level": null,
+      "employer": null,
+      "evidence": {
+        "text": "IT service management - supplier and budget management - point of sale systems - Microsoft 365 - Windows Server - team leadership - Spanish (native), English (fluent)",
+        "page": null,
+        "line_start": 16,
+        "line_end": 16,
+        "bbox": null
+      }
+    },
+    {
+      "id": "c3",
+      "skill": "point of sale systems",
+      "years_claimed": null,
+      "since_year": null,
+      "level": null,
+      "employer": null,
+      "evidence": {
+        "text": "IT service management - supplier and budget management - point of sale systems - Microsoft 365 - Windows Server - team leadership - Spanish (native), English (fluent)",
+        "page": null,
+        "line_start": 16,
+        "line_end": 16,
+        "bbox": null
+      }
+    },
+    {
+      "id": "c4",
+      "skill": "Microsoft 365",
+      "years_claimed": null,
+      "since_year": null,
+      "level": null,
+      "employer": null,
+      "evidence": {
+        "text": "IT service management - supplier and budget management - point of sale systems - Microsoft 365 - Windows Server - team leadership - Spanish (native), English (fluent)",
+        "page": null,
+        "line_start": 16,
+        "line_end": 16,
+        "bbox": null
+      }
+    },
+    {
+      "id": "c5",
+      "skill": "Windows Server",
+      "years_claimed": null,
+      "since_year": null,
+      "level": null,
+      "employer": null,
+      "evidence": {
+        "text": "IT service management - supplier and budget management - point of sale systems - Microsoft 365 - Windows Server - team leadership - Spanish (native), English (fluent)",
+        "page": null,
+        "line_start": 16,
+        "line_end": 16,
+        "bbox": null
+      }
+    },
+    {
+      "id": "c6",
+      "skill": "team leadership",
+      "years_claimed": null,
+      "since_year": null,
+      "level": null,
+      "employer": null,
+      "evidence": {
+        "text": "IT service management - supplier and budget management - point of sale systems - Microsoft 365 - Windows Server - team leadership - Spanish (native), English (fluent)",
+        "page": null,
+        "line_start": 16,
+        "line_end": 16,
+        "bbox": null
+      }
+    },
+    {
+      "id": "c7",
+      "skill": "Spanish",
+      "years_claimed": null,
+      "since_year": null,
+      "level": "native",
+      "employer": null,
+      "evidence": {
+        "text": "IT service management - supplier and budget management - point of sale systems - Microsoft 365 - Windows Server - team leadership - Spanish (native), English (fluent)",
+        "page": null,
+        "line_start": 16,
+        "line_end": 16,
+        "bbox": null
+      }
+    },
+    {
+      "id": "c8",
+      "skill": "English",
+      "years_claimed": null,
+      "since_year": null,
+      "level": "fluent",
+      "employer": null,
+      "evidence": {
+        "text": "IT service management - supplier and budget management - point of sale systems - Microsoft 365 - Windows Server - team leadership - Spanish (native), English (fluent)",
+        "page": null,
+        "line_start": 16,
+        "line_end": 16,
+        "bbox": null
+      }
+    },
+    {
+      "id": "c9",
+      "skill": "PRINCE2",
+      "years_claimed": null,
+      "since_year": null,
+      "level": null,
+      "employer": null,
+      "evidence": {
+        "text": "PRINCE2 Practitioner.",
+        "page": null,
+        "line_start": null,
+        "line_end": null,
+        "bbox": null
+      }
+    },
+    {
+      "id": "c10",
+      "skill": "infrastructure management",
+      "years_claimed": null,
+      "since_year": null,
+      "level": null,
+      "employer": null,
+      "evidence": {
+        "text": "IT manager with ten years running technology for retail businesses, covering infrastructure, applications and the service desk.",
+        "page": null,
+        "line_start": 5,
+        "line_end": 5,
+        "bbox": null
+      }
+    },
+    {
+      "id": "c11",
+      "skill": "applications management",
+      "years_claimed": null,
+      "since_year": null,
+      "level": null,
+      "employer": null,
+      "evidence": {
+        "text": "IT manager with ten years running technology for retail businesses, covering infrastructure, applications and the service desk.",
+        "page": null,
+        "line_start": 5,
+        "line_end": 5,
+        "bbox": null
+      }
+    },
+    {
+      "id": "c12",
+      "skill": "service desk management",
+      "years_claimed": null,
+      "since_year": null,
+      "level": null,
+      "employer": null,
+      "evidence": {
+        "text": "IT manager with ten years running technology for retail businesses, covering infrastructure, applications and the service desk.",
+        "page": null,
+        "line_start": 5,
+        "line_end": 5,
+        "bbox": null
+      }
+    },
+    {
+      "id": "c13",
+      "skill": "point-of-sale replacement",
+      "years_claimed": null,
+      "since_year": null,
+      "level": null,
+      "employer": null,
+      "evidence": {
+        "text": "Delivered the point-of-sale replacement across all stores.",
+        "page": null,
+        "line_start": 10,
+        "line_end": 10,
+        "bbox": null
+      }
+    },
+    {
+      "id": "c14",
+      "skill": "managed service provider oversight",
+      "years_claimed": null,
+      "since_year": null,
+      "level": null,
+      "employer": null,
+      "evidence": {
+        "text": "Infrastructure is largely outsourced to a managed service provider, which I oversee.",
+        "page": null,
+        "line_start": 11,
+        "line_end": 11,
+        "bbox": null
+      }
+    }
+  ],
+  "employment": [
+    {
+      "employer": "Grupo Peninsular Retail",
+      "title": "IT Manager",
+      "start": "March 2016",
+      "end": "present",
+      "full_time": true,
+      "evidence": {
+        "text": "IT Manager - Grupo Peninsular Retail, Madrid · March 2016 - present",
+        "page": null,
+        "line_start": 8,
+        "line_end": 8,
+        "bbox": null
+      }
+    },
+    {
+      "employer": "Textiles Ibericos",
+      "title": "IT Coordinator",
+      "start": "September 2013",
+      "end": "February 2016",
+      "full_time": true,
+      "evidence": {
+        "text": "IT Coordinator - Textiles Ibericos, Valencia · September 2013 - February 2016",
+        "page": null,
+        "line_start": 13,
+        "line_end": 13,
+        "bbox": null
+      }
+    }
+  ],
+  "verifications": [],
+  "credentials": [
+    {
+      "claim_id": "",
+      "skill": "PRINCE2 (Axelos)",
+      "state": "corroborated",
+      "evidence": [],
+      "note": "named as its issuer names it (prince2)",
+      "source_scope": "cv"
+    }
+  ],
+  "consent_summary": "The CV you sent us",
+  "consent_grants": {
+    "cv": true,
+    "github": false,
+    "publications": false
+  },
+  "freshness_label": "CURRENT",
+  "freshness_note": "Most recent dated activity: 2026.",
+  "freshness_tone": "green",
+  "last_active_year": 2026,
+  "questions": [
+    {
+      "question": "One requirement for this role is the right to work in Germany, which I didn't see mentioned in your CV. Could you let me know where you stand on that?",
+      "reason": "this is a hard requirement your CV does not address",
+      "source": "confirmation",
+      "requirement_id": "ext-7",
+      "severity": "critical"
+    },
+    {
+      "question": "I didn't see any mention of hands-on Active Directory administration and design in your CV. Have you worked on that?",
+      "reason": "major gap against a required requirement",
+      "source": "gap",
+      "requirement_id": "ext-2",
+      "severity": "major"
+    },
+    {
+      "question": "I didn't see any mention of network administration experience—like routing, switching, or firewalls—in your CV. Have you worked on that?",
+      "reason": "major gap against a required requirement",
+      "source": "gap",
+      "requirement_id": "ext-3",
+      "severity": "major"
+    },
+    {
+      "question": "I didn't see any mention of information security risk management or audit experience in your CV. Have you worked on that?",
+      "reason": "major gap against a required requirement",
+      "source": "gap",
+      "requirement_id": "ext-4",
+      "severity": "major"
+    },
+    {
+      "question": "I didn't see any mention of working under a formal compliance or accreditation regime in your CV, and we're heading into an ISO 27001 audit next year. Have you worked on that?",
+      "reason": "major gap against a required requirement",
+      "source": "gap",
+      "requirement_id": "int-0",
+      "severity": "major"
+    },
+    {
+      "question": "I didn't see any mention of security certifications like CISSP, CISM, or Security+ in your CV. Have you worked on that?",
+      "reason": "minor gap against a preferred requirement",
+      "source": "gap",
+      "requirement_id": "ext-8",
+      "severity": "minor"
+    }
+  ],
+  "audit": [
+    {
+      "at": "2026-08-21T07:25:35+00:00",
+      "event": "internal_constraint_accepted",
+      "detail": "team_context: we go into an ISO 27001 audit next year, so this hire must have worked under a formal compliance or accreditation regime",
+      "actor": "system"
+    },
+    {
+      "at": "2026-08-21T07:25:35+00:00",
+      "event": "internal_constraint_accepted",
+      "detail": "mentoring_capacity: the team is junior, this hire must mentor two engineers",
+      "actor": "system"
+    },
+    {
+      "at": "2026-08-21T07:25:35+00:00",
+      "event": "internal_constraint_accepted",
+      "detail": "onsite_days: three days a week in the Berlin office",
+      "actor": "system"
+    },
+    {
+      "at": "2026-08-21T07:25:35+00:00",
+      "event": "internal_constraint_REFUSED",
+      "detail": "team_context: 'we want a young energetic team with no career gaps' - refused: age: age proxy; socioeconomic/proxy: career-gap screening - a proxy for parental leave, illness and disability",
+      "actor": "system"
+    }
+  ]
+}

@@ -312,3 +312,31 @@ It immediately surfaced something the ranking never showed: **Priya's CV was las
 **Still not built, and stated rather than hidden:** publications/conference/community evidence
 (GitHub and certifications only), and user-controlled sharing - the one Responsible-AI bullet
 of six we do not satisfy.
+
+---
+
+## Bulk upload: the reaper kills work the retries would have finished
+
+**21 Aug 2026.** Uploading ten CVs at once left all ten marked failed, with the first stuck
+"running" for over eight minutes and the disk cache frozen. A single call made moments later
+returned in 6.9s, and `GET /v1/models` answered in 55ms - so the provider was healthy the whole
+time. The stall was rate limiting under load, not an outage.
+
+The failure is an interaction between two timeouts that were each reasonable alone:
+
+- one LLM call: `timeout=180` with `max_retries=2` -> up to **540s** before it gives up
+- `tasks.STALE_AFTER_SECONDS = 480` -> the reaper marks a task failed at **eight minutes**
+
+So a call that would have succeeded on its third attempt is declared dead 60s before it gets
+there, and the work is thrown away. Nothing logs an error, because nothing errored - which is
+why the log was clean while ten uploads died.
+
+**Worked around, not fixed:** upload in batches of three and they complete. The real fix is to
+make the reaper threshold a function of the call budget rather than a constant that happens to
+sit just below it - `STALE_AFTER_SECONDS` must exceed `timeout x (max_retries + 1)`, or the
+retry policy is decorative. Recorded as backlog #83.
+
+**A related trap worth knowing.** When a *client* gives up on a preview request, the server has
+often already finished and written the parse to the disk cache. The retry then returns in
+milliseconds. Do not read a client-side timeout as "the work did not happen" - check the cache
+before re-running anything expensive, or you pay twice and risk creating the role twice.

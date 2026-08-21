@@ -75,3 +75,56 @@ def test_dedupe_removes_restatements_but_keeps_distinct_skills():
 def test_selection_returns_everything_when_there_is_little():
     claims = [_c(0, "Firewall"), _c(1, "routing")]
     assert len(select(claims, [NETWORK], per_requirement=10)) == 2
+
+
+def _claim(cid, skill):
+    from fit_happens.schemas import Claim, Span
+    return Claim(id=cid, skill=skill,
+                 evidence=Span(text=skill, start=0, end=len(skill), page=1,
+                               line_start=1, line_end=1))
+
+
+def _req(rid, text):
+    from fit_happens.schemas import Requirement
+    return Requirement(id=rid, text=text, kind="required", category="skill", source="external")
+
+
+def test_a_wholly_failed_mapping_refuses_to_score_zero(monkeypatch):
+    """Every requirement backfilled as "missing" gives a confident 0% that looks exactly like a
+    candidate who matches nothing. Seen live: a network engineer whose CV listed Cisco routing,
+    switching and firewalls scored 0% against a role asking for exactly that, because the
+    mapping call failed under a rate limit. Nothing raised and nothing logged, so a recruiter
+    would read it as "unqualified" rather than "we never managed to check"."""
+    from fit_happens.fit import map as fitmap
+
+    class _Empty:
+        matches: list = []
+
+    monkeypatch.setattr(fitmap.llm, "structured", lambda *a, **k: _Empty())
+    monkeypatch.setattr(fitmap.selector, "select", lambda claims, reqs: claims)
+
+    with pytest.raises(RuntimeError, match="refusing to score this as 0"):
+        fitmap.map_claims([_claim("c1", "Cisco routing and switching")],
+                          [_req("ext-0", "Network administration (routing, switching)")])
+
+
+def test_a_genuinely_unmatched_requirement_still_counts_as_missing(monkeypatch):
+    """The guard must not swallow the real case: the model answered and simply had nothing for
+    one requirement. That is still missing, and the denominator must not shrink."""
+    from fit_happens.fit import map as fitmap
+
+    class _M:
+        requirement_id, strength, basis = "ext-0", "strong", "evidenced"
+        claim_ids, rationale = ["c1"], "matches"
+
+    class _Res:
+        matches = [_M()]
+
+    monkeypatch.setattr(fitmap.llm, "structured", lambda *a, **k: _Res())
+    monkeypatch.setattr(fitmap.selector, "select", lambda claims, reqs: claims)
+
+    out = fitmap.map_claims([_claim("c1", "Cisco routing")],
+                            [_req("ext-0", "Networking"), _req("ext-1", "Something else")])
+    assert len(out) == 2, "the denominator must not shrink"
+    assert out[0].strength == "strong"
+    assert out[1].strength == "missing"

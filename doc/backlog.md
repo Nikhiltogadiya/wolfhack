@@ -184,3 +184,11 @@ the external-evidence wall, the duplicate candidate, the clipped Stage column. L
 | # | Status | Problem |
 |---|---|---|
 | 80 | DONE 21 Aug | **The per-role token secret was committed to a public repo.** `data/runs/*/consent/.secret` derives every candidate's private portal link as `sha256(secret + candidate_id)`, and the candidate ids are the tracked filenames — so anyone could clone the repo and compute any candidate's link. Now gitignored and rotated. **It remains in the pushed history** (since commit 2483919); the rotation makes the leaked value useless, but scrubbing history needs a force-push and is the owner's call |
+
+| # | Status | Problem |
+|---|---|---|
+| 83 | DEFERRED | **The stale-task reaper fires before the retry policy finishes.** One LLM call is `timeout=180` x `max_retries=2` = up to 540s, but `tasks.STALE_AFTER_SECONDS = 480`, so a call that would have succeeded on its third attempt is marked failed 60s early and the work is discarded - silently, because nothing raised. Cost ten CV uploads at once. Fix: derive the reaper threshold from the call budget instead of hard-coding a constant that sits just below it. Worked around by uploading in batches of three |
+
+| # | Status | Problem |
+|---|---|---|
+| 84 | DONE 21 Aug | **A failed mapping call scored a qualified candidate 0%.** `map_claims` backfills any requirement the model skipped as "missing" — correct per requirement, but when the call fails *entirely* every requirement is backfilled and the result is a confident 0%, indistinguishable from a candidate who matches nothing. Hit live: a network engineer whose CV listed Cisco routing, switching and firewalls scored 0% against a role asking for exactly that. Nothing raised, nothing logged. Now raises when the mapper returns no usable match for any requirement; guarded by two tests, one of which pins that a genuinely unmatched requirement still counts as missing |

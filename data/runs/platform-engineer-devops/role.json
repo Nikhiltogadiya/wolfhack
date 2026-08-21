@@ -1,0 +1,97 @@
+{
+  "jd": {
+    "title": "Platform Engineer (DevOps)",
+    "external_text": "Kestrel Pay processes card and SEPA payments for about 900 European merchants. Everything runs in AWS eu-west-1 inside a PCI-DSS scope we have to defend every year. We are adding a fourth engineer to a team of three. Amsterdam, hybrid, three days a week in our Zuidas office.\n\nWhat you'll do\n- Own our Terraform modules and the Kubernetes clusters (EKS) that the thirty-odd payment services run on.\n- Take our deploy pipeline from 40 minutes to under 10. The tests are the bottleneck, not the build.\n- Share the on-call rota with the rest of the team: one week in four, roughly two pages a month.\n- Sit with the security engineers through the annual PCI audit and own the evidence we hand the assessor.\n\nRequirements\n- 4+ years running production Kubernetes, not just kubectl apply.\n- Terraform at module level, with a real opinion about state layout.\n- You can debug a Linux networking problem without reaching for a rebuild.\n- Payments or another regulated environment, so that you understand why a change window exists.\n\nNice to have\n- Postgres operations: replication, failover and the boring parts of backup testing.\n- Datadog, which is what we page from.\n\nYou would report to the CTO. It is a genuinely fast-paced environment - we deploy most days and change control is real, so both of those are true at once. Salary \u20ac70,000 - \u20ac88,000 plus equity.",
+    "internal": [],
+    "audit": []
+  },
+  "requirements": [
+    {
+      "id": "ext-0",
+      "text": "4+ years running production Kubernetes, not just kubectl apply",
+      "kind": "required",
+      "category": "experience",
+      "dealbreaker": false,
+      "source": "external"
+    },
+    {
+      "id": "ext-1",
+      "text": "Terraform at module level, with a real opinion about state layout",
+      "kind": "required",
+      "category": "skill",
+      "dealbreaker": false,
+      "source": "external"
+    },
+    {
+      "id": "ext-2",
+      "text": "debug a Linux networking problem without reaching for a rebuild",
+      "kind": "required",
+      "category": "skill",
+      "dealbreaker": false,
+      "source": "external"
+    },
+    {
+      "id": "ext-3",
+      "text": "Payments or another regulated environment",
+      "kind": "required",
+      "category": "domain",
+      "dealbreaker": false,
+      "source": "external"
+    },
+    {
+      "id": "ext-4",
+      "text": "understand why a change window exists",
+      "kind": "required",
+      "category": "domain",
+      "dealbreaker": false,
+      "source": "external"
+    },
+    {
+      "id": "ext-5",
+      "text": "Postgres operations: replication",
+      "kind": "preferred",
+      "category": "skill",
+      "dealbreaker": false,
+      "source": "external"
+    },
+    {
+      "id": "ext-6",
+      "text": "Postgres operations: failover",
+      "kind": "preferred",
+      "category": "skill",
+      "dealbreaker": false,
+      "source": "external"
+    },
+    {
+      "id": "ext-7",
+      "text": "Postgres operations: the boring parts of backup testing",
+      "kind": "preferred",
+      "category": "skill",
+      "dealbreaker": false,
+      "source": "external"
+    },
+    {
+      "id": "ext-8",
+      "text": "Datadog",
+      "kind": "preferred",
+      "category": "skill",
+      "dealbreaker": false,
+      "source": "external"
+    }
+  ],
+  "clarity": 0.92,
+  "ad_flags": [
+    {
+      "pattern_id": "hollow_phrase",
+      "description": "'fast-paced environment' tells a candidate nothing - describe the real delivery cadence",
+      "span": {
+        "text": "ld report to the CTO. It is a genuinely fast-paced environment - we deploy most days and change contro",
+        "page": null,
+        "line_start": null,
+        "line_end": null,
+        "bbox": null
+      },
+      "confidence": 0.4
+    }
+  ]
+}

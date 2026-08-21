@@ -1,0 +1,165 @@
+{
+  "jd": {
+    "title": "Product Designer",
+    "external_text": "Vitalis Health is on a mission to reimagine how people engage with their wellbeing. We are a venture-backed startup building the next generation of digital health experiences, and design sits at the heart of everything we do. This is a chance to join us at an inflection point and leave your fingerprints on the whole product.\n\nWhat you'll do\n- Own the end-to-end design process across our product surfaces.\n- Partner cross-functionally to translate business needs into delightful user experiences.\n- Champion the voice of the user throughout the product lifecycle.\n- Contribute to and evolve our design language as it matures.\n- Wear many hats. This is a startup and no two weeks look quite the same.\n\nRequirements\n- Proven experience designing beautiful, intuitive digital products.\n- A strong portfolio that demonstrates end-to-end thinking, not just final screens.\n- Comfortable operating in a fast-paced environment with shifting priorities.\n- Passionate about healthcare and about improving outcomes for real people.\n- A collaborative mindset and a bias for action.\n\nNice to have\n- Health-tech, wellness or regulated consumer product experience.\n- Familiarity with design systems at scale.\n- Motion design or high-fidelity prototyping.\n\nWhat we offer\n- Remote-first culture with flexible hours.\n- Meaningful equity and a seat at the table.\n- The chance to work directly with the founders and shape the product from the ground up.",
+    "internal": [],
+    "audit": []
+  },
+  "requirements": [
+    {
+      "id": "ext-0",
+      "text": "Proven experience designing beautiful, intuitive digital products",
+      "kind": "required",
+      "category": "experience",
+      "dealbreaker": false,
+      "source": "external"
+    },
+    {
+      "id": "ext-1",
+      "text": "A strong portfolio that demonstrates end-to-end thinking, not just final screens",
+      "kind": "required",
+      "category": "credential",
+      "dealbreaker": false,
+      "source": "external"
+    },
+    {
+      "id": "ext-2",
+      "text": "Comfortable operating in a fast-paced environment with shifting priorities",
+      "kind": "required",
+      "category": "experience",
+      "dealbreaker": false,
+      "source": "external"
+    },
+    {
+      "id": "ext-3",
+      "text": "Passionate about healthcare and about improving outcomes for real people",
+      "kind": "required",
+      "category": "domain",
+      "dealbreaker": false,
+      "source": "external"
+    },
+    {
+      "id": "ext-4",
+      "text": "A collaborative mindset",
+      "kind": "required",
+      "category": "skill",
+      "dealbreaker": false,
+      "source": "external"
+    },
+    {
+      "id": "ext-5",
+      "text": "A bias for action",
+      "kind": "required",
+      "category": "skill",
+      "dealbreaker": false,
+      "source": "external"
+    },
+    {
+      "id": "ext-6",
+      "text": "Health-tech, wellness or regulated consumer product experience",
+      "kind": "preferred",
+      "category": "domain",
+      "dealbreaker": false,
+      "source": "external"
+    },
+    {
+      "id": "ext-7",
+      "text": "Familiarity with design systems at scale",
+      "kind": "preferred",
+      "category": "skill",
+      "dealbreaker": false,
+      "source": "external"
+    },
+    {
+      "id": "ext-8",
+      "text": "Motion design",
+      "kind": "preferred",
+      "category": "skill",
+      "dealbreaker": false,
+      "source": "external"
+    },
+    {
+      "id": "ext-9",
+      "text": "High-fidelity prototyping",
+      "kind": "preferred",
+      "category": "skill",
+      "dealbreaker": false,
+      "source": "external"
+    }
+  ],
+  "clarity": 0.16,
+  "ad_flags": [
+    {
+      "pattern_id": "hollow_phrase",
+      "description": "'wear many hats' tells a candidate nothing - list the actual responsibilities",
+      "span": {
+        "text": "ve our design language as it matures.\n- Wear many hats. This is a startup and no two weeks loo",
+        "page": null,
+        "line_start": null,
+        "line_end": null,
+        "bbox": null
+      },
+      "confidence": 0.4
+    },
+    {
+      "pattern_id": "hollow_phrase",
+      "description": "'fast-paced environment' tells a candidate nothing - describe the real delivery cadence",
+      "span": {
+        "text": "l screens.\n- Comfortable operating in a fast-paced environment with shifting priorities.\n- Passionate",
+        "page": null,
+        "line_start": null,
+        "line_end": null,
+        "bbox": null
+      },
+      "confidence": 0.4
+    },
+    {
+      "pattern_id": "hollow_phrase",
+      "description": "'passionate about' tells a candidate nothing - state the requirement plainly",
+      "span": {
+        "text": "environment with shifting priorities.\n- Passionate about healthcare and about improving outcomes",
+        "page": null,
+        "line_start": null,
+        "line_end": null,
+        "bbox": null
+      },
+      "confidence": 0.4
+    },
+    {
+      "pattern_id": "missing_specifics",
+      "description": "the advert never states salary or band",
+      "span": {
+        "text": "",
+        "page": null,
+        "line_start": null,
+        "line_end": null,
+        "bbox": null
+      },
+      "confidence": 0.3
+    },
+    {
+      "pattern_id": "missing_specifics",
+      "description": "the advert never states specific tooling",
+      "span": {
+        "text": "",
+        "page": null,
+        "line_start": null,
+        "line_end": null,
+        "bbox": null
+      },
+      "confidence": 0.3
+    },
+    {
+      "pattern_id": "missing_specifics",
+      "description": "the advert never states team size",
+      "span": {
+        "text": "",
+        "page": null,
+        "line_start": null,
+        "line_end": null,
+        "bbox": null
+      },
+      "confidence": 0.3
+    }
+  ]
+}

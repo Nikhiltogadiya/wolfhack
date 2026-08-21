@@ -1,0 +1,124 @@
+{
+  "jd": {
+    "title": "Senior Backend Engineer (Python)",
+    "external_text": "Nordhaven Freight Systems builds the routing and customs software behind roughly 40,000 European road freight shipments a day. Our platform group keeps that running, and we are hiring a senior engineer to take ownership of the shipment ingestion pipeline. Hamburg, hybrid, two days a week in the office.\n\nWhat you'll do\n- Own the ingestion service that receives EDIFACT and API shipment feeds from 120 carriers, and the Kafka topics downstream of it.\n- Split the remaining routing logic out of our 2016 Django monolith into the services that already carry 60% of traffic.\n- Carry the pager one week in five, with a documented runbook and no expectation of out-of-hours work outside that week.\n- Review the work of two mid-level engineers and mentor them through design docs.\n\nRequirements\n- 5+ years writing production Python, including something you built and then ran at load.\n- Postgres beyond ORM basics: you can read a query plan and explain why a partial index helps.\n- Kafka or another log-based broker in production.\n- English is our working language; German is useful but not required.\n\nNice to have\n- EDI, customs or freight domain experience.\n- Terraform and AWS. Our infrastructure is entirely in eu-central-1.\n\nYou would join a team of six engineers plus a product manager, and report to the Head of Platform. Salary is \u20ac78,000 - \u20ac95,000 depending on experience, with 30 days holiday and a \u20ac1,500 annual training budget.",
+    "internal": [],
+    "audit": []
+  },
+  "requirements": [
+    {
+      "id": "ext-0",
+      "text": "5+ years writing production Python",
+      "kind": "required",
+      "category": "experience",
+      "dealbreaker": false,
+      "source": "external"
+    },
+    {
+      "id": "ext-1",
+      "text": "built something in Python and then ran it at load",
+      "kind": "required",
+      "category": "experience",
+      "dealbreaker": false,
+      "source": "external"
+    },
+    {
+      "id": "ext-2",
+      "text": "Postgres beyond ORM basics",
+      "kind": "required",
+      "category": "skill",
+      "dealbreaker": false,
+      "source": "external"
+    },
+    {
+      "id": "ext-3",
+      "text": "can read a query plan",
+      "kind": "required",
+      "category": "skill",
+      "dealbreaker": false,
+      "source": "external"
+    },
+    {
+      "id": "ext-4",
+      "text": "can explain why a partial index helps",
+      "kind": "required",
+      "category": "skill",
+      "dealbreaker": false,
+      "source": "external"
+    },
+    {
+      "id": "ext-5",
+      "text": "Kafka in production",
+      "kind": "required",
+      "category": "skill",
+      "dealbreaker": false,
+      "source": "external"
+    },
+    {
+      "id": "ext-6",
+      "text": "another log-based broker in production",
+      "kind": "required",
+      "category": "skill",
+      "dealbreaker": false,
+      "source": "external"
+    },
+    {
+      "id": "ext-7",
+      "text": "English is our working language",
+      "kind": "required",
+      "category": "eligibility",
+      "dealbreaker": false,
+      "source": "external"
+    },
+    {
+      "id": "ext-8",
+      "text": "German is useful but not required",
+      "kind": "required",
+      "category": "skill",
+      "dealbreaker": false,
+      "source": "external"
+    },
+    {
+      "id": "ext-9",
+      "text": "EDI domain experience",
+      "kind": "preferred",
+      "category": "domain",
+      "dealbreaker": false,
+      "source": "external"
+    },
+    {
+      "id": "ext-10",
+      "text": "customs domain experience",
+      "kind": "preferred",
+      "category": "domain",
+      "dealbreaker": false,
+      "source": "external"
+    },
+    {
+      "id": "ext-11",
+      "text": "freight domain experience",
+      "kind": "preferred",
+      "category": "domain",
+      "dealbreaker": false,
+      "source": "external"
+    },
+    {
+      "id": "ext-12",
+      "text": "Terraform",
+      "kind": "preferred",
+      "category": "skill",
+      "dealbreaker": false,
+      "source": "external"
+    },
+    {
+      "id": "ext-13",
+      "text": "AWS",
+      "kind": "preferred",
+      "category": "skill",
+      "dealbreaker": false,
+      "source": "external"
+    }
+  ],
+  "clarity": 1.0,
+  "ad_flags": []
+}

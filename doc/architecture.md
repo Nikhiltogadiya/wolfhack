@@ -30,7 +30,7 @@ by good intentions. That is section 6.
 | Model access | `ChatOpenAI` from `langchain_openai`, structured output | One client, schema-validated replies |
 | Main model | DeepSeek V4 Flash via OpenRouter | 59 facts from one CV chunk in 14.4s (measured) |
 | Backup model | NVIDIA NIM (Nemotron) | Free, independent provider, automatic on any error |
-| PDF reading | pypdf, pdfplumber, pdfminer, PyMuPDF, pypdfium2 | Several engines on purpose — see section 8 |
+| PDF reading | pypdf, pdfplumber, pdfminer, PyMuPDF, pypdfium2 | Several engines on purpose — they disagree about hidden text, and that disagreement is the detector |
 | Storage | JSON files on disk | No database. One folder per role |
 | Tests | pytest — **378 passing** | Including the rules in section 9 |
 
@@ -129,7 +129,76 @@ Two details worth pointing at during the demo:
 
 ---
 
-## 7. Two engines, kept apart
+## 7. How the fit score is worked out
+
+![How the fit score is worked out](diagrams/08-how-the-fit-score-is-worked-out.png)
+
+Four steps, all plain arithmetic. No model is involved in any of it.
+
+**Step 1 — turn each match into a number.** Every requirement gets one of four verdicts, and
+each is worth a fixed amount of credit:
+
+| Match | Credit | Means |
+|---|---|---|
+| `strong` | **1.0** | The CV clearly evidences this |
+| `moderate` | **0.6** | Related experience, not a direct hit |
+| `weak` | **0.2** | Touched on it, thinly |
+| `missing` | **0.0** | Nothing in the CV addresses it |
+
+**Step 2 — add up inside each bucket, separately.** Required and preferred are scored on their
+own, each as *credit earned ÷ how many requirements are in that bucket*.
+
+**Step 3 — combine at fixed weights.**
+
+```
+fit score  =  0.70 × required coverage  +  0.30 × preferred coverage
+```
+
+The 70/30 split is **fixed**, and that is a deliberate correction. The code this was adapted
+from normalised across both buckets at once with a per-item multiplier, which makes the real
+ratio drift with however many requirements a job ad happens to list — 10 required and 10
+preferred came out as 77/23, not 70/30. Scoring each bucket first and combining at fixed
+weights keeps the ratio the number it claims to be.
+
+**Step 4 — the hard-requirement gate.** If the CV *contradicts* a hard requirement, the score
+is capped at **49%**, so it can never outrank someone who meets it. Capped, not zeroed — the
+person is still real, and a zero would say something the evidence does not.
+
+The important half of this step is what does **not** happen. If the CV is simply **silent**
+about a hard requirement, nothing is capped. Most CVs never mention work authorisation;
+capping on that would quietly punish nearly every applicant for something nobody asked them to
+write down. Silence becomes a follow-up question instead.
+
+### A real one, worked through
+
+Rowan Feltz against the demo role, straight from the stored record:
+
+```
+required    7.80 credit ÷ 10 requirements  =  78%
+preferred   4.20 credit ÷  7 requirements  =  60%
+
+0.70 × 0.78  +  0.30 × 0.60  =  0.726       →  73%
+```
+
+Nothing was capped — the CV contradicts no hard requirement. His three Slop Bouncer flags do
+not appear anywhere in this calculation, which is the whole point: he is genuinely a good fit
+*and* has claims that do not add up, and the tool reports both instead of averaging them into
+one misleading number.
+
+### What is deliberately not in the formula
+
+**How much evidence there is.** A thin CV is reported to the recruiter as an evidence-density
+figure and it scores nothing. That is the honest home for *"this CV is thin"* — visible, and
+costing the candidate no points.
+
+**Anything about how it is written.** `score_fit` takes only the matches and the requirements.
+Neither of those types has a field for style, sloppiness, or an authenticity flag. It is not
+that we choose not to use them — the function cannot see them.
+
+
+---
+
+## 8. Two engines, kept apart
 
 ![Two engines kept apart](diagrams/04-two-engines-kept-apart.png)
 
@@ -148,7 +217,7 @@ it exists to stop.
 
 ---
 
-## 8. The three checks, and the rule that governs them
+## 9. The three checks, and the rule that governs them
 
 ![Three checkpoints](diagrams/05-three-checkpoints.png)
 
@@ -169,7 +238,7 @@ reject option in the code — the list of possible answers does not contain one.
 
 ---
 
-## 9. Consent decides whether we look, not whether we show
+## 10. Consent decides whether we look, not whether we show
 
 ![Consent gates the fetch](diagrams/06-consent-gates-the-fetch.png)
 
@@ -186,7 +255,7 @@ Turning a switch back off deletes what was gathered under it, on both sides.
 
 ---
 
-## 10. What one model call actually does
+## 11. What one model call actually does
 
 ![How one model call is made](diagrams/07-how-one-model-call-is-made.png)
 
@@ -204,7 +273,7 @@ wording for each provider lives in one config file and never in the code.
 
 ---
 
-## 11. The rules that are enforced by tests, not by hope
+## 12. The rules that are enforced by tests, not by hope
 
 Each of these is a sentence you can say out loud, backed by a test that would fail if it
 stopped being true.
@@ -229,7 +298,7 @@ stopped being true.
 
 ---
 
-## 12. Where things live
+## 13. Where things live
 
 ```
 src/fit_happens/

@@ -1,0 +1,779 @@
+{
+  "candidate_id": "tomas-ferreira",
+  "name": "tomas-ferreira",
+  "category": "demo",
+  "source_path": "data/uploads/demo/tomas-ferreira.pdf",
+  "fit": {
+    "score": 0.6163,
+    "required_coverage": 0.66,
+    "preferred_coverage": 0.5143,
+    "matches": [
+      {
+        "requirement_id": "ext-0",
+        "strength": "strong",
+        "basis": "unstated",
+        "claim_ids": [],
+        "rationale": "The computed career facts show 11.9 years of total experience in enterprise IT infrastructure roles (Senior Infrastructure Engineer and Infrastructure Engineer), which directly exceeds the 5-year requirement. This is reliable system-calculated data, not a candidate claim.",
+        "evidence": []
+      },
+      {
+        "requirement_id": "ext-1",
+        "strength": "moderate",
+        "basis": "unstated",
+        "claim_ids": [
+          "c5"
+        ],
+        "rationale": "The candidate claims mentoring two junior engineers, which is a leadership-adjacent activity but not a formal management or team-leading role. The computed career facts show no roles with a leadership title. This is closely related but not direct evidence of managing or leading a technical team.",
+        "evidence": [
+          {
+            "text": "Mentor two junior engineers, though not a formal line manager.",
+            "page": null,
+            "line_start": 10,
+            "line_end": 10,
+            "bbox": null
+          }
+        ]
+      },
+      {
+        "requirement_id": "ext-2",
+        "strength": "strong",
+        "basis": "unstated",
+        "claim_ids": [
+          "c0",
+          "c1"
+        ],
+        "rationale": "The candidate explicitly claims 'Active Directory administration' and 'Group Policy design' in a Senior Infrastructure Engineer role, which is direct hands-on experience with AD administration and design.",
+        "evidence": [
+          {
+            "text": "Active Directory administration, Group Policy design, and the Microsoft 365 tenancy.",
+            "page": null,
+            "line_start": 8,
+            "line_end": 8,
+            "bbox": null
+          },
+          {
+            "text": "Active Directory administration, Group Policy design, and the Microsoft 365 tenancy.",
+            "page": null,
+            "line_start": 8,
+            "line_end": 8,
+            "bbox": null
+          }
+        ]
+      },
+      {
+        "requirement_id": "ext-3",
+        "strength": "strong",
+        "basis": "unstated",
+        "claim_ids": [
+          "c9",
+          "c10",
+          "c11",
+          "c12"
+        ],
+        "rationale": "The candidate claims 'Network administration across four depots including routing, switching and site-to-site VPN' in an Infrastructure Engineer role, which directly covers routing, switching, and firewall-adjacent VPN technology.",
+        "evidence": [
+          {
+            "text": "Network administration across four depots including routing, switching and site-to-site VPN.",
+            "page": null,
+            "line_start": 12,
+            "line_end": 12,
+            "bbox": null
+          },
+          {
+            "text": "Network administration across four depots including routing, switching and site-to-site VPN.",
+            "page": null,
+            "line_start": 12,
+            "line_end": 12,
+            "bbox": null
+          },
+          {
+            "text": "Network administration across four depots including routing, switching and site-to-site VPN.",
+            "page": null,
+            "line_start": 12,
+            "line_end": 12,
+            "bbox": null
+          },
+          {
+            "text": "Network administration across four depots including routing, switching and site-to-site VPN.",
+            "page": null,
+            "line_start": 12,
+            "line_end": 12,
+            "bbox": null
+          }
+        ]
+      },
+      {
+        "requirement_id": "ext-4",
+        "strength": "missing",
+        "basis": "unstated",
+        "claim_ids": [],
+        "rationale": "No claims mention information security risk management, audits, or compliance. The resume does not address this requirement.",
+        "evidence": []
+      },
+      {
+        "requirement_id": "ext-5",
+        "strength": "strong",
+        "basis": "unstated",
+        "claim_ids": [
+          "c3"
+        ],
+        "rationale": "The candidate claims 'Planned and delivered two hardware refresh cycles and the move from on-premise Exchange', which is direct evidence of planning and executing infrastructure upgrade projects.",
+        "evidence": [
+          {
+            "text": "Planned and delivered two hardware refresh cycles and the move from on-premise Exchange.",
+            "page": null,
+            "line_start": 9,
+            "line_end": 9,
+            "bbox": null
+          }
+        ]
+      },
+      {
+        "requirement_id": "ext-6",
+        "strength": "strong",
+        "basis": "unstated",
+        "claim_ids": [
+          "c19"
+        ],
+        "rationale": "The candidate claims a 'BSc Information Systems' from Universidade do Porto, which is a technical bachelor's degree, directly satisfying the degree requirement.",
+        "evidence": [
+          {
+            "text": "BSc Information Systems, Universidade do Porto, 2014. MCSA. EU citizen.",
+            "page": null,
+            "line_start": 18,
+            "line_end": 18,
+            "bbox": null
+          }
+        ]
+      },
+      {
+        "requirement_id": "ext-7",
+        "strength": "missing",
+        "basis": "unstated",
+        "claim_ids": [],
+        "rationale": "The resume does not mention work authorization or visa status. The candidate claims EU citizenship, which may imply right to work in Germany, but it is not explicitly stated. Per rules, absence of mention is 'unstated'.",
+        "evidence": []
+      },
+      {
+        "requirement_id": "ext-8",
+        "strength": "moderate",
+        "basis": "unstated",
+        "claim_ids": [
+          "c19"
+        ],
+        "rationale": "The candidate claims 'MCSA' (Microsoft Certified Solutions Associate), which is a security-relevant certification but not specifically CISSP, CISM, or Security+. It is closely related but not the exact certification requested.",
+        "evidence": [
+          {
+            "text": "BSc Information Systems, Universidade do Porto, 2014. MCSA. EU citizen.",
+            "page": null,
+            "line_start": 18,
+            "line_end": 18,
+            "bbox": null
+          }
+        ]
+      },
+      {
+        "requirement_id": "ext-9",
+        "strength": "strong",
+        "basis": "unstated",
+        "claim_ids": [],
+        "rationale": "The candidate's employment history includes roles at 'Nordfracht Logistik' and 'Baltic Freight Services', both logistics/freight companies, directly evidencing experience in the logistics sector.",
+        "evidence": []
+      },
+      {
+        "requirement_id": "ext-10",
+        "strength": "strong",
+        "basis": "unstated",
+        "claim_ids": [
+          "c7"
+        ],
+        "rationale": "The candidate explicitly claims 'VMware' in an Infrastructure Engineer role, which is direct hands-on experience with virtualisation.",
+        "evidence": [
+          {
+            "text": "Windows Server, VMware and Veeam backup.",
+            "page": null,
+            "line_start": 12,
+            "line_end": 12,
+            "bbox": null
+          }
+        ]
+      },
+      {
+        "requirement_id": "ext-11",
+        "strength": "missing",
+        "basis": "unstated",
+        "claim_ids": [],
+        "rationale": "No claims mention disaster recovery or business continuity planning. The resume does not address this requirement.",
+        "evidence": []
+      },
+      {
+        "requirement_id": "ext-12",
+        "strength": "missing",
+        "basis": "unstated",
+        "claim_ids": [],
+        "rationale": "No claims mention cloud migration, Azure, or AWS. The resume does not address this requirement.",
+        "evidence": []
+      },
+      {
+        "requirement_id": "ext-13",
+        "strength": "strong",
+        "basis": "unstated",
+        "claim_ids": [
+          "c17"
+        ],
+        "rationale": "The candidate claims 'German (fluent)' in their language skills, which directly evidences German language proficiency.",
+        "evidence": [
+          {
+            "text": "Active Directory - Windows Server - VMware - Veeam - Microsoft 365 - Cisco switching - site-to-site VPN - SCCM - PowerShell - Portuguese (native), German (fluent), English (fluent)",
+            "page": null,
+            "line_start": 15,
+            "line_end": 15,
+            "bbox": null
+          }
+        ]
+      },
+      {
+        "requirement_id": "int-0",
+        "strength": "missing",
+        "basis": "unstated",
+        "claim_ids": [],
+        "rationale": "No claims mention ISO27001, compliance regimes, or formal accreditation. The resume does not address this requirement.",
+        "evidence": []
+      },
+      {
+        "requirement_id": "int-1",
+        "strength": "strong",
+        "basis": "unstated",
+        "claim_ids": [
+          "c5"
+        ],
+        "rationale": "The candidate explicitly claims 'Mentor two junior engineers' in a Senior Infrastructure Engineer role, which directly evidences mentoring two engineers as required.",
+        "evidence": [
+          {
+            "text": "Mentor two junior engineers, though not a formal line manager.",
+            "page": null,
+            "line_start": 10,
+            "line_end": 10,
+            "bbox": null
+          }
+        ]
+      },
+      {
+        "requirement_id": "int-2",
+        "strength": "missing",
+        "basis": "unstated",
+        "claim_ids": [],
+        "rationale": "The resume does not mention office location, remote work, or willingness to work in Berlin. No evidence addresses this requirement.",
+        "evidence": []
+      }
+    ],
+    "gaps": [
+      {
+        "requirement_id": "ext-4",
+        "severity": "major",
+        "text": "Experience with information security risk management and audit",
+        "needs_confirmation": false
+      },
+      {
+        "requirement_id": "ext-7",
+        "severity": "critical",
+        "text": "Must have the right to work in Germany",
+        "needs_confirmation": true
+      },
+      {
+        "requirement_id": "ext-11",
+        "severity": "minor",
+        "text": "Disaster recovery and business continuity planning",
+        "needs_confirmation": false
+      },
+      {
+        "requirement_id": "ext-12",
+        "severity": "minor",
+        "text": "Exposure to cloud migration (Azure or AWS)",
+        "needs_confirmation": false
+      },
+      {
+        "requirement_id": "int-0",
+        "severity": "major",
+        "text": "we go into an ISO 27001 audit next year, so this hire must have worked under a formal compliance or accreditation regime",
+        "needs_confirmation": false
+      },
+      {
+        "requirement_id": "int-2",
+        "severity": "minor",
+        "text": "three days a week in the Berlin office",
+        "needs_confirmation": false
+      }
+    ],
+    "dealbreakers_unmet": [],
+    "dealbreakers_unstated": [
+      "ext-7"
+    ],
+    "capped_by_dealbreaker": false
+  },
+  "style": {
+    "score": 0.0,
+    "band": "low",
+    "patterns_fired": [],
+    "word_count": 151,
+    "caveat": "Advisory only - this signal never contributes to a flag. We measured it on 60 real resumes against LLM rewrites of the same resumes: the strongest pattern separated the two classes for only 27% of rewrites, and most separated for under 8%. Published work also finds a 61% false-positive rate for non-native English writers. Read it as a prompt to look at the document yourself, never as a finding about the person."
+  },
+  "cp2": {
+    "checkpoint": "cp2_claims",
+    "verdict": "clear",
+    "flags": [],
+    "reason": "no authenticity inconsistencies found"
+  },
+  "cp3_pending": true,
+  "document": {
+    "source_path": "data/uploads/demo/tomas-ferreira.pdf",
+    "text": "Tomas Ferreira\nSenior Infrastructure Engineer\nHamburg · tomas.ferreira@example.com\nSummary\nInfrastructure engineer with seven years across server, storage and network estates in logistics and distribution.\nExperience\nSenior Infrastructure Engineer - Nordfracht Logistik, Hamburg · January 2018 - present\nServer and storage estate for 600 users. Active Directory administration, Group Policy design, and the Microsoft\n365 tenancy. Planned and delivered two hardware refresh cycles and the move from on-premise Exchange.\nMentor two junior engineers, though not a formal line manager.\nInfrastructure Engineer - Baltic Freight Services, Kiel · September 2014 - December 2017\nWindows Server, VMware and Veeam backup. Network administration across four depots including routing,\nswitching and site-to-site VPN.\nSkills\nActive Directory - Windows Server - VMware - Veeam - Microsoft 365 - Cisco switching - site-to-site VPN -\nSCCM - PowerShell - Portuguese (native), German (fluent), English (fluent)\nEducation & Certifications\nBSc Information Systems, Universidade do Porto, 2014. MCSA. EU citizen.\n",
+    "raw_text": "Tomas Ferreira\nSenior Infrastructure Engineer\nHamburg · tomas.ferreira@example.com\nSummary\nInfrastructure engineer with seven years across server, storage and network estates in logistics and distribution.\nExperience\nSenior Infrastructure Engineer - Nordfracht Logistik, Hamburg · January 2018 - present\nServer and storage estate for 600 users. Active Directory administration, Group Policy design, and the Microsoft\n365 tenancy. Planned and delivered two hardware refresh cycles and the move from on-premise Exchange.\nMentor two junior engineers, though not a formal line manager.\nInfrastructure Engineer - Baltic Freight Services, Kiel · September 2014 - December 2017\nWindows Server, VMware and Veeam backup. Network administration across four depots including routing,\nswitching and site-to-site VPN.\nSkills\nActive Directory - Windows Server - VMware - Veeam - Microsoft 365 - Cisco switching - site-to-site VPN -\nSCCM - PowerShell - Portuguese (native), German (fluent), English (fluent)\nEducation & Certifications\nBSc Information Systems, Universidade do Porto, 2014. MCSA. EU citizen.\n",
+    "hidden": [],
+    "engine_chars": {
+      "pymupdf": 1092,
+      "pypdfium2": 1108,
+      "pdfplumber": 1091,
+      "pdfminer": 1105
+    },
+    "divergence": 0.01534296028880866
+  },
+  "claims": [
+    {
+      "id": "c0",
+      "skill": "Active Directory",
+      "years_claimed": null,
+      "since_year": null,
+      "level": "Senior Infrastructure Engineer",
+      "employer": "Nordfracht Logistik",
+      "evidence": {
+        "text": "Active Directory administration, Group Policy design, and the Microsoft 365 tenancy.",
+        "page": null,
+        "line_start": 8,
+        "line_end": 8,
+        "bbox": null
+      }
+    },
+    {
+      "id": "c1",
+      "skill": "Group Policy",
+      "years_claimed": null,
+      "since_year": null,
+      "level": "Senior Infrastructure Engineer",
+      "employer": "Nordfracht Logistik",
+      "evidence": {
+        "text": "Active Directory administration, Group Policy design, and the Microsoft 365 tenancy.",
+        "page": null,
+        "line_start": 8,
+        "line_end": 8,
+        "bbox": null
+      }
+    },
+    {
+      "id": "c2",
+      "skill": "Microsoft 365",
+      "years_claimed": null,
+      "since_year": null,
+      "level": "Senior Infrastructure Engineer",
+      "employer": "Nordfracht Logistik",
+      "evidence": {
+        "text": "Active Directory administration, Group Policy design, and the Microsoft 365 tenancy.",
+        "page": null,
+        "line_start": 8,
+        "line_end": 8,
+        "bbox": null
+      }
+    },
+    {
+      "id": "c3",
+      "skill": "hardware refresh",
+      "years_claimed": null,
+      "since_year": null,
+      "level": "Senior Infrastructure Engineer",
+      "employer": "Nordfracht Logistik",
+      "evidence": {
+        "text": "Planned and delivered two hardware refresh cycles and the move from on-premise Exchange.",
+        "page": null,
+        "line_start": 9,
+        "line_end": 9,
+        "bbox": null
+      }
+    },
+    {
+      "id": "c4",
+      "skill": "Exchange",
+      "years_claimed": null,
+      "since_year": null,
+      "level": "Senior Infrastructure Engineer",
+      "employer": "Nordfracht Logistik",
+      "evidence": {
+        "text": "Planned and delivered two hardware refresh cycles and the move from on-premise Exchange.",
+        "page": null,
+        "line_start": 9,
+        "line_end": 9,
+        "bbox": null
+      }
+    },
+    {
+      "id": "c5",
+      "skill": "mentoring",
+      "years_claimed": null,
+      "since_year": null,
+      "level": "Senior Infrastructure Engineer",
+      "employer": "Nordfracht Logistik",
+      "evidence": {
+        "text": "Mentor two junior engineers, though not a formal line manager.",
+        "page": null,
+        "line_start": 10,
+        "line_end": 10,
+        "bbox": null
+      }
+    },
+    {
+      "id": "c6",
+      "skill": "Windows Server",
+      "years_claimed": null,
+      "since_year": null,
+      "level": "Infrastructure Engineer",
+      "employer": "Baltic Freight Services",
+      "evidence": {
+        "text": "Windows Server, VMware and Veeam backup.",
+        "page": null,
+        "line_start": 12,
+        "line_end": 12,
+        "bbox": null
+      }
+    },
+    {
+      "id": "c7",
+      "skill": "VMware",
+      "years_claimed": null,
+      "since_year": null,
+      "level": "Infrastructure Engineer",
+      "employer": "Baltic Freight Services",
+      "evidence": {
+        "text": "Windows Server, VMware and Veeam backup.",
+        "page": null,
+        "line_start": 12,
+        "line_end": 12,
+        "bbox": null
+      }
+    },
+    {
+      "id": "c8",
+      "skill": "Veeam",
+      "years_claimed": null,
+      "since_year": null,
+      "level": "Infrastructure Engineer",
+      "employer": "Baltic Freight Services",
+      "evidence": {
+        "text": "Windows Server, VMware and Veeam backup.",
+        "page": null,
+        "line_start": 12,
+        "line_end": 12,
+        "bbox": null
+      }
+    },
+    {
+      "id": "c9",
+      "skill": "network administration",
+      "years_claimed": null,
+      "since_year": null,
+      "level": "Infrastructure Engineer",
+      "employer": "Baltic Freight Services",
+      "evidence": {
+        "text": "Network administration across four depots including routing, switching and site-to-site VPN.",
+        "page": null,
+        "line_start": 12,
+        "line_end": 12,
+        "bbox": null
+      }
+    },
+    {
+      "id": "c10",
+      "skill": "routing",
+      "years_claimed": null,
+      "since_year": null,
+      "level": "Infrastructure Engineer",
+      "employer": "Baltic Freight Services",
+      "evidence": {
+        "text": "Network administration across four depots including routing, switching and site-to-site VPN.",
+        "page": null,
+        "line_start": 12,
+        "line_end": 12,
+        "bbox": null
+      }
+    },
+    {
+      "id": "c11",
+      "skill": "switching",
+      "years_claimed": null,
+      "since_year": null,
+      "level": "Infrastructure Engineer",
+      "employer": "Baltic Freight Services",
+      "evidence": {
+        "text": "Network administration across four depots including routing, switching and site-to-site VPN.",
+        "page": null,
+        "line_start": 12,
+        "line_end": 12,
+        "bbox": null
+      }
+    },
+    {
+      "id": "c12",
+      "skill": "site-to-site VPN",
+      "years_claimed": null,
+      "since_year": null,
+      "level": "Infrastructure Engineer",
+      "employer": "Baltic Freight Services",
+      "evidence": {
+        "text": "Network administration across four depots including routing, switching and site-to-site VPN.",
+        "page": null,
+        "line_start": 12,
+        "line_end": 12,
+        "bbox": null
+      }
+    },
+    {
+      "id": "c13",
+      "skill": "Cisco switching",
+      "years_claimed": null,
+      "since_year": null,
+      "level": null,
+      "employer": null,
+      "evidence": {
+        "text": "Active Directory - Windows Server - VMware - Veeam - Microsoft 365 - Cisco switching - site-to-site VPN - SCCM - PowerShell - Portuguese (native), German (fluent), English (fluent)",
+        "page": null,
+        "line_start": 15,
+        "line_end": 15,
+        "bbox": null
+      }
+    },
+    {
+      "id": "c14",
+      "skill": "SCCM",
+      "years_claimed": null,
+      "since_year": null,
+      "level": null,
+      "employer": null,
+      "evidence": {
+        "text": "Active Directory - Windows Server - VMware - Veeam - Microsoft 365 - Cisco switching - site-to-site VPN - SCCM - PowerShell - Portuguese (native), German (fluent), English (fluent)",
+        "page": null,
+        "line_start": 15,
+        "line_end": 15,
+        "bbox": null
+      }
+    },
+    {
+      "id": "c15",
+      "skill": "PowerShell",
+      "years_claimed": null,
+      "since_year": null,
+      "level": null,
+      "employer": null,
+      "evidence": {
+        "text": "Active Directory - Windows Server - VMware - Veeam - Microsoft 365 - Cisco switching - site-to-site VPN - SCCM - PowerShell - Portuguese (native), German (fluent), English (fluent)",
+        "page": null,
+        "line_start": 15,
+        "line_end": 15,
+        "bbox": null
+      }
+    },
+    {
+      "id": "c16",
+      "skill": "Portuguese",
+      "years_claimed": null,
+      "since_year": null,
+      "level": null,
+      "employer": null,
+      "evidence": {
+        "text": "Active Directory - Windows Server - VMware - Veeam - Microsoft 365 - Cisco switching - site-to-site VPN - SCCM - PowerShell - Portuguese (native), German (fluent), English (fluent)",
+        "page": null,
+        "line_start": 15,
+        "line_end": 15,
+        "bbox": null
+      }
+    },
+    {
+      "id": "c17",
+      "skill": "German",
+      "years_claimed": null,
+      "since_year": null,
+      "level": null,
+      "employer": null,
+      "evidence": {
+        "text": "Active Directory - Windows Server - VMware - Veeam - Microsoft 365 - Cisco switching - site-to-site VPN - SCCM - PowerShell - Portuguese (native), German (fluent), English (fluent)",
+        "page": null,
+        "line_start": 15,
+        "line_end": 15,
+        "bbox": null
+      }
+    },
+    {
+      "id": "c18",
+      "skill": "English",
+      "years_claimed": null,
+      "since_year": null,
+      "level": null,
+      "employer": null,
+      "evidence": {
+        "text": "Active Directory - Windows Server - VMware - Veeam - Microsoft 365 - Cisco switching - site-to-site VPN - SCCM - PowerShell - Portuguese (native), German (fluent), English (fluent)",
+        "page": null,
+        "line_start": 15,
+        "line_end": 15,
+        "bbox": null
+      }
+    },
+    {
+      "id": "c19",
+      "skill": "BSc Information Systems",
+      "years_claimed": null,
+      "since_year": null,
+      "level": null,
+      "employer": null,
+      "evidence": {
+        "text": "BSc Information Systems, Universidade do Porto, 2014. MCSA. EU citizen.",
+        "page": null,
+        "line_start": 18,
+        "line_end": 18,
+        "bbox": null
+      }
+    },
+    {
+      "id": "c20",
+      "skill": "MCSA",
+      "years_claimed": null,
+      "since_year": null,
+      "level": null,
+      "employer": null,
+      "evidence": {
+        "text": "BSc Information Systems, Universidade do Porto, 2014. MCSA. EU citizen.",
+        "page": null,
+        "line_start": 18,
+        "line_end": 18,
+        "bbox": null
+      }
+    }
+  ],
+  "employment": [
+    {
+      "employer": "Nordfracht Logistik",
+      "title": "Senior Infrastructure Engineer",
+      "start": "January 2018",
+      "end": "present",
+      "full_time": true,
+      "evidence": {
+        "text": "Senior Infrastructure Engineer - Nordfracht Logistik, Hamburg · January 2018 - present",
+        "page": null,
+        "line_start": 7,
+        "line_end": 7,
+        "bbox": null
+      }
+    },
+    {
+      "employer": "Baltic Freight Services",
+      "title": "Infrastructure Engineer",
+      "start": "September 2014",
+      "end": "December 2017",
+      "full_time": true,
+      "evidence": {
+        "text": "Infrastructure Engineer - Baltic Freight Services, Kiel · September 2014 - December 2017",
+        "page": null,
+        "line_start": 11,
+        "line_end": 11,
+        "bbox": null
+      }
+    }
+  ],
+  "verifications": [],
+  "credentials": [
+    {
+      "claim_id": "",
+      "skill": "MCSA (Microsoft)",
+      "state": "corroborated",
+      "evidence": [],
+      "note": "named as its issuer names it (mcsa)",
+      "source_scope": "cv"
+    }
+  ],
+  "consent_summary": "The CV you sent us",
+  "consent_grants": {
+    "cv": true,
+    "github": false,
+    "publications": false
+  },
+  "freshness_label": "CURRENT",
+  "freshness_note": "Most recent dated activity: 2026.",
+  "freshness_tone": "green",
+  "last_active_year": 2026,
+  "questions": [
+    {
+      "question": "One requirement for this role is not addressed in your CV: the right to work in Germany. Could you tell us where you stand on this?",
+      "reason": "this is a hard requirement your CV does not address",
+      "source": "confirmation",
+      "requirement_id": "ext-7",
+      "severity": "critical"
+    },
+    {
+      "question": "We could not find evidence of this in your CV: Experience with information security risk management and audit. Is that something you have worked on?",
+      "reason": "major gap against a required requirement",
+      "source": "gap",
+      "requirement_id": "ext-4",
+      "severity": "major"
+    },
+    {
+      "question": "We could not find evidence of this in your CV: we go into an ISO 27001 audit next year, so this hire must have worked under a formal compliance or accreditation regime. Is that something you have worked on?",
+      "reason": "major gap against a required requirement",
+      "source": "gap",
+      "requirement_id": "int-0",
+      "severity": "major"
+    },
+    {
+      "question": "We could not find evidence of this in your CV: Disaster recovery and business continuity planning. Is that something you have worked on?",
+      "reason": "minor gap against a preferred requirement",
+      "source": "gap",
+      "requirement_id": "ext-11",
+      "severity": "minor"
+    },
+    {
+      "question": "We could not find evidence of this in your CV: Exposure to cloud migration (Azure or AWS). Is that something you have worked on?",
+      "reason": "minor gap against a preferred requirement",
+      "source": "gap",
+      "requirement_id": "ext-12",
+      "severity": "minor"
+    },
+    {
+      "question": "We could not find evidence of this in your CV: three days a week in the Berlin office. Is that something you have worked on?",
+      "reason": "minor gap against a preferred requirement",
+      "source": "gap",
+      "requirement_id": "int-2",
+      "severity": "minor"
+    }
+  ],
+  "audit": [
+    {
+      "at": "2026-08-21T07:25:35+00:00",
+      "event": "internal_constraint_accepted",
+      "detail": "team_context: we go into an ISO 27001 audit next year, so this hire must have worked under a formal compliance or accreditation regime",
+      "actor": "system"
+    },
+    {
+      "at": "2026-08-21T07:25:35+00:00",
+      "event": "internal_constraint_accepted",
+      "detail": "mentoring_capacity: the team is junior, this hire must mentor two engineers",
+      "actor": "system"
+    },
+    {
+      "at": "2026-08-21T07:25:35+00:00",
+      "event": "internal_constraint_accepted",
+      "detail": "onsite_days: three days a week in the Berlin office",
+      "actor": "system"
+    },
+    {
+      "at": "2026-08-21T07:25:35+00:00",
+      "event": "internal_constraint_REFUSED",
+      "detail": "team_context: 'we want a young energetic team with no career gaps' - refused: age: age proxy; socioeconomic/proxy: career-gap screening - a proxy for parental leave, illness and disability",
+      "actor": "system"
+    }
+  ]
+}

@@ -123,6 +123,19 @@ def map_claims(
             evidence=[by_id[cid].evidence for cid in ids],
         )
 
+    # A mapping that came back completely empty is not a candidate who matches nothing - it is
+    # a call that did not do its job. Backfilling every requirement as "missing" turns that
+    # into a confident 0%, which ranks a qualified person last and reads to a recruiter as
+    # "unqualified" rather than "we failed to check". Seen live: a network engineer whose CV
+    # listed Cisco routing, switching and firewalls scored 0% against a role asking for
+    # exactly that, because the mapping call failed under a rate limit and nothing raised.
+    if claims and not seen:
+        raise RuntimeError(
+            f"the mapping step returned no usable matches for any of {len(requirements)} "
+            f"requirements, from {len(claims)} shortlisted claims - refusing to score this as "
+            "0%. Re-run the CV."
+        )
+
     # Any requirement the model skipped counts as missing. Dropping it instead would quietly
     # shrink the denominator and inflate everyone's coverage.
     for r in requirements:

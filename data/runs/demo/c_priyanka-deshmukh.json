@@ -1,0 +1,729 @@
+{
+  "candidate_id": "priyanka-deshmukh",
+  "name": "priyanka-deshmukh",
+  "category": "demo",
+  "source_path": "data/uploads/demo/priyanka-deshmukh.pdf",
+  "fit": {
+    "score": 0.1969,
+    "required_coverage": 0.22,
+    "preferred_coverage": 0.1429,
+    "matches": [
+      {
+        "requirement_id": "ext-0",
+        "strength": "strong",
+        "basis": "unstated",
+        "claim_ids": [
+          "c0",
+          "c1"
+        ],
+        "rationale": "Computed career facts show 8.1 years total experience, with 6y4m as Cloud Platform Engineer and 1y8m as DevOps Engineer, both in enterprise IT infrastructure roles. This directly evidences at least 5 years of enterprise IT infrastructure experience.",
+        "evidence": [
+          {
+            "text": "Platform engineer with six years building and running cloud infrastructure, mostly AWS and Kubernetes.",
+            "page": null,
+            "line_start": 5,
+            "line_end": 5,
+            "bbox": null
+          },
+          {
+            "text": "Platform engineer with six years building and running cloud infrastructure, mostly AWS and Kubernetes.",
+            "page": null,
+            "line_start": 5,
+            "line_end": 5,
+            "bbox": null
+          }
+        ]
+      },
+      {
+        "requirement_id": "ext-1",
+        "strength": "missing",
+        "basis": "unstated",
+        "claim_ids": [],
+        "rationale": "No claim mentions managing or leading a technical team. Computed career facts show zero roles with a leadership title. No evidence of team management or leadership.",
+        "evidence": []
+      },
+      {
+        "requirement_id": "ext-2",
+        "strength": "missing",
+        "basis": "unstated",
+        "claim_ids": [],
+        "rationale": "No claim mentions Active Directory administration or design. The candidate lists Linux administration but not AD. No evidence.",
+        "evidence": []
+      },
+      {
+        "requirement_id": "ext-3",
+        "strength": "missing",
+        "basis": "unstated",
+        "claim_ids": [],
+        "rationale": "No claim mentions routing, switching, or firewalls. The candidate's claims focus on cloud, Kubernetes, Terraform, CI/CD, and Linux, but not network administration.",
+        "evidence": []
+      },
+      {
+        "requirement_id": "ext-4",
+        "strength": "missing",
+        "basis": "unstated",
+        "claim_ids": [],
+        "rationale": "No claim mentions information security risk management or audit. The candidate lists Prometheus and Grafana (monitoring) but not security risk or audit work.",
+        "evidence": []
+      },
+      {
+        "requirement_id": "ext-5",
+        "strength": "moderate",
+        "basis": "unstated",
+        "claim_ids": [
+          "c0",
+          "c1",
+          "c2",
+          "c3"
+        ],
+        "rationale": "The candidate has built and run cloud infrastructure, used Terraform for all infrastructure, and built CI/CD pipelines. This implies planning and executing infrastructure changes, but no explicit mention of upgrade projects. Closely related experience, but not direct evidence of upgrade project planning.",
+        "evidence": [
+          {
+            "text": "Platform engineer with six years building and running cloud infrastructure, mostly AWS and Kubernetes.",
+            "page": null,
+            "line_start": 5,
+            "line_end": 5,
+            "bbox": null
+          },
+          {
+            "text": "Platform engineer with six years building and running cloud infrastructure, mostly AWS and Kubernetes.",
+            "page": null,
+            "line_start": 5,
+            "line_end": 5,
+            "bbox": null
+          },
+          {
+            "text": "Terraform for all infrastructure.",
+            "page": null,
+            "line_start": 8,
+            "line_end": 8,
+            "bbox": null
+          },
+          {
+            "text": "Built the CI and deployment pipelines.",
+            "page": null,
+            "line_start": null,
+            "line_end": null,
+            "bbox": null
+          }
+        ]
+      },
+      {
+        "requirement_id": "ext-6",
+        "strength": "moderate",
+        "basis": "unstated",
+        "claim_ids": [
+          "c0",
+          "c1",
+          "c2",
+          "c3",
+          "c4",
+          "c5",
+          "c6",
+          "c7",
+          "c8",
+          "c9"
+        ],
+        "rationale": "No degree is mentioned. However, the candidate has 8.1 years of hands-on technical experience in cloud, Kubernetes, Terraform, CI/CD, and Linux, which is substantial demonstrable experience that could be considered equivalent. Moderate strength because it is not a formal degree but the experience is directly relevant.",
+        "evidence": [
+          {
+            "text": "Platform engineer with six years building and running cloud infrastructure, mostly AWS and Kubernetes.",
+            "page": null,
+            "line_start": 5,
+            "line_end": 5,
+            "bbox": null
+          },
+          {
+            "text": "Platform engineer with six years building and running cloud infrastructure, mostly AWS and Kubernetes.",
+            "page": null,
+            "line_start": 5,
+            "line_end": 5,
+            "bbox": null
+          },
+          {
+            "text": "Terraform for all infrastructure.",
+            "page": null,
+            "line_start": 8,
+            "line_end": 8,
+            "bbox": null
+          },
+          {
+            "text": "Built the CI and deployment pipelines.",
+            "page": null,
+            "line_start": null,
+            "line_end": null,
+            "bbox": null
+          },
+          {
+            "text": "Docker, Kubernetes and GitLab CI for a software business.",
+            "page": null,
+            "line_start": 12,
+            "line_end": 12,
+            "bbox": null
+          },
+          {
+            "text": "Docker, Kubernetes and GitLab CI for a software business.",
+            "page": null,
+            "line_start": 12,
+            "line_end": 12,
+            "bbox": null
+          },
+          {
+            "text": "Some Linux server administration.",
+            "page": null,
+            "line_start": 12,
+            "line_end": 12,
+            "bbox": null
+          },
+          {
+            "text": "AWS - Kubernetes - Terraform - Docker - GitLab CI - Linux administration - Python - Prometheus and Grafana - English (fluent), Hindi (native), Dutch (A2)",
+            "page": null,
+            "line_start": 14,
+            "line_end": 14,
+            "bbox": null
+          },
+          {
+            "text": "AWS - Kubernetes - Terraform - Docker - GitLab CI - Linux administration - Python - Prometheus and Grafana - English (fluent), Hindi (native), Dutch (A2)",
+            "page": null,
+            "line_start": 14,
+            "line_end": 14,
+            "bbox": null
+          },
+          {
+            "text": "AWS - Kubernetes - Terraform - Docker - GitLab CI - Linux administration - Python - Prometheus and Grafana - English (fluent), Hindi (native), Dutch (A2)",
+            "page": null,
+            "line_start": 14,
+            "line_end": 14,
+            "bbox": null
+          }
+        ]
+      },
+      {
+        "requirement_id": "ext-7",
+        "strength": "missing",
+        "basis": "unstated",
+        "claim_ids": [],
+        "rationale": "No claim mentions right to work in Germany. The candidate lists languages (English, Hindi, Dutch) but not work authorization. Basis is unstated because absence of mention is not contradiction.",
+        "evidence": []
+      },
+      {
+        "requirement_id": "ext-8",
+        "strength": "missing",
+        "basis": "unstated",
+        "claim_ids": [],
+        "rationale": "No claim mentions any security certification such as CISSP, CISM, or Security+. No evidence.",
+        "evidence": []
+      },
+      {
+        "requirement_id": "ext-9",
+        "strength": "missing",
+        "basis": "unstated",
+        "claim_ids": [],
+        "rationale": "No claim mentions logistics, transport, or manufacturing. The candidate's experience is in software/cloud, not those industries.",
+        "evidence": []
+      },
+      {
+        "requirement_id": "ext-10",
+        "strength": "missing",
+        "basis": "unstated",
+        "claim_ids": [],
+        "rationale": "No claim mentions VMware or Hyper-V. The candidate lists Docker and Kubernetes, which are containerization, not traditional virtualization. No evidence.",
+        "evidence": []
+      },
+      {
+        "requirement_id": "ext-11",
+        "strength": "missing",
+        "basis": "unstated",
+        "claim_ids": [],
+        "rationale": "No claim mentions disaster recovery or business continuity planning. No evidence.",
+        "evidence": []
+      },
+      {
+        "requirement_id": "ext-12",
+        "strength": "strong",
+        "basis": "unstated",
+        "claim_ids": [
+          "c0"
+        ],
+        "rationale": "The candidate explicitly states six years building and running cloud infrastructure, mostly AWS. This is direct evidence of cloud migration exposure (AWS). Strong for AWS, and the requirement is Azure or AWS, so it meets it.",
+        "evidence": [
+          {
+            "text": "Platform engineer with six years building and running cloud infrastructure, mostly AWS and Kubernetes.",
+            "page": null,
+            "line_start": 5,
+            "line_end": 5,
+            "bbox": null
+          }
+        ]
+      },
+      {
+        "requirement_id": "ext-13",
+        "strength": "missing",
+        "basis": "unstated",
+        "claim_ids": [],
+        "rationale": "No claim mentions German language skills. The candidate lists English, Hindi, and Dutch, but not German. No evidence.",
+        "evidence": []
+      },
+      {
+        "requirement_id": "int-0",
+        "strength": "missing",
+        "basis": "unstated",
+        "claim_ids": [],
+        "rationale": "No claim mentions working under a formal compliance or accreditation regime such as ISO 27001. The candidate mentions monitoring tools but not compliance or audit. No evidence.",
+        "evidence": []
+      },
+      {
+        "requirement_id": "int-1",
+        "strength": "missing",
+        "basis": "unstated",
+        "claim_ids": [],
+        "rationale": "No claim mentions mentoring or leading engineers. Computed career facts show no leadership titles. No evidence of mentoring experience.",
+        "evidence": []
+      },
+      {
+        "requirement_id": "int-2",
+        "strength": "missing",
+        "basis": "unstated",
+        "claim_ids": [],
+        "rationale": "No claim mentions willingness to work in Berlin or any location preference. The candidate's location is not stated. No evidence.",
+        "evidence": []
+      }
+    ],
+    "gaps": [
+      {
+        "requirement_id": "ext-1",
+        "severity": "major",
+        "text": "Demonstrated experience managing or leading a technical team",
+        "needs_confirmation": false
+      },
+      {
+        "requirement_id": "ext-2",
+        "severity": "major",
+        "text": "Hands-on Active Directory administration and design",
+        "needs_confirmation": false
+      },
+      {
+        "requirement_id": "ext-3",
+        "severity": "major",
+        "text": "Network administration experience (routing, switching, firewalls)",
+        "needs_confirmation": false
+      },
+      {
+        "requirement_id": "ext-4",
+        "severity": "major",
+        "text": "Experience with information security risk management and audit",
+        "needs_confirmation": false
+      },
+      {
+        "requirement_id": "ext-7",
+        "severity": "critical",
+        "text": "Must have the right to work in Germany",
+        "needs_confirmation": true
+      },
+      {
+        "requirement_id": "ext-8",
+        "severity": "minor",
+        "text": "Security certification such as CISSP, CISM or Security+",
+        "needs_confirmation": false
+      },
+      {
+        "requirement_id": "ext-9",
+        "severity": "minor",
+        "text": "Experience in logistics, transport or manufacturing",
+        "needs_confirmation": false
+      },
+      {
+        "requirement_id": "ext-10",
+        "severity": "minor",
+        "text": "Familiarity with virtualisation (VMware or Hyper-V)",
+        "needs_confirmation": false
+      },
+      {
+        "requirement_id": "ext-11",
+        "severity": "minor",
+        "text": "Disaster recovery and business continuity planning",
+        "needs_confirmation": false
+      },
+      {
+        "requirement_id": "ext-13",
+        "severity": "minor",
+        "text": "German language skills",
+        "needs_confirmation": false
+      },
+      {
+        "requirement_id": "int-0",
+        "severity": "major",
+        "text": "we go into an ISO 27001 audit next year, so this hire must have worked under a formal compliance or accreditation regime",
+        "needs_confirmation": false
+      },
+      {
+        "requirement_id": "int-1",
+        "severity": "major",
+        "text": "the team is junior, this hire must mentor two engineers",
+        "needs_confirmation": false
+      },
+      {
+        "requirement_id": "int-2",
+        "severity": "minor",
+        "text": "three days a week in the Berlin office",
+        "needs_confirmation": false
+      }
+    ],
+    "dealbreakers_unmet": [],
+    "dealbreakers_unstated": [
+      "ext-7"
+    ],
+    "capped_by_dealbreaker": false
+  },
+  "style": {
+    "score": 0.0,
+    "band": "low",
+    "patterns_fired": [],
+    "word_count": 146,
+    "caveat": "Advisory only - this signal never contributes to a flag. We measured it on 60 real resumes against LLM rewrites of the same resumes: the strongest pattern separated the two classes for only 27% of rewrites, and most separated for under 8%. Published work also finds a 61% false-positive rate for non-native English writers. Read it as a prompt to look at the document yourself, never as a finding about the person."
+  },
+  "cp2": {
+    "checkpoint": "cp2_claims",
+    "verdict": "clear",
+    "flags": [],
+    "reason": "no authenticity inconsistencies found"
+  },
+  "cp3_pending": true,
+  "document": {
+    "source_path": "data/uploads/demo/priyanka-deshmukh.pdf",
+    "text": "Priyanka Deshmukh\nCloud Platform Engineer\nAmsterdam · priyanka.deshmukh@example.com\nSummary\nPlatform engineer with six years building and running cloud infrastructure, mostly AWS and Kubernetes.\nExperience\nCloud Platform Engineer - Vaart Digital BV, Amsterdam · April 2020 - present\nOwn the AWS estate and the Kubernetes platform serving 40 engineers. Terraform for all infrastructure. Built\nthe CI and deployment pipelines. On call for platform incidents. Reduced monthly cloud spend by 30 percent\nthrough rightsizing.\nDevOps Engineer - Zuiderpoort Software, Utrecht · July 2018 - March 2020\nDocker, Kubernetes and GitLab CI for a software business. Some Linux server administration.\nSkills\nAWS - Kubernetes - Terraform - Docker - GitLab CI - Linux administration - Python - Prometheus and Grafana -\nEnglish (fluent), Hindi (native), Dutch (A2)\nEducation & Certifications\nBE Computer Engineering, University of Pune, 2017. AWS Solutions Architect Associate. Dutch residence\npermit with unrestricted right to work.\n",
+    "raw_text": "Priyanka Deshmukh\nCloud Platform Engineer\nAmsterdam · priyanka.deshmukh@example.com\nSummary\nPlatform engineer with six years building and running cloud infrastructure, mostly AWS and Kubernetes.\nExperience\nCloud Platform Engineer - Vaart Digital BV, Amsterdam · April 2020 - present\nOwn the AWS estate and the Kubernetes platform serving 40 engineers. Terraform for all infrastructure. Built\nthe CI and deployment pipelines. On call for platform incidents. Reduced monthly cloud spend by 30 percent\nthrough rightsizing.\nDevOps Engineer - Zuiderpoort Software, Utrecht · July 2018 - March 2020\nDocker, Kubernetes and GitLab CI for a software business. Some Linux server administration.\nSkills\nAWS - Kubernetes - Terraform - Docker - GitLab CI - Linux administration - Python - Prometheus and Grafana -\nEnglish (fluent), Hindi (native), Dutch (A2)\nEducation & Certifications\nBE Computer Engineering, University of Pune, 2017. AWS Solutions Architect Associate. Dutch residence\npermit with unrestricted right to work.\n",
+    "hidden": [],
+    "engine_chars": {
+      "pymupdf": 1015,
+      "pypdfium2": 1031,
+      "pdfplumber": 1014,
+      "pdfminer": 1028
+    },
+    "divergence": 0.016488845780795347
+  },
+  "claims": [
+    {
+      "id": "c0",
+      "skill": "AWS",
+      "years_claimed": null,
+      "since_year": null,
+      "level": null,
+      "employer": null,
+      "evidence": {
+        "text": "Platform engineer with six years building and running cloud infrastructure, mostly AWS and Kubernetes.",
+        "page": null,
+        "line_start": 5,
+        "line_end": 5,
+        "bbox": null
+      }
+    },
+    {
+      "id": "c1",
+      "skill": "Kubernetes",
+      "years_claimed": null,
+      "since_year": null,
+      "level": null,
+      "employer": null,
+      "evidence": {
+        "text": "Platform engineer with six years building and running cloud infrastructure, mostly AWS and Kubernetes.",
+        "page": null,
+        "line_start": 5,
+        "line_end": 5,
+        "bbox": null
+      }
+    },
+    {
+      "id": "c2",
+      "skill": "Terraform",
+      "years_claimed": null,
+      "since_year": null,
+      "level": null,
+      "employer": null,
+      "evidence": {
+        "text": "Terraform for all infrastructure.",
+        "page": null,
+        "line_start": 8,
+        "line_end": 8,
+        "bbox": null
+      }
+    },
+    {
+      "id": "c3",
+      "skill": "CI/CD",
+      "years_claimed": null,
+      "since_year": null,
+      "level": null,
+      "employer": null,
+      "evidence": {
+        "text": "Built the CI and deployment pipelines.",
+        "page": null,
+        "line_start": null,
+        "line_end": null,
+        "bbox": null
+      }
+    },
+    {
+      "id": "c4",
+      "skill": "Docker",
+      "years_claimed": null,
+      "since_year": null,
+      "level": null,
+      "employer": null,
+      "evidence": {
+        "text": "Docker, Kubernetes and GitLab CI for a software business.",
+        "page": null,
+        "line_start": 12,
+        "line_end": 12,
+        "bbox": null
+      }
+    },
+    {
+      "id": "c5",
+      "skill": "GitLab CI",
+      "years_claimed": null,
+      "since_year": null,
+      "level": null,
+      "employer": null,
+      "evidence": {
+        "text": "Docker, Kubernetes and GitLab CI for a software business.",
+        "page": null,
+        "line_start": 12,
+        "line_end": 12,
+        "bbox": null
+      }
+    },
+    {
+      "id": "c6",
+      "skill": "Linux administration",
+      "years_claimed": null,
+      "since_year": null,
+      "level": null,
+      "employer": null,
+      "evidence": {
+        "text": "Some Linux server administration.",
+        "page": null,
+        "line_start": 12,
+        "line_end": 12,
+        "bbox": null
+      }
+    },
+    {
+      "id": "c7",
+      "skill": "Python",
+      "years_claimed": null,
+      "since_year": null,
+      "level": null,
+      "employer": null,
+      "evidence": {
+        "text": "AWS - Kubernetes - Terraform - Docker - GitLab CI - Linux administration - Python - Prometheus and Grafana - English (fluent), Hindi (native), Dutch (A2)",
+        "page": null,
+        "line_start": 14,
+        "line_end": 14,
+        "bbox": null
+      }
+    },
+    {
+      "id": "c8",
+      "skill": "Prometheus",
+      "years_claimed": null,
+      "since_year": null,
+      "level": null,
+      "employer": null,
+      "evidence": {
+        "text": "AWS - Kubernetes - Terraform - Docker - GitLab CI - Linux administration - Python - Prometheus and Grafana - English (fluent), Hindi (native), Dutch (A2)",
+        "page": null,
+        "line_start": 14,
+        "line_end": 14,
+        "bbox": null
+      }
+    },
+    {
+      "id": "c9",
+      "skill": "Grafana",
+      "years_claimed": null,
+      "since_year": null,
+      "level": null,
+      "employer": null,
+      "evidence": {
+        "text": "AWS - Kubernetes - Terraform - Docker - GitLab CI - Linux administration - Python - Prometheus and Grafana - English (fluent), Hindi (native), Dutch (A2)",
+        "page": null,
+        "line_start": 14,
+        "line_end": 14,
+        "bbox": null
+      }
+    },
+    {
+      "id": "c10",
+      "skill": "English",
+      "years_claimed": null,
+      "since_year": null,
+      "level": "fluent",
+      "employer": null,
+      "evidence": {
+        "text": "AWS - Kubernetes - Terraform - Docker - GitLab CI - Linux administration - Python - Prometheus and Grafana - English (fluent), Hindi (native), Dutch (A2)",
+        "page": null,
+        "line_start": 14,
+        "line_end": 14,
+        "bbox": null
+      }
+    },
+    {
+      "id": "c11",
+      "skill": "Hindi",
+      "years_claimed": null,
+      "since_year": null,
+      "level": "native",
+      "employer": null,
+      "evidence": {
+        "text": "AWS - Kubernetes - Terraform - Docker - GitLab CI - Linux administration - Python - Prometheus and Grafana - English (fluent), Hindi (native), Dutch (A2)",
+        "page": null,
+        "line_start": 14,
+        "line_end": 14,
+        "bbox": null
+      }
+    },
+    {
+      "id": "c12",
+      "skill": "Dutch",
+      "years_claimed": null,
+      "since_year": null,
+      "level": "A2",
+      "employer": null,
+      "evidence": {
+        "text": "AWS - Kubernetes - Terraform - Docker - GitLab CI - Linux administration - Python - Prometheus and Grafana - English (fluent), Hindi (native), Dutch (A2)",
+        "page": null,
+        "line_start": 14,
+        "line_end": 14,
+        "bbox": null
+      }
+    },
+    {
+      "id": "c13",
+      "skill": "AWS Solutions Architect Associate",
+      "years_claimed": null,
+      "since_year": null,
+      "level": null,
+      "employer": null,
+      "evidence": {
+        "text": "AWS Solutions Architect Associate.",
+        "page": null,
+        "line_start": 17,
+        "line_end": 17,
+        "bbox": null
+      }
+    }
+  ],
+  "employment": [
+    {
+      "employer": "Vaart Digital BV",
+      "title": "Cloud Platform Engineer",
+      "start": "April 2020",
+      "end": "present",
+      "full_time": true,
+      "evidence": {
+        "text": "Cloud Platform Engineer - Vaart Digital BV, Amsterdam · April 2020 - present",
+        "page": null,
+        "line_start": 7,
+        "line_end": 7,
+        "bbox": null
+      }
+    },
+    {
+      "employer": "Zuiderpoort Software",
+      "title": "DevOps Engineer",
+      "start": "July 2018",
+      "end": "March 2020",
+      "full_time": true,
+      "evidence": {
+        "text": "DevOps Engineer - Zuiderpoort Software, Utrecht · July 2018 - March 2020",
+        "page": null,
+        "line_start": 11,
+        "line_end": 11,
+        "bbox": null
+      }
+    }
+  ],
+  "verifications": [],
+  "credentials": [],
+  "consent_summary": "The CV you sent us",
+  "consent_grants": {
+    "cv": true,
+    "github": false,
+    "publications": false
+  },
+  "freshness_label": "CURRENT",
+  "freshness_note": "Most recent dated activity: 2026.",
+  "freshness_tone": "green",
+  "last_active_year": 2026,
+  "questions": [
+    {
+      "question": "One requirement for this role isn't mentioned in your CV: the right to work in Germany. Could you clarify where you stand on that?",
+      "reason": "this is a hard requirement your CV does not address",
+      "source": "confirmation",
+      "requirement_id": "ext-7",
+      "severity": "critical"
+    },
+    {
+      "question": "Your CV doesn't show any experience managing or leading a technical team. Have you had that kind of role before?",
+      "reason": "major gap against a required requirement",
+      "source": "gap",
+      "requirement_id": "ext-1",
+      "severity": "major"
+    },
+    {
+      "question": "I didn't see hands-on Active Directory administration or design in your CV. Is that something you've done?",
+      "reason": "major gap against a required requirement",
+      "source": "gap",
+      "requirement_id": "ext-2",
+      "severity": "major"
+    },
+    {
+      "question": "Your CV doesn't mention network administration—routing, switching, or firewalls. Have you worked in that area?",
+      "reason": "major gap against a required requirement",
+      "source": "gap",
+      "requirement_id": "ext-3",
+      "severity": "major"
+    },
+    {
+      "question": "I didn't find any experience with information security risk management or audits in your CV. Is that something you've handled?",
+      "reason": "major gap against a required requirement",
+      "source": "gap",
+      "requirement_id": "ext-4",
+      "severity": "major"
+    },
+    {
+      "question": "Your CV doesn't mention working under a formal compliance or accreditation regime. Since we're heading into an ISO 27001 audit next year, have you had that kind of experience?",
+      "reason": "major gap against a required requirement",
+      "source": "gap",
+      "requirement_id": "int-0",
+      "severity": "major"
+    }
+  ],
+  "audit": [
+    {
+      "at": "2026-08-21T07:25:35+00:00",
+      "event": "internal_constraint_accepted",
+      "detail": "team_context: we go into an ISO 27001 audit next year, so this hire must have worked under a formal compliance or accreditation regime",
+      "actor": "system"
+    },
+    {
+      "at": "2026-08-21T07:25:35+00:00",
+      "event": "internal_constraint_accepted",
+      "detail": "mentoring_capacity: the team is junior, this hire must mentor two engineers",
+      "actor": "system"
+    },
+    {
+      "at": "2026-08-21T07:25:35+00:00",
+      "event": "internal_constraint_accepted",
+      "detail": "onsite_days: three days a week in the Berlin office",
+      "actor": "system"
+    },
+    {
+      "at": "2026-08-21T07:25:35+00:00",
+      "event": "internal_constraint_REFUSED",
+      "detail": "team_context: 'we want a young energetic team with no career gaps' - refused: age: age proxy; socioeconomic/proxy: career-gap screening - a proxy for parental leave, illness and disability",
+      "actor": "system"
+    }
+  ]
+}

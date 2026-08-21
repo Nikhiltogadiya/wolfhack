@@ -1,0 +1,721 @@
+{
+  "candidate_id": "margit-halvorsen",
+  "name": "margit-halvorsen",
+  "category": "demo",
+  "source_path": "data/uploads/demo/margit-halvorsen.pdf",
+  "fit": {
+    "score": 0.3766,
+    "required_coverage": 0.44,
+    "preferred_coverage": 0.2286,
+    "matches": [
+      {
+        "requirement_id": "ext-0",
+        "strength": "moderate",
+        "basis": "unstated",
+        "claim_ids": [],
+        "rationale": "Total experience is 10.6 years in IT security roles, which is enterprise IT infrastructure adjacent, but the resume does not explicitly state infrastructure (servers, storage, network) experience. The security analyst roles likely involve infrastructure, but it is not directly claimed.",
+        "evidence": []
+      },
+      {
+        "requirement_id": "ext-1",
+        "strength": "missing",
+        "basis": "unstated",
+        "claim_ids": [],
+        "rationale": "No leadership titles in employment history (0 roles with leadership title). No claim of managing or leading a team. The requirement is for demonstrated experience managing or leading a technical team, which is not evidenced.",
+        "evidence": []
+      },
+      {
+        "requirement_id": "ext-2",
+        "strength": "missing",
+        "basis": "unstated",
+        "claim_ids": [],
+        "rationale": "No mention of Active Directory administration or design anywhere in the claims. The candidate's experience is in security analysis, not AD administration.",
+        "evidence": []
+      },
+      {
+        "requirement_id": "ext-3",
+        "strength": "weak",
+        "basis": "unstated",
+        "claim_ids": [
+          "c6"
+        ],
+        "rationale": "Claim c6 states 'Review firewall and access control changes.' This is tangential to network administration (routing, switching, firewalls) - reviewing firewall changes is not the same as administering networks. It is weak evidence.",
+        "evidence": [
+          {
+            "text": "Review firewall and access control changes.",
+            "page": null,
+            "line_start": 10,
+            "line_end": 10,
+            "bbox": null
+          }
+        ]
+      },
+      {
+        "requirement_id": "ext-4",
+        "strength": "strong",
+        "basis": "unstated",
+        "claim_ids": [
+          "c0",
+          "c1",
+          "c9",
+          "c10"
+        ],
+        "rationale": "Claims c0, c1, c9, c10 directly state risk assessment, audit response, access reviews, and vendor security assessments for an insurer. This is direct evidence of information security risk management and audit experience.",
+        "evidence": [
+          {
+            "text": "Security analyst with seven years in risk assessment, audit response and awareness programmes for regulated businesses.",
+            "page": null,
+            "line_start": 5,
+            "line_end": 5,
+            "bbox": null
+          },
+          {
+            "text": "Security analyst with seven years in risk assessment, audit response and awareness programmes for regulated businesses.",
+            "page": null,
+            "line_start": 5,
+            "line_end": 5,
+            "bbox": null
+          },
+          {
+            "text": "Access reviews, vendor security assessments, and incident documentation for an insurer.",
+            "page": null,
+            "line_start": 13,
+            "line_end": 13,
+            "bbox": null
+          },
+          {
+            "text": "Access reviews, vendor security assessments, and incident documentation for an insurer.",
+            "page": null,
+            "line_start": 13,
+            "line_end": 13,
+            "bbox": null
+          }
+        ]
+      },
+      {
+        "requirement_id": "ext-5",
+        "strength": "missing",
+        "basis": "unstated",
+        "claim_ids": [],
+        "rationale": "No claim of planning or executing infrastructure upgrade projects. The candidate's experience is in security analysis, not infrastructure projects.",
+        "evidence": []
+      },
+      {
+        "requirement_id": "ext-6",
+        "strength": "strong",
+        "basis": "unstated",
+        "claim_ids": [
+          "c16"
+        ],
+        "rationale": "Claim c16 states 'MSc Information Security, NTNU Trondheim, 2015.' This is a technical degree, directly meeting the requirement for a Bachelor's in a technical field or equivalent.",
+        "evidence": [
+          {
+            "text": "MSc Information Security, NTNU Trondheim, 2015. CISM. Norwegian citizen, EEA.",
+            "page": null,
+            "line_start": 18,
+            "line_end": 18,
+            "bbox": null
+          }
+        ]
+      },
+      {
+        "requirement_id": "ext-7",
+        "strength": "moderate",
+        "basis": "unstated",
+        "claim_ids": [
+          "c16"
+        ],
+        "rationale": "Claim c16 states 'Norwegian citizen, EEA.' EEA citizens have the right to work in Germany. This is direct evidence of right to work, though not explicitly stating Germany, it is a reasonable inference. Basis is stated, not unstated.",
+        "evidence": [
+          {
+            "text": "MSc Information Security, NTNU Trondheim, 2015. CISM. Norwegian citizen, EEA.",
+            "page": null,
+            "line_start": 18,
+            "line_end": 18,
+            "bbox": null
+          }
+        ]
+      },
+      {
+        "requirement_id": "ext-8",
+        "strength": "strong",
+        "basis": "unstated",
+        "claim_ids": [
+          "c16"
+        ],
+        "rationale": "Claim c16 explicitly lists 'CISM' as a certification. This directly meets the preferred requirement for a security certification such as CISSP, CISM, or Security+.",
+        "evidence": [
+          {
+            "text": "MSc Information Security, NTNU Trondheim, 2015. CISM. Norwegian citizen, EEA.",
+            "page": null,
+            "line_start": 18,
+            "line_end": 18,
+            "bbox": null
+          }
+        ]
+      },
+      {
+        "requirement_id": "ext-9",
+        "strength": "missing",
+        "basis": "unstated",
+        "claim_ids": [],
+        "rationale": "No claim of experience in logistics, transport, or manufacturing. The candidate's roles are in maritime and insurance, which are not in these industries.",
+        "evidence": []
+      },
+      {
+        "requirement_id": "ext-10",
+        "strength": "missing",
+        "basis": "unstated",
+        "claim_ids": [],
+        "rationale": "No mention of VMware, Hyper-V, or any virtualisation technology in the claims.",
+        "evidence": []
+      },
+      {
+        "requirement_id": "ext-11",
+        "strength": "missing",
+        "basis": "unstated",
+        "claim_ids": [],
+        "rationale": "No claim of disaster recovery or business continuity planning. The candidate's experience is in risk assessment and audit, not DR/BCP.",
+        "evidence": []
+      },
+      {
+        "requirement_id": "ext-12",
+        "strength": "missing",
+        "basis": "unstated",
+        "claim_ids": [],
+        "rationale": "No mention of Azure, AWS, or any cloud migration experience in the claims.",
+        "evidence": []
+      },
+      {
+        "requirement_id": "ext-13",
+        "strength": "moderate",
+        "basis": "unstated",
+        "claim_ids": [
+          "c15"
+        ],
+        "rationale": "Claim c15 states German at B1 level. This is some German language skill, but B1 is intermediate, not fluent. It is moderate evidence for the preferred requirement.",
+        "evidence": [
+          {
+            "text": "ISO 27001 - risk assessment - audit response - security awareness and phishing simulation - access control review - security policy - vendor assessment - Norwegian (native), English (fluent), German (B1)",
+            "page": null,
+            "line_start": 15,
+            "line_end": 15,
+            "bbox": null
+          }
+        ]
+      },
+      {
+        "requirement_id": "int-0",
+        "strength": "strong",
+        "basis": "unstated",
+        "claim_ids": [
+          "c3",
+          "c1"
+        ],
+        "rationale": "Claim c3 states 'Run the annual risk assessment and the ISO 27001 surveillance audits.' This is direct evidence of working under a formal compliance regime (ISO 27001). Claim c1 also mentions audit response. Strong match.",
+        "evidence": [
+          {
+            "text": "Run the annual risk assessment and the ISO 27001 surveillance audits.",
+            "page": null,
+            "line_start": 9,
+            "line_end": 9,
+            "bbox": null
+          },
+          {
+            "text": "Security analyst with seven years in risk assessment, audit response and awareness programmes for regulated businesses.",
+            "page": null,
+            "line_start": 5,
+            "line_end": 5,
+            "bbox": null
+          }
+        ]
+      },
+      {
+        "requirement_id": "int-1",
+        "strength": "missing",
+        "basis": "unstated",
+        "claim_ids": [],
+        "rationale": "No claim of mentoring or leading engineers. The candidate has no leadership title and no mention of mentoring in the claims.",
+        "evidence": []
+      },
+      {
+        "requirement_id": "int-2",
+        "strength": "missing",
+        "basis": "unstated",
+        "claim_ids": [],
+        "rationale": "The resume does not mention location preferences or ability to work in Berlin. No evidence either way, so basis is unstated.",
+        "evidence": []
+      }
+    ],
+    "gaps": [
+      {
+        "requirement_id": "ext-1",
+        "severity": "major",
+        "text": "Demonstrated experience managing or leading a technical team",
+        "needs_confirmation": false
+      },
+      {
+        "requirement_id": "ext-2",
+        "severity": "major",
+        "text": "Hands-on Active Directory administration and design",
+        "needs_confirmation": false
+      },
+      {
+        "requirement_id": "ext-3",
+        "severity": "major",
+        "text": "Network administration experience (routing, switching, firewalls)",
+        "needs_confirmation": false
+      },
+      {
+        "requirement_id": "ext-5",
+        "severity": "major",
+        "text": "Experience planning and executing infrastructure upgrade projects",
+        "needs_confirmation": false
+      },
+      {
+        "requirement_id": "ext-9",
+        "severity": "minor",
+        "text": "Experience in logistics, transport or manufacturing",
+        "needs_confirmation": false
+      },
+      {
+        "requirement_id": "ext-10",
+        "severity": "minor",
+        "text": "Familiarity with virtualisation (VMware or Hyper-V)",
+        "needs_confirmation": false
+      },
+      {
+        "requirement_id": "ext-11",
+        "severity": "minor",
+        "text": "Disaster recovery and business continuity planning",
+        "needs_confirmation": false
+      },
+      {
+        "requirement_id": "ext-12",
+        "severity": "minor",
+        "text": "Exposure to cloud migration (Azure or AWS)",
+        "needs_confirmation": false
+      },
+      {
+        "requirement_id": "int-1",
+        "severity": "major",
+        "text": "the team is junior, this hire must mentor two engineers",
+        "needs_confirmation": false
+      },
+      {
+        "requirement_id": "int-2",
+        "severity": "minor",
+        "text": "three days a week in the Berlin office",
+        "needs_confirmation": false
+      }
+    ],
+    "dealbreakers_unmet": [],
+    "dealbreakers_unstated": [],
+    "capped_by_dealbreaker": false
+  },
+  "style": {
+    "score": 0.0,
+    "band": "low",
+    "patterns_fired": [],
+    "word_count": 146,
+    "caveat": "Advisory only - this signal never contributes to a flag. We measured it on 60 real resumes against LLM rewrites of the same resumes: the strongest pattern separated the two classes for only 27% of rewrites, and most separated for under 8%. Published work also finds a 61% false-positive rate for non-native English writers. Read it as a prompt to look at the document yourself, never as a finding about the person."
+  },
+  "cp2": {
+    "checkpoint": "cp2_claims",
+    "verdict": "clear",
+    "flags": [],
+    "reason": "no authenticity inconsistencies found"
+  },
+  "cp3_pending": true,
+  "document": {
+    "source_path": "data/uploads/demo/margit-halvorsen.pdf",
+    "text": "Margit Halvorsen\nInformation Security Analyst\nOslo · margit.halvorsen@example.com\nSummary\nSecurity analyst with seven years in risk assessment, audit response and awareness programmes for regulated\nbusinesses.\nExperience\nInformation Security Analyst - Fjordline Maritime, Oslo · May 2018 - present\nRun the annual risk assessment and the ISO 27001 surveillance audits. Own the security awareness\nprogramme, including phishing simulation. Review firewall and access control changes. Write the security policy\nset. Work closely with infrastructure but do not administer the estate.\nSecurity Analyst - Nordisk Forsikring, Bergen · January 2016 - April 2018\nAccess reviews, vendor security assessments, and incident documentation for an insurer.\nSkills\nISO 27001 - risk assessment - audit response - security awareness and phishing simulation - access control\nreview - security policy - vendor assessment - Norwegian (native), English (fluent), German (B1)\nEducation & Certifications\nMSc Information Security, NTNU Trondheim, 2015. CISM. Norwegian citizen, EEA.\n",
+    "raw_text": "Margit Halvorsen\nInformation Security Analyst\nOslo · margit.halvorsen@example.com\nSummary\nSecurity analyst with seven years in risk assessment, audit response and awareness programmes for regulated\nbusinesses.\nExperience\nInformation Security Analyst - Fjordline Maritime, Oslo · May 2018 - present\nRun the annual risk assessment and the ISO 27001 surveillance audits. Own the security awareness\nprogramme, including phishing simulation. Review firewall and access control changes. Write the security policy\nset. Work closely with infrastructure but do not administer the estate.\nSecurity Analyst - Nordisk Forsikring, Bergen · January 2016 - April 2018\nAccess reviews, vendor security assessments, and incident documentation for an insurer.\nSkills\nISO 27001 - risk assessment - audit response - security awareness and phishing simulation - access control\nreview - security policy - vendor assessment - Norwegian (native), English (fluent), German (B1)\nEducation & Certifications\nMSc Information Security, NTNU Trondheim, 2015. CISM. Norwegian citizen, EEA.\n",
+    "hidden": [],
+    "engine_chars": {
+      "pymupdf": 1057,
+      "pypdfium2": 1073,
+      "pdfplumber": 1056,
+      "pdfminer": 1070
+    },
+    "divergence": 0.01584342963653307
+  },
+  "claims": [
+    {
+      "id": "c0",
+      "skill": "risk assessment",
+      "years_claimed": 7.0,
+      "since_year": null,
+      "level": null,
+      "employer": null,
+      "evidence": {
+        "text": "Security analyst with seven years in risk assessment, audit response and awareness programmes for regulated businesses.",
+        "page": null,
+        "line_start": 5,
+        "line_end": 5,
+        "bbox": null
+      }
+    },
+    {
+      "id": "c1",
+      "skill": "audit response",
+      "years_claimed": null,
+      "since_year": null,
+      "level": null,
+      "employer": null,
+      "evidence": {
+        "text": "Security analyst with seven years in risk assessment, audit response and awareness programmes for regulated businesses.",
+        "page": null,
+        "line_start": 5,
+        "line_end": 5,
+        "bbox": null
+      }
+    },
+    {
+      "id": "c2",
+      "skill": "awareness programmes",
+      "years_claimed": null,
+      "since_year": null,
+      "level": null,
+      "employer": null,
+      "evidence": {
+        "text": "Security analyst with seven years in risk assessment, audit response and awareness programmes for regulated businesses.",
+        "page": null,
+        "line_start": 5,
+        "line_end": 5,
+        "bbox": null
+      }
+    },
+    {
+      "id": "c3",
+      "skill": "ISO 27001",
+      "years_claimed": null,
+      "since_year": null,
+      "level": null,
+      "employer": null,
+      "evidence": {
+        "text": "Run the annual risk assessment and the ISO 27001 surveillance audits.",
+        "page": null,
+        "line_start": 9,
+        "line_end": 9,
+        "bbox": null
+      }
+    },
+    {
+      "id": "c4",
+      "skill": "security awareness",
+      "years_claimed": null,
+      "since_year": null,
+      "level": null,
+      "employer": null,
+      "evidence": {
+        "text": "Own the security awareness programme, including phishing simulation.",
+        "page": null,
+        "line_start": null,
+        "line_end": null,
+        "bbox": null
+      }
+    },
+    {
+      "id": "c5",
+      "skill": "phishing simulation",
+      "years_claimed": null,
+      "since_year": null,
+      "level": null,
+      "employer": null,
+      "evidence": {
+        "text": "Own the security awareness programme, including phishing simulation.",
+        "page": null,
+        "line_start": null,
+        "line_end": null,
+        "bbox": null
+      }
+    },
+    {
+      "id": "c6",
+      "skill": "firewall review",
+      "years_claimed": null,
+      "since_year": null,
+      "level": null,
+      "employer": null,
+      "evidence": {
+        "text": "Review firewall and access control changes.",
+        "page": null,
+        "line_start": 10,
+        "line_end": 10,
+        "bbox": null
+      }
+    },
+    {
+      "id": "c7",
+      "skill": "access control review",
+      "years_claimed": null,
+      "since_year": null,
+      "level": null,
+      "employer": null,
+      "evidence": {
+        "text": "Review firewall and access control changes.",
+        "page": null,
+        "line_start": 10,
+        "line_end": 10,
+        "bbox": null
+      }
+    },
+    {
+      "id": "c8",
+      "skill": "security policy",
+      "years_claimed": null,
+      "since_year": null,
+      "level": null,
+      "employer": null,
+      "evidence": {
+        "text": "Write the security policy set.",
+        "page": null,
+        "line_start": null,
+        "line_end": null,
+        "bbox": null
+      }
+    },
+    {
+      "id": "c9",
+      "skill": "access reviews",
+      "years_claimed": null,
+      "since_year": null,
+      "level": null,
+      "employer": null,
+      "evidence": {
+        "text": "Access reviews, vendor security assessments, and incident documentation for an insurer.",
+        "page": null,
+        "line_start": 13,
+        "line_end": 13,
+        "bbox": null
+      }
+    },
+    {
+      "id": "c10",
+      "skill": "vendor security assessments",
+      "years_claimed": null,
+      "since_year": null,
+      "level": null,
+      "employer": null,
+      "evidence": {
+        "text": "Access reviews, vendor security assessments, and incident documentation for an insurer.",
+        "page": null,
+        "line_start": 13,
+        "line_end": 13,
+        "bbox": null
+      }
+    },
+    {
+      "id": "c11",
+      "skill": "incident documentation",
+      "years_claimed": null,
+      "since_year": null,
+      "level": null,
+      "employer": null,
+      "evidence": {
+        "text": "Access reviews, vendor security assessments, and incident documentation for an insurer.",
+        "page": null,
+        "line_start": 13,
+        "line_end": 13,
+        "bbox": null
+      }
+    },
+    {
+      "id": "c12",
+      "skill": "vendor assessment",
+      "years_claimed": null,
+      "since_year": null,
+      "level": null,
+      "employer": null,
+      "evidence": {
+        "text": "ISO 27001 - risk assessment - audit response - security awareness and phishing simulation - access control review - security policy - vendor assessment - Norwegian (native), English (fluent), German (B1)",
+        "page": null,
+        "line_start": 15,
+        "line_end": 15,
+        "bbox": null
+      }
+    },
+    {
+      "id": "c13",
+      "skill": "Norwegian",
+      "years_claimed": null,
+      "since_year": null,
+      "level": "native",
+      "employer": null,
+      "evidence": {
+        "text": "ISO 27001 - risk assessment - audit response - security awareness and phishing simulation - access control review - security policy - vendor assessment - Norwegian (native), English (fluent), German (B1)",
+        "page": null,
+        "line_start": 15,
+        "line_end": 15,
+        "bbox": null
+      }
+    },
+    {
+      "id": "c14",
+      "skill": "English",
+      "years_claimed": null,
+      "since_year": null,
+      "level": "fluent",
+      "employer": null,
+      "evidence": {
+        "text": "ISO 27001 - risk assessment - audit response - security awareness and phishing simulation - access control review - security policy - vendor assessment - Norwegian (native), English (fluent), German (B1)",
+        "page": null,
+        "line_start": 15,
+        "line_end": 15,
+        "bbox": null
+      }
+    },
+    {
+      "id": "c15",
+      "skill": "German",
+      "years_claimed": null,
+      "since_year": null,
+      "level": "B1",
+      "employer": null,
+      "evidence": {
+        "text": "ISO 27001 - risk assessment - audit response - security awareness and phishing simulation - access control review - security policy - vendor assessment - Norwegian (native), English (fluent), German (B1)",
+        "page": null,
+        "line_start": 15,
+        "line_end": 15,
+        "bbox": null
+      }
+    },
+    {
+      "id": "c16",
+      "skill": "CISM",
+      "years_claimed": null,
+      "since_year": null,
+      "level": null,
+      "employer": null,
+      "evidence": {
+        "text": "MSc Information Security, NTNU Trondheim, 2015. CISM. Norwegian citizen, EEA.",
+        "page": null,
+        "line_start": 18,
+        "line_end": 18,
+        "bbox": null
+      }
+    }
+  ],
+  "employment": [
+    {
+      "employer": "Fjordline Maritime",
+      "title": "Information Security Analyst",
+      "start": "May 2018",
+      "end": "present",
+      "full_time": true,
+      "evidence": {
+        "text": "Information Security Analyst - Fjordline Maritime, Oslo · May 2018 - present",
+        "page": null,
+        "line_start": 8,
+        "line_end": 8,
+        "bbox": null
+      }
+    },
+    {
+      "employer": "Nordisk Forsikring",
+      "title": "Security Analyst",
+      "start": "January 2016",
+      "end": "April 2018",
+      "full_time": true,
+      "evidence": {
+        "text": "Security Analyst - Nordisk Forsikring, Bergen · January 2016 - April 2018",
+        "page": null,
+        "line_start": 12,
+        "line_end": 12,
+        "bbox": null
+      }
+    }
+  ],
+  "verifications": [],
+  "credentials": [
+    {
+      "claim_id": "",
+      "skill": "CISM (ISACA)",
+      "state": "corroborated",
+      "evidence": [],
+      "note": "named as its issuer names it (cism)",
+      "source_scope": "cv"
+    }
+  ],
+  "consent_summary": "The CV you sent us",
+  "consent_grants": {
+    "cv": true,
+    "github": false,
+    "publications": false
+  },
+  "freshness_label": "CURRENT",
+  "freshness_note": "Most recent dated activity: 2026.",
+  "freshness_tone": "green",
+  "last_active_year": 2026,
+  "questions": [
+    {
+      "question": "I didn't see anything in your CV about leading or managing a technical team. Have you done that kind of work before?",
+      "reason": "major gap against a required requirement",
+      "source": "gap",
+      "requirement_id": "ext-1",
+      "severity": "major"
+    },
+    {
+      "question": "Your CV doesn't seem to mention hands-on Active Directory administration or design. Is that something you've worked on?",
+      "reason": "major gap against a required requirement",
+      "source": "gap",
+      "requirement_id": "ext-2",
+      "severity": "major"
+    },
+    {
+      "question": "I couldn't find network administration experience—like routing, switching, or firewalls—in your CV. Have you handled that in the past?",
+      "reason": "major gap against a required requirement",
+      "source": "gap",
+      "requirement_id": "ext-3",
+      "severity": "major"
+    },
+    {
+      "question": "Your CV doesn't show any experience planning or executing infrastructure upgrade projects. Is that something you've been involved in?",
+      "reason": "major gap against a required requirement",
+      "source": "gap",
+      "requirement_id": "ext-5",
+      "severity": "major"
+    },
+    {
+      "question": "I noticed your CV doesn't mention mentoring junior engineers, and this role would involve mentoring two. Have you done that kind of mentoring before?",
+      "reason": "major gap against a required requirement",
+      "source": "gap",
+      "requirement_id": "int-1",
+      "severity": "major"
+    },
+    {
+      "question": "I didn't see any logistics, transport, or manufacturing experience in your CV. Have you worked in those areas?",
+      "reason": "minor gap against a preferred requirement",
+      "source": "gap",
+      "requirement_id": "ext-9",
+      "severity": "minor"
+    }
+  ],
+  "audit": [
+    {
+      "at": "2026-08-21T07:25:35+00:00",
+      "event": "internal_constraint_accepted",
+      "detail": "team_context: we go into an ISO 27001 audit next year, so this hire must have worked under a formal compliance or accreditation regime",
+      "actor": "system"
+    },
+    {
+      "at": "2026-08-21T07:25:35+00:00",
+      "event": "internal_constraint_accepted",
+      "detail": "mentoring_capacity: the team is junior, this hire must mentor two engineers",
+      "actor": "system"
+    },
+    {
+      "at": "2026-08-21T07:25:35+00:00",
+      "event": "internal_constraint_accepted",
+      "detail": "onsite_days: three days a week in the Berlin office",
+      "actor": "system"
+    },
+    {
+      "at": "2026-08-21T07:25:35+00:00",
+      "event": "internal_constraint_REFUSED",
+      "detail": "team_context: 'we want a young energetic team with no career gaps' - refused: age: age proxy; socioeconomic/proxy: career-gap screening - a proxy for parental leave, illness and disability",
+      "actor": "system"
+    }
+  ]
+}
