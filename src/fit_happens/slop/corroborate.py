@@ -18,17 +18,10 @@ for non-native speakers.
 from __future__ import annotations
 
 from .. import config
-from ..schemas import CheckpointResult, Flag, StyleRead, Verdict
+from ..schemas import (
+    STYLE_ONLY_PATTERNS, CheckpointResult, Flag, StyleRead, Verdict)
 
-# Patterns that describe HOW something is written rather than WHETHER it is true. These may
-# never contribute to a fabrication verdict.
-STYLE_ONLY = {
-    "stock_phrases", "self_significance", "negative_parallelism", "copula_avoidance",
-    "uniform_rhythm", "rule_of_three", "em_dash_density",
-    # CP3's divergence check is a style signal too. People write more carefully about things
-    # that matter; that is not evidence of anything and must never corroborate a flag.
-    "style_divergence",
-}
+STYLE_ONLY = STYLE_ONLY_PATTERNS  # one definition, in schemas
 
 # The one carve-out from the two-flag rule, and it is a narrow one.
 #

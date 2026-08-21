@@ -24,6 +24,21 @@ from pydantic import BaseModel, Field
 # ---------------------------------------------------------------- evidence
 
 
+# Patterns that describe HOW something is written rather than WHETHER it is true. They may
+# never contribute to a fabrication verdict - hard rules 2, 3 and 9.
+#
+# This lived in four places: here, slop/corroborate.py, web/app.py and candidate.html. Three
+# of the four were meant to hold the same eight ids and two of them had already drifted to
+# seven, silently dropping `style_divergence`. A comment saying "keep these in sync" would
+# have documented the trap rather than removed it, so there is now one set and the others
+# import it. The template dropped its copy entirely: it wanted CandidateResult's
+# `authenticity_flags`, which already applies exactly this filter.
+STYLE_ONLY_PATTERNS = frozenset({
+    "stock_phrases", "self_significance", "negative_parallelism", "copula_avoidance",
+    "uniform_rhythm", "rule_of_three", "em_dash_density", "style_divergence",
+})
+
+
 class Span(BaseModel):
     """A verbatim pointer back into a source document. Every score traces to one of these."""
 
@@ -329,9 +344,7 @@ class CandidateResult(BaseModel):
     @property
     def authenticity_flags(self) -> list[Flag]:
         """Flags about whether claims hold up. Style patterns are excluded by design."""
-        style_only = {"stock_phrases", "self_significance", "negative_parallelism",
-                      "copula_avoidance", "uniform_rhythm", "rule_of_three", "em_dash_density"}
-        return [f for f in self.cp2.flags if f.pattern_id not in style_only]
+        return [f for f in self.cp2.flags if f.pattern_id not in STYLE_ONLY_PATTERNS]
 
     @property
     def bluff_label(self) -> str:

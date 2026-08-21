@@ -33,6 +33,7 @@ from ..feedback import REASONS, FeedbackStore, Rejection
 from ..jd.discovery import corpus_stats, duplicates
 from ..jd.guard import ALLOWED_FIELDS, check_value
 from ..jd.slop import scan_job_ad
+from ..schemas import STYLE_ONLY_PATTERNS
 from ..slop.response import CASUAL_QUESTION, scan_responses
 from ..stages import ORDER as STAGE_ORDER, STAGES, StageStore
 from ..store import Run, roles, slugify
@@ -61,8 +62,7 @@ async def _gate_hiring(request: Request, call_next):
     return await call_next(request)
 
 UPLOADS = Path("data/uploads")
-STYLE_PATTERNS = {"stock_phrases", "self_significance", "negative_parallelism", "copula_avoidance",
-                  "uniform_rhythm", "rule_of_three", "em_dash_density", "style_divergence"}
+STYLE_PATTERNS = STYLE_ONLY_PATTERNS  # one definition, in schemas
 
 
 def _err(request: Request, message: str, status: int = 404, back: str = "/") -> HTMLResponse:
@@ -74,6 +74,17 @@ def _err(request: Request, message: str, status: int = 404, back: str = "/") -> 
     template = "error.html" if request.url.path.startswith("/hiring") else "error_public.html"
     return TEMPLATES.TemplateResponse(request, template,
                                       {"message": message, "back": back}, status_code=status)
+
+
+def needs_a_human(c) -> bool:
+    """Who the "Needs a human" queue contains.
+
+    This read `or c.style.band != "low"`, which put a candidate in front of a reviewer on
+    writing style alone - exactly what hard rules 3 and 9 forbid. Those rules are enforced
+    all the way through the engine and were then handed back here, in the one surface a
+    recruiter actually acts on. CP1 is advisory: it describes, it does not select.
+    """
+    return c.cp2.verdict.value == "flag_for_human"
 
 
 def _cp3_for(slug: str, c):
@@ -355,8 +366,7 @@ def role(request: Request, slug: str, internal: int = 1, sort: str = "fit",
     if filter_by == "replied":
         candidates = [c for c in candidates if c.candidate_id in replied]
     elif filter_by == "review":
-        candidates = [c for c in candidates
-                      if c.cp2.verdict.value == "flag_for_human" or c.style.band != "low"]
+        candidates = [c for c in candidates if needs_a_human(c)]
     elif filter_by == "top":
         candidates = [c for c in candidates if c.fit.score >= 0.55]
     elif filter_by == "waiting":

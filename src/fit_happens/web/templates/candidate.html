@@ -126,7 +126,9 @@
         </div>
         <p class="mt-2 text-[12.5px] leading-relaxed text-ink-muted">{{ c.cp2.reason }}</p>
 
-        {% set real = c.cp2.flags|rejectattr('pattern_id','in',['stock_phrases','self_significance','negative_parallelism','copula_avoidance','uniform_rhythm','rule_of_three','em_dash_density'])|list %}
+        {# was a fourth hand-copied list of style pattern ids, already one short. This is
+           the same filter, defined once, in schemas.CandidateResult. #}
+        {% set real = c.authenticity_flags %}
         {% for f in real[:4] %}
         <div class="mt-4 rounded-lg border border-hair p-4">
           <div class="flex items-start gap-3">

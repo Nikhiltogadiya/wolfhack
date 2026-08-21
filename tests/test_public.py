@@ -155,3 +155,30 @@ class TestTheHiringGate:
         load_dotenv(env, override=False)
         assert auth.configured()
         assert auth.check("from-the-file")
+
+
+def test_the_review_queue_never_selects_on_style_alone():
+    """Hard rules 3 and 9 are enforced in the engine and were then handed back in the UI: the
+    "Needs a human" filter read `c.style.band != "low"`, so a CV that merely reads as polished,
+    with zero authenticity flags, was routed to a human on prose alone. The engine being right
+    does not help when the only surface a recruiter acts on is wrong.
+
+    Exercised against candidates rather than by grepping the source, because a source grep
+    answers "does this word appear" - which a passing comment would break.
+    """
+    from fit_happens.schemas import CheckpointResult, StyleRead, Verdict
+    from fit_happens.web.app import needs_a_human
+
+    class C:
+        def __init__(self, band, verdict):
+            self.style = StyleRead(score=1.0 if band == "high" else 0.0, band=band)
+            self.cp2 = CheckpointResult(checkpoint="cp2_claims", verdict=verdict)
+
+    # the whole point: maximum style, no authenticity flags, still not selected.
+    # both non-low bands, because the old predicate was `band != "low"`.
+    assert not needs_a_human(C("high", Verdict.INCONCLUSIVE))
+    assert not needs_a_human(C("grey", Verdict.INCONCLUSIVE))
+    assert not needs_a_human(C("high", Verdict.CLEAR))
+    # and a real corroborated flag is selected regardless of how it reads
+    assert needs_a_human(C("low", Verdict.FLAG_FOR_HUMAN))
+    assert needs_a_human(C("high", Verdict.FLAG_FOR_HUMAN))

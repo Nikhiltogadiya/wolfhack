@@ -267,3 +267,28 @@ class TestDashboardLabels:
     def test_style_patterns_are_not_counted_as_authenticity_flags(self):
         r = self._result(Verdict.FLAG_FOR_HUMAN, [_f("hidden_text", "a"), _f("stock_phrases", "b")])
         assert r.bluff_label == "1 FLAG"
+
+
+def test_every_style_pattern_is_registered_as_style_only():
+    """The set of ids that may never reach a fabrication verdict was hand-copied into four
+    places, and two copies had already drifted to seven of eight - `style_divergence` was
+    missing from both. It is CP3-only today, so nothing broke yet; the next pattern added to
+    one copy and not the others would have put a style flag into the bluff count, which is
+    the precise thing hard rule 2 exists to prevent.
+
+    There is one set now. This checks the thing that actually goes wrong next: a new style
+    pattern emitted by the detectors but never registered as style-only.
+    """
+    import re
+    from pathlib import Path
+
+    from fit_happens.schemas import STYLE_ONLY_PATTERNS
+
+    root = Path(__file__).resolve().parents[1] / "src" / "fit_happens" / "slop"
+    emitted = set(re.findall(r'_flag\(\s*"([a-z_]+)"', (root / "style.py").read_text()))
+    assert emitted, "found no style patterns at all - has _flag been renamed?"
+
+    unregistered = emitted - set(STYLE_ONLY_PATTERNS)
+    assert not unregistered, (
+        f"style patterns {sorted(unregistered)} are emitted by CP1 but are not in "
+        "STYLE_ONLY_PATTERNS, so they would count towards a fabrication verdict")
