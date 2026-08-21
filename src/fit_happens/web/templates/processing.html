@@ -2,14 +2,17 @@
 {% block title %}Application received — Fit Happens{% endblock %}
 {% block body %}
 <div class="mx-auto max-w-[600px] px-6 py-20 text-center">
-  {% if failed %}
+  {% if failed or stalled %}
     <div class="mx-auto grid h-12 w-12 place-items-center rounded-full bg-rose-50 text-rose-700">
       <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
         <circle cx="12" cy="12" r="9"/><path d="M12 16v-4M12 8h.01"/></svg>
     </div>
-    <h1 class="mt-5 text-[22px] font-bold tracking-tight">We could not read your CV</h1>
+    <h1 class="mt-5 text-[22px] font-bold tracking-tight">
+      {% if stalled %}Something went wrong reading your CV{% else %}We could not read your CV{% endif %}</h1>
     <p class="mx-auto mt-3 max-w-[420px] text-[13.5px] leading-relaxed text-ink-muted">
       Your application did reach us — this is a problem at our end, not with you.
+      {% if stalled %}<span class="block mt-2">It has been a while and we have lost track of it.
+        Sending it again is the quickest fix.</span>{% endif %}
       {% if error %}<span class="block mt-2 font-mono text-[12px]">{{ error }}</span>{% endif %}
     </p>
     <a href="/jobs" class="mt-6 inline-block rounded-lg bg-forest px-5 py-2.5 text-[13.5px] font-semibold text-white hover:bg-forest-700">
@@ -36,5 +39,7 @@
     </div>
   {% endif %}
 </div>
-{% if not failed %}<script>setTimeout(() => location.reload(), 6000);</script>{% endif %}
+{# only poll while there is something to wait for: this used to reload every six
+   seconds forever on an application whose task had already been dismissed. #}
+{% if not failed and not stalled %}<script>setTimeout(() => location.reload(), 6000);</script>{% endif %}
 {% endblock %}

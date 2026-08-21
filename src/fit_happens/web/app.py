@@ -21,6 +21,8 @@ from __future__ import annotations
 import shutil
 from pathlib import Path
 
+from datetime import datetime, timezone
+
 from fastapi import BackgroundTasks, FastAPI, Form, Request, UploadFile
 from fastapi.responses import HTMLResponse, JSONResponse, RedirectResponse
 from fastapi.templating import Jinja2Templates
@@ -74,6 +76,20 @@ def _err(request: Request, message: str, status: int = 404, back: str = "/") -> 
     template = "error.html" if request.url.path.startswith("/hiring") else "error_public.html"
     return TEMPLATES.TemplateResponse(request, template,
                                       {"message": message, "back": back}, status_code=status)
+
+
+def _minutes_since(iso: str) -> float:
+    """Minutes since an ISO timestamp; a huge number if it cannot be read, so an unparseable
+    or missing timestamp reads as "long ago" rather than "just now"."""
+    if not iso:
+        return float("inf")
+    try:
+        then = datetime.fromisoformat(iso)
+    except ValueError:
+        return float("inf")
+    if then.tzinfo is None:
+        then = then.replace(tzinfo=timezone.utc)
+    return (datetime.now(timezone.utc) - then).total_seconds() / 60
 
 
 def needs_a_human(c) -> bool:
@@ -600,7 +616,7 @@ def _find_consent(token: str):
 
 
 @app.get("/apply/{token}", response_class=HTMLResponse)
-def candidate_portal(request: Request, token: str):
+def candidate_portal(request: Request, token: str, blank: int = 0):
     slug, consent = _find_consent(token)
     if not consent:
         return _err(request, "This application link is not valid.", 404)
@@ -617,16 +633,23 @@ def candidate_portal(request: Request, token: str):
         appn = ApplicationStore(slug).get(consent.candidate_id)
         pend = [t for t in tasks.recent(slug) if t["name"].startswith(consent.candidate_id)]
         state = pend[0] if pend else None
+        # `tasks.recent` is a ring buffer of 8 that the recruiter's "Dismiss" button empties.
+        # When a candidate's task fell off it, or was dismissed, this page had no state to
+        # read, decided the work was still running, and span forever - reloading every six
+        # seconds on an application that had already failed. Time since they applied is the
+        # thing that does not get cleared.
+        stale = state is None and _minutes_since(appn.at if appn else "") > 15
         return TEMPLATES.TemplateResponse(request, "processing.html", {
             "role": role_data, "token": token, "name": appn.name if appn else "",
             "failed": bool(state and state["state"] == "failed"),
+            "stalled": stale,
             "error": state["error"] if state else "",
         })
     _, ad_flags, clarity = scan_job_ad(role_data["jd"]["external_text"])
     return TEMPLATES.TemplateResponse(request, "candidate_portal.html", {
         "c": c, "role": role_data, "consent": consent, "scopes": SCOPES,
         "reqs": {r["id"]: r for r in role_data["requirements"]},
-        "answers": AnswerStore(slug).load(consent.candidate_id),
+        "answers": AnswerStore(slug).load(consent.candidate_id), "blank": bool(blank),
         "casual_question": CASUAL_QUESTION, "token": token, "clarity": clarity,
         "ad_missing": [f for f in ad_flags if f.pattern_id == "missing_specifics"]})
 
@@ -669,10 +692,14 @@ async def submit_answers(request: Request, token: str):
     form = await request.form()
     c = Run(slug).candidate(consent.candidate_id)
     questions = [q["question"] for q in (c.questions if c else [])]
-    AnswerStore(slug).record(
-        consent.candidate_id, questions,
-        [str(form.get(f"a{i}", "")) for i in range(len(questions))],
-        str(form.get("baseline", "")))
+    texts = [str(form.get(f"a{i}", "")) for i in range(len(questions))]
+    baseline = str(form.get("baseline", ""))
+    # An empty submission used to be recorded as a submission: it set `submitted_at`, replaced
+    # the form with a read-only summary the candidate could never reopen, and scored LOW RISK
+    # response authenticity on the recruiter's dashboard for answers nobody had written.
+    if not any(t.strip() for t in texts) and not baseline.strip():
+        return RedirectResponse(f"/apply/{token}?blank=1#answers", status_code=303)
+    AnswerStore(slug).record(consent.candidate_id, questions, texts, baseline)
     return RedirectResponse(f"/apply/{token}#answers", status_code=303)
 
 

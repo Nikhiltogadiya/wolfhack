@@ -41,6 +41,15 @@ anything* — so it passed throughout the release in which granting did nothing 
 Replaced with two tests that exercise the route: one asserts a grant schedules the fetch for
 that candidate, one asserts a revoke schedules nothing. **Verified by reinstating the bug:
 the new test fails, and passes again once fixed.**
+| D1 | **P0** | ranking chips | **"Needs a human" selected on writing style.** The filter read `cp2.verdict == flag_for_human or c.style.band != "low"`, so a CV that merely reads as polished, with zero authenticity flags, was put in front of a reviewer on prose alone. Hard rules 3 and 9 are enforced all the way through the engine and were handed straight back in the one surface a recruiter acts on — and the style signal is the one measured at 0% detection. Predicate extracted as `needs_a_human()` and tested against candidates |
+| D2 | P1 | 5 modules | The style-pattern id list was hand-copied into **four** places and **two had already drifted**, silently dropping `style_divergence`. CP3-only today, so nothing had broken yet — the next pattern added to one copy would have put a style flag into the bluff count, which is what hard rule 2 exists to prevent. One `frozenset` in `schemas.py` now; the template dropped its copy entirely for `c.authenticity_flags`, which already applied that filter. Guarded by a test that catches the *next* unregistered pattern, not this one |
+| D3 | P1 | `/apply/{token}` | Consent withdrawal globbed every `gh_*.json` in the shared cache, so **one candidate revoking deleted every other candidate's cached lookups**, in every role — while leaving their own `verifications` rows in place. Both too broad and incomplete. Now `github.forget()` / `publications.forget()` delete only that CV's keys |
+| D4 | P1 | `/apply/{token}` | **Permanent spinner.** `tasks.recent` is a ring buffer of 8 that the recruiter's "Dismiss" button empties. Once a candidate's task fell off it, the page had no state, decided the work was still running, and reloaded every 6 seconds forever on an application that had already failed. Third state added, keyed on time since applying |
+| D5 | P1 | `/apply/{token}` | An **all-blank submission counted as answering**: it set `submitted_at`, replaced the form with a summary the candidate could never reopen, and scored LOW RISK response authenticity for answers nobody wrote. Now refused with a message, form kept |
+| D6 | P1 | role step 2 | Unticking **every** requirement kept **every** requirement — `if keep:` read an empty set as "touched nothing". The control inverted at exactly the boundary that matters |
+| D7 | P1 | landing | "Browse N open roles" counted closed ones; `/jobs` excluded them, so the number never matched the list |
+| D8 | P1 | `/hiring/market` | A missing or malformed `snapshot.json` made `"{:,}".format(None)` raise — a **500 on the whole page**, one `rm` away. Defaults to 0. Verified by moving the file aside |
+| D9 | P2 | candidate portal | Question labels had no `for`/`id`, so clicking one focused nothing |
 
 ## Verified working (tested, not assumed)
 

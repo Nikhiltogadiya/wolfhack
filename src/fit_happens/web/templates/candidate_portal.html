@@ -73,17 +73,23 @@
       <p class="mt-1.5 text-[13px] text-ink-muted">
         Optional, and your draft is kept in this browser as you type.</p>
 
+      {% if blank %}
+      <div class="mt-4 rounded-lg border border-amber-300 bg-amber-50 px-4 py-3 text-[13px]">
+        Nothing was sent — every box was empty. An empty submission used to lock this form,
+        so it is still here. Write something in at least one box.
+      </div>
+      {% endif %}
       <form method="post" action="/apply/{{ token }}/answers" class="mt-5 space-y-5" id="answerForm">
         <div>
-          <label class="text-[13px] font-medium leading-snug">{{ casual_question }}</label>
-          <textarea name="baseline" rows="3" data-draft="baseline"
+          <label for="baseline" class="text-[13px] font-medium leading-snug">{{ casual_question }}</label>
+          <textarea id="baseline" name="baseline" rows="3" data-draft="baseline"
                     class="mt-2 w-full rounded-lg border border-hair p-3 text-[13px] track"
                     placeholder="However you'd say it out loud. No need to polish this one."></textarea>
         </div>
         {% for q in c.questions %}
         <div>
-          <label class="text-[13px] font-medium leading-snug">{{ q.question }}</label>
-          <textarea name="a{{ loop.index0 }}" rows="3" data-draft="a{{ loop.index0 }}"
+          <label for="a{{ loop.index0 }}" class="text-[13px] font-medium leading-snug">{{ q.question }}</label>
+          <textarea id="a{{ loop.index0 }}" name="a{{ loop.index0 }}" rows="3" data-draft="a{{ loop.index0 }}"
                     class="mt-2 w-full rounded-lg border border-hair p-3 text-[13px] track"></textarea>
         </div>
         {% endfor %}
