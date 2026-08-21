@@ -166,3 +166,15 @@ across nine batches — full record with evidence in `doc/ui-audit.md`. The four
 | 73 | DEFERRED | **No pagination** on `/jobs`, the ranking table or `/track` — every list renders its whole collection, and each ranking row runs a per-candidate response scan. Fine at demo scale; a role with 300 applicants would feel broken. Pick up when the corpus outgrows a demo |
 | 74 | DEFERRED | **Repeated full re-reads per request** — `overview` deserialises every candidate in every role three times; `role()` calls `run.candidates()` twice. Same trigger as 73 |
 | 75 | DEFERRED | **Requirement ids are positional (`ext-0..N`) and the create form passes indices, not texts.** Correct today only because `parse_jd` is disk-cached by prompt hash; clear the cache between step 2 and create and the recruiter unticks requirement 3 while a different one vanishes. The candidate page no longer *hides* the consequence (finding G1), but the create path still carries it. Pick up before this runs on adverts that change between steps |
+
+### Demo-functionality review, 21 Aug 2026
+Every functionality named in the brief, walked from both sides. Full record in
+`doc/demo-script.md`. Fixed: the missing subject-access export, GitHub handle detection,
+the external-evidence wall, the duplicate candidate, the clipped Stage column. Left open:
+
+| # | Status | Problem |
+|---|---|---|
+| 76 | DEFERRED | **The internal-JD toggle re-orders by one position** on this corpus (Priya/Naledi swap 4th/5th). The mechanism is real and the refusal beat is strong, but the movement is undersold as a demo moment. A corpus where an internal criterion splits two close candidates would show it properly — needs a CV chosen for that, not a code change |
+| 77 | WONTFIX | **`Applicant 15118506` has no name.** The Kaggle corpus CV is anonymised, so there is nothing to extract and inventing one is worse. The fallback is deliberate; say so if a judge asks |
+| 78 | DEFERRED | **CP1 scored 277 words on the fixture CV**, below the 400–700 band the detector is safe at. It emits its advisory caveat, and CP1 cannot contribute to a flag, so nothing downstream is affected — but a short CV gets a style read the engineering log says not to trust |
+| 79 | DEFERRED | **The fixture CV carries a real public GitHub handle (`tiangolo`)** as a stand-in so beat ③ has data. Fine as a labelled test case; swap it for the presenter's own handle if demoing it as a personal application |

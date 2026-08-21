@@ -19,7 +19,7 @@ de-facto rubric. Each maps to an artefact, not a claim:
 | Transparent recommendations | Every score carries an evidence span; UI chips link to résumé line numbers |
 | No automated hiring decisions | Same enum + persistent UI footer |
 | Bias & fairness monitoring | Measured false-positive rate incl. non-native-English slice; protected-characteristic guard |
-| GDPR-compliant processing | Exportable audit trail; PII confined to the candidate record |
+| GDPR-compliant processing | Subject-access export (`/…/export`, both sides); PII confined to the candidate record |
 | **User-controlled sharing** | **NOT BUILT.** Named as a known gap in the pitch (backlog #8) |
 
 ## The two components
@@ -123,9 +123,11 @@ sharing (four scopes, external off by default, the fetch gated not the display).
 
 **Employer pains: 4 of 4.** Volume, stale data, static evidence, cost.
 
-**Candidate pains: 2 of 4.** Generic job ads and transparency are built. Fragmented signals
-and blind discovery are not, and cannot be without employer-review data and a corpus of live
-postings. Stated rather than faked.
+**Candidate pains: 3 of 4.** Generic job ads, transparency and **blind discovery** are built —
+`/hiring/market` samples the live JobDataLake corpus and shows that 75% of a 67-posting sample
+is the same job listed twice or more, one of them 47 times. Fragmented signals is not, and
+cannot be without employer-review data (`get_company` returns industry and size only).
+Stated rather than faked.
 
 Honest estimate: ~26h of work in 24. Cut order is fixed above so it is decided now, not at
 hour 20.
