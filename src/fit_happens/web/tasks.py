@@ -24,9 +24,10 @@ _lock = threading.Lock()
 
 
 def _path(slug: str) -> Path:
-    d = DATA_DIR / "runs" / slug
-    d.mkdir(parents=True, exist_ok=True)
-    return d / "tasks.json"
+    """Just the path. This used to mkdir on every call, including from reads - so a mistyped
+    URL hitting the status endpoint created a role directory, which is the exact defect
+    `store.Run`'s docstring says was fixed there. Only `_write` creates anything now."""
+    return DATA_DIR / "runs" / slug / "tasks.json"
 
 
 def _read(slug: str) -> dict:
@@ -40,7 +41,9 @@ def _read(slug: str) -> dict:
 
 
 def _write(slug: str, data: dict) -> None:
-    _path(slug).write_text(json.dumps(data, indent=1))
+    p = _path(slug)
+    p.parent.mkdir(parents=True, exist_ok=True)
+    p.write_text(json.dumps(data, indent=1))
 
 
 def start(slug: str, name: str) -> str:
@@ -112,7 +115,10 @@ def failed(slug: str) -> list[dict]:
 def clear_finished(slug: str) -> None:
     with _lock:
         d = _read(slug)
-        d["items"] = [i for i in d["items"] if i["state"] in {"queued", "running"}]
+        keep = [i for i in d["items"] if i["state"] in {"queued", "running"}]
+        if len(keep) == len(d["items"]):
+            return  # nothing to clear; writing anyway would create the role directory
+        d["items"] = keep
         _write(slug, d)
 
 

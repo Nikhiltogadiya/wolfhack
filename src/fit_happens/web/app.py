@@ -18,7 +18,6 @@ has to be repeated.
 
 from __future__ import annotations
 
-import shutil
 from pathlib import Path
 
 from datetime import datetime, timezone
@@ -76,6 +75,41 @@ def _err(request: Request, message: str, status: int = 404, back: str = "/") -> 
     template = "error.html" if request.url.path.startswith("/hiring") else "error_public.html"
     return TEMPLATES.TemplateResponse(request, template,
                                       {"message": message, "back": back}, status_code=status)
+
+
+# `accept=".pdf,.docx,.txt"` on the input is a file-picker hint, not a constraint - the
+# endpoint took anything. And copyfileobj streamed the whole body to disk before anything
+# looked at it, on a route that is public and then starts a paid LLM pipeline per file.
+CV_SUFFIXES = {".pdf", ".docx", ".txt"}
+MAX_CV_BYTES = 10 * 1024 * 1024
+
+
+def _save_upload(upload, target: Path) -> str:
+    """Stream an upload to `target`, bounded. Returns "" on success or a message for the
+    applicant. A file over the cap is abandoned and deleted rather than truncated, because a
+    truncated CV would be scored as if it were the whole document."""
+    suffix = Path(upload.filename).suffix.lower()
+    if suffix not in CV_SUFFIXES:
+        return "We can read PDF, DOCX and TXT files. That one is something else."
+
+    written = 0
+    try:
+        with target.open("wb") as out:
+            while chunk := upload.file.read(1 << 20):
+                written += len(chunk)
+                if written > MAX_CV_BYTES:
+                    out.close()
+                    target.unlink(missing_ok=True)
+                    return (f"That file is over {MAX_CV_BYTES // (1024 * 1024)} MB. "
+                            "A CV should be well under that.")
+                out.write(chunk)
+    except OSError:
+        target.unlink(missing_ok=True)
+        return "We could not save that file. Please try again."
+    if written == 0:
+        target.unlink(missing_ok=True)
+        return "That file is empty."
+    return ""
 
 
 def _minutes_since(iso: str) -> float:
@@ -344,8 +378,8 @@ async def create_role(request: Request, background: BackgroundTasks):
             continue
         dest.mkdir(parents=True, exist_ok=True)
         safe = slugify(Path(f.filename).stem) + Path(f.filename).suffix.lower()
-        with (dest / safe).open("wb") as out:
-            shutil.copyfileobj(f.file, out)
+        if _save_upload(f, dest / safe):
+            continue  # skipped: wrong type, empty, or over the cap
         background.add_task(tasks.process_cv, slug, str(dest / safe), tasks.start(slug, safe))
 
     return RedirectResponse(f"/hiring/role/{slug}", status_code=303)
@@ -429,8 +463,8 @@ async def upload_cvs(slug: str, background: BackgroundTasks, files: list[UploadF
             continue
         safe = slugify(Path(f.filename).stem) + Path(f.filename).suffix.lower()
         target = dest / safe
-        with target.open("wb") as out:
-            shutil.copyfileobj(f.file, out)
+        if _save_upload(f, target):
+            continue  # skipped: wrong type, empty, or over the cap
         tid = tasks.start(slug, safe)
         background.add_task(tasks.process_cv, slug, str(target), tid)
     return RedirectResponse(f"/hiring/role/{slug}", status_code=303)
@@ -440,6 +474,8 @@ async def upload_cvs(slug: str, background: BackgroundTasks, files: list[UploadF
 def dismiss_notices(slug: str):
     """Clear finished and failed upload notices. Without this a single old failure sat at the
     top of the page permanently, describing a problem that had already been resolved."""
+    if not Run(slug).exists:
+        return RedirectResponse("/hiring/roles", status_code=303)
     tasks.clear_finished(slug)
     return RedirectResponse(f"/hiring/role/{slug}", status_code=303)
 
@@ -447,6 +483,8 @@ def dismiss_notices(slug: str):
 @app.get("/hiring/role/{slug}/status")
 def role_status(slug: str):
     """Polled by the ranking page while uploads process."""
+    if not Run(slug).exists:
+        return JSONResponse({"pending": [], "recent": []}, status_code=404)
     return JSONResponse({"pending": tasks.pending(slug), "recent": tasks.recent(slug)})
 
 
@@ -793,8 +831,10 @@ async def submit_application(request: Request, slug: str, background: Background
     dest = UPLOADS / slug
     dest.mkdir(parents=True, exist_ok=True)
     target = dest / f"{cid}{Path(cv.filename).suffix.lower()}"
-    with target.open("wb") as out:
-        shutil.copyfileobj(cv.file, out)
+    if problem := _save_upload(cv, target):
+        return TEMPLATES.TemplateResponse(request, "apply.html", {
+            "slug": slug, "role": role_data, "error": problem,
+            "name": name, "email": email}, status_code=400)
 
     ApplicationStore(slug).save(Application(
         candidate_id=cid, name=name, email=email, role_slug=slug, cv_filename=cv.filename))

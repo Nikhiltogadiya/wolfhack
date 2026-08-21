@@ -182,3 +182,63 @@ def test_the_review_queue_never_selects_on_style_alone():
     # and a real corroborated flag is selected regardless of how it reads
     assert needs_a_human(C("low", Verdict.FLAG_FOR_HUMAN))
     assert needs_a_human(C("high", Verdict.FLAG_FOR_HUMAN))
+
+
+def test_a_mistyped_role_url_creates_no_directory(tmp_path, monkeypatch):
+    """`tasks._path` called mkdir on every access, including from reads, so simply polling
+    the status endpoint for a role that does not exist created it. `store.Run`'s docstring
+    records this being fixed there - "a crawler or a mistyped URL would litter the data
+    directory" - and the tasks module quietly reintroduced it."""
+    from fit_happens.web import tasks
+
+    monkeypatch.setattr(tasks, "DATA_DIR", tmp_path)
+
+    tasks.pending("no-such-role")
+    tasks.recent("no-such-role")
+    tasks.clear_finished("no-such-role")
+
+    assert not (tmp_path / "runs" / "no-such-role").exists(), (
+        "reading a nonexistent role must not create its directory")
+
+
+class TestUploadLimits:
+    """`accept=".pdf,.docx,.txt"` on the file input is a picker hint, not a constraint. The
+    endpoint took anything, streamed the whole body to disk with copyfileobj, and then started
+    a paid LLM pipeline per file - on a route that is public."""
+
+    def _upload(self, name: str, data: bytes, tmp_path):
+        from fit_happens.web.app import _save_upload
+
+        class _Upload:
+            filename = name
+
+            def __init__(self, blob):
+                import io
+
+                self.file = io.BytesIO(blob)
+
+        target = tmp_path / "out"
+        return _save_upload(_Upload(data), target), target
+
+    def test_a_wrong_type_is_refused_without_touching_disk(self, tmp_path):
+        problem, target = self._upload("payload.sh", b"#!/bin/sh\necho hi\n", tmp_path)
+        assert "PDF, DOCX and TXT" in problem
+        assert not target.exists()
+
+    def test_an_oversized_file_is_abandoned_not_truncated(self, tmp_path):
+        from fit_happens.web.app import MAX_CV_BYTES
+
+        problem, target = self._upload("big.pdf", b"x" * (MAX_CV_BYTES + 1024), tmp_path)
+        assert "over" in problem
+        # deleted, not left truncated: a truncated CV would be scored as the whole document
+        assert not target.exists()
+
+    def test_an_empty_file_is_refused(self, tmp_path):
+        problem, target = self._upload("nothing.pdf", b"", tmp_path)
+        assert "empty" in problem
+        assert not target.exists()
+
+    def test_a_real_cv_still_goes_through(self, tmp_path):
+        problem, target = self._upload("cv.pdf", b"%PDF-1.4 plausible enough", tmp_path)
+        assert problem == ""
+        assert target.exists() and target.read_bytes().startswith(b"%PDF")

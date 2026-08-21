@@ -50,6 +50,9 @@ the new test fails, and passes again once fixed.**
 | D7 | P1 | landing | "Browse N open roles" counted closed ones; `/jobs` excluded them, so the number never matched the list |
 | D8 | P1 | `/hiring/market` | A missing or malformed `snapshot.json` made `"{:,}".format(None)` raise — a **500 on the whole page**, one `rm` away. Defaults to 0. Verified by moving the file aside |
 | D9 | P2 | candidate portal | Question labels had no `for`/`id`, so clicking one focused nothing |
+| E1 | **P0** | consent records | A scope removed from `SCOPES` but still on disk made `summary()` raise `KeyError` and **500 the candidate's own portal**. Two live demo records still carry `"community": false` — latent only because it is false. Retired scopes are now pruned on load, so nothing downstream has to know it happened |
+| E2 | P1 | tasks | **A mistyped URL created a role directory.** `tasks._path` called `mkdir` on every access including reads, reintroducing exactly what `store.Run`'s docstring says was fixed there. Verified: two bogus slugs created two directories. Now only `_write` creates, `clear_finished` no-ops when there is nothing to clear, and both routes 404 on an unknown role |
+| E3 | P1 | all three upload sites | `accept=".pdf,.docx,.txt"` is a **file-picker hint, not a constraint**. The public apply endpoint took any file type, streamed unbounded bytes to disk with `copyfileobj`, then started a paid LLM pipeline per file. Now one bounded helper: type allowlist, 10 MB cap, empty-file check. An oversized file is **deleted rather than truncated** — a truncated CV would be scored as if it were the whole document. Verified end to end with a `.sh`, a 12 MB file and an empty one |
 
 ## Verified working (tested, not assumed)
 
