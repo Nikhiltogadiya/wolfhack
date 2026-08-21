@@ -192,6 +192,35 @@
       </div>
       {% endfor %}
     </div>
+    {% if c.external_findings %}
+    {# They turned a scope on; this is what it actually found. Without this the candidate
+       grants consent into a black box - and the "undersold" case is the one result that is
+       for their benefit rather than the employer's. #}
+    <div class="mt-5 rounded-lg border border-forest-600/30 bg-forest-50/50 p-4">
+      <div class="text-[13px] font-semibold">What that turned up</div>
+      <div class="mt-2 space-y-2">
+        {% for v in c.external_findings[:6] %}
+        <div class="flex items-start gap-3 text-[12.5px]">
+          <span class="shrink-0">{{ pill(v.state|upper, 'green' if v.state=='corroborated' else 'blue') }}</span>
+          <div class="min-w-0"><span class="font-medium">{{ v.skill }}</span>
+            <span class="block leading-snug text-ink-muted">{{ v.note }}</span></div>
+        </div>
+        {% endfor %}
+      </div>
+      {% if c.external_unsupported %}
+      <p class="mt-2 text-[11.5px] leading-relaxed text-ink-muted">
+        Nothing was found either way for {{ c.external_unsupported }} other thing{{ '' if c.external_unsupported == 1 else 's' }} you listed.
+        That is not held against you.</p>
+      {% endif %}
+    </div>
+    {% endif %}
+
+    {# Right of access belongs to the person the data is about, not only to the employer
+       holding it. Same file the hiring team can export, from their side of the wall. #}
+    <a href="/apply/{{ token }}/export"
+       class="mt-4 inline-block rounded-lg border border-hair px-3.5 py-2 text-[12.5px] font-semibold hover:border-forest-600">
+      Download everything we hold about you</a>
+
     {% if consent.history %}
     <details class="mt-4">
       <summary class="text-[12px] text-ink-muted cursor-pointer">Your choices, with times ({{ consent.history|length }})</summary>

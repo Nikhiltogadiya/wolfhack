@@ -603,6 +603,92 @@ def compare(request: Request, slug: str, ids: str = ""):
         "nav": "roles"})
 
 
+def _subject_record(slug: str, cid: str) -> dict | None:
+    """Everything held about one person, for one role, in one document.
+
+    The brief claims an "exportable audit trail" in three places and demo beat 2 ends on it;
+    nothing exported anything. This is the GDPR right-of-access shape - what was collected,
+    where each score came from, what was gathered under which consent scope, and every
+    decision a person took - rather than a screenshot of the page.
+    """
+    run = Run(slug)
+    role_data = run.load_role()
+    c = run.candidate(cid)
+    if not role_data or not c:
+        return None
+    consent = ConsentStore(slug).load(cid)
+    answers = AnswerStore(slug).load(cid)
+    appn = ApplicationStore(slug).get(cid)
+    reqs = {r["id"]: r for r in role_data["requirements"]}
+    return {
+        "exported_at": datetime.now(timezone.utc).isoformat(timespec="seconds"),
+        "role": {"slug": slug, "title": role_data["jd"].get("title", slug)},
+        "candidate": {
+            "id": c.candidate_id, "name": c.display_name,
+            "email": appn.email if appn else "",
+            "applied_at": appn.at if appn else "",
+            "source_document": c.document.source_path.split("/")[-1],
+        },
+        "consent": {
+            "summary": c.consent_summary,
+            "grants": dict(consent.grants),
+            "history": [e.model_dump() for e in consent.history],
+        },
+        "scores": {
+            "fit": {
+                "score": c.fit.score,
+                "required_coverage": c.fit.required_coverage,
+                "preferred_coverage": c.fit.preferred_coverage,
+                "capped_by_dealbreaker": c.fit.capped_by_dealbreaker,
+                # every component with the span it came from - the transparency claim, in data
+                "components": [{
+                    "requirement": reqs.get(m.requirement_id, {}).get("text", m.requirement_id),
+                    "strength": m.strength,
+                    "rationale": m.rationale,
+                    "evidence": [e.model_dump() for e in m.evidence],
+                } for m in c.fit.matches],
+                "gaps": [g.model_dump() for g in c.fit.gaps],
+            },
+            "cp1_style": c.style.model_dump(),
+            "cp2_claims": c.cp2.model_dump(),
+            "cp3_response": (_cp3_for(slug, c).model_dump() if _cp3_for(slug, c) else None),
+        },
+        "external_evidence": [v.model_dump() for v in c.verifications],
+        "document_integrity": [h.model_dump() for h in c.document.hidden],
+        "answers": [a.model_dump() for a in answers.answers],
+        "stage": StageStore(slug).load(cid).model_dump(),
+        "audit_trail": c.audit,
+        "note": ("Fit Happens ranks and flags; it never decides. No entry in this file is an "
+                 "automated hiring decision."),
+    }
+
+
+def _export_response(record: dict, filename: str) -> JSONResponse:
+    return JSONResponse(record, headers={
+        "Content-Disposition": f'attachment; filename="{filename}"'})
+
+
+@app.get("/hiring/role/{slug}/c/{cid}/export")
+def export_candidate(request: Request, slug: str, cid: str):
+    record = _subject_record(slug, cid)
+    if not record:
+        return _err(request, "That candidate does not exist.", 404, f"/hiring/role/{slug}")
+    return _export_response(record, f"fit-happens-{slug}-{cid}.json")
+
+
+@app.get("/apply/{token}/export")
+def export_own_record(request: Request, token: str):
+    """The same file, for the person it is about. Right of access belongs to them, not only
+    to the employer holding the data."""
+    slug, consent = _find_consent(token)
+    if not consent:
+        return _err(request, "That link is not valid any more.", 404, "/")
+    record = _subject_record(slug, consent.candidate_id)
+    if not record:
+        return _err(request, "That application could not be found.", 404, "/")
+    return _export_response(record, f"my-application-{slug}.json")
+
+
 @app.get("/hiring/role/{slug}/c/{cid}/ask", response_class=HTMLResponse)
 def ask_questions(request: Request, slug: str, cid: str):
     if (gate := auth.require(request)):

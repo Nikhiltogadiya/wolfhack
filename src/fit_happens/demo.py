@@ -70,8 +70,11 @@ def ensure_demo_resumes() -> int:
     if list(dest.glob("*.pdf")):
         return len(list(dest.glob("*.pdf")))
     dest.mkdir(parents=True, exist_ok=True)
-    for rid, name in (("17641670", "priya_raman"), ("10704573", "daniel_kowalski"),
-                      ("19796840", "amara_osei")):
+    # 19796840 was seeded twice, once as "amara_osei" and once - via the public apply form -
+    # as Naledi Dube, so the ranking showed two people with byte-identical CVs, fit scores,
+    # claim counts and gaps. Seeded once now; Naledi is the one kept, because she also
+    # carries the application record that the candidate-side walkthrough needs.
+    for rid, name in (("17641670", "priya_raman"), ("10704573", "daniel_kowalski")):
         hit = glob.glob(f"data/corpus/data/data/*/{rid}.pdf")
         if hit:
             shutil.copy(hit[0], dest / f"{name}.pdf")

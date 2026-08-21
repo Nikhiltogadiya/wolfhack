@@ -213,14 +213,26 @@
       <div class="rounded-xl border border-hair bg-white p-6">
         <h2 class="text-[16px] font-bold">External evidence</h2>
         <div class="mt-3 space-y-2">
-          {% for v in c.verifications[:8] %}
+          {# corroborated and undersold only. Listing an `unsupported` row per unmatched
+             claim put eight lines of "no public repository evidence" on the page and pushed
+             the one positive finding out of view entirely. #}
+          {% for v in c.external_findings[:8] %}
           <div class="flex items-start gap-3 text-[12.5px]">
-            {{ pill(v.state|upper, 'green' if v.state=='corroborated' else ('blue' if v.state=='undersold' else 'grey')) }}
+            <span class="shrink-0">{{ pill(v.state|upper, 'green' if v.state=='corroborated' else 'blue') }}</span>
             <div class="min-w-0"><span class="font-medium">{{ v.skill }}</span>
               <span class="block text-ink-muted leading-snug">{{ v.note }}</span></div>
           </div>
+          {% else %}
+          <p class="text-[12.5px] leading-relaxed text-ink-muted">
+            Nothing found either way. Most professional work is not public, so this says
+            nothing about the candidate and costs them nothing.</p>
           {% endfor %}
         </div>
+        {% if c.external_unsupported %}
+        <p class="mt-3 text-[11.5px] leading-relaxed text-ink-muted">
+          The source had nothing to say about {{ c.external_unsupported }} other claim{{ '' if c.external_unsupported == 1 else 's' }}.
+          That is absence of information, not absence of the skill, and it does not affect any score.</p>
+        {% endif %}
       </div>
       {% endif %}
 
@@ -314,7 +326,12 @@
 
   <!-- audit trail -->
   <div class="mt-6 rounded-xl border border-hair bg-white p-6">
-    <h2 class="text-[16px] font-bold">Audit trail</h2>
+    <div class="flex flex-wrap items-center justify-between gap-3">
+      <h2 class="text-[16px] font-bold">Audit trail</h2>
+      <a href="/hiring/role/{{ slug }}/c/{{ c.candidate_id }}/export"
+         class="shrink-0 rounded-lg border border-hair px-3.5 py-2 text-[12.5px] font-semibold hover:border-forest-600">
+        Export everything we hold</a>
+    </div>
     <div class="mt-4 grid grid-cols-1 gap-6 text-[12.5px] sm:grid-cols-2 lg:grid-cols-4">
       {% for step, detail in [
         ('Document ingested', c.document.source_path.split('/')[-1] ~ ' · ' ~ c.document.hidden|length ~ ' hidden span(s) removed'),

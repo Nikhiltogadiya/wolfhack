@@ -353,3 +353,36 @@ def test_a_retired_scope_on_disk_does_not_crash_the_portal():
     assert "community" not in c.grants, "a scope no longer offered must not survive a load"
     assert c.summary()  # would have raised KeyError
     assert not c.allows("community")
+
+
+class TestHandleFormsOnRealCVs:
+    """Only `github.com/x` URLs were matched, so a CV saying "GitHub: janedoe" - one of the
+    most common ways anyone writes it - yielded no handle and the candidate was treated
+    exactly like someone with no public code. Hard rule 5 says absence of GitHub must never
+    cost a candidate; a regex that manufactures that absence turns the rule into a lie for
+    everyone who did not paste a full URL."""
+
+    FOUND = [
+        "github.com/janedoe", "https://github.com/janedoe", "www.github.com/janedoe",
+        "github.com/janedoe/portfolio", "GitHub: janedoe", "Github: janedoe",
+        "GitHub - janedoe", "GitHub \u2014 janedoe", "GitHub Profile: janedoe",
+        "GitHub profile: @janedoe", "GitHub username: jane99", "Portfolio: github.com/jane-doe-99",
+    ]
+    # An explicit separator is required precisely so these stay empty.
+    NOT_FOUND = [
+        "I have used GitHub for 5 years", "Experience with GitHub Actions and CI",
+        "Tools: Git, GitHub, GitLab", "GitHub: available on request",
+        "Migrated the team to GitHub - a six month project", "GitHub and Jenkins pipelines",
+    ]
+
+    def test_the_ways_people_actually_write_it_are_found(self):
+        from fit_happens.verify.github import find_handles
+
+        for text in self.FOUND:
+            assert find_handles(text), f"no handle found in {text!r}"
+
+    def test_prose_that_merely_mentions_github_yields_nothing(self):
+        from fit_happens.verify.github import find_handles
+
+        for text in self.NOT_FOUND:
+            assert not find_handles(text), f"false handle in {text!r}: {find_handles(text)}"

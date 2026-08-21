@@ -342,6 +342,29 @@ class CandidateResult(BaseModel):
         return "".join(p[0].upper() for p in parts[:2]) or "?"
 
     @property
+    def external_findings(self) -> list["Verification"]:
+        """The external evidence worth showing: what was corroborated, and what the CV left out.
+
+        `unsupported` deliberately excluded. github.verify_claims already documents why it
+        returns nothing when there is no profile - "no information must produce no
+        verifications rather than a page of `unsupported` rows that read as suspicion" - but
+        when a profile DID exist it emitted one such row per unmatched claim. An
+        infrastructure candidate produced 24 of them against 1 corroborated finding, and the
+        page rendered the first 8, so a recruiter saw eight lines of "no public repository
+        evidence" and never saw the one positive result at all. Absence of public code is
+        absence of information (hard rule 5); it is not an item of evidence, so it does not
+        belong in a list headed External evidence.
+        """
+        rank = {"corroborated": 0, "undersold": 1}
+        found = [v for v in self.verifications if v.state in rank]
+        return sorted(found, key=lambda v: rank[v.state])
+
+    @property
+    def external_unsupported(self) -> int:
+        """How many claims the external source simply had nothing to say about."""
+        return sum(1 for v in self.verifications if v.state == "unsupported")
+
+    @property
     def authenticity_flags(self) -> list[Flag]:
         """Flags about whether claims hold up. Style patterns are excluded by design."""
         return [f for f in self.cp2.flags if f.pattern_id not in STYLE_ONLY_PATTERNS]

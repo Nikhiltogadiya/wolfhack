@@ -51,18 +51,38 @@ GENERIC_TOPICS = {
 }
 
 API = "https://api.github.com"
-HANDLE_RE = re.compile(r"github\.com/([A-Za-z0-9](?:[A-Za-z0-9-]{0,37}[A-Za-z0-9])?)\b", re.I)
-# Paths that look like handles but are not people.
+_H = r"[A-Za-z0-9](?:[A-Za-z0-9-]{0,37}[A-Za-z0-9])?"
+
+# Two shapes, because CVs use both and only the first was handled. A CV that says
+# "GitHub: janedoe" - one of the most common ways anyone writes it - produced no handle at
+# all, so the candidate was treated exactly like one with no public code. Hard rule 5 says
+# absence of GitHub must never cost a candidate; a regex that manufactures that absence
+# turns the rule into a lie for everyone who did not paste a full URL.
+HANDLE_RES = [
+    re.compile(rf"github\.com/({_H})\b", re.I),
+    # "GitHub: janedoe", "Github - janedoe", "GitHub profile: @janedoe".
+    # An explicit separator is required: matching bare "GitHub janedoe" would swallow the
+    # next word of any sentence that merely mentions GitHub.
+    re.compile(rf"\bgithub(?:\s+(?:profile|handle|username|user|id|account))?\s*[:\-\u2013\u2014]\s*@?({_H})\b", re.I),
+]
+
+# Paths that look like handles but are not people, plus the words most likely to follow a
+# "GitHub:" label in prose rather than a handle.
 NOT_HANDLES = {"about", "features", "pricing", "topics", "collections", "trending", "events",
-               "sponsors", "readme", "explore", "marketplace", "orgs", "enterprise", "apps"}
+               "sponsors", "readme", "explore", "marketplace", "orgs", "enterprise", "apps",
+               "com", "www", "http", "https", "and", "or", "for", "the", "my", "me", "i",
+               "see", "is", "was", "available", "on", "at", "in", "profile", "profiles",
+               "link", "links", "username", "handle", "account", "repo", "repos",
+               "repositories", "portfolio", "yes", "no", "n", "a", "used", "using", "via"}
 
 
 def find_handles(text: str) -> list[str]:
     seen: list[str] = []
-    for m in HANDLE_RE.finditer(text or ""):
-        h = m.group(1)
-        if h.lower() not in NOT_HANDLES and h.lower() not in {s.lower() for s in seen}:
-            seen.append(h)
+    for pattern in HANDLE_RES:
+        for m in pattern.finditer(text or ""):
+            h = m.group(1)
+            if h.lower() not in NOT_HANDLES and h.lower() not in {s.lower() for s in seen}:
+                seen.append(h)
     return seen
 
 

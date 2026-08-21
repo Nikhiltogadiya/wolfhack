@@ -49,7 +49,7 @@ class TestACandidateIsAPerson:
         assert "Cabbage" in _candidate("x", "Ann Cabbage").display_name
 
     def test_missing_name_falls_back_to_the_id(self):
-        assert _candidate("amara_osei", "").display_name == "Amara Osei"
+        assert _candidate("naledi-dube-7b4f54", "").display_name == "Naledi Dube"
 
 
 class TestRoleLifecycle:

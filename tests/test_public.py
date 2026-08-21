@@ -28,7 +28,7 @@ class TestTheFrontDoorIsPublic:
 
     def test_root_leaks_no_applicant_names(self):
         body = client.get("/").text
-        for name in ("Priya Raman", "Amara Osei", "Marcus Webb", "Daniel Kowalski"):
+        for name in ("Priya Raman", "Naledi Dube", "Marcus Webb", "Daniel Kowalski"):
             assert name not in body, f"{name} leaked onto the public landing page"
 
     @pytest.mark.parametrize("path", ["/", "/jobs", "/track"])

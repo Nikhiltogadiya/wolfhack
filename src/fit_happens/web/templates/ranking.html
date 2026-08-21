@@ -114,8 +114,8 @@
   </div>
   {% endif %}
 
-  <div class="mt-7 grid grid-cols-1 lg:grid-cols-12 gap-6">
-    <div class="lg:col-span-9 min-w-0">
+  <div class="mt-7 grid grid-cols-1 lg:grid-cols-12 gap-5">
+    <div class="lg:col-span-10 min-w-0">
       <div class="mb-3 flex flex-wrap items-center gap-2">
         {% for key, label in [('','Everyone'), ('undecided','Not yet decided'), ('review','Needs a human'),
                               ('top','Top fit'), ('waiting','Waiting on them'), ('replied','They replied')] %}
@@ -148,12 +148,12 @@
                  class="inline-flex items-center gap-1 hover:text-ink {{ 'text-ink' if sort == key else '' }}">
                 {{ label }}{% if sort == key %}<span>↓</span>{% endif %}</a>
               {% endmacro %}
-              <th scope="col" class="py-3 pr-3 font-semibold w-[170px]">{{ sortlink('name','Candidate') }}</th>
-              <th scope="col" class="px-3 font-semibold">{{ sortlink('fit','Fit score') }}</th>
-              <th scope="col" class="px-3 font-semibold">{{ sortlink('style','Sloppiness') }}</th>
-              <th scope="col" class="px-3 font-semibold">{{ sortlink('claims','Bluff risk') }}</th>
+              <th scope="col" class="py-3 pr-3 font-semibold w-[150px]">{{ sortlink('name','Candidate') }}</th>
+              <th scope="col" class="px-2 font-semibold">{{ sortlink('fit','Fit score') }}</th>
+              <th scope="col" class="px-2 font-semibold">{{ sortlink('style','Sloppiness') }}</th>
+              <th scope="col" class="px-2 font-semibold">{{ sortlink('claims','Bluff risk') }}</th>
               <th scope="col" class="px-2 font-semibold">Response</th>
-              <th scope="col" class="px-2 pr-4 font-semibold w-[120px]">Stage</th>
+              <th scope="col" class="px-2 pr-3 font-semibold w-[104px]">Stage</th>
             </tr>
           </thead>
           <tbody>
@@ -175,7 +175,7 @@
                   <span class="grid h-9 w-9 place-items-center rounded-full bg-forest-50 text-forest text-[12px] font-bold">
                     {{ c.display_initials }}</span>
                   <span>
-                    <span class="block max-w-[190px] truncate font-semibold group-hover:text-forest-600"
+                    <span class="block max-w-[150px] truncate font-semibold group-hover:text-forest-600"
                         title="{{ c.display_name }}">{{ c.display_name }}</span>
                     <span class="block text-[11.5px] text-ink-muted">{{ c.employment|length }} roles · {{ c.claims|length }} claims</span>
                     {% if c.freshness_label == 'STALE' %}
@@ -194,7 +194,7 @@
               <td class="px-3">{{ pill(c.bluff_label, c.risk_tone) }}</td>
               {% set rl = response_labels.get(c.candidate_id, ('PENDING','grey')) %}
               <td class="px-3">{{ pill(rl[0], rl[1]) }}</td>
-              <td class="px-2 pr-4">
+              <td class="px-2 pr-3">
                 {% set st = stage_of[c.candidate_id] %}
                 {% if c.candidate_id in replied %}
                   {{ pill('REPLIED', 'green') }}
@@ -211,7 +211,7 @@
       </div>
     </div>
 
-    <div class="lg:col-span-3 space-y-5">
+    <div class="lg:col-span-2 space-y-5">
       <div class="rounded-xl border border-hair bg-white p-5">
         <div class="text-[12px] font-semibold text-ink-muted">Role fit configuration</div>
         <div class="mt-3 text-[34px] font-bold leading-none tracking-tight">70 / 30</div>
