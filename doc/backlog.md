@@ -30,3 +30,53 @@ someone) · `WONTFIX` (decided against, reason recorded) · `DONE` (with date).
 | 22 | UNVERIFIED | Fraser "detectors need >=100 words" | Could not retrieve the paper; NBER cuts against it. Not used as a constraint | `doc/project-brief.md` | Someone gets the JAIR full text |
 | 23 | UNVERIFIED | Undersold collapse leaks near-variants | 'uwsgi-nginx' survived beside 'nginx'; prefix collapse is crude | `verify/github.py` | If it looks noisy on stage |
 | 24 | UNVERIFIED | Publications on our own demo data | The corpus is anonymised, so no name resolves. Verified live against a known author instead | `verify/publications.py` | A CV with a real name |
+
+---
+
+## UX audit, 2026-08-21
+
+Done by opening the site as a first-time visitor rather than as its author. The finding that
+matters: **the website is a read-only viewer over a run the CLI produced.** Every action that
+makes this a product - upload a CV, create a role, set internal criteria - is a shell command.
+A judge who opens it fresh is shown `uv run python scripts/build_demo.py`.
+
+### P0 - a new visitor cannot use the product at all
+
+| # | Status | Problem | Why it matters |
+|---|---|---|---|
+| 25 | DONE 2026-08-21 | No home page; `/` is a role *detail* page | There is no level above a single hard-coded role |
+| 26 | DONE 2026-08-21 | Fresh visit shows a CLI command as the empty state | The first thing a judge sees is a terminal instruction |
+| 27 | DONE 2026-08-21 | Cannot upload a CV | The product's core action is unavailable in the product |
+| 28 | DONE 2026-08-21 | Cannot create a role or paste a JD | The JD is a file on disk |
+| 29 | DONE 2026-08-21 | Internal criteria are hard-coded in `scripts/build_demo.py` | The guard refusing a protected characteristic is our best compliance story and cannot be shown live |
+| 30 | DONE 2026-08-21 | Only one role can exist (`Run("demo")`) | Nothing in the UI implies a second role is possible |
+
+### P1 - things that are broken or actively mislead
+
+| # | Status | Problem | Why it matters |
+|---|---|---|---|
+| 31 | DONE 2026-08-21 | Nav active state hard-coded to the first item | Every page except the first highlights the wrong thing |
+| 32 | DONE 2026-08-21 | "Clear flag" and "Send questions" are decorative | Same class as the dead consent toggle: controls that do nothing |
+| 33 | DONE 2026-08-21 | No progress feedback while a CV processes | Takes 30-60s cold with no indication anything is happening |
+| 34 | DONE 2026-08-21 | 404s return a bare unstyled paragraph | |
+| 35 | DONE 2026-08-21 | No error state for an unreadable upload | |
+
+### P2 - navigation and completeness
+
+| # | Status | Problem |
+|---|---|---|
+| 36 | DONE 2026-08-21 | No roles list, no candidates list above a single role |
+| 37 | DONE 2026-08-21 | Candidate portal link is buried on a detail page |
+| 38 | DONE 2026-08-21 | Job-ad page never shows the advert it is scoring |
+| 39 | DONE 2026-08-21 | No breadcrumbs; no way back up from a candidate |
+| 40 | DEFERRED | Narrow-viewport behaviour untested below ~1000px | Judges use laptops; low risk, not zero |
+
+### Carried forward
+
+| # | Status | Item |
+|---|---|---|
+| 41 | WONTFIX | **Candidate pain: fragmented signals.** Checked `get_company` on the JobDataLake MCP - it returns industry and size only. No reviews, financials, news or culture data. Every other source is paid or requires scraping. Stated on stage rather than faked. |
+| 42 | DONE 2026-08-21 | **Candidate pain: blind discovery.** Was WONTFIX until a corpus existed. 47 postings of one Speechify job; 75% of a 67-posting sample is redundant. `jd/discovery.py`, `/market`. |
+
+**Candidate pains: 3 of 4 built** - generic job ads, transparency, blind discovery. Fragmented
+signals is the one we do not build, and we say so.
