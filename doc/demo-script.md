@@ -58,7 +58,7 @@ just at the wrong kind of company. Only the fit column catches that. A keyword A
 
 ## Beat ③ — consent gates the fetch (3 min)
 
-Rowan's own page: `http://127.0.0.1:8010/apply/efff92ba1c097cb3f425`
+Rowan's own page: `http://127.0.0.1:8010/apply/4cf2e5cd4d6c3c11229e`
 
 1. **What we are allowed to look at** — GitHub is **off**. Nothing external has been fetched.
 2. Press **Share this** on GitHub.
@@ -89,7 +89,7 @@ provenance — and the fit score never moved.
 Then `/apply/{token}`: status, what we read, what we noticed, the questions, consent, and
 **Download everything we hold about you**.
 
-Marcus's portal, which has answers already submitted: `http://127.0.0.1:8010/apply/df78fb80d737daf3e6a0`
+Marcus's portal, which has answers already submitted: `http://127.0.0.1:8010/apply/9672c24be7c98039445d`
 
 ## Say these out loud, early
 

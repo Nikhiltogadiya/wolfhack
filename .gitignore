@@ -11,3 +11,9 @@ data/cache/*.json
 # never commit local secrets
 .env
 *.env
+
+# Per-role token secret. Every candidate's private portal link is
+# sha256(this + their candidate id), so committing it hands out every link.
+# Consent records hold each candidate's private portal token, so publishing them
+# publishes the links themselves - the secret alone was never the whole leak.
+data/runs/*/consent/

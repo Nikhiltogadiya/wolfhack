@@ -178,3 +178,7 @@ the external-evidence wall, the duplicate candidate, the clipped Stage column. L
 | 77 | WONTFIX | **`Applicant 15118506` has no name.** The Kaggle corpus CV is anonymised, so there is nothing to extract and inventing one is worse. The fallback is deliberate; say so if a judge asks |
 | 78 | DEFERRED | **CP1 scored 277 words on the fixture CV**, below the 400–700 band the detector is safe at. It emits its advisory caveat, and CP1 cannot contribute to a flag, so nothing downstream is affected — but a short CV gets a style read the engineering log says not to trust |
 | 79 | DEFERRED | **The fixture CV carries a real public GitHub handle (`tiangolo`)** as a stand-in so beat ③ has data. Fine as a labelled test case; swap it for the presenter's own handle if demoing it as a personal application |
+
+| # | Status | Problem |
+|---|---|---|
+| 80 | DONE 21 Aug | **The per-role token secret was committed to a public repo.** `data/runs/*/consent/.secret` derives every candidate's private portal link as `sha256(secret + candidate_id)`, and the candidate ids are the tracked filenames — so anyone could clone the repo and compute any candidate's link. Now gitignored and rotated. **It remains in the pushed history** (since commit 2483919); the rotation makes the leaked value useless, but scrubbing history needs a force-push and is the owner's call |
