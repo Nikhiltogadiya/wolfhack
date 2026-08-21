@@ -342,7 +342,7 @@ class CandidateResult(BaseModel):
         return "".join(p[0].upper() for p in parts[:2]) or "?"
 
     @property
-    def external_findings(self) -> list["Verification"]:
+    def external_findings(self) -> list[Verification]:
         """The external evidence worth showing: what was corroborated, and what the CV left out.
 
         `unsupported` deliberately excluded. github.verify_claims already documents why it

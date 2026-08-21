@@ -7,6 +7,8 @@ breaking quietly.
 
 from __future__ import annotations
 
+import typing
+
 import pytest
 
 from fit_happens.candidate.consent import DEFAULT_GRANTS, SCOPES, Consent, ConsentStore
@@ -362,14 +364,14 @@ class TestHandleFormsOnRealCVs:
     cost a candidate; a regex that manufactures that absence turns the rule into a lie for
     everyone who did not paste a full URL."""
 
-    FOUND = [
+    FOUND: typing.ClassVar[list[str]] = [
         "github.com/janedoe", "https://github.com/janedoe", "www.github.com/janedoe",
         "github.com/janedoe/portfolio", "GitHub: janedoe", "Github: janedoe",
         "GitHub - janedoe", "GitHub \u2014 janedoe", "GitHub Profile: janedoe",
         "GitHub profile: @janedoe", "GitHub username: jane99", "Portfolio: github.com/jane-doe-99",
     ]
     # An explicit separator is required precisely so these stay empty.
-    NOT_FOUND = [
+    NOT_FOUND: typing.ClassVar[list[str]] = [
         "I have used GitHub for 5 years", "Experience with GitHub Actions and CI",
         "Tools: Git, GitHub, GitLab", "GitHub: available on request",
         "Migrated the team to GitHub - a six month project", "GitHub and Jenkins pipelines",

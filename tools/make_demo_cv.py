@@ -8,7 +8,7 @@ to catch, so this doubles as a labelled test case.
 from reportlab.lib.pagesizes import A4
 from reportlab.lib.styles import ParagraphStyle, getSampleStyleSheet
 from reportlab.lib.units import mm
-from reportlab.platypus import Paragraph, SimpleDocTemplate, Spacer
+from reportlab.platypus import Paragraph, SimpleDocTemplate
 
 OUT = "/home/niks-tuf-ubuntu/Downloads/temp del/rowan-feltz-cv.pdf"
 

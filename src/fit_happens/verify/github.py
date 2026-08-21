@@ -25,7 +25,6 @@ aimed squarely at the challenge's own bias-monitoring requirement.
 from __future__ import annotations
 
 import hashlib
-import json
 import os
 import re
 from datetime import datetime
@@ -59,11 +58,11 @@ _H = r"[A-Za-z0-9](?:[A-Za-z0-9-]{0,37}[A-Za-z0-9])?"
 # absence of GitHub must never cost a candidate; a regex that manufactures that absence
 # turns the rule into a lie for everyone who did not paste a full URL.
 HANDLE_RES = [
-    re.compile(rf"github\.com/({_H})\b", re.I),
+    re.compile(rf"github\.com/({_H})\b", re.IGNORECASE),
     # "GitHub: janedoe", "Github - janedoe", "GitHub profile: @janedoe".
     # An explicit separator is required: matching bare "GitHub janedoe" would swallow the
     # next word of any sentence that merely mentions GitHub.
-    re.compile(rf"\bgithub(?:\s+(?:profile|handle|username|user|id|account))?\s*[:\-\u2013\u2014]\s*@?({_H})\b", re.I),
+    re.compile(rf"\bgithub(?:\s+(?:profile|handle|username|user|id|account))?\s*[:\-\u2013\u2014]\s*@?({_H})\b", re.IGNORECASE),
 ]
 
 # Paths that look like handles but are not people, plus the words most likely to follow a
@@ -86,7 +85,7 @@ def find_handles(text: str) -> list[str]:
     return seen
 
 
-def _cache_path(handle: str) -> "os.PathLike":
+def _cache_path(handle: str) -> os.PathLike:
     key = hashlib.sha256(f"github:{handle.lower()}".encode()).hexdigest()[:24]
     return config.CACHE_DIR / f"gh_{key}.json"
 
