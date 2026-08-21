@@ -125,3 +125,48 @@ def test_stems_match_their_inflections(field_name, value, category):
     r = check_value(field_name, value)
     assert not r.allowed, f"inflection escaped the guard: {value!r}"
     assert category in {c for c, _ in r.violations}, f"{value!r}: got {r.violations}"
+
+
+# --- hard gates -------------------------------------------------------------
+# Job adverts phrase work authorisation half a dozen ways. An earlier pattern caught "right to
+# work" and "work authorisation" and missed "eligible to work" - which is most real adverts.
+# A missed hard gate does not cap the score and never generates a confirmation question, so
+# the candidate is never asked about the one thing that could rule them out.
+
+HARD_GATES = [
+    "Must have the right to work in Germany",
+    "Must be eligible to work in the EU",
+    "You must be legally authorised to work in the US",
+    "Applicants must be legally entitled to work in Canada",
+    "Work authorisation required",
+    "Requires a valid work permit",
+    "We are unable to offer visa sponsorship",
+    "Must hold a valid security clearance",
+    "Bachelor's degree required",
+    "Must hold a CISSP certification",
+    "Must be a registered nurse",
+    "Chartered engineer status required",
+    "Must hold a CISSP",
+    "Candidates must possess a valid driving licence",
+    "You need to hold an active SC clearance",
+]
+
+NOT_GATES = [
+    "Experience with Kubernetes in production",
+    "Strong communication skills",
+    "Comfortable working across several teams",
+    "Familiarity with Terraform is a plus",
+    "You will work closely with the platform team",
+]
+
+
+@pytest.mark.parametrize("text", HARD_GATES)
+def test_hard_gates_are_detected(text):
+    from fit_happens.jd.parse import DEALBREAKER_CUES
+    assert DEALBREAKER_CUES.search(text), f"missed a hard gate: {text!r}"
+
+
+@pytest.mark.parametrize("text", NOT_GATES)
+def test_ordinary_requirements_are_not_hard_gates(text):
+    from fit_happens.jd.parse import DEALBREAKER_CUES
+    assert not DEALBREAKER_CUES.search(text), f"wrongly a hard gate: {text!r}"

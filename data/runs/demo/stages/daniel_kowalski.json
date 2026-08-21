@@ -1,0 +1,13 @@
+{
+  "candidate_id": "daniel_kowalski",
+  "stage": "questions_sent",
+  "at": "2026-08-21T02:36:17+00:00",
+  "history": [
+    {
+      "from": "new",
+      "to": "questions_sent",
+      "actor": "recruiter",
+      "at": "2026-08-21T02:36:17+00:00"
+    }
+  ]
+}

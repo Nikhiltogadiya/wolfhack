@@ -21,10 +21,22 @@ PREFERRED_CUES = re.compile(
 REQUIRED_CUES = re.compile(
     r"\b(must[- ]have|must |required|requirement|essential|mandatory|minimum|at least|"
     r"you (will )?need|non[- ]negotiable|vorausgesetzt|zwingend|erforderlich)\b", re.IGNORECASE)
+# Hard gates: things no amount of good prose substitutes for. Written as separate alternatives
+# rather than one clause because job adverts phrase work authorisation half a dozen ways and an
+# earlier version caught "right to work" and "work authorisation" but missed "eligible to work"
+# and "legally authorised to work" - which is most of them.
 DEALBREAKER_CUES = re.compile(
-    r"\b(degree|bachelor|master|phd|diploma|licen[sc]e|certifi\w*|clearance|"
-    r"work (authorisation|authorization|permit|eligibility)|right to work|visa|"
-    r"registered|accredited|legally (able|entitled))\b", re.IGNORECASE)
+    r"\b(degree|bachelor|master|phd|diploma|licen[sc]ed?|certifi\w*|clearance|"
+    r"registered|accredited|chartered)\b"
+    r"|\b(work\s+(authoris|authoriz|permit|eligib|status)\w*"
+    r"|(eligib|authoris|authoriz|entitle|permitt|licen[sc]e)\w*\s+to\s+work"
+    r"|right\s+to\s+work|visa|work\s+permit|sponsorship"
+    r"|legally\s+(able|entitled|authoris\w+|authoriz\w+|permitted))\b"
+    # "must hold" is a hard-gate phrasing whatever follows it, which saves listing every
+    # credential acronym an advert might name. "Must hold a CISSP" was missed because bare
+    # acronyms are not in the credential pattern and listing them all is a losing game.
+    r"|\b(must|need\s+to|required\s+to)\s+(hold|possess|maintain|obtain|be\s+licen[sc]ed)\b",
+    re.IGNORECASE)
 
 
 class _ParsedReq(BaseModel):

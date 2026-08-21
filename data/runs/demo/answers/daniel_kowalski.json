@@ -1,0 +1,21 @@
+{
+  "candidate_id": "daniel_kowalski",
+  "answers": [
+    {
+      "question": "Before the specifics - what is a piece of work you enjoyed recently, and what made it good? A couple of sentences is plenty, no need to polish it.",
+      "text": "honestly the bit I liked most was untangling the old reporting scripts",
+      "is_baseline": true
+    },
+    {
+      "question": "I noticed your CV doesn't mention a Bachelor's degree in a technical field or equivalent experience, which is one of the requirements for this role. Could you let me know how you meet that?",
+      "text": "I have not worked in Berlin but I would relocate for the right role.",
+      "is_baseline": false
+    },
+    {
+      "question": "I didn't see anything in your CV about having the right to work in Germany, which is required for this position. Could you clarify your situation there?",
+      "text": "I led a team of 12 for four years at my last company.",
+      "is_baseline": false
+    }
+  ],
+  "submitted_at": "2026-08-21T02:36:17+00:00"
+}
