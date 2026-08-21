@@ -128,7 +128,9 @@ def corpus_stats(path: Path = SNAPSHOT) -> dict:
     hidden = sum(c.size - 1 for c in dupes)
     return {
         "source": snap.get("source", ""), "pulled": snap.get("pulled", ""),
-        "total_matching": snap.get("total_matching"), "postings": len(jobs),
+        # a missing snapshot returns {"jobs": []}, with no total_matching - and None then
+        # reaches "{:,}".format in the template and 500s the whole market page.
+        "total_matching": snap.get("total_matching") or 0, "postings": len(jobs),
         "distinct_jobs": len(clusters), "duplicate_families": len(dupes),
         "redundant_postings": hidden,
         "redundancy": round(hidden / len(jobs), 3) if jobs else 0.0,

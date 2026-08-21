@@ -18,8 +18,7 @@ for non-native speakers.
 from __future__ import annotations
 
 from .. import config
-from ..schemas import (
-    STYLE_ONLY_PATTERNS, CheckpointResult, Flag, StyleRead, Verdict)
+from ..schemas import STYLE_ONLY_PATTERNS, CheckpointResult, Flag, StyleRead, Verdict
 
 STYLE_ONLY = STYLE_ONLY_PATTERNS  # one definition, in schemas
 

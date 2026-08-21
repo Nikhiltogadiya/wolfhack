@@ -71,6 +71,22 @@ def _cache_path(handle: str) -> "os.PathLike":
     return config.CACHE_DIR / f"gh_{key}.json"
 
 
+def forget(cv_text: str) -> int:
+    """Delete the cached lookups this CV's handles produced, and only those.
+
+    Withdrawal used to glob every `gh_*.json` in the cache, so one candidate revoking GitHub
+    deleted the cached lookups of every candidate in every role. The cache is keyed by handle,
+    and the handles come from the CV, so the candidate's own entries are recoverable exactly.
+    """
+    n = 0
+    for handle in find_handles(cv_text):
+        path = _cache_path(handle)
+        if path.exists():
+            path.unlink(missing_ok=True)
+            n += 1
+    return n
+
+
 def fetch_profile(handle: str, *, timeout: float = 20.0) -> ExternalProfile:
     """Public repo metadata for one handle, cached to disk like every other network call.
 

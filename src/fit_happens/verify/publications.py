@@ -55,8 +55,26 @@ def guess_author_name(text: str) -> str | None:
     return None
 
 
+def _cache_path(author: str):
+    import re as _re
+
+    return config.CACHE_DIR / f"oa_{_re.sub(r'[^a-z0-9]', '_', author.lower())}.json"
+
+
+def forget(cv_text: str) -> int:
+    """Delete only this candidate's cached publication lookup - see github.forget."""
+    name = guess_author_name(cv_text)
+    if not name:
+        return 0
+    path = _cache_path(name)
+    if path.exists():
+        path.unlink(missing_ok=True)
+        return 1
+    return 0
+
+
 def fetch_works(author: str, *, timeout: float = 15.0, limit: int = 25) -> list[dict]:
-    cache = config.CACHE_DIR / f"oa_{re.sub(r'[^a-z0-9]', '_', author.lower())}.json"
+    cache = _cache_path(author)
     if cache.exists():
         import json
 

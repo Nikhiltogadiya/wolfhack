@@ -318,3 +318,25 @@ def test_revoking_a_scope_schedules_no_fetch(tmp_path, monkeypatch):
 
     assert not store.load("ada").allows("github")
     assert scheduled == [], "revoking must not trigger a fetch"
+
+
+def test_revoking_deletes_only_the_revoking_candidates_cache(tmp_path, monkeypatch):
+    """Withdrawal globbed every `gh_*.json` in the shared cache, so one candidate revoking
+    GitHub deleted the cached lookups of every candidate in every role - and left their
+    `verifications` rows in place, making the deletion both too broad and incomplete."""
+    from fit_happens import config
+    from fit_happens.verify import github
+
+    monkeypatch.setattr(config, "CACHE_DIR", tmp_path)
+    monkeypatch.setattr(github.config, "CACHE_DIR", tmp_path)
+
+    mine = github._cache_path("ada-l")
+    theirs = github._cache_path("grace-h")
+    mine.write_text("{}")
+    theirs.write_text("{}")
+
+    deleted = github.forget("CV text mentioning github.com/ada-l only")
+
+    assert deleted == 1
+    assert not mine.exists(), "the revoking candidate's cache should be gone"
+    assert theirs.exists(), "another candidate's cache must never be deleted"

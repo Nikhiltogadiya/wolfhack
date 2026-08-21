@@ -304,8 +304,11 @@ async def create_role(request: Request, background: BackgroundTasks):
     parsed_title, external = parse_jd(jd_text, title)
     # She reviewed the parse and may have unticked things we got wrong. Our extraction is a
     # draft of her intent, not a ruling on it.
-    keep = {int(v) for v in form.getlist("keep") if str(v).isdigit()}
-    if keep:
+    # `if keep:` treated "the recruiter unticked everything" as "the recruiter touched
+    # nothing", so the control inverted at exactly the boundary where it matters most.
+    # The checkboxes are always rendered, so their presence in the form is the signal.
+    if "keep" in form:
+        keep = {int(v) for v in form.getlist("keep") if str(v).isdigit()}
         external = [r for i, r in enumerate(external) if i in keep]
 
     internal = [
@@ -643,13 +646,14 @@ def set_consent(request: Request, background: BackgroundTasks, token: str,
         background.add_task(tasks.reverify, slug, consent.candidate_id)
     if revoked:
         # Withdrawal has to delete what was gathered under that scope, or it is not withdrawal.
-        from ..config import CACHE_DIR
-
-        for f in CACHE_DIR.glob("gh_*.json" if scope == "github" else "oa_*.json"):
-            f.unlink(missing_ok=True)
+        # It must also delete only THIS candidate's: the glob this replaced took out every
+        # cached lookup for every candidate in every role.
         run = Run(slug)
         c = run.candidate(consent.candidate_id)
         if c:
+            from ..verify import github, publications
+
+            (github if scope == "github" else publications).forget(c.document.text)
             c.verifications = [v for v in c.verifications if v.source_scope != scope]
             c.consent_grants = dict(consent.grants)
             c.consent_summary = consent.summary()
@@ -683,7 +687,7 @@ async def submit_answers(request: Request, token: str):
 def landing(request: Request):
     all_roles = roles()
     return TEMPLATES.TemplateResponse(request, "landing.html", {
-        "open_roles": sum(1 for r in all_roles if r["slug"]),
+        "open_roles": sum(1 for r in all_roles if not r.get("closed")),
         "roles": all_roles[:3]})
 
 
