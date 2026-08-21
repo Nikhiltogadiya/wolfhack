@@ -4,7 +4,7 @@
 <div class="mx-auto max-w-[440px] px-6 py-20">
   <h1 class="text-[24px] font-bold tracking-tight">Hiring area</h1>
   <p class="mt-2 text-[13.5px] leading-relaxed text-ink-muted">
-    This side holds applicants' files. It is behind a shared team passcode.</p>
+    This side holds applicants' files.</p>
 
   {% if error %}
   <div class="mt-5 rounded-lg border border-rose-300 bg-rose-50 px-4 py-3 text-[13px] text-rose-900">{{ error }}</div>
@@ -18,9 +18,5 @@
       Continue</button>
   </form>
 
-  <p class="mt-6 text-[12px] leading-relaxed text-ink-muted">
-    This is a shared passcode, not real authentication, and it is not pretending to be. A real
-    deployment needs per-user accounts and a record of who viewed which application — that last
-    one especially, because it is exactly what a subject access request asks.</p>
 </div>
 {% endblock %}

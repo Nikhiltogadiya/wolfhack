@@ -12,6 +12,28 @@ from pathlib import Path
 
 import yaml
 
+def _load_dotenv() -> None:
+    """Read a .env if one exists, without overriding what the shell already set.
+
+    Added because a `.env` was created with FIT_HAPPENS_TEAM_PASSCODE in it and nothing read
+    it - so the hiring area stayed open while the passcode looked configured. A setting that
+    silently does nothing is the worst kind, and this one guards applicants' files.
+
+    Existing environment wins: an explicitly exported value should beat a file left behind
+    from last week.
+    """
+    try:
+        from dotenv import load_dotenv
+    except ImportError:
+        return
+    here = Path(__file__).resolve()
+    for candidate in (here.parents[2] / ".env", here.parent / ".env", Path.cwd() / ".env"):
+        if candidate.exists():
+            load_dotenv(candidate, override=False)
+
+
+_load_dotenv()
+
 ROOT = Path(__file__).resolve().parents[2]
 CONFIG_DIR = ROOT / "config"
 DATA_DIR = ROOT / "data"

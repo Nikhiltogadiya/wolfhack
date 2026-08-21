@@ -8,3 +8,6 @@ data/corpus/
 data/cache/*.json
 !data/cache/.gitkeep
 .env
+# never commit local secrets
+.env
+*.env
