@@ -25,6 +25,7 @@ from datetime import datetime, timezone
 from fastapi import BackgroundTasks, FastAPI, Form, Request, UploadFile
 from fastapi.responses import HTMLResponse, JSONResponse, RedirectResponse
 from fastapi.templating import Jinja2Templates
+from starlette.concurrency import run_in_threadpool
 
 from ..candidate.answers import AnswerStore
 from ..candidate.applications import (
@@ -247,7 +248,9 @@ async def edit_role(request: Request, slug: str):
         for i in range(8)
         if str(form.get(f"if{i}", "")) and str(form.get(f"iv{i}", "")).strip()
     ]
-    parsed_title, external = parse_jd(jd_text, title)
+    # blocking network call inside an async route: without the threadpool this freezes
+    # every other request in the process for the duration, applicants included.
+    parsed_title, external = await run_in_threadpool(parse_jd, jd_text, title)
     jd = JobDescription(title=title or parsed_title, external_text=jd_text, internal=internal)
     reqs = external + jd.internal_requirements()
     _, ad_flags, clarity = scan_job_ad(jd_text)
@@ -312,7 +315,7 @@ async def new_role_step2(request: Request):
 
     from ..jd.parse import parse_jd
 
-    parsed_title, reqs = parse_jd(jd_text, title)
+    parsed_title, reqs = await run_in_threadpool(parse_jd, jd_text, title)
     _, ad_flags, clarity = scan_job_ad(jd_text)
     return TEMPLATES.TemplateResponse(request, "role_step2.html", {
         "nav": "roles", "step": 2, "title": title or parsed_title, "jd_text": jd_text,
@@ -351,7 +354,9 @@ async def create_role(request: Request, background: BackgroundTasks):
     from ..jd.model import InternalConstraint, JobDescription
     from ..jd.parse import parse_jd
 
-    parsed_title, external = parse_jd(jd_text, title)
+    # blocking network call inside an async route: without the threadpool this freezes
+    # every other request in the process for the duration, applicants included.
+    parsed_title, external = await run_in_threadpool(parse_jd, jd_text, title)
     # She reviewed the parse and may have unticked things we got wrong. Our extraction is a
     # draft of her intent, not a ruling on it.
     # `if keep:` treated "the recruiter unticked everything" as "the recruiter touched

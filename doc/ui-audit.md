@@ -64,6 +64,9 @@ the new test fails, and passes again once fixed.**
 body scrolls horizontally anywhere.** Screenshotted at 375px as well as measured, because
 "no overflow" is not the same as "looks right": that check is what caught F3 and the collapsed
 sub-nav sitting beside its siblings instead of on its own row.
+| G1 | P1 | candidate detail | **Evidence rows vanished after a role edit.** The skill map iterated the candidate's *matches* and dropped any whose `requirement_id` no longer existed — and requirement ids are positional (`ext-0..N`), so editing a role re-parses the advert and renumbers them. A candidate scored before the edit lost rows from the one table whose stated promise is *"every score traces to a line in the résumé"*, while the header above still showed their old fit score. Now iterates the **requirements**, so the table always lists what the role asks for and names which ones this CV was not scored against. Verified on a throwaway copy: 6 of 17 matches now renders 17 rows and 11 explicit notices, where it used to render 6 |
+| G2 | P1 | role create / edit | `parse_jd` — a blocking network round trip — ran directly inside three `async def` routes, **freezing every other request in the process** for its duration, applicants mid-application included. Now through `run_in_threadpool` |
+| G3 | P2 | candidate detail | With no preferred requirements, a bare "PREFERRED SKILLS · COVERAGE · GAP · EVIDENCE" header rendered over nothing. Now the block is skipped |
 
 ## Verified working (tested, not assumed)
 

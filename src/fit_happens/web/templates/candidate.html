@@ -80,40 +80,55 @@
       <h2 class="text-[16px] font-bold">Skill-to-role map</h2>
       <p class="mt-1 text-[12.5px] text-ink-muted">Every score traces to a line in the résumé.</p>
 
+      {# Iterating the MATCHES dropped any whose requirement_id no longer exists, and
+         requirement ids are positional (`ext-0..N`, jd/parse.py). Editing a role re-parses
+         the advert and renumbers them, so a candidate scored before the edit lost rows from
+         a table whose stated promise is "every score traces to a line in the resume" - while
+         the header above still showed their old fit score. Iterate the REQUIREMENTS instead:
+         the table then always lists what the role currently asks for, and says plainly which
+         of them this candidate has not been scored against. #}
+      {% set by_req = {} %}
+      {% for m in c.fit.matches %}{% set _ = by_req.update({m.requirement_id: m}) %}{% endfor %}
       {% for kind in ['required','preferred'] %}
-      {% set rows = c.fit.matches|selectattr('requirement_id','in', reqs)|list %}
+      {% set rows = reqs.values()|selectattr('kind','equalto',kind)|list %}
+      {% if rows %}
       <div class="mt-5">
         <div class="grid grid-cols-12 gap-3 border-b border-hair pb-2 text-[11px] uppercase tracking-wide text-ink-muted">
           <div class="col-span-5">{{ kind }} skills</div><div class="col-span-3">Coverage</div>
           <div class="col-span-2">Gap</div><div class="col-span-2">Evidence</div>
         </div>
-        {% for m in rows %}
-          {% set r = reqs[m.requirement_id] %}
-          {% if r.kind == kind %}
-          {% set cov = {'strong':1.0,'moderate':0.6,'weak':0.2,'missing':0.0}[m.strength] %}
-          {% set gap = (c.fit.gaps|selectattr('requirement_id','equalto',m.requirement_id)|list) %}
+        {% for r in rows %}
+          {% set m = by_req.get(r.id) %}
           <div class="grid grid-cols-12 gap-3 items-center border-b border-hair/60 py-3">
-            <div class="col-span-5">
+            <div class="col-span-5 min-w-0">
               <div class="text-[13px] font-medium leading-snug">{{ r.text }}</div>
               {% if r.source == 'internal' %}<span class="mt-1 inline-block text-[10.5px] font-semibold text-forest-600">INTERNAL CRITERION</span>{% endif %}
-              {% if m.rationale %}<div class="mt-1 text-[11.5px] text-ink-muted leading-snug">{{ m.rationale[:130] }}</div>{% endif %}
+              {% if m and m.rationale %}<div class="mt-1 text-[11.5px] text-ink-muted leading-snug">{{ m.rationale[:130] }}</div>{% endif %}
             </div>
+            {% if m %}
+            {% set cov = {'strong':1.0,'moderate':0.6,'weak':0.2,'missing':0.0}[m.strength] %}
+            {% set gap = (c.fit.gaps|selectattr('requirement_id','equalto',r.id)|list) %}
             <div class="col-span-3 flex items-center gap-2">
-              <div class="flex-1">{{ bar(cov, 'forest' if cov>=0.6 else ('amber' if cov>=0.2 else 'red')) }}</div>
-              <span class="text-[12px] font-semibold w-9 text-right">{{ (cov*100)|round(0)|int }}%</span>
+              <div class="min-w-0 flex-1">{{ bar(cov, 'forest' if cov>=0.6 else ('amber' if cov>=0.2 else 'red')) }}</div>
+              <span class="w-9 shrink-0 text-right text-[12px] font-semibold">{{ (cov*100)|round(0)|int }}%</span>
             </div>
             <div class="col-span-2">
               {% if gap %}{{ pill(gap[0].severity|capitalize, 'red' if gap[0].severity=='critical' else ('amber' if gap[0].severity=='major' else 'grey')) }}
               {% else %}<span class="text-[12px] text-ink-muted">—</span>{% endif %}
             </div>
-            <div class="col-span-2">
+            <div class="col-span-2 min-w-0">
               {% if m.evidence %}{{ chip(m.evidence[0].cite()) }}
               {% else %}<span class="text-[12px] text-ink-muted">—</span>{% endif %}
             </div>
+            {% else %}
+            <div class="col-span-7 text-[12px] leading-snug text-ink-muted">
+              Not scored against this requirement — it was added or changed after this CV was
+              read. Re-run the CV to score it.</div>
+            {% endif %}
           </div>
-          {% endif %}
         {% endfor %}
       </div>
+      {% endif %}
       {% endfor %}
     </div>
 
