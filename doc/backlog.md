@@ -20,9 +20,9 @@ someone) · `WONTFIX` (decided against, reason recorded) · `DONE` (with date).
 | 12 | WONTFIX | Tune CP1 thresholds for detection | The only signal with separation (em dashes, 27%) costs ~10% false positives | `slop/style.py` | A non-perplexity signal with real separation appears |
 | 13 | WONTFIX | Neural AI-text classifier as a scored signal | Liang et al: 61.22% FPR for non-native writers; mechanism is low perplexity | `slop/style.py` | - |
 | 14 | WONTFIX | Voice, industry skill matching, cross-JD, SAP, Delta-module, closed-loop retraining | Killed in intake v0.1 §3 and §10 triage | - | Recorded so they do not creep back |
-| 15 | DEFERRED | Recruiter rejection feedback | ~20 min (textarea + storage). No demo payoff, but answers "how does this improve?" | `web/` | Spare time before judging |
-| 16 | DEFERRED | Candidate pain: fragmented signals | Employer reviews, financials, news. Needs paid or scraped sources we do not have | new module | A data source exists |
-| 17 | DEFERRED | Candidate pain: blind discovery | Near-duplicate detection across postings. We have one JD; over one posting it is theatre | new module | A corpus of live postings |
+| 15 | DONE 2026-08-21 | Recruiter rejection feedback | Fixed reasons mapped to what each would change, captured at the moment of the decision | `feedback.py`, `/market` | - |
+| 16 | WONTFIX | Candidate pain: fragmented signals | Employer reviews, financials, news. Checked JobDataLake's `get_company`: industry and size only. Every other source is paid or needs scraping. **Said on stage, not faked.** | - | A real data source appears |
+| 17 | DONE 2026-08-21 | Candidate pain: blind discovery | Was right to defer until a corpus existed. JobDataLake gave one: 47 postings of a single Speechify job; 75% of a 67-posting sample redundant | `jd/discovery.py`, `/market` | - |
 | 18 | DEFERRED | Swap PyMuPDF for pypdfium2 | PyMuPDF is AGPL; blocks permissive open-sourcing | `ingest/` | If this repo goes public |
 | 19 | DEFERRED | Guard may over-block height/weight in safety contexts | Over-blocking EMPLOYER input is the safe failure mode; the refusal is logged and readable | `jd/guard.py` | A warehouse/field role is demoed |
 | 20 | UNVERIFIED | NIM `top_logprobs` support | Would enable perplexity-based detection. Moot while we reject perplexity signals | - | - |
@@ -82,3 +82,5 @@ A judge who opens it fresh is shown `uv run python scripts/build_demo.py`.
 
 **Candidate pains: 3 of 4 built** - generic job ads, transparency, blind discovery. Fragmented
 signals is the one we do not build, and we say so.
+
+| 45 | DONE 2026-08-21 | Looking up a role created it | `Run.__init__` called mkdir, so /role/typo brought an empty role into existence. Created on first write now | `store.py` | - |
