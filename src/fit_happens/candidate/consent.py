@@ -137,8 +137,10 @@ class ConsentStore:
             c = Consent.model_validate_json(f.read_text())
             if secrets.compare_digest(c.token, token):
                 return c
-        # not yet saved: derive from the ids we know about
-        for f in (DATA_DIR / "runs" / "demo").glob("c_*.json"):
+        # not yet saved: derive from the ids we know about. This globbed a hard-coded
+        # "demo" directory, so it was dead for every other role - and on a token collision
+        # would have returned a Consent for a candidate not in this run at all.
+        for f in self.dir.parent.glob("c_*.json"):
             cid = json.loads(f.read_text())["candidate_id"]
             if secrets.compare_digest(self.token_for(cid), token):
                 return self.load(cid)

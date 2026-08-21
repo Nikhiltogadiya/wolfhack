@@ -144,7 +144,11 @@
         {# was a fourth hand-copied list of style pattern ids, already one short. This is
            the same filter, defined once, in schemas.CandidateResult. #}
         {% set real = c.authenticity_flags %}
-        {% for f in real[:4] %}
+        {# Uncapped, and deliberately: the candidate's own page shows all of them and says
+           "you are seeing exactly what the hiring team sees". Capping the recruiter at four
+           made that false in the one direction that matters - the person deciding saw fewer
+           flags than the person being decided about. #}
+        {% for f in real %}
         <div class="mt-4 rounded-lg border border-hair p-4">
           <div class="flex items-start gap-3">
             <span class="mt-0.5 grid h-5 w-5 shrink-0 place-items-center rounded-full bg-rose-100 text-rose-700 text-[11px] font-bold">{{ loop.index }}</span>

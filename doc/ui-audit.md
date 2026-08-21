@@ -78,6 +78,23 @@ sub-nav sitting beside its siblings instead of on its own row.
 17 pages — every control has an accessible name, every icon is hidden from assistive tech, and
 no `for=` points at a missing element. Checking the rendered HTML is what covers the
 loop-generated ids that a template grep would have missed.
+| I1 | P2 | `/hiring/market` | Rejection reasons were list-concatenated across roles, so the same reason got its own row once per role instead of one summed row. Merged on the label |
+| I2 | P2 | consent | `by_token`'s fallback globbed a hard-coded `runs/demo` directory — dead for every other role, and on a token collision it would have returned a `Consent` for a candidate not in that run. Now uses the store's own run |
+| I3 | P2 | candidate detail | The recruiter's flag list was capped at 4 while the candidate's own page showed all of them and says *"you are seeing exactly what the hiring team sees"*. Uncapped the recruiter — the asymmetry ran in the one direction that matters, with the person deciding seeing fewer flags than the person being decided about |
+| I4 | P2 | landing, processing | Neither set `nav`, so no header item was highlighted. `processing` now marks "My application"; **landing deliberately sets none** — `/` is not a nav destination, so nothing should look selected. Verified in the rendered header, not the template |
+| I5 | P2 | sign-in | The session cookie had `httponly` and `samesite` but no `secure`. Now keyed to the request scheme — pinning it `True` would silently break sign-in on the `http://127.0.0.1` the demo runs on, a worse failure than the one it prevents |
+| I6 | P1 | `/track` | With no email sending in this build, this page stands in for the mailed link — so **an email address alone opens someone's application**. That is a demo limitation, not a design position, and the page now says so where it applies rather than shipping it silently |
+
+## Left undone, and why
+
+Recorded here rather than quietly skipped.
+
+| What | Why | Would pick up when |
+|---|---|---|
+| Sign-in rate limiting | Unlimited passcode attempts. A lockout that fires mid-demo is a worse outcome than the risk it removes, on a single shared passcode behind a URL nobody has | The passcode guards anything real |
+| Pagination on `/jobs`, ranking, `/track` | Every list renders its whole collection; a role with 300 applicants renders 300 rows, each with a per-candidate response scan | The corpus outgrows a demo |
+| Repeated full re-reads | `overview` deserialises every candidate in every role three times per request; `role()` calls `run.candidates()` twice | Same trigger as pagination |
+| Requirement ids carried as positional indices through the create form | `keep` checkboxes index into the *first* parse's list; correct today only because `parse_jd` is disk-cached by prompt hash. Clear the cache between the two steps and the recruiter unticks requirement 3 while a different one disappears | Before this is used on adverts that change between steps |
 
 ## Verified working (tested, not assumed)
 

@@ -650,6 +650,16 @@ def market(request: Request):
         all_feedback["our_errors"] += s["our_errors"]
         all_feedback["contradicting"] += s["contradicting"]
         all_feedback["by_reason"] += s["by_reason"]
+    # `+=` on a list of (label, count, signal) put the same reason on its own row once per
+    # role. Merge on the label so the table reads as a total.
+    merged: dict[str, list] = {}
+    for label, n, signal in all_feedback["by_reason"]:
+        if label in merged:
+            merged[label][1] += n
+        else:
+            merged[label] = [label, n, signal]
+    all_feedback["by_reason"] = sorted(
+        (tuple(v) for v in merged.values()), key=lambda r: -r[1])
     return TEMPLATES.TemplateResponse(request, "market.html", {
         "stats": corpus_stats(), "clusters": duplicates(), "feedback": all_feedback,
         "nav": "market"})
@@ -896,7 +906,7 @@ def do_sign_in(request: Request, passcode: str = Form(""), next: str = Form("/hi
         return TEMPLATES.TemplateResponse(request, "sign_in.html", {
             "next": next, "error": "That passcode is not right."}, status_code=401)
     resp = RedirectResponse(next, status_code=303)
-    auth.sign_in(resp)
+    auth.sign_in(resp, secure=request.url.scheme == "https")
     return resp
 
 

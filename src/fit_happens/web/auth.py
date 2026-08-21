@@ -48,12 +48,17 @@ def is_signed_in(request: Request) -> bool:
     return hmac.compare_digest(request.cookies.get(COOKIE, ""), _expected())
 
 
-def sign_in(response) -> None:
-    response.set_cookie(COOKIE, _expected(), httponly=True, samesite="lax", max_age=60 * 60 * 12)
+def sign_in(response, *, secure: bool = False) -> None:
+    """`secure` is taken from the request scheme rather than hardcoded: this cookie IS the
+    credential for the whole hiring area, so it must not travel in clear over TLS-less hops -
+    but pinning secure=True would silently break sign-in on the http://127.0.0.1 the demo
+    runs on, which is a worse failure than the one it prevents."""
+    response.set_cookie(COOKIE, _expected(), httponly=True, samesite="lax",
+                        secure=secure, max_age=60 * 60 * 12)
 
 
 def sign_out(response) -> None:
-    response.delete_cookie(COOKIE)
+    response.delete_cookie(COOKIE, httponly=True, samesite="lax")
 
 
 def require(request: Request):

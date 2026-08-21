@@ -16,7 +16,17 @@
 
   {% if searched %}
     {% if found %}
-    <div class="mt-7 space-y-3">
+    {# There is no email delivery in this build, so this page stands in for the link that
+       would otherwise have been mailed - which means an email address alone opens someone's
+       application. That is a real limitation of the demo, not a design position, and this
+       product's whole argument is that it names its own limitations rather than hoping
+       nobody looks. So it says so, here, where it applies. #}
+    <div class="mt-7 rounded-lg border border-amber-300 bg-amber-50 px-4 py-3 text-[12.5px] leading-relaxed text-amber-900">
+      <span class="font-semibold">Demo build:</span> there is no email sending here, so this page
+      opens an application from the address alone. A real deployment would mail the link to that
+      address instead of showing it.
+    </div>
+    <div class="mt-4 space-y-3">
       {% for f in found %}
       <a href="/apply/{{ f.token }}" class="block rounded-xl border border-hair bg-white p-5 hover:border-forest-600 transition">
         <div class="text-[15px] font-semibold">{{ f.title }}</div>
