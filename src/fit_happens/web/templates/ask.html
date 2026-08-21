@@ -13,22 +13,22 @@
     needs no account.</p>
 
   <div class="mt-6 rounded-xl border border-hair bg-white p-6">
-    <div class="text-[12px] font-semibold text-ink-muted">Their link</div>
-    <div class="mt-2 flex gap-2">
+    <label for="link" class="block text-[12px] font-semibold text-ink-muted">Their link</label>
+    <div class="mt-2 flex flex-wrap gap-2">
       <input id="link" readonly value="{{ request.base_url }}{{ link[1:] }}"
-             class="flex-1 rounded-lg border border-hair bg-cream-100 px-3.5 py-2.5 text-[13px] font-mono">
-      <button onclick="navigator.clipboard.writeText(document.getElementById('link').value);
+             class="min-w-0 flex-1 basis-full rounded-lg border border-hair bg-cream-100 px-3.5 py-2.5 text-[13px] font-mono sm:basis-auto">
+      <button type="button" onclick="navigator.clipboard.writeText(document.getElementById('link').value);
                        this.textContent='Copied'"
               class="rounded-lg bg-forest px-4 py-2.5 text-[13px] font-semibold text-white hover:bg-forest-700">Copy</button>
-      <a href="{{ link }}" target="_blank"
+      <a href="{{ link }}" target="_blank" rel="noopener noreferrer"
          class="rounded-lg border border-hair px-4 py-2.5 text-[13px] font-semibold hover:border-forest-600">Preview</a>
     </div>
   </div>
 
   <div class="mt-5 rounded-xl border border-hair bg-white p-6">
     <div class="flex items-center justify-between">
-      <div class="text-[12px] font-semibold text-ink-muted">A message you can send</div>
-      <button onclick="navigator.clipboard.writeText(document.getElementById('msg').value);
+      <label for="msg" class="text-[12px] font-semibold text-ink-muted">A message you can send</label>
+      <button type="button" onclick="navigator.clipboard.writeText(document.getElementById('msg').value);
                        this.textContent='Copied'"
               class="text-[12.5px] font-semibold text-forest-600 hover:underline">Copy message</button>
     </div>

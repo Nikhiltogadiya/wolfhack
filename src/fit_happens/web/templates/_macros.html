@@ -5,7 +5,9 @@
   'red':   'border-rose-300 bg-rose-50 text-rose-800',
   'blue':  'border-sky-300 bg-sky-50 text-sky-800',
   'grey':  'border-hair bg-cream-100 text-ink-muted' } %}
-<span class="inline-flex items-center rounded-full border px-2.5 py-1 text-[11px] font-semibold tracking-wide {{ tones.get(tone, tones['grey']) }}">{{ text }}</span>
+{# whitespace-nowrap: a pill whose own label wraps to two lines reads as a broken
+   component. The table it mostly lives in already scrolls, so nowrap costs nothing. #}
+<span class="inline-flex items-center whitespace-nowrap rounded-full border px-2.5 py-1 text-[11px] font-semibold tracking-wide {{ tones.get(tone, tones['grey']) }}">{{ text }}</span>
 {%- endmacro %}
 
 {% macro bar(value, tone='forest') -%}

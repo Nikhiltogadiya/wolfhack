@@ -18,7 +18,7 @@
           <span class="font-medium">{{ internal_count }} internal criteria withheld</span>
         {% endif %}</p>
     </div>
-    <div class="flex items-center gap-3 shrink-0">
+    <div class="flex flex-wrap items-center gap-3">
     <form method="post" action="/hiring/role/{{ slug }}/upload" enctype="multipart/form-data"
           class="flex items-center gap-2" id="uploadForm">
       <a href="/hiring/role/{{ slug }}/edit"
@@ -29,7 +29,7 @@
         + Upload CVs
       </label>
     </form>
-    <form method="get" class="flex items-center gap-2">
+    <form method="get" class="flex flex-wrap items-center gap-2">
       <input type="hidden" name="internal" value="{{ 0 if use_internal else 1 }}">
       <input type="hidden" name="sort" value="{{ sort }}">
       <input type="hidden" name="filter_by" value="{{ filter_by }}">
@@ -37,7 +37,7 @@
         {{ 'bg-forest text-white border-forest' if use_internal else 'bg-white text-ink border-hair hover:border-forest-600' }}">
         {{ 'Internal JD: ON' if use_internal else 'Internal JD: OFF' }}
       </button>
-      <span class="text-[12px] text-ink-muted max-w-[170px] leading-snug">
+      <span class="hidden max-w-[170px] text-[12px] leading-snug text-ink-muted sm:inline">
         {{ 'Scoring on the public advert plus the real, unpublished preferences.'
            if use_internal else 'Scoring on the public advert alone.' }}</span>
     </form>

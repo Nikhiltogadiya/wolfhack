@@ -1,7 +1,7 @@
 {
   "candidate_id": "marcus_webb",
-  "stage": "reviewing",
-  "at": "2026-08-21T07:25:35+00:00",
+  "stage": "questions_sent",
+  "at": "2026-08-21T07:57:32+00:00",
   "history": [
     {
       "from": "new",
@@ -20,6 +20,12 @@
       "to": "reviewing",
       "actor": "recruiter",
       "at": "2026-08-21T07:25:35+00:00"
+    },
+    {
+      "from": "reviewing",
+      "to": "questions_sent",
+      "actor": "recruiter",
+      "at": "2026-08-21T07:55:57+00:00"
     }
   ]
 }

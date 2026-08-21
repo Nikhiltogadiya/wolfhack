@@ -53,6 +53,17 @@ the new test fails, and passes again once fixed.**
 | E1 | **P0** | consent records | A scope removed from `SCOPES` but still on disk made `summary()` raise `KeyError` and **500 the candidate's own portal**. Two live demo records still carry `"community": false` — latent only because it is false. Retired scopes are now pruned on load, so nothing downstream has to know it happened |
 | E2 | P1 | tasks | **A mistyped URL created a role directory.** `tasks._path` called `mkdir` on every access including reads, reintroducing exactly what `store.Run`'s docstring says was fixed there. Verified: two bogus slugs created two directories. Now only `_write` creates, `clear_finished` no-ops when there is nothing to clear, and both routes 404 on an unknown role |
 | E3 | P1 | all three upload sites | `accept=".pdf,.docx,.txt"` is a **file-picker hint, not a constraint**. The public apply endpoint took any file type, streamed unbounded bytes to disk with `copyfileobj`, then started a paid LLM pipeline per file. Now one bounded helper: type allowlist, 10 MB cap, empty-file check. An oversized file is **deleted rather than truncated** — a truncated CV would be scored as if it were the whole document. Verified end to end with a `.sh`, a 12 MB file and an empty one |
+| F1 | P1 | every recruiter page | The sidebar is a fixed 208px rail, so a 375px screen left **167px** for the page — every recruiter page overflowed regardless of what the page did. Fixed once in `base.html`: below `md` the rail becomes a top nav. Cheaper and more correct than a per-page workaround |
+| F2 | P1 | ranking | The Internal-JD button and its 170px caption sat in a no-wrap flex row and pushed 179px past the viewport. Now wraps; caption hidden below `sm` |
+| F3 | P1 | pills (all pages) | The `pill()` macro had no `whitespace-nowrap`, so "NOT CORROBORATED" wrapped **inside the pill**, onto two lines — visible on the ranking table at full desktop width. A pill whose own label wraps reads as a broken component |
+| F4 | P1 | 9 templates | Missing `min-w-0` / `shrink-0` / responsive grid breakpoints: role titles crushed their pills, a hard `grid-cols-4` held a CV filename, the candidate portal's 4-step progress bar (the one page applicants open on a phone) wrapped labels to three lines |
+| F5 | P2 | ask | The link row could not wrap; the "Their link" and "A message you can send" captions were `<div>`s, not `<label>`s, so clicking them focused nothing |
+| F6 | P2 | ask, candidate | `target="_blank"` with no `rel="noopener noreferrer"` |
+
+**Final sweep: 72 page/width combinations across 18 pages at 375 / 768 / 1280 / 1600 — no page
+body scrolls horizontally anywhere.** Screenshotted at 375px as well as measured, because
+"no overflow" is not the same as "looks right": that check is what caught F3 and the collapsed
+sub-nav sitting beside its siblings instead of on its own row.
 
 ## Verified working (tested, not assumed)
 
