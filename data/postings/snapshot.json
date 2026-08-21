@@ -1,0 +1,1322 @@
+{
+ "source": "JobDataLake MCP (jobdatalake.com), free tier",
+ "pulled": "2026-08-21",
+ "query": "platform engineer, job_function=eng, posted_within=30d",
+ "total_matching": 2128,
+ "sampled": 67,
+ "jobs": [
+  {
+   "company": "Speechify",
+   "title": "Software Engineer, Platform",
+   "location": "Zurich, Switzerland",
+   "remote": "fully_remote",
+   "salary_min": 30,
+   "salary_max": 160,
+   "skills": [
+    "Node.js",
+    "TypeScript",
+    "GCP",
+    "AWS",
+    "Azure",
+    "Docker",
+    "Kubernetes",
+    "API",
+    "Backend"
+   ],
+   "id": "speechify-hjk84"
+  },
+  {
+   "company": "Speechify",
+   "title": "Software Engineer, Platform",
+   "location": "Yerevan, Armenia",
+   "remote": "fully_remote",
+   "salary_min": null,
+   "salary_max": null,
+   "skills": [
+    "Node.js",
+    "TypeScript",
+    "GCP",
+    "AWS",
+    "Azure",
+    "Docker",
+    "Kubernetes",
+    "API",
+    "Backend"
+   ],
+   "id": "speechify-324fw"
+  },
+  {
+   "company": "Speechify",
+   "title": "Software Engineer, Platform",
+   "location": "West Lafayette, IN",
+   "remote": "fully_remote",
+   "salary_min": 140,
+   "salary_max": 200,
+   "skills": [
+    "Node.js",
+    "TypeScript",
+    "GCP",
+    "AWS",
+    "Azure",
+    "Docker",
+    "Kubernetes",
+    "API",
+    "Backend"
+   ],
+   "id": "speechify-12k7z"
+  },
+  {
+   "company": "Speechify",
+   "title": "Software Engineer, Platform",
+   "location": "Utrecht, Netherlands",
+   "remote": "fully_remote",
+   "salary_min": 30,
+   "salary_max": 120,
+   "skills": [
+    "Node.js",
+    "TypeScript",
+    "GCP",
+    "AWS",
+    "Azure",
+    "Docker",
+    "Kubernetes",
+    "API",
+    "Backend"
+   ],
+   "id": "speechify-vj3rl"
+  },
+  {
+   "company": "Speechify",
+   "title": "Software Engineer, Platform",
+   "location": "Turin, Italy",
+   "remote": "fully_remote",
+   "salary_min": 30,
+   "salary_max": 80,
+   "skills": [
+    "Node.js",
+    "TypeScript",
+    "GCP",
+    "AWS",
+    "Azure",
+    "Docker",
+    "Kubernetes",
+    "API",
+    "Backend"
+   ],
+   "id": "speechify-iq9uh"
+  },
+  {
+   "company": "Speechify",
+   "title": "Software Engineer, Platform",
+   "location": "Tucson, AZ",
+   "remote": "on_site",
+   "salary_min": 140,
+   "salary_max": 200,
+   "skills": [
+    "Node.js",
+    "TypeScript",
+    "GCP",
+    "AWS",
+    "Azure",
+    "Docker",
+    "Kubernetes",
+    "API",
+    "Backend"
+   ],
+   "id": "speechify-hxl2o"
+  },
+  {
+   "company": "Speechify",
+   "title": "Software Engineer, Platform",
+   "location": "Toulouse, France",
+   "remote": "fully_remote",
+   "salary_min": 30,
+   "salary_max": 100,
+   "skills": [
+    "Node.js",
+    "TypeScript",
+    "GCP",
+    "AWS",
+    "Azure",
+    "Docker",
+    "Kubernetes",
+    "API",
+    "Backend"
+   ],
+   "id": "speechify-pxr4e"
+  },
+  {
+   "company": "Speechify",
+   "title": "Software Engineer, Platform",
+   "location": "Toronto, ON",
+   "remote": "fully_remote",
+   "salary_min": null,
+   "salary_max": null,
+   "skills": [
+    "Node.js",
+    "TypeScript",
+    "GCP",
+    "AWS",
+    "Azure",
+    "Docker",
+    "Kubernetes",
+    "API",
+    "Backend"
+   ],
+   "id": "speechify-ou3fr"
+  },
+  {
+   "company": "Speechify",
+   "title": "Software Engineer, Platform",
+   "location": "Tokyo, Japan",
+   "remote": "fully_remote",
+   "salary_min": null,
+   "salary_max": null,
+   "skills": [
+    "Node.js",
+    "TypeScript",
+    "GCP",
+    "AWS",
+    "Azure",
+    "Docker",
+    "Kubernetes",
+    "API",
+    "Backend"
+   ],
+   "id": "speechify-b8n7h"
+  },
+  {
+   "company": "Speechify",
+   "title": "Software Engineer, Platform",
+   "location": "Tampa, FL",
+   "remote": "fully_remote",
+   "salary_min": 140,
+   "salary_max": 200,
+   "skills": [
+    "Node.js",
+    "TypeScript",
+    "GCP",
+    "AWS",
+    "Azure",
+    "Docker",
+    "Kubernetes",
+    "API",
+    "Backend"
+   ],
+   "id": "speechify-iiqfu"
+  },
+  {
+   "company": "Speechify",
+   "title": "Software Engineer, Platform",
+   "location": "Taipei, Taiwan",
+   "remote": "fully_remote",
+   "salary_min": null,
+   "salary_max": null,
+   "skills": [
+    "Node.js",
+    "TypeScript",
+    "GCP",
+    "AWS",
+    "Azure",
+    "Docker",
+    "Kubernetes",
+    "API",
+    "Backend"
+   ],
+   "id": "speechify-dfvhq"
+  },
+  {
+   "company": "Speechify",
+   "title": "Software Engineer, Platform",
+   "location": "Syracuse, NY",
+   "remote": "on_site",
+   "salary_min": 140,
+   "salary_max": 200,
+   "skills": [
+    "Node.js",
+    "TypeScript",
+    "GCP",
+    "AWS",
+    "Azure",
+    "Docker",
+    "Kubernetes",
+    "API",
+    "Backend"
+   ],
+   "id": "speechify-9zume"
+  },
+  {
+   "company": "Speechify",
+   "title": "Software Engineer, Platform",
+   "location": "Sunnyvale, CA",
+   "remote": "on_site",
+   "salary_min": 140,
+   "salary_max": 200,
+   "skills": [
+    "Node.js",
+    "TypeScript",
+    "GCP",
+    "AWS",
+    "Azure",
+    "Docker",
+    "Kubernetes",
+    "API",
+    "Backend"
+   ],
+   "id": "speechify-zcfdb"
+  },
+  {
+   "company": "Speechify",
+   "title": "Software Engineer, Platform",
+   "location": "State College, PA",
+   "remote": "fully_remote",
+   "salary_min": 140,
+   "salary_max": 200,
+   "skills": [
+    "Node.js",
+    "TypeScript",
+    "GCP",
+    "AWS",
+    "Azure",
+    "Docker",
+    "Kubernetes",
+    "API",
+    "Backend"
+   ],
+   "id": "speechify-uxfrh"
+  },
+  {
+   "company": "Speechify",
+   "title": "Software Engineer, Platform",
+   "location": "Silver Spring, MD",
+   "remote": "fully_remote",
+   "salary_min": 140,
+   "salary_max": 200,
+   "skills": [
+    "Node.js",
+    "TypeScript",
+    "GCP",
+    "AWS",
+    "Azure",
+    "Docker",
+    "Kubernetes",
+    "API",
+    "Backend"
+   ],
+   "id": "speechify-n33hj"
+  },
+  {
+   "company": "Speechify",
+   "title": "Software Engineer, Platform",
+   "location": "Shenzhen, China",
+   "remote": "fully_remote",
+   "salary_min": null,
+   "salary_max": null,
+   "skills": [
+    "Node.js",
+    "TypeScript",
+    "GCP",
+    "AWS",
+    "Azure",
+    "Docker",
+    "Kubernetes",
+    "API",
+    "Backend"
+   ],
+   "id": "speechify-4gelk"
+  },
+  {
+   "company": "Speechify",
+   "title": "Software Engineer, Platform",
+   "location": "Seattle, WA",
+   "remote": "fully_remote",
+   "salary_min": 140,
+   "salary_max": 200,
+   "skills": [
+    "Node.js",
+    "TypeScript",
+    "GCP",
+    "AWS",
+    "Azure",
+    "Docker",
+    "Kubernetes",
+    "API",
+    "Backend"
+   ],
+   "id": "speechify-95fwj"
+  },
+  {
+   "company": "Speechify",
+   "title": "Software Engineer, Platform",
+   "location": "Scottsdale, AZ",
+   "remote": "fully_remote",
+   "salary_min": 140,
+   "salary_max": 200,
+   "skills": [
+    "Node.js",
+    "TypeScript",
+    "GCP",
+    "AWS",
+    "Azure",
+    "Docker",
+    "Kubernetes",
+    "API",
+    "Backend"
+   ],
+   "id": "speechify-vxfm2"
+  },
+  {
+   "company": "Speechify",
+   "title": "Software Engineer, Platform",
+   "location": "Savannah, GA",
+   "remote": "fully_remote",
+   "salary_min": 140,
+   "salary_max": 200,
+   "skills": [
+    "Node.js",
+    "TypeScript",
+    "GCP",
+    "AWS",
+    "Azure",
+    "Docker",
+    "Kubernetes",
+    "API",
+    "Backend"
+   ],
+   "id": "speechify-nml3t"
+  },
+  {
+   "company": "Speechify",
+   "title": "Software Engineer, Platform",
+   "location": "Sarajevo, Bosnia",
+   "remote": "fully_remote",
+   "salary_min": null,
+   "salary_max": null,
+   "skills": [
+    "Node.js",
+    "TypeScript",
+    "GCP",
+    "AWS",
+    "Azure",
+    "Docker",
+    "Kubernetes",
+    "API",
+    "Backend"
+   ],
+   "id": "speechify-3wu4u"
+  },
+  {
+   "company": "Speechify",
+   "title": "Software Engineer, Platform",
+   "location": "Sao Paulo, Brazil",
+   "remote": "fully_remote",
+   "salary_min": null,
+   "salary_max": null,
+   "skills": [
+    "Node.js",
+    "TypeScript",
+    "GCP",
+    "AWS",
+    "Azure",
+    "Docker",
+    "Kubernetes",
+    "API",
+    "Backend"
+   ],
+   "id": "speechify-orgpt"
+  },
+  {
+   "company": "Speechify",
+   "title": "Software Engineer, Platform",
+   "location": "Santa Monica, CA",
+   "remote": "on_site",
+   "salary_min": 140,
+   "salary_max": 200,
+   "skills": [
+    "Node.js",
+    "TypeScript",
+    "GCP",
+    "AWS",
+    "Azure",
+    "Docker",
+    "Kubernetes",
+    "API",
+    "Backend"
+   ],
+   "id": "speechify-1vmxj"
+  },
+  {
+   "company": "Speechify",
+   "title": "Software Engineer, Platform",
+   "location": "San Jose, CA",
+   "remote": "fully_remote",
+   "salary_min": 140,
+   "salary_max": 200,
+   "skills": [
+    "Node.js",
+    "TypeScript",
+    "GCP",
+    "AWS",
+    "Azure",
+    "Docker",
+    "Kubernetes",
+    "API",
+    "Backend"
+   ],
+   "id": "speechify-huk8i"
+  },
+  {
+   "company": "Speechify",
+   "title": "Software Engineer, Platform",
+   "location": "San Diego, CA",
+   "remote": "fully_remote",
+   "salary_min": 140,
+   "salary_max": 200,
+   "skills": [
+    "Node.js",
+    "TypeScript",
+    "GCP",
+    "AWS",
+    "Azure",
+    "Docker",
+    "Kubernetes",
+    "API",
+    "Backend"
+   ],
+   "id": "speechify-ej7u6"
+  },
+  {
+   "company": "Speechify",
+   "title": "Software Engineer, Platform",
+   "location": "Saint Paul, MN",
+   "remote": "fully_remote",
+   "salary_min": 140,
+   "salary_max": 200,
+   "skills": [
+    "Node.js",
+    "TypeScript",
+    "GCP",
+    "AWS",
+    "Azure",
+    "Docker",
+    "Kubernetes",
+    "API",
+    "Backend"
+   ],
+   "id": "speechify-0scms"
+  },
+  {
+   "company": "Speechify",
+   "title": "Software Engineer, Platform",
+   "location": "Rio de Janeiro, Brazil",
+   "remote": "fully_remote",
+   "salary_min": null,
+   "salary_max": null,
+   "skills": [
+    "Node.js",
+    "TypeScript",
+    "GCP",
+    "AWS",
+    "Azure",
+    "Docker",
+    "Kubernetes",
+    "API",
+    "Backend"
+   ],
+   "id": "speechify-7544c"
+  },
+  {
+   "company": "Speechify",
+   "title": "Software Engineer, Platform",
+   "location": "Reykjavik, Iceland",
+   "remote": "fully_remote",
+   "salary_min": null,
+   "salary_max": null,
+   "skills": [
+    "Node.js",
+    "TypeScript",
+    "GCP",
+    "AWS",
+    "Azure",
+    "Docker",
+    "Kubernetes",
+    "API",
+    "Backend"
+   ],
+   "id": "speechify-1dcee"
+  },
+  {
+   "company": "Speechify",
+   "title": "Software Engineer, Platform",
+   "location": "Reston, VA",
+   "remote": "fully_remote",
+   "salary_min": 140,
+   "salary_max": 200,
+   "skills": [
+    "Node.js",
+    "TypeScript",
+    "GCP",
+    "AWS",
+    "Azure",
+    "Docker",
+    "Kubernetes",
+    "API",
+    "Backend"
+   ],
+   "id": "speechify-10qb4"
+  },
+  {
+   "company": "Speechify",
+   "title": "Software Engineer, Platform",
+   "location": "Provo, UT",
+   "remote": "fully_remote",
+   "salary_min": 140,
+   "salary_max": 200,
+   "skills": [
+    "Node.js",
+    "TypeScript",
+    "GCP",
+    "AWS",
+    "Azure",
+    "Docker",
+    "Kubernetes",
+    "API",
+    "Backend"
+   ],
+   "id": "speechify-votz3"
+  },
+  {
+   "company": "Speechify",
+   "title": "Software Engineer, Platform",
+   "location": "Phoenix, AZ",
+   "remote": "on_site",
+   "salary_min": 140,
+   "salary_max": 200,
+   "skills": [
+    "Node.js",
+    "TypeScript",
+    "GCP",
+    "AWS",
+    "Azure",
+    "Docker",
+    "Kubernetes",
+    "API",
+    "Backend"
+   ],
+   "id": "speechify-x1aua"
+  },
+  {
+   "company": "Speechify",
+   "title": "Software Engineer, Platform",
+   "location": "Paris, France",
+   "remote": "fully_remote",
+   "salary_min": 30,
+   "salary_max": 100,
+   "skills": [
+    "Node.js",
+    "TypeScript",
+    "GCP",
+    "AWS",
+    "Azure",
+    "Docker",
+    "Kubernetes",
+    "API",
+    "Backend"
+   ],
+   "id": "speechify-sxqbl"
+  },
+  {
+   "company": "Speechify",
+   "title": "Software Engineer, Platform",
+   "location": "Palo Alto, CA",
+   "remote": "fully_remote",
+   "salary_min": 140,
+   "salary_max": 200,
+   "skills": [
+    "Node.js",
+    "TypeScript",
+    "GCP",
+    "AWS",
+    "Azure",
+    "Docker",
+    "Kubernetes",
+    "API",
+    "Backend"
+   ],
+   "id": "speechify-y6dtz"
+  },
+  {
+   "company": "Speechify",
+   "title": "Software Engineer, Platform",
+   "location": "Oxford, UK",
+   "remote": "fully_remote",
+   "salary_min": null,
+   "salary_max": null,
+   "skills": [
+    "Node.js",
+    "TypeScript",
+    "GCP",
+    "AWS",
+    "Azure",
+    "Docker",
+    "Kubernetes",
+    "API",
+    "Backend"
+   ],
+   "id": "speechify-2k978"
+  },
+  {
+   "company": "Speechify",
+   "title": "Software Engineer, Platform",
+   "location": "Osaka, Japan",
+   "remote": "on_site",
+   "salary_min": null,
+   "salary_max": null,
+   "skills": [
+    "Node.js",
+    "TypeScript",
+    "GCP",
+    "AWS",
+    "Azure",
+    "Docker",
+    "Kubernetes",
+    "API",
+    "Backend"
+   ],
+   "id": "speechify-juzrz"
+  },
+  {
+   "company": "Speechify",
+   "title": "Software Engineer, Platform",
+   "location": "Oklahoma City, OK",
+   "remote": "fully_remote",
+   "salary_min": 140,
+   "salary_max": 200,
+   "skills": [
+    "Node.js",
+    "TypeScript",
+    "GCP",
+    "AWS",
+    "Azure",
+    "Docker",
+    "Kubernetes",
+    "API",
+    "Backend"
+   ],
+   "id": "speechify-w6vwt"
+  },
+  {
+   "company": "Speechify",
+   "title": "Software Engineer, Platform",
+   "location": "Odesa, Ukraine",
+   "remote": "fully_remote",
+   "salary_min": null,
+   "salary_max": null,
+   "skills": [
+    "Node.js",
+    "TypeScript",
+    "GCP",
+    "AWS",
+    "Azure",
+    "Docker",
+    "Kubernetes",
+    "API",
+    "Backend"
+   ],
+   "id": "speechify-trmjv"
+  },
+  {
+   "company": "Speechify",
+   "title": "Software Engineer, Platform",
+   "location": "Novi Sad, Serbia",
+   "remote": "fully_remote",
+   "salary_min": null,
+   "salary_max": null,
+   "skills": [
+    "Node.js",
+    "TypeScript",
+    "GCP",
+    "AWS",
+    "Azure",
+    "Docker",
+    "Kubernetes",
+    "API",
+    "Backend"
+   ],
+   "id": "speechify-sjcl3"
+  },
+  {
+   "company": "Speechify",
+   "title": "Software Engineer, Platform",
+   "location": "Norfolk, VA",
+   "remote": "fully_remote",
+   "salary_min": 140,
+   "salary_max": 200,
+   "skills": [
+    "Node.js",
+    "TypeScript",
+    "GCP",
+    "AWS",
+    "Azure",
+    "Docker",
+    "Kubernetes",
+    "API",
+    "Backend"
+   ],
+   "id": "speechify-dm9hd"
+  },
+  {
+   "company": "Speechify",
+   "title": "Software Engineer, Platform",
+   "location": "New York, NY",
+   "remote": "fully_remote",
+   "salary_min": 140,
+   "salary_max": 200,
+   "skills": [
+    "Node.js",
+    "TypeScript",
+    "GCP",
+    "AWS",
+    "Azure",
+    "Docker",
+    "Kubernetes",
+    "API",
+    "Backend"
+   ],
+   "id": "speechify-n5502"
+  },
+  {
+   "company": "Speechify",
+   "title": "Software Engineer, Platform",
+   "location": "New Haven, CT",
+   "remote": "fully_remote",
+   "salary_min": 140,
+   "salary_max": 200,
+   "skills": [
+    "Node.js",
+    "TypeScript",
+    "GCP",
+    "AWS",
+    "Azure",
+    "Docker",
+    "Kubernetes",
+    "API",
+    "Backend"
+   ],
+   "id": "speechify-ktepd"
+  },
+  {
+   "company": "Speechify",
+   "title": "Software Engineer, Platform",
+   "location": "Newcastle, UK",
+   "remote": "fully_remote",
+   "salary_min": null,
+   "salary_max": null,
+   "skills": [
+    "Node.js",
+    "TypeScript",
+    "GCP",
+    "AWS",
+    "Azure",
+    "Docker",
+    "Kubernetes",
+    "API",
+    "Backend"
+   ],
+   "id": "speechify-b30d4"
+  },
+  {
+   "company": "Speechify",
+   "title": "Software Engineer, Platform",
+   "location": "Naperville, IL",
+   "remote": "fully_remote",
+   "salary_min": 140,
+   "salary_max": 200,
+   "skills": [
+    "Node.js",
+    "TypeScript",
+    "GCP",
+    "AWS",
+    "Azure",
+    "Docker",
+    "Kubernetes",
+    "API",
+    "Backend"
+   ],
+   "id": "speechify-n3dzd"
+  },
+  {
+   "company": "Speechify",
+   "title": "Software Engineer, Platform",
+   "location": "Munich, Germany",
+   "remote": "fully_remote",
+   "salary_min": 30,
+   "salary_max": 120,
+   "skills": [
+    "Node.js",
+    "TypeScript",
+    "GCP",
+    "AWS",
+    "Azure",
+    "Docker",
+    "Kubernetes",
+    "API",
+    "Backend"
+   ],
+   "id": "speechify-o2j23"
+  },
+  {
+   "company": "Speechify",
+   "title": "Software Engineer, Platform",
+   "location": "Montreal, QC",
+   "remote": "fully_remote",
+   "salary_min": null,
+   "salary_max": null,
+   "skills": [
+    "Node.js",
+    "TypeScript",
+    "GCP",
+    "AWS",
+    "Azure",
+    "Docker",
+    "Kubernetes",
+    "API",
+    "Backend"
+   ],
+   "id": "speechify-2a4rg"
+  },
+  {
+   "company": "Speechify",
+   "title": "Software Engineer, Platform",
+   "location": "Monterrey, Mexico",
+   "remote": "fully_remote",
+   "salary_min": null,
+   "salary_max": null,
+   "skills": [
+    "Node.js",
+    "TypeScript",
+    "GCP",
+    "AWS",
+    "Azure",
+    "Docker",
+    "Kubernetes",
+    "API",
+    "Backend"
+   ],
+   "id": "speechify-adclw"
+  },
+  {
+   "company": "Speechify",
+   "title": "Software Engineer, Platform",
+   "location": "Milan, Italy",
+   "remote": "fully_remote",
+   "salary_min": 30,
+   "salary_max": 80,
+   "skills": [
+    "Node.js",
+    "TypeScript",
+    "GCP",
+    "AWS",
+    "Azure",
+    "Docker",
+    "Kubernetes",
+    "API",
+    "Backend"
+   ],
+   "id": "speechify-jxpp2"
+  },
+  {
+   "company": "Speechify",
+   "title": "Software Engineer, Platform",
+   "location": "Mexico City, Mexico",
+   "remote": "fully_remote",
+   "salary_min": null,
+   "salary_max": null,
+   "skills": [
+    "Node.js",
+    "TypeScript",
+    "GCP",
+    "AWS",
+    "Azure",
+    "Docker",
+    "Kubernetes",
+    "API",
+    "Backend"
+   ],
+   "id": "speechify-2dprg"
+  },
+  {
+   "company": "Clarity Innovates",
+   "title": "Senior Platform Engineer",
+   "location": "Herndon, VA / Columbia, MD",
+   "remote": "on_site",
+   "salary_min": null,
+   "salary_max": null,
+   "skills": [
+    "Terraform",
+    "GitLab CI",
+    "Docker",
+    "Kubernetes",
+    "Linux",
+    "Ansible",
+    "Helm",
+    "ArgoCD",
+    "DevSecOps"
+   ],
+   "id": "clarity-xe0eg"
+  },
+  {
+   "company": "Clarity Innovates",
+   "title": "Senior Platform Engineer",
+   "location": "Augusta, GA / San Antonio, TX",
+   "remote": "on_site",
+   "salary_min": null,
+   "salary_max": null,
+   "skills": [
+    "Kubernetes",
+    "AWS",
+    "Azure",
+    "Terraform",
+    "Ansible",
+    "Helm",
+    "Prometheus",
+    "Grafana",
+    "DevSecOps"
+   ],
+   "id": "clarity-9b759"
+  },
+  {
+   "company": "Clarity Innovates",
+   "title": "Principal Platform Engineer",
+   "location": "Fort Meade, MD",
+   "remote": "on_site",
+   "salary_min": null,
+   "salary_max": null,
+   "skills": [
+    "Kubernetes",
+    "Docker",
+    "Linux",
+    "Terraform",
+    "Ansible",
+    "CI/CD",
+    "DevSecOps",
+    "AWS",
+    "Azure"
+   ],
+   "id": "clarity-d2kp4"
+  },
+  {
+   "company": "Atom Computing",
+   "title": "Principal Platform Engineer",
+   "location": "Boulder, CO",
+   "remote": "hybrid",
+   "salary_min": 170,
+   "salary_max": 200,
+   "skills": [
+    "Terraform",
+    "Ansible",
+    "Docker",
+    "Kubernetes",
+    "AWS",
+    "GCP",
+    "Azure",
+    "Networking",
+    "Linux",
+    "CI/CD",
+    "Prometheus",
+    "SOC 2"
+   ],
+   "id": "atom-h19gr"
+  },
+  {
+   "company": "Atom Computing",
+   "title": "Platform Engineer",
+   "location": "Boulder, CO",
+   "remote": "hybrid",
+   "salary_min": 120,
+   "salary_max": 145,
+   "skills": [
+    "Terraform",
+    "Ansible",
+    "Docker",
+    "Kubernetes",
+    "AWS",
+    "GCP",
+    "Azure",
+    "Networking",
+    "Linux"
+   ],
+   "id": "atom-phbw4"
+  },
+  {
+   "company": "Accelint",
+   "title": "Senior DevOps / Platform Engineer",
+   "location": "San Diego, CA",
+   "remote": "hybrid",
+   "salary_min": 135,
+   "salary_max": 195,
+   "skills": [
+    "Docker",
+    "Kubernetes",
+    "OpenShift",
+    "Helm",
+    "GitLab",
+    "Jenkins",
+    "Terraform",
+    "Ansible",
+    "Linux",
+    "Bash",
+    "Python",
+    "AWS"
+   ],
+   "id": "acc-t8js0"
+  },
+  {
+   "company": "Accelint",
+   "title": "DevOps Platform Engineer",
+   "location": "San Diego, CA",
+   "remote": "hybrid",
+   "salary_min": 105,
+   "salary_max": 150,
+   "skills": [
+    "Docker",
+    "Kubernetes",
+    "OpenShift",
+    "Helm",
+    "GitLab",
+    "Jenkins",
+    "Terraform",
+    "Ansible",
+    "Linux",
+    "Bash",
+    "Python",
+    "CompTIA Security+"
+   ],
+   "id": "acc-djo8v"
+  },
+  {
+   "company": "Lighthouse",
+   "title": "Lead Platform Engineer",
+   "location": "Barcelona, Spain",
+   "remote": "fully_remote",
+   "salary_min": null,
+   "salary_max": null,
+   "skills": [
+    "React",
+    "TypeScript",
+    "Tailwind CSS",
+    "GitLab",
+    "GCP",
+    "Ember.js",
+    "Python",
+    "Go"
+   ],
+   "id": "lighthouse-dey9e"
+  },
+  {
+   "company": "Lighthouse",
+   "title": "Lead Platform Engineer",
+   "location": "Ghent, Belgium",
+   "remote": "hybrid",
+   "salary_min": null,
+   "salary_max": null,
+   "skills": [
+    "React",
+    "TypeScript",
+    "Tailwind CSS",
+    "GitLab",
+    "GCP",
+    "Ember.js",
+    "Python",
+    "Go"
+   ],
+   "id": "lighthouse-1f9s4"
+  },
+  {
+   "company": "Lighthouse",
+   "title": "Lead Platform Engineer",
+   "location": "Brussels",
+   "remote": "hybrid",
+   "salary_min": null,
+   "salary_max": null,
+   "skills": [
+    "React",
+    "TypeScript",
+    "Tailwind CSS",
+    "GitLab",
+    "GCP",
+    "Ember.js",
+    "Python",
+    "Go"
+   ],
+   "id": "lighthouse-cdo71"
+  },
+  {
+   "company": "Zeal",
+   "title": "Team Lead Engineering - Platform",
+   "location": "Hamburg",
+   "remote": "hybrid",
+   "salary_min": null,
+   "salary_max": null,
+   "skills": [
+    "Kotlin",
+    "Spring Boot",
+    "MongoDB",
+    "PostgreSQL",
+    "Kubernetes"
+   ],
+   "id": "zeal-b7mpn"
+  },
+  {
+   "company": "Subaru of America",
+   "title": "Director of Platform Engineering",
+   "location": "Dallas, TX",
+   "remote": "on_site",
+   "salary_min": null,
+   "salary_max": null,
+   "skills": [
+    "Cloud Computing",
+    "Networking",
+    "Azure",
+    "AWS",
+    "Terraform",
+    "Ansible"
+   ],
+   "id": "subaru-3m0hd"
+  },
+  {
+   "company": "RTX",
+   "title": "Senior Software Engineer, Platform & Infrastructure",
+   "location": "Fullerton, CA",
+   "remote": "on_site",
+   "salary_min": 96,
+   "salary_max": 182,
+   "skills": [
+    "Windows Server",
+    "Active Directory",
+    "SQL Server",
+    "PowerShell",
+    "DNS",
+    "CISSP",
+    "CISA",
+    "CompTIA Security+"
+   ],
+   "id": "rtx-qrad3"
+  },
+  {
+   "company": "Hyundai Autoever",
+   "title": "Manager, Platform Engineering",
+   "location": "Irvine, CA",
+   "remote": "on_site",
+   "salary_min": 150,
+   "salary_max": 165,
+   "skills": [
+    "Windows",
+    "VMware",
+    "AWS",
+    "Azure",
+    "ITIL"
+   ],
+   "id": "hyundai-4j6tx"
+  },
+  {
+   "company": "Conductor",
+   "title": "Principal Platform Engineer",
+   "location": "Berlin, Germany",
+   "remote": "on_site",
+   "salary_min": null,
+   "salary_max": null,
+   "skills": [
+    "Kubernetes",
+    "Docker",
+    "ArgoCD",
+    "Terraform",
+    "Elasticsearch"
+   ],
+   "id": "conductor-ux44u"
+  },
+  {
+   "company": "Highmark Health",
+   "title": "Platform Engineer",
+   "location": "Remote (50 US states)",
+   "remote": "fully_remote",
+   "salary_min": 86,
+   "salary_max": 139,
+   "skills": [
+    "Oracle",
+    "DevOps",
+    "Agile",
+    "SQL",
+    "Java",
+    "Cobol",
+    "Hadoop"
+   ],
+   "id": "highmark-jgns3"
+  },
+  {
+   "company": "Snowflake",
+   "title": "Senior Software Engineer - Billing Platform",
+   "location": "Menlo Park, CA",
+   "remote": "on_site",
+   "salary_min": 200,
+   "salary_max": 288,
+   "skills": [
+    "Java",
+    "Scala",
+    "Python",
+    "Go",
+    "SQL"
+   ],
+   "id": "snowflake-rdd4i"
+  },
+  {
+   "company": "Optiver",
+   "title": "Software Engineer - Build Platform",
+   "location": "London, England",
+   "remote": "on_site",
+   "salary_min": null,
+   "salary_max": null,
+   "skills": [
+    "C++",
+    "Gradle",
+    "CI/CD",
+    "GitHub Actions",
+    "Jenkins"
+   ],
+   "id": "optiver-x1e0a"
+  },
+  {
+   "company": "Braze",
+   "title": "Platform Software Engineer",
+   "location": "New York, NY",
+   "remote": "hybrid",
+   "salary_min": 104,
+   "salary_max": 176,
+   "skills": [
+    "Kubernetes",
+    "Ruby on Rails",
+    "MongoDB",
+    "Redis",
+    "Kafka"
+   ],
+   "id": "braze-fy2d4"
+  },
+  {
+   "company": "Appvia",
+   "title": "AWS Platform Engineer",
+   "location": "London, England",
+   "remote": "hybrid",
+   "salary_min": null,
+   "salary_max": null,
+   "skills": [
+    "AWS",
+    "Kubernetes",
+    "Docker",
+    "Terraform",
+    "Python",
+    "Bash"
+   ],
+   "id": "appvia-8g4rd"
+  }
+ ]
+}

@@ -1,0 +1,94 @@
+{% extends "base.html" %}
+{% from "_macros.html" import pill, bar %}
+{% block title %}Market & feedback — Fit Happens{% endblock %}
+{% block body %}
+<div class="px-6 py-7 max-w-[1100px] mx-auto space-y-6">
+  <div>
+    <h1 class="text-[30px] font-bold tracking-tight">Market &amp; feedback</h1>
+    <p class="mt-1.5 text-[13.5px] text-ink-muted">
+      What a candidate actually sees when they search for a role like yours — and what your
+      own recruiters tell us we got wrong.</p>
+  </div>
+
+  <div class="rounded-xl border border-hair bg-white p-6">
+    <h2 class="text-[16px] font-bold">Near-identical postings</h2>
+    <p class="mt-1.5 text-[12.5px] text-ink-muted">
+      {{ stats.postings }} postings sampled from {{ "{:,}".format(stats.total_matching) }} matching
+      "platform engineer" in 30 days · {{ stats.source }}, pulled {{ stats.pulled }}.</p>
+
+    <div class="mt-5 grid grid-cols-3 gap-4">
+      {% for label, value, tone in [
+          ('Postings a candidate scrolls', stats.postings, 'ink'),
+          ('Actually distinct jobs', stats.distinct_jobs, 'forest'),
+          ('Redundant listings', stats.redundant_postings, 'amber') ] %}
+      <div class="rounded-lg border border-hair p-4">
+        <div class="text-[11.5px] text-ink-muted">{{ label }}</div>
+        <div class="mt-1 text-[26px] font-bold {{ 'text-forest-600' if tone=='forest' else ('text-amber-600' if tone=='amber' else '') }}">{{ value }}</div>
+      </div>
+      {% endfor %}
+    </div>
+    <div class="mt-4 flex items-center gap-3">
+      <div class="flex-1">{{ bar(stats.redundancy, 'amber') }}</div>
+      <span class="text-[13px] font-semibold">{{ (stats.redundancy*100)|round(0)|int }}% of the list is the same job listed twice or more</span>
+    </div>
+
+    <div class="mt-6 space-y-3">
+      {% for c in clusters %}
+      <div class="rounded-lg border border-hair p-4">
+        <div class="flex items-start justify-between gap-4">
+          <div class="min-w-0">
+            <div class="text-[13.5px] font-semibold">{{ c.company }} — {{ c.title }}</div>
+            <div class="mt-1 text-[12.5px] text-ink-muted">{{ c.summary() }}</div>
+            {% if c.pay_varies_by_location %}
+            <div class="mt-2 text-[12.5px] text-amber-800">
+              The same job is advertised at very different pay depending on the city. A candidate
+              comparing two of these postings has no way to see that.</div>
+            {% endif %}
+          </div>
+          {{ pill(c.size ~ ' POSTINGS', 'amber' if c.size > 2 else 'grey') }}
+        </div>
+        <details class="mt-2">
+          <summary class="text-[11.5px] text-ink-muted cursor-pointer">locations ({{ c.locations|length }})</summary>
+          <p class="mt-1 text-[11.5px] text-ink-muted leading-relaxed">{{ c.locations|join(' · ') }}</p>
+        </details>
+      </div>
+      {% endfor %}
+    </div>
+  </div>
+
+  <div class="rounded-xl border border-hair bg-white p-6">
+    <h2 class="text-[16px] font-bold">Recruiter feedback</h2>
+    <p class="mt-1.5 text-[12.5px] text-ink-muted">
+      Captured at the moment someone passes on a candidate. Read by a person; never used to
+      retrain automatically.</p>
+    {% if feedback.total %}
+    <div class="mt-4 flex gap-4">
+      <div class="rounded-lg border border-hair px-4 py-3">
+        <div class="text-[11.5px] text-ink-muted">Passed on</div>
+        <div class="text-[22px] font-bold">{{ feedback.total }}</div>
+      </div>
+      <div class="rounded-lg border border-rose-200 bg-rose-50 px-4 py-3">
+        <div class="text-[11.5px] text-rose-800">We misread the CV</div>
+        <div class="text-[22px] font-bold text-rose-700">{{ feedback.our_errors }}</div>
+      </div>
+      <div class="rounded-lg border border-hair px-4 py-3">
+        <div class="text-[11.5px] text-ink-muted">Passed despite a good score</div>
+        <div class="text-[22px] font-bold">{{ feedback.contradicting }}</div>
+      </div>
+    </div>
+    <table class="mt-5 w-full text-[13px]">
+      <thead><tr class="text-left text-[11.5px] uppercase tracking-wide text-ink-muted border-b border-hair">
+        <th class="pb-2">Reason</th><th class="pb-2 w-12">n</th><th class="pb-2">What it tells us to change</th></tr></thead>
+      <tbody>
+      {% for label, n, signal in feedback.by_reason %}
+        <tr class="border-b border-hair/60"><td class="py-2.5 font-medium">{{ label }}</td>
+          <td class="py-2.5">{{ n }}</td><td class="py-2.5 text-ink-muted">{{ signal }}</td></tr>
+      {% endfor %}
+      </tbody>
+    </table>
+    {% else %}
+    <p class="mt-3 text-[13px] text-ink-muted">Nothing recorded yet.</p>
+    {% endif %}
+  </div>
+</div>
+{% endblock %}

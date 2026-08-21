@@ -14,6 +14,8 @@ from fastapi.templating import Jinja2Templates
 
 from ..candidate.answers import AnswerStore
 from ..candidate.consent import SCOPES, ConsentStore
+from ..feedback import REASONS, FeedbackStore, Rejection
+from ..jd.discovery import corpus_stats, duplicates
 from ..jd.slop import scan_job_ad
 from ..slop.response import CASUAL_QUESTION, scan_responses
 from ..store import Run
@@ -66,12 +68,30 @@ def candidate(request: Request, cid: str, internal: int = 1):
     cp3 = _cp3_for(c)
     return TEMPLATES.TemplateResponse(request, "candidate.html", {
         "c": c, "role": role, "reqs": reqs,
+        "reasons": REASONS, "rejection": FeedbackStore().get(cid),
         "use_internal": bool(internal),
         "cp3": cp3,
         "answers": AnswerStore().load(cid),
         "response_label": _response_label(cp3),
         "candidate_link": f"/apply/{ConsentStore().token_for(cid)}",
     })
+
+
+@app.post("/candidate/{cid}/pass")
+def record_pass(cid: str, reason: str = Form(...), note: str = Form("")):
+    """Captured at the moment of the decision, inside the existing flow - which is the whole
+    point. A survey sent afterwards is a survey nobody fills in."""
+    c = Run().candidate(cid)
+    FeedbackStore().record(Rejection(candidate_id=cid, reason=reason, note=note,
+                                     fit_score=c.fit.score if c else 0.0))
+    return RedirectResponse(f"/candidate/{cid}#feedback", status_code=303)
+
+
+@app.get("/market", response_class=HTMLResponse)
+def market(request: Request):
+    return TEMPLATES.TemplateResponse(request, "market.html", {
+        "stats": corpus_stats(), "clusters": duplicates(),
+        "feedback": FeedbackStore().summary()})
 
 
 @app.get("/injection", response_class=HTMLResponse)
