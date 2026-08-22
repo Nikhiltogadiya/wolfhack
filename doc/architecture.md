@@ -32,7 +32,7 @@ by good intentions. That is section 6.
 | Backup model | NVIDIA NIM (Nemotron) | Free, independent provider, automatic on any error |
 | PDF reading | pypdf, pdfplumber, pdfminer, PyMuPDF, pypdfium2 | Several engines on purpose — they disagree about hidden text, and that disagreement is the detector |
 | Storage | JSON files on disk | No database. One folder per role |
-| Tests | pytest — **378 passing** | Including the rules in section 9 |
+| Tests | pytest — **380 passing** | Including every rule in section 12 |
 
 **No database, no queue, no container.** It runs with one command and the whole demo works
 from cache with the network unplugged.

@@ -63,6 +63,10 @@ Then create a role and upload them. A CV takes one to three minutes the first ti
 cached afterwards, so a re-run is instant. `FIT_HAPPENS_OFFLINE=1` forces cache-only and
 fails loudly on a miss, which is how you prove a demo needs no network.
 
+Two scripts need a résumé corpus that is not in this repo — `scripts/calibrate.py` and
+`scripts/feature_analysis.py` expect one under `data/corpus/`. They are the measurement
+scripts behind the numbers below, not part of running the app.
+
 ## What we measured
 
 | | |
@@ -85,7 +89,6 @@ style stays advisory and is structurally barred from producing a flag. See
 | `doc/project-brief.md` | Canonical spec, milestones, demo script |
 | `doc/engineering-log.md` | What was tried, what failed, why |
 | `doc/backlog.md` | What we still owe |
-| `doc/source/` | Dated raw record — local only, not published (client material) |
 
 ## The one thing to understand
 

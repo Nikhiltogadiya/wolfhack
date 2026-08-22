@@ -120,7 +120,7 @@ refusal coming next, not on the size of the shuffle. See `demo-script.md` beat �
 
 ## Beat ③ — Consent gates the fetch · 3:19 – 4:19
 
-Rowan's own page. Live URL: `/apply/4cf2e5cd4d6c3c11229e`.
+Rowan's own page. Derive the link with the command in `doc/demo-script.md` — a portal token is a credential and is never written into a document.
 
 **3:19** — *Candidate view. Status: UNDER REVIEW.*
 

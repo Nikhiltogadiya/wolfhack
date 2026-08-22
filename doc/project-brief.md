@@ -1,6 +1,6 @@
 # Fit Happens — project brief
 
-Canonical spec. Derived from `doc/source/` (dated, immutable) + `fit-happens-intake-v2.md`.
+Canonical spec. Derived from the dated raw record (not in this repo — client material) and `fit-happens-intake-v2.md`.
 This document is living and wins on conflict with the source record.
 
 ## The challenge (Akkodis)
