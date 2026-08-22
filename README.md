@@ -28,22 +28,40 @@ feed checkpoint 3.
 
 ```bash
 uv sync --all-extras
-export NVIDIA_API_KEY=...        # required
-export GITHUB_TOKEN=...          # optional; 60 req/h without it
-uv run uvicorn fit_happens.web.app:app --reload --port 8000
+
+export OPENROUTER_API_KEY=...          # primary model provider
+export NVIDIA_API_KEY=...              # optional; automatic fallback if the primary errors
+export GITHUB_TOKEN=...                # optional; 60 requests/hour without it
+export FIT_HAPPENS_TEAM_PASSCODE=...   # optional; without it the hiring pages are open
+                                       #   and say so in a banner on every page
+
+uv run uvicorn fit_happens.web.app:app --port 8000
 ```
 
-Then open http://127.0.0.1:8000 and click **Load the sample role** — or create your own,
-paste an advert, and upload CVs. Everything works in the browser; the CLI is optional:
+Open http://127.0.0.1:8000, choose the employer door, create a role by pasting a job advert,
+and upload some CVs.
+
+**Do not add `--reload`.** The reloader restarts on any file change and kills in-flight upload
+processing, leaving the page waiting on work that is never coming back.
+
+Tests: `uv run pytest` — 380 of them, no network needed.
+
+## Demo data is not in the repo
+
+`data/` holds application records: candidates, uploaded CVs, consent decisions, stages and
+answers. That is real application data even when the applicants are invented, so it stays on
+the machine running the app and is never committed.
+
+To get something to look at, either upload a few CVs through the interface, or generate a set:
 
 ```bash
-uv run python scripts/build_demo.py data/demo/resumes/*.pdf          # same thing, headless
-FIT_HAPPENS_OFFLINE=1 uv run python scripts/build_demo.py data/demo/resumes/*.pdf  # no network
+uv run python tools/make_applicant_cvs.py   # ten fictional applicants
+uv run python tools/make_demo_cv.py         # one with defects built in, for the detectors
 ```
 
-Do not add `--reload` when demoing: it kills in-flight upload processing.
-
-Tests: `uv run pytest` (network tests are opt-in: `uv run pytest -m live`).
+Then create a role and upload them. A CV takes one to three minutes the first time and is
+cached afterwards, so a re-run is instant. `FIT_HAPPENS_OFFLINE=1` forces cache-only and
+fails loudly on a miss, which is how you prove a demo needs no network.
 
 ## What we measured
 
@@ -67,7 +85,7 @@ style stays advisory and is structurally barred from producing a flag. See
 | `doc/project-brief.md` | Canonical spec, milestones, demo script |
 | `doc/engineering-log.md` | What was tried, what failed, why |
 | `doc/backlog.md` | What we still owe |
-| `doc/source/` | Dated, immutable raw record |
+| `doc/source/` | Dated raw record — local only, not published (client material) |
 
 ## The one thing to understand
 
@@ -75,3 +93,17 @@ The separation between fit and slop is enforced by **type signatures and tests**
 convention. `FitEngine`'s input types carry no style fields, the slop verdict enum has no reject
 variant, and "likely fabricated" requires two independent flags with distinct evidence spans.
 Those are the invariants in `tests/test_invariants.py` — they are the product, not decoration.
+
+## Licence
+
+**AGPL-3.0-or-later.** See [LICENSE](LICENSE), and [NOTICE](NOTICE) for why.
+
+The short version: this project uses PyMuPDF, which is AGPL-3.0 or a paid Artifex licence, both
+as the primary PDF text extractor and as the foundation of the hidden-content detector. AGPL is
+strong copyleft, so the whole work is AGPL-3.0. If you run a modified version as a network
+service, you must offer your users its source.
+
+Third-party components and their licences are listed in [NOTICE](NOTICE). The vendored hidden
+content detector is MIT, from
+[UNITES-Lab/resume-injection-measurement](https://github.com/UNITES-Lab/resume-injection-measurement),
+with its licence at `src/fit_happens/vendor/LICENSE.hcd`.

@@ -10,8 +10,10 @@ Two components that must never contaminate each other: **Fit Engine** (matching)
 - `doc/project-brief.md` — canonical spec, milestones, demo script.
 - `doc/engineering-log.md` — what was tried, what failed, why. Append as you go.
 - `doc/backlog.md` — what we owe. Add the entry when you defer, not at the end.
-- `doc/source/` — dated, immutable raw record (whiteboard photo, product brief, v0.1 intake).
-  `fit-happens-intake-v2.md` is the merged intake. On conflict, the brief and v2 win.
+- `doc/source/` — the dated raw record (whiteboard photo, the client's product brief, v0.1
+  intake). **Local only, gitignored**: it is Akkodis / Volkswagen Group material and one
+  photo shows people, so it is not ours to publish. `fit-happens-intake-v2.md` is the
+  merged intake and does ship. On conflict, the brief and v2 win.
 
 ## Hard rules — these are the product, not style preferences
 1. **Slop Bouncer never rejects.** The verdict enum is `clear | inconclusive | flag_for_human`.

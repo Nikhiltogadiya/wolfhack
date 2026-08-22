@@ -10,7 +10,10 @@ from reportlab.lib.styles import ParagraphStyle, getSampleStyleSheet
 from reportlab.lib.units import mm
 from reportlab.platypus import Paragraph, SimpleDocTemplate
 
-OUT = "/home/niks-tuf-ubuntu/Downloads/temp del/rowan-feltz-cv.pdf"
+import os
+
+# Overridable, and not an absolute path from one machine: this file is public.
+OUT = os.environ.get("FIT_HAPPENS_CV_OUT", "data/demo/resumes/rowan-feltz-cv.pdf")
 
 ss = getSampleStyleSheet()
 name = ParagraphStyle("name", parent=ss["Title"], fontSize=19, spaceAfter=2, alignment=0)

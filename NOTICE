@@ -1,0 +1,42 @@
+Fit Happens
+Copyright (C) 2026 Nikhil Togadiya
+
+This program is free software: you can redistribute it and/or modify it under
+the terms of the GNU Affero General Public License as published by the Free
+Software Foundation, either version 3 of the License, or (at your option) any
+later version. See LICENSE for the full text.
+
+WHY AGPL, AND NOT SOMETHING MORE PERMISSIVE
+-------------------------------------------
+PyMuPDF is dual-licensed AGPL-3.0 / Artifex commercial, and this project links
+it in two places: as the primary PDF text extractor, and as the foundation of
+the vendored hidden-content detector, which reads per-span colour, size and
+bounding boxes and renders pixmaps. AGPL is strong copyleft, so distributing
+this work means the whole work is AGPL-3.0.
+
+Removing that constraint means replacing PyMuPDF with pypdfium2 (BSD-3-Clause /
+Apache-2.0) in BOTH places. The extractor swap is easy; rewriting the detector
+is not, because it is vendored third-party code. Tracked as backlog item 18.
+
+THIRD-PARTY COMPONENTS
+----------------------
+src/fit_happens/vendor/hcd.py
+    Hidden Content Detection, from UNITES-Lab/resume-injection-measurement.
+    MIT. Full licence text: src/fit_happens/vendor/LICENSE.hcd
+    Released with "Prompt Injection in Resumes" (USENIX Security 2026).
+
+Key dependencies and their licences:
+    PyMuPDF        AGPL-3.0 or Artifex commercial   <- the copyleft source
+    pypdfium2      BSD-3-Clause / Apache-2.0
+    pdfminer.six   MIT
+    pdfplumber     MIT
+    FastAPI        MIT
+    Uvicorn        BSD-3-Clause
+    LangGraph      MIT
+    Pydantic       MIT
+    reportlab      BSD-3-Clause
+
+DEMO DATA
+---------
+See data/README.md for where the sample CVs come from and what may be done
+with them.
