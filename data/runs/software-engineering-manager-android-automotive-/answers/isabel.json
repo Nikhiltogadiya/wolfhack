@@ -1,0 +1,36 @@
+{
+  "candidate_id": "isabel",
+  "answers": [
+    {
+      "question": "Before the specifics - what is a piece of work you enjoyed recently, and what made it good? A couple of sentences is plenty, no need to polish it.",
+      "text": "i dont remember",
+      "is_baseline": true
+    },
+    {
+      "question": "I didn't see a Master's or PhD in Engineering, Computer Science, or a related field on your CV—have you done that kind of study?",
+      "text": "yes",
+      "is_baseline": false
+    },
+    {
+      "question": "Your CV doesn't mention working three days a week in the Berlin office—has that been part of your experience?",
+      "text": "yes",
+      "is_baseline": false
+    },
+    {
+      "question": "Can you tell me more about your role as an engineering manager with 13 years in mobile and embedded software?",
+      "text": "i don't remember",
+      "is_baseline": false
+    },
+    {
+      "question": "What does your experience as an engineering manager with 13 years in mobile and embedded software involve?",
+      "text": "i don't remember",
+      "is_baseline": false
+    },
+    {
+      "question": "Could you explain what that dash refers to on your CV?",
+      "text": "may be just mistake",
+      "is_baseline": false
+    }
+  ],
+  "submitted_at": "2026-08-21T11:57:05+00:00"
+}

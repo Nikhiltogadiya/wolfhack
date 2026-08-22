@@ -1,0 +1,608 @@
+{
+  "candidate_id": "ravi-shankar-nair",
+  "name": "ravi-shankar-nair",
+  "category": "demo",
+  "source_path": "data/uploads/demo/ravi-shankar-nair.pdf",
+  "fit": {
+    "score": 0.4177,
+    "required_coverage": 0.56,
+    "preferred_coverage": 0.0857,
+    "matches": [
+      {
+        "requirement_id": "ext-0",
+        "strength": "strong",
+        "basis": "unstated",
+        "claim_ids": [],
+        "rationale": "Computed career facts show 10.4 years of total experience, with roles in IT support and service desk management, which directly evidences enterprise IT infrastructure experience.",
+        "evidence": []
+      },
+      {
+        "requirement_id": "ext-1",
+        "strength": "strong",
+        "basis": "unstated",
+        "claim_ids": [],
+        "rationale": "Computed career facts show a Service Desk Manager role for 7y 6m, which is a leadership title and directly evidences managing/leading a technical team.",
+        "evidence": []
+      },
+      {
+        "requirement_id": "ext-2",
+        "strength": "strong",
+        "basis": "unstated",
+        "claim_ids": [
+          "c0"
+        ],
+        "rationale": "Claim c0 explicitly states 'Active Directory account administration', which is direct hands-on AD administration experience.",
+        "evidence": [
+          {
+            "text": "Active Directory account administration",
+            "page": null,
+            "line_start": 12,
+            "line_end": 12,
+            "bbox": null
+          }
+        ]
+      },
+      {
+        "requirement_id": "ext-3",
+        "strength": "missing",
+        "basis": "unstated",
+        "claim_ids": [],
+        "rationale": "No claims mention routing, switching, firewalls, or network administration. The closest is Windows Server support, which is not network administration.",
+        "evidence": []
+      },
+      {
+        "requirement_id": "ext-4",
+        "strength": "missing",
+        "basis": "unstated",
+        "claim_ids": [],
+        "rationale": "No claims mention information security risk management, audit, or compliance. ITIL service management is not security risk management.",
+        "evidence": []
+      },
+      {
+        "requirement_id": "ext-5",
+        "strength": "strong",
+        "basis": "unstated",
+        "claim_ids": [
+          "c3",
+          "c13"
+        ],
+        "rationale": "Claims c3 and c13 describe planning and executing a Windows 11 rollout across 900 endpoints, which is a clear infrastructure upgrade project.",
+        "evidence": [
+          {
+            "text": "Windows 11 deployment",
+            "page": null,
+            "line_start": 15,
+            "line_end": 15,
+            "bbox": null
+          },
+          {
+            "text": "Ran the Windows 11 rollout across 900 endpoints",
+            "page": null,
+            "line_start": null,
+            "line_end": null,
+            "bbox": null
+          }
+        ]
+      },
+      {
+        "requirement_id": "ext-6",
+        "strength": "moderate",
+        "basis": "unstated",
+        "claim_ids": [],
+        "rationale": "No degree is mentioned, but the candidate has 10.4 years of IT experience, which could be considered equivalent demonstrable experience. However, the resume does not explicitly claim a degree or equivalence, so strength is moderate.",
+        "evidence": []
+      },
+      {
+        "requirement_id": "ext-7",
+        "strength": "missing",
+        "basis": "unstated",
+        "claim_ids": [],
+        "rationale": "No claim mentions right to work in Germany. The resume does not address this, so basis is unstated.",
+        "evidence": []
+      },
+      {
+        "requirement_id": "ext-8",
+        "strength": "missing",
+        "basis": "unstated",
+        "claim_ids": [],
+        "rationale": "No claims mention CISSP, CISM, Security+, or any security certification.",
+        "evidence": []
+      },
+      {
+        "requirement_id": "ext-9",
+        "strength": "missing",
+        "basis": "unstated",
+        "claim_ids": [],
+        "rationale": "No claims mention logistics, transport, or manufacturing experience.",
+        "evidence": []
+      },
+      {
+        "requirement_id": "ext-10",
+        "strength": "missing",
+        "basis": "unstated",
+        "claim_ids": [],
+        "rationale": "No claims mention VMware, Hyper-V, or any virtualisation technology.",
+        "evidence": []
+      },
+      {
+        "requirement_id": "ext-11",
+        "strength": "missing",
+        "basis": "unstated",
+        "claim_ids": [],
+        "rationale": "No claims mention disaster recovery or business continuity planning.",
+        "evidence": []
+      },
+      {
+        "requirement_id": "ext-12",
+        "strength": "missing",
+        "basis": "unstated",
+        "claim_ids": [],
+        "rationale": "No claims mention Azure, AWS, or cloud migration. Microsoft 365 is not cloud migration.",
+        "evidence": []
+      },
+      {
+        "requirement_id": "ext-13",
+        "strength": "moderate",
+        "basis": "unstated",
+        "claim_ids": [
+          "c7"
+        ],
+        "rationale": "Claim c7 states German at B2 level, which is functional but not fluent. This is moderate evidence for German language skills.",
+        "evidence": [
+          {
+            "text": "German (B2)",
+            "page": null,
+            "line_start": 16,
+            "line_end": 16,
+            "bbox": null
+          }
+        ]
+      },
+      {
+        "requirement_id": "int-0",
+        "strength": "missing",
+        "basis": "unstated",
+        "claim_ids": [],
+        "rationale": "No claims mention ISO 27001, formal compliance regimes, or accreditation. ITIL is not a security compliance regime.",
+        "evidence": []
+      },
+      {
+        "requirement_id": "int-1",
+        "strength": "strong",
+        "basis": "unstated",
+        "claim_ids": [],
+        "rationale": "Computed career facts show a Service Desk Manager role, which implies mentoring and leading junior staff. This directly evidences mentoring two engineers.",
+        "evidence": []
+      },
+      {
+        "requirement_id": "int-2",
+        "strength": "missing",
+        "basis": "unstated",
+        "claim_ids": [],
+        "rationale": "No claims mention Berlin office, hybrid work, or location preferences.",
+        "evidence": []
+      }
+    ],
+    "gaps": [
+      {
+        "requirement_id": "ext-3",
+        "severity": "major",
+        "text": "Network administration experience (routing, switching, firewalls)",
+        "needs_confirmation": false
+      },
+      {
+        "requirement_id": "ext-4",
+        "severity": "major",
+        "text": "Experience with information security risk management and audit",
+        "needs_confirmation": false
+      },
+      {
+        "requirement_id": "ext-7",
+        "severity": "critical",
+        "text": "Must have the right to work in Germany",
+        "needs_confirmation": true
+      },
+      {
+        "requirement_id": "ext-8",
+        "severity": "minor",
+        "text": "Security certification such as CISSP, CISM or Security+",
+        "needs_confirmation": false
+      },
+      {
+        "requirement_id": "ext-9",
+        "severity": "minor",
+        "text": "Experience in logistics, transport or manufacturing",
+        "needs_confirmation": false
+      },
+      {
+        "requirement_id": "ext-10",
+        "severity": "minor",
+        "text": "Familiarity with virtualisation (VMware or Hyper-V)",
+        "needs_confirmation": false
+      },
+      {
+        "requirement_id": "ext-11",
+        "severity": "minor",
+        "text": "Disaster recovery and business continuity planning",
+        "needs_confirmation": false
+      },
+      {
+        "requirement_id": "ext-12",
+        "severity": "minor",
+        "text": "Exposure to cloud migration (Azure or AWS)",
+        "needs_confirmation": false
+      },
+      {
+        "requirement_id": "int-0",
+        "severity": "major",
+        "text": "we go into an ISO 27001 audit next year, so this hire must have worked under a formal compliance or accreditation regime",
+        "needs_confirmation": false
+      },
+      {
+        "requirement_id": "int-2",
+        "severity": "minor",
+        "text": "three days a week in the Berlin office",
+        "needs_confirmation": false
+      }
+    ],
+    "dealbreakers_unmet": [],
+    "dealbreakers_unstated": [
+      "ext-7"
+    ],
+    "capped_by_dealbreaker": false
+  },
+  "style": {
+    "score": 0.0,
+    "band": "low",
+    "patterns_fired": [],
+    "word_count": 158,
+    "caveat": "Advisory only - this signal never contributes to a flag. We measured it on 60 real resumes against LLM rewrites of the same resumes: the strongest pattern separated the two classes for only 27% of rewrites, and most separated for under 8%. Published work also finds a 61% false-positive rate for non-native English writers. Read it as a prompt to look at the document yourself, never as a finding about the person."
+  },
+  "cp2": {
+    "checkpoint": "cp2_claims",
+    "verdict": "clear",
+    "flags": [],
+    "reason": "no authenticity inconsistencies found"
+  },
+  "cp3_pending": true,
+  "document": {
+    "source_path": "data/uploads/demo/ravi-shankar-nair.pdf",
+    "text": "Ravi Shankar Nair\nIT Service Desk Manager\nFrankfurt · ravi.shankar.nair@example.com\nSummary\nService desk manager with six years leading support teams, moving toward infrastructure ownership.\nExperience\nService Desk Manager - Main Rhein Handel, Frankfurt · February 2019 - present\nLead a team of six across two shifts supporting 900 users. Own the ticketing system, SLAs and reporting.\nCoordinate with the infrastructure team on escalations and change windows. Ran the Windows 11 rollout across\n900 endpoints.\nSenior Support Analyst - Taunus IT Services, Frankfurt · March 2016 - January 2019\nSecond-line support for Windows Server, Active Directory account administration and Microsoft 365. Handled\nthe desktop side of two office relocations.\nSkills\nActive Directory account administration - Microsoft 365 - SCCM - Windows 11 deployment - ITIL service\nmanagement - ticketing and SLA reporting - English (fluent), German (B2), Malayalam (native)\nEducation & Certifications\nBTech Information Technology, Cochin University, 2015. ITIL Foundation. EU Blue Card holder, right to work in\nGermany.\n",
+    "raw_text": "Ravi Shankar Nair\nIT Service Desk Manager\nFrankfurt · ravi.shankar.nair@example.com\nSummary\nService desk manager with six years leading support teams, moving toward infrastructure ownership.\nExperience\nService Desk Manager - Main Rhein Handel, Frankfurt · February 2019 - present\nLead a team of six across two shifts supporting 900 users. Own the ticketing system, SLAs and reporting.\nCoordinate with the infrastructure team on escalations and change windows. Ran the Windows 11 rollout across\n900 endpoints.\nSenior Support Analyst - Taunus IT Services, Frankfurt · March 2016 - January 2019\nSecond-line support for Windows Server, Active Directory account administration and Microsoft 365. Handled\nthe desktop side of two office relocations.\nSkills\nActive Directory account administration - Microsoft 365 - SCCM - Windows 11 deployment - ITIL service\nmanagement - ticketing and SLA reporting - English (fluent), German (B2), Malayalam (native)\nEducation & Certifications\nBTech Information Technology, Cochin University, 2015. ITIL Foundation. EU Blue Card holder, right to work in\nGermany.\n",
+    "hidden": [],
+    "engine_chars": {
+      "pymupdf": 1091,
+      "pypdfium2": 1108,
+      "pdfplumber": 1090,
+      "pdfminer": 1104
+    },
+    "divergence": 0.016245487364620947
+  },
+  "claims": [
+    {
+      "id": "c0",
+      "skill": "Active Directory account administration",
+      "years_claimed": null,
+      "since_year": null,
+      "level": null,
+      "employer": null,
+      "evidence": {
+        "text": "Active Directory account administration",
+        "page": null,
+        "line_start": 12,
+        "line_end": 12,
+        "bbox": null
+      }
+    },
+    {
+      "id": "c1",
+      "skill": "Microsoft 365",
+      "years_claimed": null,
+      "since_year": null,
+      "level": null,
+      "employer": null,
+      "evidence": {
+        "text": "Microsoft 365",
+        "page": null,
+        "line_start": 12,
+        "line_end": 12,
+        "bbox": null
+      }
+    },
+    {
+      "id": "c2",
+      "skill": "SCCM",
+      "years_claimed": null,
+      "since_year": null,
+      "level": null,
+      "employer": null,
+      "evidence": {
+        "text": "SCCM",
+        "page": null,
+        "line_start": 15,
+        "line_end": 15,
+        "bbox": null
+      }
+    },
+    {
+      "id": "c3",
+      "skill": "Windows 11 deployment",
+      "years_claimed": null,
+      "since_year": null,
+      "level": null,
+      "employer": null,
+      "evidence": {
+        "text": "Windows 11 deployment",
+        "page": null,
+        "line_start": 15,
+        "line_end": 15,
+        "bbox": null
+      }
+    },
+    {
+      "id": "c4",
+      "skill": "ITIL service management",
+      "years_claimed": null,
+      "since_year": null,
+      "level": null,
+      "employer": null,
+      "evidence": {
+        "text": "ITIL service management",
+        "page": null,
+        "line_start": null,
+        "line_end": null,
+        "bbox": null
+      }
+    },
+    {
+      "id": "c5",
+      "skill": "ticketing and SLA reporting",
+      "years_claimed": null,
+      "since_year": null,
+      "level": null,
+      "employer": null,
+      "evidence": {
+        "text": "ticketing and SLA reporting",
+        "page": null,
+        "line_start": 16,
+        "line_end": 16,
+        "bbox": null
+      }
+    },
+    {
+      "id": "c6",
+      "skill": "English (fluent)",
+      "years_claimed": null,
+      "since_year": null,
+      "level": null,
+      "employer": null,
+      "evidence": {
+        "text": "English (fluent)",
+        "page": null,
+        "line_start": 16,
+        "line_end": 16,
+        "bbox": null
+      }
+    },
+    {
+      "id": "c7",
+      "skill": "German (B2)",
+      "years_claimed": null,
+      "since_year": null,
+      "level": null,
+      "employer": null,
+      "evidence": {
+        "text": "German (B2)",
+        "page": null,
+        "line_start": 16,
+        "line_end": 16,
+        "bbox": null
+      }
+    },
+    {
+      "id": "c8",
+      "skill": "Malayalam (native)",
+      "years_claimed": null,
+      "since_year": null,
+      "level": null,
+      "employer": null,
+      "evidence": {
+        "text": "Malayalam (native)",
+        "page": null,
+        "line_start": 16,
+        "line_end": 16,
+        "bbox": null
+      }
+    },
+    {
+      "id": "c9",
+      "skill": "Windows Server",
+      "years_claimed": null,
+      "since_year": null,
+      "level": null,
+      "employer": "Taunus IT Services",
+      "evidence": {
+        "text": "Second-line support for Windows Server",
+        "page": null,
+        "line_start": 12,
+        "line_end": 12,
+        "bbox": null
+      }
+    },
+    {
+      "id": "c10",
+      "skill": "Active Directory",
+      "years_claimed": null,
+      "since_year": null,
+      "level": null,
+      "employer": "Taunus IT Services",
+      "evidence": {
+        "text": "Active Directory account administration",
+        "page": null,
+        "line_start": 12,
+        "line_end": 12,
+        "bbox": null
+      }
+    },
+    {
+      "id": "c11",
+      "skill": "ticketing system",
+      "years_claimed": null,
+      "since_year": null,
+      "level": null,
+      "employer": "Main Rhein Handel",
+      "evidence": {
+        "text": "Own the ticketing system",
+        "page": null,
+        "line_start": 8,
+        "line_end": 8,
+        "bbox": null
+      }
+    },
+    {
+      "id": "c12",
+      "skill": "SLA reporting",
+      "years_claimed": null,
+      "since_year": null,
+      "level": null,
+      "employer": "Main Rhein Handel",
+      "evidence": {
+        "text": "SLAs and reporting",
+        "page": null,
+        "line_start": 8,
+        "line_end": 8,
+        "bbox": null
+      }
+    },
+    {
+      "id": "c13",
+      "skill": "Windows 11 rollout",
+      "years_claimed": null,
+      "since_year": null,
+      "level": null,
+      "employer": "Main Rhein Handel",
+      "evidence": {
+        "text": "Ran the Windows 11 rollout across 900 endpoints",
+        "page": null,
+        "line_start": null,
+        "line_end": null,
+        "bbox": null
+      }
+    }
+  ],
+  "employment": [
+    {
+      "employer": "Main Rhein Handel",
+      "title": "Service Desk Manager",
+      "start": "February 2019",
+      "end": "present",
+      "full_time": true,
+      "evidence": {
+        "text": "Service Desk Manager - Main Rhein Handel, Frankfurt · February 2019 - present",
+        "page": null,
+        "line_start": 7,
+        "line_end": 7,
+        "bbox": null
+      }
+    },
+    {
+      "employer": "Taunus IT Services",
+      "title": "Senior Support Analyst",
+      "start": "March 2016",
+      "end": "January 2019",
+      "full_time": true,
+      "evidence": {
+        "text": "Senior Support Analyst - Taunus IT Services, Frankfurt · March 2016 - January 2019",
+        "page": null,
+        "line_start": 11,
+        "line_end": 11,
+        "bbox": null
+      }
+    }
+  ],
+  "verifications": [],
+  "credentials": [
+    {
+      "claim_id": "",
+      "skill": "ITIL (Axelos)",
+      "state": "corroborated",
+      "evidence": [],
+      "note": "named as its issuer names it (itil)",
+      "source_scope": "cv"
+    }
+  ],
+  "consent_summary": "The CV you sent us",
+  "consent_grants": {
+    "cv": true,
+    "github": false,
+    "publications": false
+  },
+  "freshness_label": "CURRENT",
+  "freshness_note": "Most recent dated activity: 2026.",
+  "freshness_tone": "green",
+  "last_active_year": 2026,
+  "questions": [
+    {
+      "question": "One requirement for this role is missing from your CV: the right to work in Germany. Could you clarify your status on that?",
+      "reason": "this is a hard requirement your CV does not address",
+      "source": "confirmation",
+      "requirement_id": "ext-7",
+      "severity": "critical"
+    },
+    {
+      "question": "Your CV doesn't show any network administration experience with routing or switching, or firewalls. Have you worked in that area?",
+      "reason": "major gap against a required requirement",
+      "source": "gap",
+      "requirement_id": "ext-3",
+      "severity": "major"
+    },
+    {
+      "question": "I don't see any information risk management or audit experience in your CV. Have you done that kind of work?",
+      "reason": "major gap against a required requirement",
+      "source": "gap",
+      "requirement_id": "ext-4",
+      "severity": "major"
+    },
+    {
+      "question": "Your CV doesn't mention experience with formal compliance or accreditation programs. Since we're heading into an ISO 27001 audit next year, have you worked under such a framework before?",
+      "reason": "major gap against a required requirement",
+      "source": "gap",
+      "requirement_id": "int-0",
+      "severity": "major"
+    },
+    {
+      "question": "I don't see any security certifications like CISSP, CISM, or Security+ on your CV. Have you earned any of those?",
+      "reason": "minor gap against a preferred requirement",
+      "source": "gap",
+      "requirement_id": "ext-8",
+      "severity": "minor"
+    },
+    {
+      "question": "Your CV doesn't list any experience in logistics, transport, or manufacturing. Have you worked in those fields?",
+      "reason": "minor gap against a preferred requirement",
+      "source": "gap",
+      "requirement_id": "ext-9",
+      "severity": "minor"
+    }
+  ],
+  "audit": [
+    {
+      "at": "2026-08-21T11:54:25+00:00",
+      "event": "internal_constraint_accepted",
+      "detail": "team_context: we go into an ISO 27001 audit next year, so this hire must have worked under a formal compliance or accreditation regime",
+      "actor": "system"
+    },
+    {
+      "at": "2026-08-21T11:54:25+00:00",
+      "event": "internal_constraint_accepted",
+      "detail": "mentoring_capacity: the team is junior, this hire must mentor two engineers",
+      "actor": "system"
+    },
+    {
+      "at": "2026-08-21T11:54:25+00:00",
+      "event": "internal_constraint_accepted",
+      "detail": "onsite_days: three days a week in the Berlin office",
+      "actor": "system"
+    }
+  ]
+}

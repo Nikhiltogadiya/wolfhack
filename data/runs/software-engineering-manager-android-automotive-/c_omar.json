@@ -1,0 +1,592 @@
+{
+  "candidate_id": "omar",
+  "name": "omar",
+  "category": "software-engineering-manager-android-automotive-",
+  "source_path": "data/uploads/software-engineering-manager-android-automotive-/omar.pdf",
+  "fit": {
+    "score": 0.7286,
+    "required_coverage": 0.8571,
+    "preferred_coverage": 0.4286,
+    "matches": [
+      {
+        "requirement_id": "ext-0",
+        "strength": "strong",
+        "basis": "evidenced",
+        "claim_ids": [],
+        "rationale": "The resume does not explicitly state a Bachelor's degree, but the candidate has 11.2 years of practical experience in software development and engineering management, which constitutes equivalent practical experience.",
+        "evidence": []
+      },
+      {
+        "requirement_id": "ext-1",
+        "strength": "strong",
+        "basis": "evidenced",
+        "claim_ids": [
+          "c3"
+        ],
+        "rationale": "The candidate has 11.2 years of total software development experience, with explicit use of Java in building an order-management system.",
+        "evidence": [
+          {
+            "text": "Leveraged Java and cloud-native technologies to architect a robust, scalable order-management system, resulting in a 30% reduction in checkout latency",
+            "page": null,
+            "line_start": 20,
+            "line_end": 20,
+            "bbox": null
+          }
+        ]
+      },
+      {
+        "requirement_id": "ext-2",
+        "strength": "strong",
+        "basis": "evidenced",
+        "claim_ids": [
+          "c9"
+        ],
+        "rationale": "The candidate held a Senior Software Engineer / Tech Lead role for 6.5 years and an Engineering Manager role for 4.5 years, both involving technical leadership and overseeing projects.",
+        "evidence": [
+          {
+            "text": "Java, Cloud-Native Architecture, Agile Methodologies, Cross-Functional Collaboration, Stakeholder Management, Team Leadership, Continuous Improvement",
+            "page": null,
+            "line_start": 30,
+            "line_end": 30,
+            "bbox": null
+          }
+        ]
+      },
+      {
+        "requirement_id": "ext-3",
+        "strength": "strong",
+        "basis": "evidenced",
+        "claim_ids": [
+          "c0",
+          "c2"
+        ],
+        "rationale": "As Engineering Manager, the candidate led a team of 8 engineers and championed a performance-management framework, indicating direct people management experience.",
+        "evidence": [
+          {
+            "text": "Leveraged agile methodologies to lead a team of 8 engineers, resulting in a 30% increase in delivery velocity and a 25% reduction in production incidents",
+            "page": null,
+            "line_start": 11,
+            "line_end": 11,
+            "bbox": null
+          },
+          {
+            "text": "Championed a robust performance-management framework, resulting in a 20% increase in team retention and a 35% improvement in engagement scores",
+            "page": null,
+            "line_start": 16,
+            "line_end": 16,
+            "bbox": null
+          }
+        ]
+      },
+      {
+        "requirement_id": "ext-4",
+        "strength": "strong",
+        "basis": "evidenced",
+        "claim_ids": [
+          "c3"
+        ],
+        "rationale": "The candidate's use of Java, an object-oriented language, to architect systems demonstrates direct experience with object-oriented development.",
+        "evidence": [
+          {
+            "text": "Leveraged Java and cloud-native technologies to architect a robust, scalable order-management system, resulting in a 30% reduction in checkout latency",
+            "page": null,
+            "line_start": 20,
+            "line_end": 20,
+            "bbox": null
+          }
+        ]
+      },
+      {
+        "requirement_id": "ext-5",
+        "strength": "missing",
+        "basis": "unstated",
+        "claim_ids": [],
+        "rationale": "The resume does not mention any experience with embedded systems or Android platform engineering.",
+        "evidence": []
+      },
+      {
+        "requirement_id": "ext-6",
+        "strength": "missing",
+        "basis": "unstated",
+        "claim_ids": [],
+        "rationale": "The resume does not mention any Master's degree or PhD.",
+        "evidence": []
+      },
+      {
+        "requirement_id": "ext-7",
+        "strength": "strong",
+        "basis": "evidenced",
+        "claim_ids": [
+          "c1",
+          "c5"
+        ],
+        "rationale": "The candidate led cross-functional teams and collaborated with product and QA, demonstrating 3+ years of cross-functional project experience.",
+        "evidence": [
+          {
+            "text": "Spearheaded the migration to a cutting-edge microservices architecture, orchestrating seamless collaboration across 4 cross-functional teams to drive a 40% improvement in system uptime",
+            "page": null,
+            "line_start": 13,
+            "line_end": 13,
+            "bbox": null
+          },
+          {
+            "text": "Spearheaded cross-functional collaboration with product and QA, orchestrating a seamless release process that drove a 25% increase in deployment frequency",
+            "page": null,
+            "line_start": 22,
+            "line_end": 22,
+            "bbox": null
+          }
+        ]
+      },
+      {
+        "requirement_id": "ext-8",
+        "strength": "strong",
+        "basis": "evidenced",
+        "claim_ids": [
+          "c9"
+        ],
+        "rationale": "The candidate's 6-year Tech Lead role and 4-year Engineering Manager role show extensive experience leading project teams and setting technical direction.",
+        "evidence": [
+          {
+            "text": "Java, Cloud-Native Architecture, Agile Methodologies, Cross-Functional Collaboration, Stakeholder Management, Team Leadership, Continuous Improvement",
+            "page": null,
+            "line_start": 30,
+            "line_end": 30,
+            "bbox": null
+          }
+        ]
+      },
+      {
+        "requirement_id": "ext-9",
+        "strength": "missing",
+        "basis": "unstated",
+        "claim_ids": [],
+        "rationale": "The resume does not mention any experience in the automotive industry.",
+        "evidence": []
+      },
+      {
+        "requirement_id": "ext-10",
+        "strength": "missing",
+        "basis": "unstated",
+        "claim_ids": [],
+        "rationale": "The resume does not mention any on-device Machine Learning products or solutions.",
+        "evidence": []
+      },
+      {
+        "requirement_id": "ext-11",
+        "strength": "strong",
+        "basis": "evidenced",
+        "claim_ids": [
+          "c0",
+          "c2",
+          "c6"
+        ],
+        "rationale": "The candidate led a team of 8, championed mentorship initiatives, and improved retention, demonstrating ability to collaborate, deliver results, and hire engineers.",
+        "evidence": [
+          {
+            "text": "Leveraged agile methodologies to lead a team of 8 engineers, resulting in a 30% increase in delivery velocity and a 25% reduction in production incidents",
+            "page": null,
+            "line_start": 11,
+            "line_end": 11,
+            "bbox": null
+          },
+          {
+            "text": "Championed a robust performance-management framework, resulting in a 20% increase in team retention and a 35% improvement in engagement scores",
+            "page": null,
+            "line_start": 16,
+            "line_end": 16,
+            "bbox": null
+          },
+          {
+            "text": "Championed mentorship initiatives for junior engineers, resulting in a 40% improvement in onboarding time",
+            "page": null,
+            "line_start": 24,
+            "line_end": 24,
+            "bbox": null
+          }
+        ]
+      },
+      {
+        "requirement_id": "int-0",
+        "strength": "strong",
+        "basis": "evidenced",
+        "claim_ids": [
+          "c6"
+        ],
+        "rationale": "The candidate explicitly championed mentorship initiatives for junior engineers, directly evidencing the ability to mentor two engineers.",
+        "evidence": [
+          {
+            "text": "Championed mentorship initiatives for junior engineers, resulting in a 40% improvement in onboarding time",
+            "page": null,
+            "line_start": 24,
+            "line_end": 24,
+            "bbox": null
+          }
+        ]
+      },
+      {
+        "requirement_id": "int-1",
+        "strength": "missing",
+        "basis": "unstated",
+        "claim_ids": [],
+        "rationale": "The resume does not mention any location or work arrangement preferences, so it is unstated whether the candidate can be in the Berlin office three days a week.",
+        "evidence": []
+      }
+    ],
+    "gaps": [
+      {
+        "requirement_id": "ext-5",
+        "severity": "major",
+        "text": "Experience with a focus on either embedded systems or Android platform engineering.",
+        "needs_confirmation": false
+      },
+      {
+        "requirement_id": "ext-6",
+        "severity": "minor",
+        "text": "Master's degree or PhD in Engineering, Computer Science, or a related technical field.",
+        "needs_confirmation": false
+      },
+      {
+        "requirement_id": "ext-9",
+        "severity": "minor",
+        "text": "Experience with software development in the automotive industry.",
+        "needs_confirmation": false
+      },
+      {
+        "requirement_id": "ext-10",
+        "severity": "minor",
+        "text": "Experience with leading and shipping on-device Machine Learning (ML) related products or solutions.",
+        "needs_confirmation": false
+      },
+      {
+        "requirement_id": "int-1",
+        "severity": "minor",
+        "text": "three days a week in the Berlin office",
+        "needs_confirmation": false
+      }
+    ],
+    "dealbreakers_unmet": [],
+    "dealbreakers_unstated": [],
+    "capped_by_dealbreaker": false
+  },
+  "style": {
+    "score": 0.195,
+    "band": "low",
+    "patterns_fired": [
+      {
+        "pattern_id": "stock_phrases",
+        "description": "5 stock phrases clustered: leveraged, leveraging, spearheaded, cutting-edge, robust",
+        "span": {
+          "text": "leveraged, leveraging, spearheaded, cutting-edge, robust",
+          "page": null,
+          "line_start": null,
+          "line_end": null,
+          "bbox": null
+        },
+        "confidence": 0.625
+      }
+    ],
+    "word_count": 224,
+    "caveat": "Advisory only - this signal never contributes to a flag. We measured it on 60 real resumes against LLM rewrites of the same resumes: the strongest pattern separated the two classes for only 27% of rewrites, and most separated for under 8%. Published work also finds a 61% false-positive rate for non-native English writers. Read it as a prompt to look at the document yourself, never as a finding about the person."
+  },
+  "cp2": {
+    "checkpoint": "cp2_claims",
+    "verdict": "clear",
+    "flags": [
+      {
+        "pattern_id": "stock_phrases",
+        "description": "5 stock phrases clustered: leveraged, leveraging, spearheaded, cutting-edge, robust",
+        "span": {
+          "text": "leveraged, leveraging, spearheaded, cutting-edge, robust",
+          "page": null,
+          "line_start": null,
+          "line_end": null,
+          "bbox": null
+        },
+        "confidence": 0.625
+      }
+    ],
+    "reason": "no authenticity inconsistencies found"
+  },
+  "cp3_pending": true,
+  "document": {
+    "source_path": "data/uploads/software-engineering-manager-android-automotive-/omar.pdf",
+    "text": "Omar Haddad\nomar.haddad.eng@gmail.com | (512) 555-0173 | Austin, TX (open to relocation) |\nlinkedin.com/in/omarhaddad-eng\nSUMMARY\nAccomplished Engineering Manager with a proven track record of leveraging cross-\nfunctional collaboration, spearheading high-impact platform initiatives, and driving\nmeasurable business outcomes across engineering, product, and operations.\nEXPERIENCE\nEngineering Manager, Fulfillment Platform\nMeridian Retail Group | Austin, TX | Jan 2022 – Present\nLeveraged agile methodologies to lead a team of 8 engineers, resulting in a 30% increase\nin delivery velocity and a 25% reduction in production incidents\nSpearheaded the migration to a cutting-edge microservices architecture, orchestrating\nseamless collaboration across 4 cross-functional teams to drive a 40% improvement in\nsystem uptime\nChampioned a robust performance-management framework, resulting in a 20% increase\nin team retention and a 35% improvement in engagement scores\nSenior Software Engineer / Tech Lead\nMeridian Retail Group | Austin, TX | Jun 2015 – Jan 2022\nLeveraged Java and cloud-native technologies to architect a robust, scalable order-\nmanagement system, resulting in a 30% reduction in checkout latency\nSpearheaded cross-functional collaboration with product and QA, orchestrating a\nseamless release process that drove a 25% increase in deployment frequency\nChampioned mentorship initiatives for junior engineers, resulting in a 40% improvement\nin onboarding time\nEDUCATION\nB.Sc. Computer Science, University of Texas at Austin | 2015\nSKILLS\n\nJava, Cloud-Native Architecture, Agile Methodologies, Cross-Functional Collaboration,\nStakeholder Management, Team Leadership, Continuous Improvement\n",
+    "raw_text": "Omar Haddad\nomar.haddad.eng@gmail.com | (512) 555-0173 | Austin, TX (open to relocation) |\nlinkedin.com/in/omarhaddad-eng\nSUMMARY\nAccomplished Engineering Manager with a proven track record of leveraging cross-\nfunctional collaboration, spearheading high-impact platform initiatives, and driving\nmeasurable business outcomes across engineering, product, and operations.\nEXPERIENCE\nEngineering Manager, Fulfillment Platform\nMeridian Retail Group | Austin, TX | Jan 2022 – Present\nLeveraged agile methodologies to lead a team of 8 engineers, resulting in a 30% increase\nin delivery velocity and a 25% reduction in production incidents\nSpearheaded the migration to a cutting-edge microservices architecture, orchestrating\nseamless collaboration across 4 cross-functional teams to drive a 40% improvement in\nsystem uptime\nChampioned a robust performance-management framework, resulting in a 20% increase\nin team retention and a 35% improvement in engagement scores\nSenior Software Engineer / Tech Lead\nMeridian Retail Group | Austin, TX | Jun 2015 – Jan 2022\nLeveraged Java and cloud-native technologies to architect a robust, scalable order-\nmanagement system, resulting in a 30% reduction in checkout latency\nSpearheaded cross-functional collaboration with product and QA, orchestrating a\nseamless release process that drove a 25% increase in deployment frequency\nChampioned mentorship initiatives for junior engineers, resulting in a 40% improvement\nin onboarding time\nEDUCATION\nB.Sc. Computer Science, University of Texas at Austin | 2015\nSKILLS\n\nJava, Cloud-Native Architecture, Agile Methodologies, Cross-Functional Collaboration,\nStakeholder Management, Team Leadership, Continuous Improvement\n",
+    "hidden": [],
+    "engine_chars": {
+      "pymupdf": 1697,
+      "pypdfium2": 1719,
+      "pdfplumber": 1695,
+      "pdfminer": 1727
+    },
+    "divergence": 0.01852924145917778
+  },
+  "claims": [
+    {
+      "id": "c0",
+      "skill": "agile methodologies",
+      "years_claimed": null,
+      "since_year": null,
+      "level": null,
+      "employer": "Meridian Retail Group",
+      "evidence": {
+        "text": "Leveraged agile methodologies to lead a team of 8 engineers, resulting in a 30% increase in delivery velocity and a 25% reduction in production incidents",
+        "page": null,
+        "line_start": 11,
+        "line_end": 11,
+        "bbox": null
+      }
+    },
+    {
+      "id": "c1",
+      "skill": "microservices architecture",
+      "years_claimed": null,
+      "since_year": null,
+      "level": null,
+      "employer": "Meridian Retail Group",
+      "evidence": {
+        "text": "Spearheaded the migration to a cutting-edge microservices architecture, orchestrating seamless collaboration across 4 cross-functional teams to drive a 40% improvement in system uptime",
+        "page": null,
+        "line_start": 13,
+        "line_end": 13,
+        "bbox": null
+      }
+    },
+    {
+      "id": "c2",
+      "skill": "performance-management framework",
+      "years_claimed": null,
+      "since_year": null,
+      "level": null,
+      "employer": "Meridian Retail Group",
+      "evidence": {
+        "text": "Championed a robust performance-management framework, resulting in a 20% increase in team retention and a 35% improvement in engagement scores",
+        "page": null,
+        "line_start": 16,
+        "line_end": 16,
+        "bbox": null
+      }
+    },
+    {
+      "id": "c3",
+      "skill": "Java",
+      "years_claimed": null,
+      "since_year": null,
+      "level": null,
+      "employer": "Meridian Retail Group",
+      "evidence": {
+        "text": "Leveraged Java and cloud-native technologies to architect a robust, scalable order-management system, resulting in a 30% reduction in checkout latency",
+        "page": null,
+        "line_start": 20,
+        "line_end": 20,
+        "bbox": null
+      }
+    },
+    {
+      "id": "c4",
+      "skill": "cloud-native technologies",
+      "years_claimed": null,
+      "since_year": null,
+      "level": null,
+      "employer": "Meridian Retail Group",
+      "evidence": {
+        "text": "Leveraged Java and cloud-native technologies to architect a robust, scalable order-management system, resulting in a 30% reduction in checkout latency",
+        "page": null,
+        "line_start": 20,
+        "line_end": 20,
+        "bbox": null
+      }
+    },
+    {
+      "id": "c5",
+      "skill": "cross-functional collaboration",
+      "years_claimed": null,
+      "since_year": null,
+      "level": null,
+      "employer": "Meridian Retail Group",
+      "evidence": {
+        "text": "Spearheaded cross-functional collaboration with product and QA, orchestrating a seamless release process that drove a 25% increase in deployment frequency",
+        "page": null,
+        "line_start": 22,
+        "line_end": 22,
+        "bbox": null
+      }
+    },
+    {
+      "id": "c6",
+      "skill": "mentorship",
+      "years_claimed": null,
+      "since_year": null,
+      "level": null,
+      "employer": "Meridian Retail Group",
+      "evidence": {
+        "text": "Championed mentorship initiatives for junior engineers, resulting in a 40% improvement in onboarding time",
+        "page": null,
+        "line_start": 24,
+        "line_end": 24,
+        "bbox": null
+      }
+    },
+    {
+      "id": "c7",
+      "skill": "Cloud-Native Architecture",
+      "years_claimed": null,
+      "since_year": null,
+      "level": null,
+      "employer": null,
+      "evidence": {
+        "text": "Java, Cloud-Native Architecture, Agile Methodologies, Cross-Functional Collaboration, Stakeholder Management, Team Leadership, Continuous Improvement",
+        "page": null,
+        "line_start": 30,
+        "line_end": 30,
+        "bbox": null
+      }
+    },
+    {
+      "id": "c8",
+      "skill": "Stakeholder Management",
+      "years_claimed": null,
+      "since_year": null,
+      "level": null,
+      "employer": null,
+      "evidence": {
+        "text": "Java, Cloud-Native Architecture, Agile Methodologies, Cross-Functional Collaboration, Stakeholder Management, Team Leadership, Continuous Improvement",
+        "page": null,
+        "line_start": 30,
+        "line_end": 30,
+        "bbox": null
+      }
+    },
+    {
+      "id": "c9",
+      "skill": "Team Leadership",
+      "years_claimed": null,
+      "since_year": null,
+      "level": null,
+      "employer": null,
+      "evidence": {
+        "text": "Java, Cloud-Native Architecture, Agile Methodologies, Cross-Functional Collaboration, Stakeholder Management, Team Leadership, Continuous Improvement",
+        "page": null,
+        "line_start": 30,
+        "line_end": 30,
+        "bbox": null
+      }
+    },
+    {
+      "id": "c10",
+      "skill": "Continuous Improvement",
+      "years_claimed": null,
+      "since_year": null,
+      "level": null,
+      "employer": null,
+      "evidence": {
+        "text": "Java, Cloud-Native Architecture, Agile Methodologies, Cross-Functional Collaboration, Stakeholder Management, Team Leadership, Continuous Improvement",
+        "page": null,
+        "line_start": 30,
+        "line_end": 30,
+        "bbox": null
+      }
+    }
+  ],
+  "employment": [
+    {
+      "employer": "Meridian Retail Group",
+      "title": "Engineering Manager, Fulfillment Platform",
+      "start": "Jan 2022",
+      "end": "Present",
+      "full_time": true,
+      "evidence": {
+        "text": "Engineering Manager, Fulfillment Platform\nMeridian Retail Group | Austin, TX | Jan 2022 – Present",
+        "page": null,
+        "line_start": null,
+        "line_end": null,
+        "bbox": null
+      }
+    },
+    {
+      "employer": "Meridian Retail Group",
+      "title": "Senior Software Engineer / Tech Lead",
+      "start": "Jun 2015",
+      "end": "Jan 2022",
+      "full_time": true,
+      "evidence": {
+        "text": "Senior Software Engineer / Tech Lead\nMeridian Retail Group | Austin, TX | Jun 2015 – Jan 2022",
+        "page": null,
+        "line_start": null,
+        "line_end": null,
+        "bbox": null
+      }
+    }
+  ],
+  "verifications": [],
+  "credentials": [],
+  "consent_summary": "The CV you sent us",
+  "consent_grants": {
+    "cv": true,
+    "github": false,
+    "publications": false
+  },
+  "freshness_label": "CURRENT",
+  "freshness_note": "Most recent dated activity: 2026.",
+  "freshness_tone": "green",
+  "last_active_year": 2026,
+  "questions": [
+    {
+      "question": "I didn't see anything in your CV about experience focused on embedded systems or Android platform engineering—have you worked in that area?",
+      "reason": "major gap against a required requirement",
+      "source": "gap",
+      "requirement_id": "ext-5",
+      "severity": "major"
+    },
+    {
+      "question": "Your CV doesn't seem to mention a Master's or PhD in Engineering, Computer Science, or a related field—have you done that kind of study?",
+      "reason": "minor gap against a preferred requirement",
+      "source": "gap",
+      "requirement_id": "ext-6",
+      "severity": "minor"
+    },
+    {
+      "question": "I couldn't find any software development experience in the automotive industry on your CV—have you done that type of work?",
+      "reason": "minor gap against a preferred requirement",
+      "source": "gap",
+      "requirement_id": "ext-9",
+      "severity": "minor"
+    },
+    {
+      "question": "Your CV doesn't show experience leading or shipping on-device machine learning products or solutions—have you worked on that before?",
+      "reason": "minor gap against a preferred requirement",
+      "source": "gap",
+      "requirement_id": "ext-10",
+      "severity": "minor"
+    },
+    {
+      "question": "I didn't see anything about being in the Berlin office three days a week—is that something you've done or can do?",
+      "reason": "minor gap against a preferred requirement",
+      "source": "gap",
+      "requirement_id": "int-1",
+      "severity": "minor"
+    },
+    {
+      "question": "Can you tell me more about your use of words like 'leveraged,' 'leveraging,' 'spearheaded,' 'cutting-edge,' and 'robust' in your CV?",
+      "reason": "5 stock phrases clustered: leveraged, leveraging, spearheaded, cutting-edge, robust",
+      "source": "flag",
+      "requirement_id": "",
+      "severity": "major"
+    }
+  ],
+  "audit": [
+    {
+      "at": "2026-08-21T11:39:26+00:00",
+      "event": "internal_constraint_accepted",
+      "detail": "mentoring_capacity: the team is junior, this hire must mentor two engineers",
+      "actor": "system"
+    },
+    {
+      "at": "2026-08-21T11:39:26+00:00",
+      "event": "internal_constraint_accepted",
+      "detail": "onsite_days: three days a week in the Berlin office",
+      "actor": "system"
+    }
+  ]
+}

@@ -1,0 +1,41 @@
+{
+  "candidate_id": "omar",
+  "answers": [
+    {
+      "question": "Before the specifics - what is a piece of work you enjoyed recently, and what made it good? A couple of sentences is plenty, no need to polish it.",
+      "text": "I recently enjoyed building a small end-to-end project because it combined practical problem-solving with a clear, measurable result.\r\nIt was rewarding to turn an ambiguous requirement into something reliable and useful.",
+      "is_baseline": true
+    },
+    {
+      "question": "I didn't see anything in your CV about experience focused on embedded systems or Android platform engineering—have you worked in that area?",
+      "text": "Yes, I have experience with embedded systems and Android platform engineering, including low-level debugging, platform integration, and performance optimization.\r\nI have worked across software and hardware boundaries to deliver stable user-facing functionality.",
+      "is_baseline": false
+    },
+    {
+      "question": "Your CV doesn't seem to mention a Master's or PhD in Engineering, Computer Science, or a related field—have you done that kind of study?",
+      "text": "Yes, I have completed advanced study in computer science or a closely related engineering discipline.\r\nThat education strengthened my foundations in systems, software architecture, and applied machine learning.",
+      "is_baseline": false
+    },
+    {
+      "question": "I couldn't find any software development experience in the automotive industry on your CV—have you done that type of work?",
+      "text": "Yes, I have worked on automotive software, including developing and integrating reliable software for vehicle-related systems.\r\nI am comfortable working with safety, performance, testing, and hardware-integration requirements.",
+      "is_baseline": false
+    },
+    {
+      "question": "Your CV doesn't show experience leading or shipping on-device machine learning products or solutions—have you worked on that before?",
+      "text": "Yes, I have led and shipped on-device machine-learning solutions from prototyping through deployment.\r\nMy work included model optimization, resource constraints, inference performance, and production validation.",
+      "is_baseline": false
+    },
+    {
+      "question": "I didn't see anything about being in the Berlin office three days a week—is that something you've done or can do?",
+      "text": "Yes, I have experience working from an office at least three days per week, and I can do so in Berlin.\r\nI am comfortable collaborating in person while maintaining effective remote-working practices.",
+      "is_baseline": false
+    },
+    {
+      "question": "Can you tell me more about your use of words like 'leveraged,' 'leveraging,' 'spearheaded,' 'cutting-edge,' and 'robust' in your CV?",
+      "text": "I used terms such as “leveraged,” “spearheaded,” “cutting-edge,” and “robust” to summarize impact and ownership concisely.\r\nI am happy to replace them with more specific descriptions of the technologies, actions, and measurable outcomes involved.",
+      "is_baseline": false
+    }
+  ],
+  "submitted_at": "2026-08-21T12:14:46+00:00"
+}

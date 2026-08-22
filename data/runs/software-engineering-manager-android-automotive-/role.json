@@ -1,0 +1,211 @@
+{
+  "jd": {
+    "title": "Software Engineering Manager, Android Automotive AI/ML",
+    "external_text": "Company: Google\r\nLocation: Krak\u00f3w, Poland\r\nLevel: Advanced\r\nCompensation: z\u0142480,000 \u2013 z\u0142492,000 (PLN) + 20% bonus target + equity + benefits\r\nNote: In most instances, this position requires in-person interviews as part of the hiring process.\r\n\r\nMinimum qualifications:\r\n\r\n- Bachelor's degree or equivalent practical experience.\r\n- 8 years of experience with software development in one or more programming languages (e.g., Python, C, C++, Java, JavaScript).\r\n- 3 years of experience in a technical leadership role; overseeing projects, with 2 years of experience in a people management, supervision/team leadership role.\r\n- Experience with object-oriented development, with a focus on either embedded systems or Android platform engineering.\r\n\r\nPreferred qualifications:\r\n\r\n- Master's degree or PhD in Engineering, Computer Science, or a related technical field.\r\n- 3 years of experience working in an organization involving cross-functional, or cross-business projects.\r\n- 3 years of experience in a technical leadership role leading project teams and setting technical direction.\r\n- Experience with software development in the automotive industry.\r\n- Experience with leading and shipping on-device Machine Learning (ML) related products or solutions.\r\n- Ability to collaborate, deliver results and hire engineers.\r\n\r\nAbout the job\r\n\r\nLike Google's own ambitions, the work of a Software Engineer (SWE) goes way beyond just Search. SWE Managers have not only the technical expertise to take on and provide technical leadership to major projects, but also manage a team of engineers. You not only optimize your own code but make sure engineers are able to optimize theirs. As a SWE Manager you manage your project goals, contribute to product strategy and help develop your team.\r\n\r\nAs a part of Android Automotive, you will develop platforms and services that bring Google's ecosystem to vehicles. You will address tests such as bridging the gap between car sensors and Android Frameworks, building feature user experiences that are driver distraction-safe, and defining the future of Google's AI technologies. Additionally, you will build and manage Engineering teams of low-level system architecture, application development, and back-end systems.\r\n\r\nResponsibilities\r\n\r\n- Set and communicate team priorities that support the broader organization's goals. Align strategy, processes, and decision-making across teams.\r\n- Set clear expectations with individuals based on their level and role and aligned to the broader organization's goals. Meet regularly with individuals to discuss performance, development and provide feedback and coaching.\r\n- Develop the mid-term technical direction and roadmap within the scope of the teams. Evolve the roadmap to meet anticipated future requirements and infrastructure needs.\r\n- Design, guide and vet systems designs within the scope of the broader area, and write product or system development code to solve ambiguous problems.\r\n- Review code developed by other engineers and provide feedback to ensure best practices (e.g., style guidelines, checking code in, accuracy, testability, and efficiency).",
+    "internal": [
+      {
+        "field_name": "mentoring_capacity",
+        "value": "the team is junior, this hire must mentor two engineers",
+        "weight": 1.0,
+        "required": true
+      },
+      {
+        "field_name": "onsite_days",
+        "value": "three days a week in the Berlin office",
+        "weight": 1.0,
+        "required": false
+      }
+    ],
+    "audit": [
+      {
+        "at": "2026-08-21T11:39:26+00:00",
+        "event": "internal_constraint_accepted",
+        "detail": "mentoring_capacity: the team is junior, this hire must mentor two engineers",
+        "actor": "system"
+      },
+      {
+        "at": "2026-08-21T11:39:26+00:00",
+        "event": "internal_constraint_accepted",
+        "detail": "onsite_days: three days a week in the Berlin office",
+        "actor": "system"
+      }
+    ]
+  },
+  "requirements": [
+    {
+      "id": "ext-0",
+      "text": "Bachelor's degree or equivalent practical experience.",
+      "kind": "required",
+      "category": "credential",
+      "dealbreaker": true,
+      "source": "external"
+    },
+    {
+      "id": "ext-1",
+      "text": "8 years of experience with software development in one or more programming languages (e.g., Python, C, C++, Java, JavaScript).",
+      "kind": "required",
+      "category": "experience",
+      "dealbreaker": false,
+      "source": "external"
+    },
+    {
+      "id": "ext-2",
+      "text": "3 years of experience in a technical leadership role; overseeing projects.",
+      "kind": "required",
+      "category": "experience",
+      "dealbreaker": false,
+      "source": "external"
+    },
+    {
+      "id": "ext-3",
+      "text": "2 years of experience in a people management, supervision/team leadership role.",
+      "kind": "required",
+      "category": "experience",
+      "dealbreaker": false,
+      "source": "external"
+    },
+    {
+      "id": "ext-4",
+      "text": "Experience with object-oriented development.",
+      "kind": "required",
+      "category": "skill",
+      "dealbreaker": false,
+      "source": "external"
+    },
+    {
+      "id": "ext-5",
+      "text": "Experience with a focus on either embedded systems or Android platform engineering.",
+      "kind": "required",
+      "category": "experience",
+      "dealbreaker": false,
+      "source": "external"
+    },
+    {
+      "id": "ext-6",
+      "text": "Master's degree or PhD in Engineering, Computer Science, or a related technical field.",
+      "kind": "preferred",
+      "category": "credential",
+      "dealbreaker": false,
+      "source": "external"
+    },
+    {
+      "id": "ext-7",
+      "text": "3 years of experience working in an organization involving cross-functional, or cross-business projects.",
+      "kind": "preferred",
+      "category": "experience",
+      "dealbreaker": false,
+      "source": "external"
+    },
+    {
+      "id": "ext-8",
+      "text": "3 years of experience in a technical leadership role leading project teams and setting technical direction.",
+      "kind": "preferred",
+      "category": "experience",
+      "dealbreaker": false,
+      "source": "external"
+    },
+    {
+      "id": "ext-9",
+      "text": "Experience with software development in the automotive industry.",
+      "kind": "preferred",
+      "category": "domain",
+      "dealbreaker": false,
+      "source": "external"
+    },
+    {
+      "id": "ext-10",
+      "text": "Experience with leading and shipping on-device Machine Learning (ML) related products or solutions.",
+      "kind": "preferred",
+      "category": "experience",
+      "dealbreaker": false,
+      "source": "external"
+    },
+    {
+      "id": "ext-11",
+      "text": "Ability to collaborate, deliver results and hire engineers.",
+      "kind": "preferred",
+      "category": "skill",
+      "dealbreaker": false,
+      "source": "external"
+    },
+    {
+      "id": "int-0",
+      "text": "the team is junior, this hire must mentor two engineers",
+      "kind": "required",
+      "category": "experience",
+      "dealbreaker": false,
+      "source": "internal"
+    },
+    {
+      "id": "int-1",
+      "text": "three days a week in the Berlin office",
+      "kind": "preferred",
+      "category": "experience",
+      "dealbreaker": false,
+      "source": "internal"
+    }
+  ],
+  "clarity": 0.0,
+  "ad_flags": [
+    {
+      "pattern_id": "missing_specifics",
+      "description": "the advert never states location or remote policy",
+      "span": {
+        "text": "",
+        "page": null,
+        "line_start": null,
+        "line_end": null,
+        "bbox": null
+      },
+      "confidence": 0.3
+    },
+    {
+      "pattern_id": "missing_specifics",
+      "description": "the advert never states salary or band",
+      "span": {
+        "text": "",
+        "page": null,
+        "line_start": null,
+        "line_end": null,
+        "bbox": null
+      },
+      "confidence": 0.3
+    },
+    {
+      "pattern_id": "missing_specifics",
+      "description": "the advert never states specific tooling",
+      "span": {
+        "text": "",
+        "page": null,
+        "line_start": null,
+        "line_end": null,
+        "bbox": null
+      },
+      "confidence": 0.3
+    },
+    {
+      "pattern_id": "missing_specifics",
+      "description": "the advert never states team size",
+      "span": {
+        "text": "",
+        "page": null,
+        "line_start": null,
+        "line_end": null,
+        "bbox": null
+      },
+      "confidence": 0.3
+    },
+    {
+      "pattern_id": "missing_specifics",
+      "description": "the advert never states who they report to",
+      "span": {
+        "text": "",
+        "page": null,
+        "line_start": null,
+        "line_end": null,
+        "bbox": null
+      },
+      "confidence": 0.3
+    }
+  ]
+}

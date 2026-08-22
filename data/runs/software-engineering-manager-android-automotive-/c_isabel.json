@@ -1,0 +1,1289 @@
+{
+  "candidate_id": "isabel",
+  "name": "isabel",
+  "category": "software-engineering-manager-android-automotive-",
+  "source_path": "data/uploads/software-engineering-manager-android-automotive-/isabel.pdf",
+  "fit": {
+    "score": 0.9143,
+    "required_coverage": 1.0,
+    "preferred_coverage": 0.7143,
+    "matches": [
+      {
+        "requirement_id": "ext-0",
+        "strength": "strong",
+        "basis": "evidenced",
+        "claim_ids": [
+          "c0",
+          "c1"
+        ],
+        "rationale": "The candidate claims 13 years in mobile and embedded software, which is equivalent practical experience for a Bachelor's degree requirement.",
+        "evidence": [
+          {
+            "text": "Engineering manager with 13 years in mobile and embedded software",
+            "page": null,
+            "line_start": 5,
+            "line_end": 5,
+            "bbox": null
+          },
+          {
+            "text": "Engineering manager with 13 years in mobile and embedded software",
+            "page": null,
+            "line_start": 5,
+            "line_end": 5,
+            "bbox": null
+          }
+        ]
+      },
+      {
+        "requirement_id": "ext-1",
+        "strength": "strong",
+        "basis": "evidenced",
+        "claim_ids": [
+          "c0",
+          "c1"
+        ],
+        "rationale": "The candidate claims 13 years in mobile and embedded software, and the computed career facts show 10.1 years of total experience, exceeding the 8-year requirement.",
+        "evidence": [
+          {
+            "text": "Engineering manager with 13 years in mobile and embedded software",
+            "page": null,
+            "line_start": 5,
+            "line_end": 5,
+            "bbox": null
+          },
+          {
+            "text": "Engineering manager with 13 years in mobile and embedded software",
+            "page": null,
+            "line_start": 5,
+            "line_end": 5,
+            "bbox": null
+          }
+        ]
+      },
+      {
+        "requirement_id": "ext-2",
+        "strength": "strong",
+        "basis": "evidenced",
+        "claim_ids": [
+          "c16",
+          "c20"
+        ],
+        "rationale": "The candidate has held a Technical Lead title and set technical direction for a 6-person Android platform team, exceeding 3 years of technical leadership.",
+        "evidence": [
+          {
+            "text": "Set technical direction for a 6-person Android platform team, moving the codebase off a legacy Eclair-era build system onto Gradle with modularized builds, cutting full CI build time from 38 to 11 minutes",
+            "page": null,
+            "line_start": 26,
+            "line_end": 26,
+            "bbox": null
+          },
+          {
+            "text": "Designed the plugin architecture that let 4 product squads ship features independently without touching platform code, reducing platform-team code review backlog by half",
+            "page": null,
+            "line_start": 29,
+            "line_end": 29,
+            "bbox": null
+          }
+        ]
+      },
+      {
+        "requirement_id": "ext-3",
+        "strength": "strong",
+        "basis": "evidenced",
+        "claim_ids": [
+          "c4",
+          "c26",
+          "c29"
+        ],
+        "rationale": "The candidate currently manages a 9-person team and has a leadership title of Engineering Manager, with evidence of team building and performance management.",
+        "evidence": [
+          {
+            "text": "Currently manage a 9-person team that ships on-device voice and driver-assist ML features across three OEM programs.",
+            "page": null,
+            "line_start": null,
+            "line_end": null,
+            "bbox": null
+          },
+          {
+            "text": "Team building & hiring",
+            "page": null,
+            "line_start": 41,
+            "line_end": 41,
+            "bbox": null
+          },
+          {
+            "text": "performance management",
+            "page": null,
+            "line_start": 42,
+            "line_end": 42,
+            "bbox": null
+          }
+        ]
+      },
+      {
+        "requirement_id": "ext-4",
+        "strength": "strong",
+        "basis": "evidenced",
+        "claim_ids": [
+          "c35",
+          "c37"
+        ],
+        "rationale": "The candidate lists Java and embedded C++ experience, both object-oriented languages, indicating direct experience with object-oriented development.",
+        "evidence": [
+          {
+            "text": "embedded C++",
+            "page": null,
+            "line_start": 44,
+            "line_end": 44,
+            "bbox": null
+          },
+          {
+            "text": "Java",
+            "page": null,
+            "line_start": 44,
+            "line_end": 44,
+            "bbox": null
+          }
+        ]
+      },
+      {
+        "requirement_id": "ext-5",
+        "strength": "strong",
+        "basis": "evidenced",
+        "claim_ids": [
+          "c2",
+          "c31"
+        ],
+        "rationale": "The candidate has 5 years leading Android platform teams and lists AOSP internals, HAL, and Bluetooth/telephony stacks, directly evidencing Android platform engineering.",
+        "evidence": [
+          {
+            "text": "the last 5 leading Android platform teams for automotive infotainment",
+            "page": null,
+            "line_start": null,
+            "line_end": null,
+            "bbox": null
+          },
+          {
+            "text": "Android platform engineering (AOSP internals, HAL, Bluetooth/telephony stacks)",
+            "page": null,
+            "line_start": 43,
+            "line_end": 43,
+            "bbox": null
+          }
+        ]
+      },
+      {
+        "requirement_id": "ext-6",
+        "strength": "missing",
+        "basis": "unstated",
+        "claim_ids": [],
+        "rationale": "The resume does not mention any Master's degree or PhD, so this is unstated.",
+        "evidence": []
+      },
+      {
+        "requirement_id": "ext-7",
+        "strength": "strong",
+        "basis": "evidenced",
+        "claim_ids": [
+          "c13",
+          "c14",
+          "c27"
+        ],
+        "rationale": "The candidate owns driver-distraction-safety reviews with UX and legal, presents to OEM steering committees, and claims cross-functional roadmap ownership, evidencing cross-functional projects.",
+        "evidence": [
+          {
+            "text": "Own the driver-distraction-safety review for every UI feature shipped by the team, working directly with UX and legal to keep features within the 2-second glance-time budget",
+            "page": null,
+            "line_start": 19,
+            "line_end": 19,
+            "bbox": null
+          },
+          {
+            "text": "Present quarterly roadmap and platform health updates to the VP of Infotainment Engineering and two OEM technical steering committees",
+            "page": null,
+            "line_start": 22,
+            "line_end": 22,
+            "bbox": null
+          },
+          {
+            "text": "cross-functional roadmap ownership",
+            "page": null,
+            "line_start": 41,
+            "line_end": 41,
+            "bbox": null
+          }
+        ]
+      },
+      {
+        "requirement_id": "ext-8",
+        "strength": "strong",
+        "basis": "evidenced",
+        "claim_ids": [
+          "c16",
+          "c20"
+        ],
+        "rationale": "The candidate has a Technical Lead title and set technical direction for a 6-person team, exceeding 3 years of leading project teams and setting technical direction.",
+        "evidence": [
+          {
+            "text": "Set technical direction for a 6-person Android platform team, moving the codebase off a legacy Eclair-era build system onto Gradle with modularized builds, cutting full CI build time from 38 to 11 minutes",
+            "page": null,
+            "line_start": 26,
+            "line_end": 26,
+            "bbox": null
+          },
+          {
+            "text": "Designed the plugin architecture that let 4 product squads ship features independently without touching platform code, reducing platform-team code review backlog by half",
+            "page": null,
+            "line_start": 29,
+            "line_end": 29,
+            "bbox": null
+          }
+        ]
+      },
+      {
+        "requirement_id": "ext-9",
+        "strength": "strong",
+        "basis": "evidenced",
+        "claim_ids": [
+          "c2",
+          "c3"
+        ],
+        "rationale": "The candidate has 5 years leading Android platform teams for automotive infotainment, directly evidencing automotive industry experience.",
+        "evidence": [
+          {
+            "text": "the last 5 leading Android platform teams for automotive infotainment",
+            "page": null,
+            "line_start": null,
+            "line_end": null,
+            "bbox": null
+          },
+          {
+            "text": "the last 5 leading Android platform teams for automotive infotainment",
+            "page": null,
+            "line_start": null,
+            "line_end": null,
+            "bbox": null
+          }
+        ]
+      },
+      {
+        "requirement_id": "ext-10",
+        "strength": "strong",
+        "basis": "evidenced",
+        "claim_ids": [
+          "c5",
+          "c6",
+          "c8",
+          "c38"
+        ],
+        "rationale": "The candidate ships on-device voice and driver-assist ML features, including a wake-word pipeline and on-device inference pipelines, evidencing leading and shipping on-device ML products.",
+        "evidence": [
+          {
+            "text": "Currently manage a 9-person team that ships on-device voice and driver-assist ML features across three OEM programs.",
+            "page": null,
+            "line_start": null,
+            "line_end": null,
+            "bbox": null
+          },
+          {
+            "text": "Currently manage a 9-person team that ships on-device voice and driver-assist ML features across three OEM programs.",
+            "page": null,
+            "line_start": null,
+            "line_end": null,
+            "bbox": null
+          },
+          {
+            "text": "Shipped an on-device wake-word and voice-command pipeline that cut cloud round-trip latency from ~1.2s to under 200ms, now running on 400K+ vehicles",
+            "page": null,
+            "line_start": 13,
+            "line_end": 13,
+            "bbox": null
+          },
+          {
+            "text": "On-device inference pipelines",
+            "page": null,
+            "line_start": 45,
+            "line_end": 45,
+            "bbox": null
+          }
+        ]
+      },
+      {
+        "requirement_id": "ext-11",
+        "strength": "strong",
+        "basis": "evidenced",
+        "claim_ids": [
+          "c4",
+          "c12",
+          "c26"
+        ],
+        "rationale": "The candidate manages a 9-person team, hired 6 engineers, and claims team building and hiring, evidencing collaboration, delivery, and hiring.",
+        "evidence": [
+          {
+            "text": "Currently manage a 9-person team that ships on-device voice and driver-assist ML features across three OEM programs.",
+            "page": null,
+            "line_start": null,
+            "line_end": null,
+            "bbox": null
+          },
+          {
+            "text": "Hired 6 engineers over 3 years, including the team's first dedicated ML integration specialist",
+            "page": null,
+            "line_start": 17,
+            "line_end": 17,
+            "bbox": null
+          },
+          {
+            "text": "Team building & hiring",
+            "page": null,
+            "line_start": 41,
+            "line_end": 41,
+            "bbox": null
+          }
+        ]
+      },
+      {
+        "requirement_id": "int-0",
+        "strength": "strong",
+        "basis": "evidenced",
+        "claim_ids": [
+          "c4",
+          "c12"
+        ],
+        "rationale": "The candidate currently manages a 9-person team and has hired engineers, demonstrating ability to mentor two junior engineers.",
+        "evidence": [
+          {
+            "text": "Currently manage a 9-person team that ships on-device voice and driver-assist ML features across three OEM programs.",
+            "page": null,
+            "line_start": null,
+            "line_end": null,
+            "bbox": null
+          },
+          {
+            "text": "Hired 6 engineers over 3 years, including the team's first dedicated ML integration specialist",
+            "page": null,
+            "line_start": 17,
+            "line_end": 17,
+            "bbox": null
+          }
+        ]
+      },
+      {
+        "requirement_id": "int-1",
+        "strength": "missing",
+        "basis": "unstated",
+        "claim_ids": [],
+        "rationale": "The resume does not mention any location or work arrangement, so the Berlin office requirement is unstated.",
+        "evidence": []
+      }
+    ],
+    "gaps": [
+      {
+        "requirement_id": "ext-6",
+        "severity": "minor",
+        "text": "Master's degree or PhD in Engineering, Computer Science, or a related technical field.",
+        "needs_confirmation": false
+      },
+      {
+        "requirement_id": "int-1",
+        "severity": "minor",
+        "text": "three days a week in the Berlin office",
+        "needs_confirmation": false
+      }
+    ],
+    "dealbreakers_unmet": [],
+    "dealbreakers_unstated": [],
+    "capped_by_dealbreaker": false
+  },
+  "style": {
+    "score": 0.109,
+    "band": "low",
+    "patterns_fired": [
+      {
+        "pattern_id": "em_dash_density",
+        "description": "7 em dashes - unusual in a hand-written resume",
+        "span": {
+          "text": "—",
+          "page": null,
+          "line_start": null,
+          "line_end": null,
+          "bbox": null
+        },
+        "confidence": 0.35
+      }
+    ],
+    "word_count": 409,
+    "caveat": "Advisory only - this signal never contributes to a flag. We measured it on 60 real resumes against LLM rewrites of the same resumes: the strongest pattern separated the two classes for only 27% of rewrites, and most separated for under 8%. Published work also finds a 61% false-positive rate for non-native English writers. Read it as a prompt to look at the document yourself, never as a finding about the person."
+  },
+  "cp2": {
+    "checkpoint": "cp2_claims",
+    "verdict": "inconclusive",
+    "flags": [
+      {
+        "pattern_id": "expertise_predates_career",
+        "description": "mobile software is claimed from 2013, but the earliest role on the resume begins in 2016",
+        "span": {
+          "text": "Engineering manager with 13 years in mobile and embedded software",
+          "page": null,
+          "line_start": 5,
+          "line_end": 5,
+          "bbox": null
+        },
+        "confidence": 0.6
+      },
+      {
+        "pattern_id": "expertise_predates_career",
+        "description": "embedded software is claimed from 2013, but the earliest role on the resume begins in 2016",
+        "span": {
+          "text": "Engineering manager with 13 years in mobile and embedded software",
+          "page": null,
+          "line_start": 5,
+          "line_end": 5,
+          "bbox": null
+        },
+        "confidence": 0.6
+      },
+      {
+        "pattern_id": "em_dash_density",
+        "description": "7 em dashes - unusual in a hand-written resume",
+        "span": {
+          "text": "—",
+          "page": null,
+          "line_start": null,
+          "line_end": null,
+          "bbox": null
+        },
+        "confidence": 0.35
+      }
+    ],
+    "reason": "one unconfirmed inconsistency (expertise_predates_career). Not enough to corroborate: it takes two independent, specific inconsistencies before anything is called likely fabricated."
+  },
+  "cp3_pending": true,
+  "document": {
+    "source_path": "data/uploads/software-engineering-manager-android-automotive-/isabel.pdf",
+    "text": "Isabella Rossi\nMunich, Germany (open to relocation to Kraków) · isabella.rossi.dev@proton-mail.com ·\n+49 176 5502 3187 · linkedin.com/in/isabellarossi-eng\nSummary\nEngineering manager with 13 years in mobile and embedded software, the last 5 leading\nAndroid platform teams for automotive infotainment. Currently manage a 9-person team\nthat ships on-device voice and driver-assist ML features across three OEM programs.\nExperience\nEngineering Manager, Automotive Android & Infotainment\nVantage Auto Systems — Munich, Germany | Jul 2021 – Present\nLead a 9-engineer team building the Android platform layer for infotainment across 3\nOEM programs, taking two from kickoff to production launch on schedule\nShipped an on-device wake-word and voice-command pipeline that cut cloud round-trip\nlatency from ~1.2s to under 200ms, now running on 400K+ vehicles\nRebuilt the team's release process after a string of late-stage regressions; cut post-freeze\ncritical bugs from an average of 14 per release to 3\nHired 6 engineers over 3 years, including the team's first dedicated ML integration\nspecialist\nOwn the driver-distraction-safety review for every UI feature shipped by the team,\nworking directly with UX and legal to keep features within the 2-second glance-time\nbudget\nPresent quarterly roadmap and platform health updates to the VP of Infotainment\nEngineering and two OEM technical steering committees\nTechnical Lead, Mobile Platforms\nMeridian Mobile — Milan, Italy | Sep 2018 – Jun 2021\nSet technical direction for a 6-person Android platform team, moving the codebase off a\nlegacy Eclair-era build system onto Gradle with modularized builds, cutting full CI build\ntime from 38 to 11 minutes\nDesigned the plugin architecture that let 4 product squads ship features independently\nwithout touching platform code, reducing platform-team code review backlog by half\n\nMentored 3 engineers through promotion to senior; two now lead their own squads\nSoftware Engineer, Mobile Platforms\nMeridian Mobile — Milan, Italy | Jun 2016 – Aug 2018\nBuilt and maintained core Android platform services (Bluetooth stack, background task\nscheduling) used across the company's full app portfolio\nDiagnosed and fixed a memory leak in the background sync service responsible for\nroughly a third of the app's ANR reports; ANR rate dropped from 1.8% to 0.6% of sessions\nwithin two releases\nSkills\nLeadership: Team building & hiring, cross-functional roadmap ownership, OEM/vendor\ntechnical negotiation, performance management\nPlatform: Android platform engineering (AOSP internals, HAL, Bluetooth/telephony stacks),\nembedded C++, Kotlin, Java\nML/On-device: On-device inference pipelines, wake-word/voice models, latency & power\nbudgeting for embedded ML\nTools: Gradle, Jenkins, Git, JIRA, Bazel\nEducation\nB.Sc. Computer Science, University of Bologna — 2016\n",
+    "raw_text": "Isabella Rossi\nMunich, Germany (open to relocation to Kraków) · isabella.rossi.dev@proton-mail.com ·\n+49 176 5502 3187 · linkedin.com/in/isabellarossi-eng\nSummary\nEngineering manager with 13 years in mobile and embedded software, the last 5 leading\nAndroid platform teams for automotive infotainment. Currently manage a 9-person team\nthat ships on-device voice and driver-assist ML features across three OEM programs.\nExperience\nEngineering Manager, Automotive Android & Infotainment\nVantage Auto Systems — Munich, Germany | Jul 2021 – Present\nLead a 9-engineer team building the Android platform layer for infotainment across 3\nOEM programs, taking two from kickoff to production launch on schedule\nShipped an on-device wake-word and voice-command pipeline that cut cloud round-trip\nlatency from ~1.2s to under 200ms, now running on 400K+ vehicles\nRebuilt the team's release process after a string of late-stage regressions; cut post-freeze\ncritical bugs from an average of 14 per release to 3\nHired 6 engineers over 3 years, including the team's first dedicated ML integration\nspecialist\nOwn the driver-distraction-safety review for every UI feature shipped by the team,\nworking directly with UX and legal to keep features within the 2-second glance-time\nbudget\nPresent quarterly roadmap and platform health updates to the VP of Infotainment\nEngineering and two OEM technical steering committees\nTechnical Lead, Mobile Platforms\nMeridian Mobile — Milan, Italy | Sep 2018 – Jun 2021\nSet technical direction for a 6-person Android platform team, moving the codebase off a\nlegacy Eclair-era build system onto Gradle with modularized builds, cutting full CI build\ntime from 38 to 11 minutes\nDesigned the plugin architecture that let 4 product squads ship features independently\nwithout touching platform code, reducing platform-team code review backlog by half\n\nMentored 3 engineers through promotion to senior; two now lead their own squads\nSoftware Engineer, Mobile Platforms\nMeridian Mobile — Milan, Italy | Jun 2016 – Aug 2018\nBuilt and maintained core Android platform services (Bluetooth stack, background task\nscheduling) used across the company's full app portfolio\nDiagnosed and fixed a memory leak in the background sync service responsible for\nroughly a third of the app's ANR reports; ANR rate dropped from 1.8% to 0.6% of sessions\nwithin two releases\nSkills\nLeadership: Team building & hiring, cross-functional roadmap ownership, OEM/vendor\ntechnical negotiation, performance management\nPlatform: Android platform engineering (AOSP internals, HAL, Bluetooth/telephony stacks),\nembedded C++, Kotlin, Java\nML/On-device: On-device inference pipelines, wake-word/voice models, latency & power\nbudgeting for embedded ML\nTools: Gradle, Jenkins, Git, JIRA, Bazel\nEducation\nB.Sc. Computer Science, University of Bologna — 2016\n",
+    "hidden": [],
+    "engine_chars": {
+      "pymupdf": 2830,
+      "pypdfium2": 2874,
+      "pdfplumber": 2828,
+      "pdfminer": 2875
+    },
+    "divergence": 0.016347826086956507
+  },
+  "claims": [
+    {
+      "id": "c0",
+      "skill": "mobile software",
+      "years_claimed": 13.0,
+      "since_year": null,
+      "level": null,
+      "employer": null,
+      "evidence": {
+        "text": "Engineering manager with 13 years in mobile and embedded software",
+        "page": null,
+        "line_start": 5,
+        "line_end": 5,
+        "bbox": null
+      }
+    },
+    {
+      "id": "c1",
+      "skill": "embedded software",
+      "years_claimed": 13.0,
+      "since_year": null,
+      "level": null,
+      "employer": null,
+      "evidence": {
+        "text": "Engineering manager with 13 years in mobile and embedded software",
+        "page": null,
+        "line_start": 5,
+        "line_end": 5,
+        "bbox": null
+      }
+    },
+    {
+      "id": "c2",
+      "skill": "Android platform",
+      "years_claimed": 5.0,
+      "since_year": null,
+      "level": null,
+      "employer": null,
+      "evidence": {
+        "text": "the last 5 leading Android platform teams for automotive infotainment",
+        "page": null,
+        "line_start": null,
+        "line_end": null,
+        "bbox": null
+      }
+    },
+    {
+      "id": "c3",
+      "skill": "automotive infotainment",
+      "years_claimed": 5.0,
+      "since_year": null,
+      "level": null,
+      "employer": null,
+      "evidence": {
+        "text": "the last 5 leading Android platform teams for automotive infotainment",
+        "page": null,
+        "line_start": null,
+        "line_end": null,
+        "bbox": null
+      }
+    },
+    {
+      "id": "c4",
+      "skill": "team management",
+      "years_claimed": null,
+      "since_year": null,
+      "level": null,
+      "employer": null,
+      "evidence": {
+        "text": "Currently manage a 9-person team that ships on-device voice and driver-assist ML features across three OEM programs.",
+        "page": null,
+        "line_start": null,
+        "line_end": null,
+        "bbox": null
+      }
+    },
+    {
+      "id": "c5",
+      "skill": "on-device voice",
+      "years_claimed": null,
+      "since_year": null,
+      "level": null,
+      "employer": null,
+      "evidence": {
+        "text": "Currently manage a 9-person team that ships on-device voice and driver-assist ML features across three OEM programs.",
+        "page": null,
+        "line_start": null,
+        "line_end": null,
+        "bbox": null
+      }
+    },
+    {
+      "id": "c6",
+      "skill": "driver-assist ML",
+      "years_claimed": null,
+      "since_year": null,
+      "level": null,
+      "employer": null,
+      "evidence": {
+        "text": "Currently manage a 9-person team that ships on-device voice and driver-assist ML features across three OEM programs.",
+        "page": null,
+        "line_start": null,
+        "line_end": null,
+        "bbox": null
+      }
+    },
+    {
+      "id": "c7",
+      "skill": "Android platform layer",
+      "years_claimed": null,
+      "since_year": null,
+      "level": null,
+      "employer": "Vantage Auto Systems",
+      "evidence": {
+        "text": "Lead a 9-engineer team building the Android platform layer for infotainment across 3 OEM programs, taking two from kickoff to production launch on schedule",
+        "page": null,
+        "line_start": 11,
+        "line_end": 11,
+        "bbox": null
+      }
+    },
+    {
+      "id": "c8",
+      "skill": "wake-word pipeline",
+      "years_claimed": null,
+      "since_year": null,
+      "level": null,
+      "employer": "Vantage Auto Systems",
+      "evidence": {
+        "text": "Shipped an on-device wake-word and voice-command pipeline that cut cloud round-trip latency from ~1.2s to under 200ms, now running on 400K+ vehicles",
+        "page": null,
+        "line_start": 13,
+        "line_end": 13,
+        "bbox": null
+      }
+    },
+    {
+      "id": "c9",
+      "skill": "voice-command pipeline",
+      "years_claimed": null,
+      "since_year": null,
+      "level": null,
+      "employer": "Vantage Auto Systems",
+      "evidence": {
+        "text": "Shipped an on-device wake-word and voice-command pipeline that cut cloud round-trip latency from ~1.2s to under 200ms, now running on 400K+ vehicles",
+        "page": null,
+        "line_start": 13,
+        "line_end": 13,
+        "bbox": null
+      }
+    },
+    {
+      "id": "c10",
+      "skill": "release process",
+      "years_claimed": null,
+      "since_year": null,
+      "level": null,
+      "employer": "Vantage Auto Systems",
+      "evidence": {
+        "text": "Rebuilt the team's release process after a string of late-stage regressions; cut post-freeze critical bugs from an average of 14 per release to 3",
+        "page": null,
+        "line_start": 15,
+        "line_end": 15,
+        "bbox": null
+      }
+    },
+    {
+      "id": "c11",
+      "skill": "hiring",
+      "years_claimed": 3.0,
+      "since_year": null,
+      "level": null,
+      "employer": "Vantage Auto Systems",
+      "evidence": {
+        "text": "Hired 6 engineers over 3 years, including the team's first dedicated ML integration specialist",
+        "page": null,
+        "line_start": 17,
+        "line_end": 17,
+        "bbox": null
+      }
+    },
+    {
+      "id": "c12",
+      "skill": "ML integration",
+      "years_claimed": null,
+      "since_year": null,
+      "level": null,
+      "employer": "Vantage Auto Systems",
+      "evidence": {
+        "text": "Hired 6 engineers over 3 years, including the team's first dedicated ML integration specialist",
+        "page": null,
+        "line_start": 17,
+        "line_end": 17,
+        "bbox": null
+      }
+    },
+    {
+      "id": "c13",
+      "skill": "driver-distraction-safety review",
+      "years_claimed": null,
+      "since_year": null,
+      "level": null,
+      "employer": "Vantage Auto Systems",
+      "evidence": {
+        "text": "Own the driver-distraction-safety review for every UI feature shipped by the team, working directly with UX and legal to keep features within the 2-second glance-time budget",
+        "page": null,
+        "line_start": 19,
+        "line_end": 19,
+        "bbox": null
+      }
+    },
+    {
+      "id": "c14",
+      "skill": "roadmap presentation",
+      "years_claimed": null,
+      "since_year": null,
+      "level": null,
+      "employer": "Vantage Auto Systems",
+      "evidence": {
+        "text": "Present quarterly roadmap and platform health updates to the VP of Infotainment Engineering and two OEM technical steering committees",
+        "page": null,
+        "line_start": 22,
+        "line_end": 22,
+        "bbox": null
+      }
+    },
+    {
+      "id": "c15",
+      "skill": "platform health updates",
+      "years_claimed": null,
+      "since_year": null,
+      "level": null,
+      "employer": "Vantage Auto Systems",
+      "evidence": {
+        "text": "Present quarterly roadmap and platform health updates to the VP of Infotainment Engineering and two OEM technical steering committees",
+        "page": null,
+        "line_start": 22,
+        "line_end": 22,
+        "bbox": null
+      }
+    },
+    {
+      "id": "c16",
+      "skill": "technical direction",
+      "years_claimed": null,
+      "since_year": null,
+      "level": null,
+      "employer": "Meridian Mobile",
+      "evidence": {
+        "text": "Set technical direction for a 6-person Android platform team, moving the codebase off a legacy Eclair-era build system onto Gradle with modularized builds, cutting full CI build time from 38 to 11 minutes",
+        "page": null,
+        "line_start": 26,
+        "line_end": 26,
+        "bbox": null
+      }
+    },
+    {
+      "id": "c17",
+      "skill": "Gradle",
+      "years_claimed": null,
+      "since_year": null,
+      "level": null,
+      "employer": "Meridian Mobile",
+      "evidence": {
+        "text": "Set technical direction for a 6-person Android platform team, moving the codebase off a legacy Eclair-era build system onto Gradle with modularized builds, cutting full CI build time from 38 to 11 minutes",
+        "page": null,
+        "line_start": 26,
+        "line_end": 26,
+        "bbox": null
+      }
+    },
+    {
+      "id": "c18",
+      "skill": "modularized builds",
+      "years_claimed": null,
+      "since_year": null,
+      "level": null,
+      "employer": "Meridian Mobile",
+      "evidence": {
+        "text": "Set technical direction for a 6-person Android platform team, moving the codebase off a legacy Eclair-era build system onto Gradle with modularized builds, cutting full CI build time from 38 to 11 minutes",
+        "page": null,
+        "line_start": 26,
+        "line_end": 26,
+        "bbox": null
+      }
+    },
+    {
+      "id": "c19",
+      "skill": "CI build",
+      "years_claimed": null,
+      "since_year": null,
+      "level": null,
+      "employer": "Meridian Mobile",
+      "evidence": {
+        "text": "Set technical direction for a 6-person Android platform team, moving the codebase off a legacy Eclair-era build system onto Gradle with modularized builds, cutting full CI build time from 38 to 11 minutes",
+        "page": null,
+        "line_start": 26,
+        "line_end": 26,
+        "bbox": null
+      }
+    },
+    {
+      "id": "c20",
+      "skill": "plugin architecture",
+      "years_claimed": null,
+      "since_year": null,
+      "level": null,
+      "employer": "Meridian Mobile",
+      "evidence": {
+        "text": "Designed the plugin architecture that let 4 product squads ship features independently without touching platform code, reducing platform-team code review backlog by half",
+        "page": null,
+        "line_start": 29,
+        "line_end": 29,
+        "bbox": null
+      }
+    },
+    {
+      "id": "c21",
+      "skill": "mentoring",
+      "years_claimed": null,
+      "since_year": null,
+      "level": null,
+      "employer": "Meridian Mobile",
+      "evidence": {
+        "text": "Mentored 3 engineers through promotion to senior; two now lead their own squads",
+        "page": null,
+        "line_start": 32,
+        "line_end": 32,
+        "bbox": null
+      }
+    },
+    {
+      "id": "c22",
+      "skill": "Android platform services",
+      "years_claimed": null,
+      "since_year": null,
+      "level": null,
+      "employer": "Meridian Mobile",
+      "evidence": {
+        "text": "Built and maintained core Android platform services (Bluetooth stack, background task scheduling) used across the company's full app portfolio",
+        "page": null,
+        "line_start": 35,
+        "line_end": 35,
+        "bbox": null
+      }
+    },
+    {
+      "id": "c23",
+      "skill": "Bluetooth stack",
+      "years_claimed": null,
+      "since_year": null,
+      "level": null,
+      "employer": "Meridian Mobile",
+      "evidence": {
+        "text": "Built and maintained core Android platform services (Bluetooth stack, background task scheduling) used across the company's full app portfolio",
+        "page": null,
+        "line_start": 35,
+        "line_end": 35,
+        "bbox": null
+      }
+    },
+    {
+      "id": "c24",
+      "skill": "background task scheduling",
+      "years_claimed": null,
+      "since_year": null,
+      "level": null,
+      "employer": "Meridian Mobile",
+      "evidence": {
+        "text": "Built and maintained core Android platform services (Bluetooth stack, background task scheduling) used across the company's full app portfolio",
+        "page": null,
+        "line_start": 35,
+        "line_end": 35,
+        "bbox": null
+      }
+    },
+    {
+      "id": "c25",
+      "skill": "memory leak diagnosis",
+      "years_claimed": null,
+      "since_year": null,
+      "level": null,
+      "employer": null,
+      "evidence": {
+        "text": "Diagnosed and fixed a memory leak in the background sync service responsible for roughly a third of the app's ANR reports; ANR rate dropped from 1.8% to 0.6% of sessions within two releases",
+        "page": null,
+        "line_start": 37,
+        "line_end": 37,
+        "bbox": null
+      }
+    },
+    {
+      "id": "c26",
+      "skill": "team building",
+      "years_claimed": null,
+      "since_year": null,
+      "level": null,
+      "employer": null,
+      "evidence": {
+        "text": "Team building & hiring",
+        "page": null,
+        "line_start": 41,
+        "line_end": 41,
+        "bbox": null
+      }
+    },
+    {
+      "id": "c27",
+      "skill": "cross-functional roadmap ownership",
+      "years_claimed": null,
+      "since_year": null,
+      "level": null,
+      "employer": null,
+      "evidence": {
+        "text": "cross-functional roadmap ownership",
+        "page": null,
+        "line_start": 41,
+        "line_end": 41,
+        "bbox": null
+      }
+    },
+    {
+      "id": "c28",
+      "skill": "OEM/vendor technical negotiation",
+      "years_claimed": null,
+      "since_year": null,
+      "level": null,
+      "employer": null,
+      "evidence": {
+        "text": "OEM/vendor technical negotiation",
+        "page": null,
+        "line_start": null,
+        "line_end": null,
+        "bbox": null
+      }
+    },
+    {
+      "id": "c29",
+      "skill": "performance management",
+      "years_claimed": null,
+      "since_year": null,
+      "level": null,
+      "employer": null,
+      "evidence": {
+        "text": "performance management",
+        "page": null,
+        "line_start": 42,
+        "line_end": 42,
+        "bbox": null
+      }
+    },
+    {
+      "id": "c30",
+      "skill": "Android platform engineering",
+      "years_claimed": null,
+      "since_year": null,
+      "level": null,
+      "employer": null,
+      "evidence": {
+        "text": "Android platform engineering (AOSP internals, HAL, Bluetooth/telephony stacks)",
+        "page": null,
+        "line_start": 43,
+        "line_end": 43,
+        "bbox": null
+      }
+    },
+    {
+      "id": "c31",
+      "skill": "AOSP internals",
+      "years_claimed": null,
+      "since_year": null,
+      "level": null,
+      "employer": null,
+      "evidence": {
+        "text": "Android platform engineering (AOSP internals, HAL, Bluetooth/telephony stacks)",
+        "page": null,
+        "line_start": 43,
+        "line_end": 43,
+        "bbox": null
+      }
+    },
+    {
+      "id": "c32",
+      "skill": "HAL",
+      "years_claimed": null,
+      "since_year": null,
+      "level": null,
+      "employer": null,
+      "evidence": {
+        "text": "Android platform engineering (AOSP internals, HAL, Bluetooth/telephony stacks)",
+        "page": null,
+        "line_start": 43,
+        "line_end": 43,
+        "bbox": null
+      }
+    },
+    {
+      "id": "c33",
+      "skill": "Bluetooth stacks",
+      "years_claimed": null,
+      "since_year": null,
+      "level": null,
+      "employer": null,
+      "evidence": {
+        "text": "Android platform engineering (AOSP internals, HAL, Bluetooth/telephony stacks)",
+        "page": null,
+        "line_start": 43,
+        "line_end": 43,
+        "bbox": null
+      }
+    },
+    {
+      "id": "c34",
+      "skill": "telephony stacks",
+      "years_claimed": null,
+      "since_year": null,
+      "level": null,
+      "employer": null,
+      "evidence": {
+        "text": "Android platform engineering (AOSP internals, HAL, Bluetooth/telephony stacks)",
+        "page": null,
+        "line_start": 43,
+        "line_end": 43,
+        "bbox": null
+      }
+    },
+    {
+      "id": "c35",
+      "skill": "embedded C++",
+      "years_claimed": null,
+      "since_year": null,
+      "level": null,
+      "employer": null,
+      "evidence": {
+        "text": "embedded C++",
+        "page": null,
+        "line_start": 44,
+        "line_end": 44,
+        "bbox": null
+      }
+    },
+    {
+      "id": "c36",
+      "skill": "Kotlin",
+      "years_claimed": null,
+      "since_year": null,
+      "level": null,
+      "employer": null,
+      "evidence": {
+        "text": "Kotlin",
+        "page": null,
+        "line_start": 44,
+        "line_end": 44,
+        "bbox": null
+      }
+    },
+    {
+      "id": "c37",
+      "skill": "Java",
+      "years_claimed": null,
+      "since_year": null,
+      "level": null,
+      "employer": null,
+      "evidence": {
+        "text": "Java",
+        "page": null,
+        "line_start": 44,
+        "line_end": 44,
+        "bbox": null
+      }
+    },
+    {
+      "id": "c38",
+      "skill": "on-device inference pipelines",
+      "years_claimed": null,
+      "since_year": null,
+      "level": null,
+      "employer": null,
+      "evidence": {
+        "text": "On-device inference pipelines",
+        "page": null,
+        "line_start": 45,
+        "line_end": 45,
+        "bbox": null
+      }
+    },
+    {
+      "id": "c39",
+      "skill": "wake-word models",
+      "years_claimed": null,
+      "since_year": null,
+      "level": null,
+      "employer": null,
+      "evidence": {
+        "text": "wake-word/voice models",
+        "page": null,
+        "line_start": 45,
+        "line_end": 45,
+        "bbox": null
+      }
+    },
+    {
+      "id": "c40",
+      "skill": "voice models",
+      "years_claimed": null,
+      "since_year": null,
+      "level": null,
+      "employer": null,
+      "evidence": {
+        "text": "wake-word/voice models",
+        "page": null,
+        "line_start": 45,
+        "line_end": 45,
+        "bbox": null
+      }
+    },
+    {
+      "id": "c41",
+      "skill": "latency budgeting for embedded ML",
+      "years_claimed": null,
+      "since_year": null,
+      "level": null,
+      "employer": null,
+      "evidence": {
+        "text": "latency & power budgeting for embedded ML",
+        "page": null,
+        "line_start": null,
+        "line_end": null,
+        "bbox": null
+      }
+    },
+    {
+      "id": "c42",
+      "skill": "power budgeting for embedded ML",
+      "years_claimed": null,
+      "since_year": null,
+      "level": null,
+      "employer": null,
+      "evidence": {
+        "text": "latency & power budgeting for embedded ML",
+        "page": null,
+        "line_start": null,
+        "line_end": null,
+        "bbox": null
+      }
+    },
+    {
+      "id": "c43",
+      "skill": "Jenkins",
+      "years_claimed": null,
+      "since_year": null,
+      "level": null,
+      "employer": null,
+      "evidence": {
+        "text": "Jenkins",
+        "page": null,
+        "line_start": 47,
+        "line_end": 47,
+        "bbox": null
+      }
+    },
+    {
+      "id": "c44",
+      "skill": "Git",
+      "years_claimed": null,
+      "since_year": null,
+      "level": null,
+      "employer": null,
+      "evidence": {
+        "text": "Git",
+        "page": null,
+        "line_start": 47,
+        "line_end": 47,
+        "bbox": null
+      }
+    },
+    {
+      "id": "c45",
+      "skill": "JIRA",
+      "years_claimed": null,
+      "since_year": null,
+      "level": null,
+      "employer": null,
+      "evidence": {
+        "text": "JIRA",
+        "page": null,
+        "line_start": 47,
+        "line_end": 47,
+        "bbox": null
+      }
+    },
+    {
+      "id": "c46",
+      "skill": "Bazel",
+      "years_claimed": null,
+      "since_year": null,
+      "level": null,
+      "employer": null,
+      "evidence": {
+        "text": "Bazel",
+        "page": null,
+        "line_start": 47,
+        "line_end": 47,
+        "bbox": null
+      }
+    }
+  ],
+  "employment": [
+    {
+      "employer": "Vantage Auto Systems",
+      "title": "Engineering Manager, Automotive Android & Infotainment",
+      "start": "Jul 2021",
+      "end": "Present",
+      "full_time": true,
+      "evidence": {
+        "text": "Engineering Manager, Automotive Android & Infotainment\nVantage Auto Systems — Munich, Germany | Jul 2021 – Present",
+        "page": null,
+        "line_start": null,
+        "line_end": null,
+        "bbox": null
+      }
+    },
+    {
+      "employer": "Meridian Mobile",
+      "title": "Technical Lead, Mobile Platforms",
+      "start": "Sep 2018",
+      "end": "Jun 2021",
+      "full_time": true,
+      "evidence": {
+        "text": "Technical Lead, Mobile Platforms\nMeridian Mobile — Milan, Italy | Sep 2018 – Jun 2021",
+        "page": null,
+        "line_start": null,
+        "line_end": null,
+        "bbox": null
+      }
+    },
+    {
+      "employer": "Meridian Mobile",
+      "title": "Software Engineer, Mobile Platforms",
+      "start": "Jun 2016",
+      "end": "Aug 2018",
+      "full_time": true,
+      "evidence": {
+        "text": "Software Engineer, Mobile Platforms\nMeridian Mobile — Milan, Italy | Jun 2016 – Aug 2018",
+        "page": null,
+        "line_start": null,
+        "line_end": null,
+        "bbox": null
+      }
+    }
+  ],
+  "verifications": [],
+  "credentials": [],
+  "consent_summary": "The CV you sent us",
+  "consent_grants": {
+    "cv": true,
+    "github": false,
+    "publications": false
+  },
+  "freshness_label": "CURRENT",
+  "freshness_note": "Most recent dated activity: 2026.",
+  "freshness_tone": "green",
+  "last_active_year": 2026,
+  "questions": [
+    {
+      "question": "I didn't see a Master's or PhD in Engineering, Computer Science, or a related field on your CV—have you done that kind of study?",
+      "reason": "minor gap against a preferred requirement",
+      "source": "gap",
+      "requirement_id": "ext-6",
+      "severity": "minor"
+    },
+    {
+      "question": "Your CV doesn't mention working three days a week in the Berlin office—has that been part of your experience?",
+      "reason": "minor gap against a preferred requirement",
+      "source": "gap",
+      "requirement_id": "int-1",
+      "severity": "minor"
+    },
+    {
+      "question": "Can you tell me more about your role as an engineering manager with 13 years in mobile and embedded software?",
+      "reason": "mobile software is claimed from 2013, but the earliest role on the resume begins in 2016",
+      "source": "flag",
+      "requirement_id": "",
+      "severity": "major"
+    },
+    {
+      "question": "What does your experience as an engineering manager with 13 years in mobile and embedded software involve?",
+      "reason": "embedded software is claimed from 2013, but the earliest role on the resume begins in 2016",
+      "source": "flag",
+      "requirement_id": "",
+      "severity": "major"
+    },
+    {
+      "question": "Could you explain what that dash refers to on your CV?",
+      "reason": "7 em dashes - unusual in a hand-written resume",
+      "source": "flag",
+      "requirement_id": "",
+      "severity": "major"
+    }
+  ],
+  "audit": [
+    {
+      "at": "2026-08-21T11:39:26+00:00",
+      "event": "internal_constraint_accepted",
+      "detail": "mentoring_capacity: the team is junior, this hire must mentor two engineers",
+      "actor": "system"
+    },
+    {
+      "at": "2026-08-21T11:39:26+00:00",
+      "event": "internal_constraint_accepted",
+      "detail": "onsite_days: three days a week in the Berlin office",
+      "actor": "system"
+    }
+  ]
+}

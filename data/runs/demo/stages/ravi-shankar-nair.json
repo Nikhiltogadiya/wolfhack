@@ -1,0 +1,19 @@
+{
+  "candidate_id": "ravi-shankar-nair",
+  "stage": "shortlisted",
+  "at": "2026-08-21T11:52:24+00:00",
+  "history": [
+    {
+      "from": "new",
+      "to": "reviewing",
+      "actor": "recruiter",
+      "at": "2026-08-21T11:52:18+00:00"
+    },
+    {
+      "from": "reviewing",
+      "to": "shortlisted",
+      "actor": "recruiter",
+      "at": "2026-08-21T11:52:24+00:00"
+    }
+  ]
+}
