@@ -192,3 +192,7 @@ the external-evidence wall, the duplicate candidate, the clipped Stage column. L
 | # | Status | Problem |
 |---|---|---|
 | 84 | DONE 21 Aug | **A failed mapping call scored a qualified candidate 0%.** `map_claims` backfills any requirement the model skipped as "missing" — correct per requirement, but when the call fails *entirely* every requirement is backfilled and the result is a confident 0%, indistinguishable from a candidate who matches nothing. Hit live: a network engineer whose CV listed Cisco routing, switching and firewalls scored 0% against a role asking for exactly that. Nothing raised, nothing logged. Now raises when the mapper returns no usable match for any requirement; guarded by two tests, one of which pins that a genuinely unmatched requirement still counts as missing |
+
+| # | Status | Problem |
+|---|---|---|
+| 85 | BLOCKED | **Rewritten history is clean, but GitHub still serves the old objects by SHA.** A fresh `git clone` is correct and `git fetch <old-sha>` is refused — but `GET /repos/:owner/:repo/contents/<path>?ref=<old-sha>` still returns the removed photo and the client brief. Force-push does not garbage-collect them. Either ask GitHub Support to purge unreachable objects for this repo, or delete and recreate it. Old SHAs are discoverable from forks, existing clones, and public event feeds, so this is not "safe because nobody knows the SHA" |
